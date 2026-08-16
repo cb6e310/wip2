@@ -50,6 +50,7 @@ entry_points_before_bootstrap:
 governance_entry_points_after_bootstrap:
   dependencies:
     - requirements-governance.txt
+    - requirements-trust-align.lock.txt
   tests:
     - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
   validation:
@@ -70,8 +71,11 @@ scientific_paths:
     presence: false
     paths: []
   dependency_manifests:
-    presence: false
-    paths: []
+    presence: true
+    paths:
+      - requirements-governance.txt
+      - requirements-trust-align.lock.txt
+    scope: ENVIRONMENT_ONLY_NO_SCIENTIFIC_SOURCE_OR_BACKBONE_ADMISSION
 
 held_out_artifacts:
   discovered: []

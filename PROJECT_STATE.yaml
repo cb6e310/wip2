@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-16"
-updated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+updated_by_run: 2026-08-16_003_trust_align_dependency_sync
 
 project:
   name: nc_hsg_eeg_text
@@ -50,7 +50,7 @@ blockers:
       - S0_A1_ADMISSION
     resolution: Provide or document the authorized physical dataset location and license evidence, then build the data card from hashes and metadata without reading held-out metrics.
   - id: B_V2_BACKBONE_NOT_PRESENT
-    reason: The audited repository contains no scientific source tree, dependency manifest, checkpoint reference, backbone implementation, tensor contract, preprocessing contract, or license evidence.
+    reason: The Python environment now exactly matches trust_align by frozen package set, but the repository still contains no scientific source tree, checkpoint reference, backbone implementation, tensor contract, preprocessing contract, or license evidence.
     blocks:
       - S0_A_INTERFACE
       - S0_A1_FRONTEND
@@ -87,9 +87,9 @@ blockers:
       - GATE_A
     resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
 
-last_completed_task: S0_REPOSITORY_AUDIT
+last_completed_task: S0_ENVIRONMENT_SYNC
 recommended_next_task: null
-last_run: runs/2026-08-16_002_governance_bootstrap_repository_audit.md
+last_run: runs/2026-08-16_003_trust_align_dependency_sync.md
 
 do_not_do_yet:
   - Do not infer a dataset path, license, channel layout, sampling rate, split, checkpoint, or scientific implementation from the empty repository.

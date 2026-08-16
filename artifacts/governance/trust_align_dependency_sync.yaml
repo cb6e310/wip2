@@ -1,0 +1,42 @@
+schema_version: 1
+generated_by_run: 2026-08-16_003_trust_align_dependency_sync
+
+source:
+  environment: /home/song/projects/trust_align/.venv
+  python_version: 3.12.3
+  editable_or_local_path_dependencies: []
+  sorted_freeze_sha256: a206926b920df228f2697363a0edce925a6ecc6995fc9eb6e134399c70e6ff51
+
+target:
+  environment: /home/song/projects/trust_generative/.venv
+  python_version: 3.12.3
+  sorted_freeze_sha256: a206926b920df228f2697363a0edce925a6ecc6995fc9eb6e134399c70e6ff51
+  environment_size: 3.5G
+
+lock:
+  path: requirements-trust-align.lock.txt
+  entries: 103
+  sha256: 72a2a3274ef9516dba95a4f4022cacfba0e02d10445e1618da2a569f59381910
+
+verification:
+  exact_freeze_match: PASS
+  pip_check: PASS_NO_BROKEN_REQUIREMENTS
+  import_smoke: PASS
+  torch_version: 2.13.0+cu130
+  torch_cuda_build: "13.0"
+  cuda_available: true
+  cuda_device_count: 4
+  cuda_tensor_smoke: PASS
+  cuda_device_0: NVIDIA GeForce RTX 4090
+  key_versions:
+    mne: 1.12.1
+    transformers: 5.15.0
+    numpy: 2.5.2
+    scipy: 1.18.0
+
+scope:
+  backbone_admitted: false
+  checkpoint_admitted: false
+  data_admitted: false
+  scientific_task_completed: false
+  note: Exact package replication is environment evidence only.

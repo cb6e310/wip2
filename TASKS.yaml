@@ -66,6 +66,27 @@ S0_REPOSITORY_AUDIT:
   completed_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
   evidence_scope: READ_ONLY_FILE_AND_METADATA_AUDIT_EMPTY_SCIENTIFIC_REPOSITORY
 
+S0_ENVIRONMENT_SYNC:
+  title: Synchronize the project Python environment to the trust_align dependency set
+  stage: governance_bootstrap
+  status: DONE
+  critical_path: false
+  priority: 2
+  prerequisites:
+    - S0_REPOSITORY_AUDIT
+  produces:
+    - requirements-trust-align.lock.txt
+    - artifacts/governance/trust_align_dependency_sync.yaml
+    - runs/2026-08-16_003_trust_align_dependency_sync.md
+  acceptance:
+    - source and target Python major minor ABI versions match
+    - source environment has no editable or local path dependency
+    - sorted pip freeze all output matches byte for byte by SHA256
+    - pip check reports no broken requirements
+    - torch CUDA MNE Transformers NumPy and SciPy smoke imports pass
+  completed_by_run: 2026-08-16_003_trust_align_dependency_sync
+  evidence_scope: ENVIRONMENT_ONLY_NO_BACKBONE_DATA_OR_SCIENTIFIC_ADMISSION
+
 S0_DATA_CARD:
   title: Admit the primary EEG-text dataset and build a machine-checkable data card
   stage: stage_0
@@ -100,7 +121,7 @@ S0_A_INTERFACE:
     - input window sampling channels units mask output dimension and score interface are frozen
     - freeze versus PEFT scope and trainable parameter count are explicit
     - all comparison rows can share the same A and score API
-  blocked_reason: The audited repository contains no backbone code, dependency manifest, checkpoint reference, tensor contract, preprocessing contract, or license evidence; B_V2_BACKBONE_NOT_PRESENT is active.
+  blocked_reason: The Python package environment is synchronized, but no backbone code, checkpoint reference, tensor contract, preprocessing contract, or license evidence exists; B_V2_BACKBONE_NOT_PRESENT remains active.
 
 S0_STIMULUS_ID:
   title: Normalize stimulus identity and freeze near-duplicate groups

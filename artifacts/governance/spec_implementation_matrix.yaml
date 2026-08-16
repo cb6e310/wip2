@@ -42,10 +42,15 @@ items:
     blocker: prerequisites incomplete
   backbone_a_and_frontend:
     status: BLOCKED
-    evidence_paths: []
-    tests_rerun: []
+    evidence_paths:
+      - requirements-trust-align.lock.txt
+      - artifacts/governance/trust_align_dependency_sync.yaml
+    tests_rerun:
+      - exact sorted pip freeze comparison
+      - pip check
+      - torch CUDA and key scientific package import smoke
     acceptance_gaps:
-      - no source checkpoint dependency tensor preprocessing or license contract exists
+      - package environment is synchronized but no source checkpoint tensor preprocessing or license contract exists
     target_task: S0_A_INTERFACE
     blocker: B_V2_BACKBONE_NOT_PRESENT
   semantic_schema_and_evaluator:

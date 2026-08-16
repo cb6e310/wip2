@@ -69,8 +69,10 @@ If state, tasks, evidence, and the SPEC disagree, report
   and an older v1 SPEC; no scientific source, dependency manifest, dataset,
   checkpoint, result path, or pre-existing test was found.
 - `SPEC_V12_REVIEW`, `S0_GOVERNANCE_BOOTSTRAP`, and
-  `S0_REPOSITORY_AUDIT` are governance/specification evidence only. They are
-  not model, data, Gate, or result evidence.
+  `S0_REPOSITORY_AUDIT` are governance/specification evidence only.
+- `S0_ENVIRONMENT_SYNC` confirms that `.venv` matches the frozen package set
+  from `trust_align/.venv`; it is environment evidence only, not backbone,
+  checkpoint, data, model, Gate, or result admission.
 - No scientific task is READY until its recorded physical-evidence blocker is
   resolved. Do not invent a dataset path or backbone.
 - Do not implement scientific modules, train, download data, read held-out

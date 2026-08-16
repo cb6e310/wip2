@@ -12,20 +12,24 @@ Stage 0 is blocked at physical data and backbone admission.
   two pre-existing server files.
 - Audited the actual repository without reading held-out content.
 - Recorded repository, environment, and SPEC-to-implementation inventories.
+- Synchronized `.venv` to the exact frozen dependency set from
+  `/home/song/projects/trust_align/.venv`; all 103 entries match and CUDA
+  smoke validation passes on the four RTX 4090 GPUs.
 
 ## What is not completed
 
-- No dataset, license record, scientific source, backbone/checkpoint,
-  dependency manifest, split, schema, null sampler, calibration method, Gate,
-  training run, or scientific result is present or validated.
+- No dataset, license record, scientific source, backbone/checkpoint, split,
+  schema, null sampler, calibration method, Gate, training run, or scientific
+  result is present or validated. Package availability alone does not admit a
+  backbone.
 - No scientific task is READY.
 
 ## Active blockers
 
 - `B_V1_DATA_NOT_PRESENT`: no authorized physical dataset location or license
   evidence was found.
-- `B_V2_BACKBONE_NOT_PRESENT`: no scientific code, checkpoint, tensor contract,
-  or license evidence was found.
+- `B_V2_BACKBONE_NOT_PRESENT`: dependencies are synchronized, but no scientific
+  code, checkpoint, tensor contract, or license evidence was found.
 - V3-V6 remain frozen downstream blockers exactly as recorded in
   `PROJECT_STATE.yaml`.
 
