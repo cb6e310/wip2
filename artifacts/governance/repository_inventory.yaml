@@ -1,0 +1,91 @@
+schema_version: 1
+generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+audit_mode: read_only_physical_evidence_before_scientific_work
+
+repository:
+  server: song@10.244.144.87
+  root: /home/song/projects/trust_generative
+  remote: https://github.com/cb6e310/wip2
+  remote_visibility: public
+  remote_state_at_audit: EMPTY_NO_REFS
+  branch_created_for_bootstrap: main
+  baseline_head: null
+  baseline_git_status: NOT_A_GIT_REPOSITORY
+  baseline_dirty_paths: []
+  preexisting_files_preserved:
+    - path: CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
+      size_bytes: 7325
+      mtime_utc: "2026-08-16T06:46:53.900487264Z"
+      sha256: cec557245e237635a00b3e374b4dde2a3cd9ba3d39546e88589871a5382d3547
+    - path: guide/NC_HSG_Paper_Spec_v1.md
+      size_bytes: 26074
+      mtime_utc: "2026-08-16T06:45:23.998802589Z"
+      sha256: 9b4dd22cf81158a462734de69d592e9491142e4340a5969a5592f8940f61a95a
+  bootstrap_path_conflict: false
+
+top_level_before_bootstrap:
+  directories:
+    - guide
+  files:
+    - CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
+
+file_counts_before_bootstrap:
+  total_files: 2
+  markdown: 2
+  python: 0
+  yaml: 0
+  dependency_manifests: 0
+  tests: 0
+  data_files: 0
+  checkpoint_files: 0
+  result_files: 0
+
+entry_points_before_bootstrap:
+  readme: null
+  dependencies: []
+  tests: []
+  build: []
+  scientific_source: []
+
+governance_entry_points_after_bootstrap:
+  dependencies:
+    - requirements-governance.txt
+  tests:
+    - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
+  validation:
+    - .venv/bin/python scripts/check_project_state.py
+    - .venv/bin/python scripts/project_status.py
+
+scientific_paths:
+  data:
+    presence: false
+    paths: []
+  checkpoints:
+    presence: false
+    paths: []
+  results:
+    presence: false
+    paths: []
+  source:
+    presence: false
+    paths: []
+  dependency_manifests:
+    presence: false
+    paths: []
+
+held_out_artifacts:
+  discovered: []
+  content_read: false
+  declaration: NO_HELD_OUT_OR_TEST_RESULT_PATH_WAS_PRESENT
+
+audit_exclusions:
+  - .git
+  - .venv
+  - caches
+  - download directories
+  - large data contents
+
+security:
+  secret_values_recorded: false
+  environment_values_recorded: false
+  credential_files_opened: false

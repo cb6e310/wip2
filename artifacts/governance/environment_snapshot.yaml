@@ -1,0 +1,52 @@
+schema_version: 1
+generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+
+host:
+  hostname: songxingyuan
+  os: Ubuntu 24.04.3 LTS
+  kernel: 6.8.0-90-generic
+  architecture: x86_64
+
+python:
+  requested_path: /home/song/projects/trust_generative/.venv/bin/python
+  system_executable: /usr/bin/python3
+  system_version: 3.12.3
+  project_environment_created: true
+  governance_dependencies:
+    PyYAML:
+      constraint: ">=6,<7"
+      installed_version: 6.0.3
+
+git:
+  version: 2.43.0
+
+accelerator:
+  nvidia_smi_available: true
+  gpu_count: 4
+  gpus:
+    - name: NVIDIA GeForce RTX 4090
+      driver_version: 580.126.09
+      memory_mib: 24564
+    - name: NVIDIA GeForce RTX 4090
+      driver_version: 580.126.09
+      memory_mib: 24564
+    - name: NVIDIA GeForce RTX 4090
+      driver_version: 580.126.09
+      memory_mib: 24564
+    - name: NVIDIA GeForce RTX 4090
+      driver_version: 580.126.09
+      memory_mib: 24564
+  cuda_toolkit_version: UNVERIFIED_NOT_REQUIRED_FOR_GOVERNANCE
+
+safe_commands:
+  governance_tests: ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
+  state_validator: .venv/bin/python scripts/check_project_state.py
+  status: .venv/bin/python scripts/project_status.py
+  whitespace: git diff --check
+
+scientific_test_commands_discovered: []
+configuration_variable_names_required: []
+environment_values_recorded: false
+network_required_for_tests: false
+gpu_required_for_tests: false
+training_required_for_tests: false

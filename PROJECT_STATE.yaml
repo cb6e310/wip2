@@ -1,0 +1,99 @@
+schema_version: 2
+updated_at: "2026-08-16"
+updated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+
+project:
+  name: nc_hsg_eeg_text
+  server: song@10.244.144.87
+  server_root: /home/song/projects/trust_generative
+  python_path: /home/song/projects/trust_generative/.venv/bin/python
+  remote: https://github.com/cb6e310/wip2
+  branch: main
+  baseline_commit: null
+  repository_status: INITIALIZED_FROM_EMPTY_REMOTE_AND_AUDITED
+  spec_version: v1.2
+  spec_path: guide/NC_HSG_Paper_Spec_v1_2_2026-08-16.md
+  management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
+
+execution:
+  stage: stage_0
+  status: BLOCKED
+  current_gate: null
+
+route:
+  primary: NC-HSG
+  backup:
+    - TOPIC-LEVEL-EVIDENCE-ABSTENTION
+    - NEGATIVE-RESULT-AUDIT
+  locked: null
+  locked_by_run: null
+
+gates:
+  gate_a1:
+    status: BLOCKED
+    outcome: null
+  gate_a:
+    status: BLOCKED
+    outcome: null
+  gate_b:
+    status: BLOCKED
+    outcome: null
+
+blockers:
+  - id: B_V1_DATA_NOT_PRESENT
+    reason: The audited repository contains no dataset file, data manifest, license record, or documented external dataset path. Dataset identity, subjects, sessions, trials, channels, sampling rate, stimulus duplicates, and semantic targets therefore remain unverified.
+    blocks:
+      - S0_DATA_CARD
+      - S0_STIMULUS_ID
+      - S0_JOINT_SPLIT
+      - S0_A1_FRONTEND
+      - S0_A1_ADMISSION
+    resolution: Provide or document the authorized physical dataset location and license evidence, then build the data card from hashes and metadata without reading held-out metrics.
+  - id: B_V2_BACKBONE_NOT_PRESENT
+    reason: The audited repository contains no scientific source tree, dependency manifest, checkpoint reference, backbone implementation, tensor contract, preprocessing contract, or license evidence.
+    blocks:
+      - S0_A_INTERFACE
+      - S0_A1_FRONTEND
+      - S0_A1_ADMISSION
+      - S0_ALIGN_UNIT_COST
+    resolution: Provide or document the authorized backbone code and checkpoint source, then freeze exactly one primary A from physical evidence before training.
+  - id: B_V3_SCHEMA_UNFROZEN
+    reason: L1-L3 typed semantic units, projections, evaluator, L4 renderer, and blinded audit protocol are not implemented or frozen.
+    blocks:
+      - S0_SEMANTIC_ITEM
+      - S0_SCHEMA_AUDIT
+      - STAGE1_PROBES
+    resolution: Freeze and audit the schema only after Gate A1 permits semantic work.
+  - id: B_V4_NULL_CONTRACT_UNVERIFIED
+    reason: N1 block feasibility and joint permutations, N2 multivariate phase implementation, tolerances, and exchangeability boundary have no implementation or real outer-train evidence.
+    blocks:
+      - S0_N1_BLOCK_FEASIBILITY
+      - S0_N1_SAMPLER
+      - S0_N2_SAMPLER
+      - GATE_A1
+    resolution: Finish data, split, leakage, and real frontend admission before null implementation and Gate A1.
+  - id: B_V5_CALIBRATION_UNFROZEN
+    reason: The project has not selected cal-select plus cal-cert versus simultaneous LTT; no bound, policy grid, calibration size, or clustering implementation exists.
+    blocks:
+      - S0_CALIBRATION_CONTRACT
+      - S0_NC_HSG_CORE
+      - GATE_B
+    resolution: Freeze one multiplicity-valid calibration route after Gate A and before NC-HSG policy implementation.
+  - id: B_V6_SELECTION_FIREWALL_UNFROZEN
+    reason: Candidate sources, parent-consistent paths, hashes, and symmetric pseudo-real selection statistics are not implemented or validated.
+    blocks:
+      - S0_H_DEFINITION
+      - STAGE1_PROBES
+      - GATE_A
+    resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
+
+last_completed_task: S0_REPOSITORY_AUDIT
+recommended_next_task: null
+last_run: runs/2026-08-16_002_governance_bootstrap_repository_audit.md
+
+do_not_do_yet:
+  - Do not infer a dataset path, license, channel layout, sampling rate, split, checkpoint, or scientific implementation from the empty repository.
+  - Do not import scientific state, DONE tasks, blockers, commits, or evidence from the trust_align reference project or other example archives.
+  - Do not implement N1, N2, schema, NC-HSG, direct-C, PMI, or free LLM generation until their prerequisites and blockers are resolved.
+  - Do not read held-out metrics, unlock test data, train models, or run Gate A1, Gate A, Gate B, or a main experiment.
+  - Do not change alpha_0, K, the primary metric, split discipline, Gate thresholds, or failure routes to fit available files.

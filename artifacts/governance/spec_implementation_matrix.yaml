@@ -1,0 +1,149 @@
+schema_version: 1
+generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+allowed_statuses:
+  - ABSENT
+  - IMPLEMENTED_UNVALIDATED
+  - VALIDATED
+  - BLOCKED
+  - NOT_APPLICABLE
+
+items:
+  data_loader_and_data_card:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no dataset file manifest license record or documented external path exists
+    target_task: S0_DATA_CARD
+    blocker: B_V1_DATA_NOT_PRESENT
+  stimulus_identity:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no physical stimulus records exist
+    target_task: S0_STIMULUS_ID
+    blocker: B_V1_DATA_NOT_PRESENT
+  split:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no subject stimulus inventory or split implementation exists
+    target_task: S0_JOINT_SPLIT
+    blocker: B_V1_DATA_NOT_PRESENT
+  leakage:
+    status: ABSENT
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no split preprocessing candidate or test-time pipeline exists to audit
+    target_task: S0_LEAKAGE_AUDIT
+    blocker: prerequisites incomplete
+  backbone_a_and_frontend:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no source checkpoint dependency tensor preprocessing or license contract exists
+    target_task: S0_A_INTERFACE
+    blocker: B_V2_BACKBONE_NOT_PRESENT
+  semantic_schema_and_evaluator:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no typed units projections matcher or renderer exists
+    target_task: S0_SEMANTIC_ITEM
+    blocker: B_V3_SCHEMA_UNFROZEN
+  candidate_firewall:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no candidate source ordering hash or symmetric selection statistic exists
+    target_task: S0_H_DEFINITION
+    blocker: B_V6_SELECTION_FIREWALL_UNFROZEN
+  n1:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no block feasibility ledger or joint permutation implementation exists
+    target_task: S0_N1_BLOCK_FEASIBILITY
+    blocker: B_V4_NULL_CONTRACT_UNVERIFIED
+  n2:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no multivariate Fourier surrogate implementation or diagnostics exist
+    target_task: S0_N2_SAMPLER
+    blocker: B_V4_NULL_CONTRACT_UNVERIFIED
+  calibration:
+    status: BLOCKED
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no multiplicity-valid selection and certification route is frozen
+    target_task: S0_CALIBRATION_CONTRACT
+    blocker: B_V5_CALIBRATION_UNFROZEN
+  nc_hsg:
+    status: ABSENT
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no scientific implementation exists
+    target_task: S0_NC_HSG_CORE
+    blocker: prerequisites incomplete
+  eb_hsg:
+    status: ABSENT
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no scientific implementation exists
+    target_task: GATE_B
+    blocker: prerequisites incomplete
+  direct_c:
+    status: ABSENT
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no scientific implementation exists
+    target_task: S0_DIRECT_C
+    blocker: prerequisites incomplete
+  pmi:
+    status: ABSENT
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - no scientific implementation exists
+    target_task: S0_PMI_BASELINE
+    blocker: prerequisites incomplete
+  tests:
+    status: VALIDATED
+    evidence_paths:
+      - tests/test_project_memory.py
+      - scripts/check_project_state.py
+      - scripts/project_status.py
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
+    acceptance_gaps:
+      - governance validation only; no scientific test exists
+    target_task: S0_GOVERNANCE_BOOTSTRAP
+    blocker: null
+  artifacts:
+    status: VALIDATED
+    evidence_paths:
+      - artifacts/governance/repository_inventory.yaml
+      - artifacts/governance/environment_snapshot.yaml
+      - artifacts/governance/spec_implementation_matrix.yaml
+    tests_rerun:
+      - .venv/bin/python scripts/check_project_state.py
+    acceptance_gaps:
+      - governance and specification artifacts only; no scientific artifact exists
+    target_task: S0_REPOSITORY_AUDIT
+    blocker: null
+
+held_out_content_read: false
+scientific_implementation_changed: false

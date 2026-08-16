@@ -1,0 +1,622 @@
+SPEC_V12_REVIEW:
+  title: Complete outcome-blind implementation review and freeze NC-HSG SPEC v1.2
+  stage: planning
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites: []
+  produces:
+    - guide/NC_HSG_Paper_Spec_v1_2_2026-08-16.md
+    - artifacts/spec_review/nc_hsg_v12_decision_log.md
+  acceptance:
+    - selection bias in permutation statistics is resolved
+    - L4 is separated from semantic depth
+    - N1 and N2 implementation contracts are explicit
+    - calibration selection and certification multiplicity is explicit
+    - no current-repository fact is inferred from the example ZIP
+  completed_by_run: 2026-08-16_001_nc_hsg_v12_bootstrap
+  evidence_scope: SPECIFICATION_ONLY_NO_REPOSITORY_OR_OUTCOME_EVIDENCE
+
+S0_GOVERNANCE_BOOTSTRAP:
+  title: Install and validate persistent project context in the actual wip2 repository
+  stage: governance_bootstrap
+  status: DONE
+  critical_path: true
+  priority: 1
+  prerequisites:
+    - SPEC_V12_REVIEW
+  produces:
+    - AGENTS.md
+    - AI_START_HERE.md
+    - PROJECT_STATE.yaml
+    - TASKS.yaml
+    - HANDOFF.md
+    - scripts/check_project_state.py
+    - scripts/project_status.py
+    - tests/test_project_memory.py
+    - requirements-governance.txt
+    - runs/2026-08-16_002_governance_bootstrap_repository_audit.md
+  acceptance:
+    - active spec is v1.2 and the example ZIP is explicitly non-evidence
+    - validator rejects illegal status, unsupported DONE, invalid dependencies, and gate-order violations
+    - status command prints the required PROJECT SNAPSHOT and one critical-path recommendation
+    - focused governance tests pass
+    - the actual repository commit and dirty-state boundary are recorded
+  completed_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+  evidence_scope: GOVERNANCE_ONLY_NO_SCIENTIFIC_IMPLEMENTATION_OR_OUTCOME_EVIDENCE
+
+S0_REPOSITORY_AUDIT:
+  title: Audit the actual repository without reading held-out metrics
+  stage: governance_bootstrap
+  status: DONE
+  critical_path: true
+  priority: 2
+  prerequisites:
+    - S0_GOVERNANCE_BOOTSTRAP
+  produces:
+    - artifacts/governance/repository_inventory.yaml
+    - artifacts/governance/spec_implementation_matrix.yaml
+    - artifacts/governance/environment_snapshot.yaml
+  acceptance:
+    - commit branch dirty state tree dependency manifests tests and artifact paths are inventoried
+    - each scientific task is classified as absent implemented-unvalidated validated or blocked
+    - DONE requires physical evidence and a rerun or formal validator
+    - held-out result contents are not read
+    - PROJECT_STATE TASKS HANDOFF and a run record are updated from evidence
+  completed_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+  evidence_scope: READ_ONLY_FILE_AND_METADATA_AUDIT_EMPTY_SCIENTIFIC_REPOSITORY
+
+S0_DATA_CARD:
+  title: Admit the primary EEG-text dataset and build a machine-checkable data card
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 3
+  prerequisites:
+    - S0_REPOSITORY_AUDIT
+  produces:
+    - artifacts/data_card.yaml
+    - reports/data_card.md
+  acceptance:
+    - license source version and physical file hashes are recorded
+    - subjects sessions trials channels sampling rate EEG fields text fields and exclusions are verified
+    - subject-stimulus assignment and missing cells are enumerated
+    - no result metric or test outcome is read
+  blocked_reason: The audited repository contains no dataset, data manifest, license record, or documented authorized external dataset path; B_V1_DATA_NOT_PRESENT blocks admission.
+
+S0_A_INTERFACE:
+  title: Freeze exactly one controlled primary backbone A and its tensor contract
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 4
+  prerequisites:
+    - S0_REPOSITORY_AUDIT
+    - S0_DATA_CARD
+  produces:
+    - artifacts/backbone_a_contract.yaml
+  acceptance:
+    - checkpoint or implementation identity hash and license are recorded
+    - input window sampling channels units mask output dimension and score interface are frozen
+    - freeze versus PEFT scope and trainable parameter count are explicit
+    - all comparison rows can share the same A and score API
+  blocked_reason: The audited repository contains no backbone code, dependency manifest, checkpoint reference, tensor contract, preprocessing contract, or license evidence; B_V2_BACKBONE_NOT_PRESENT is active.
+
+S0_STIMULUS_ID:
+  title: Normalize stimulus identity and freeze near-duplicate groups
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 5
+  prerequisites:
+    - S0_DATA_CARD
+  produces:
+    - artifacts/stimulus_identity.yaml
+    - artifacts/stimulus_groups.json
+  acceptance:
+    - exact normalized document paragraph and stimulus keys are recorded
+    - edit-distance and frozen-embedding thresholds are outcome-blind and versioned
+    - exact duplicates paraphrases and unjoinable records are ledgered
+  blocked_reason: No physical dataset or stimulus records were found; B_V1_DATA_NOT_PRESENT is active.
+
+S0_JOINT_SPLIT:
+  title: Build Regime I stimulus-disjoint and Regime II subject-stimulus manifests
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 6
+  prerequisites:
+    - S0_DATA_CARD
+    - S0_STIMULUS_ID
+  produces:
+    - artifacts/split_regimeI.json
+    - artifacts/split_regimeII.json
+    - artifacts/split_manifest.yaml
+  acceptance:
+    - Regime I uses frozen 60 20 20 stimulus groups
+    - Regime II holds out subject and stimulus without overlap
+    - train cal test and inner-val identities are disjoint as specified
+    - deterministic rebuilds are byte-identical and hashes are frozen
+  blocked_reason: No physical dataset or stimulus identity ledger exists; B_V1_DATA_NOT_PRESENT is active.
+
+S0_LEAKAGE_AUDIT:
+  title: Audit split preprocessing candidate and test-time leakage
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 7
+  prerequisites:
+    - S0_A_INTERFACE
+    - S0_JOINT_SPLIT
+  produces:
+    - reports/leakage_audit.md
+    - artifacts/leakage_assertions.yaml
+  acceptance:
+    - subject stimulus paragraph paraphrase and record overlaps are zero where required
+    - normalization feature selection schema candidates and null bins fit on legal training data only
+    - teacher forcing gold prefixes test retrieval and calibration representation learning are rejected
+    - machine assertions fail closed
+  blocked_reason: Backbone and split contracts are not frozen.
+
+S0_A1_FRONTEND:
+  title: Implement or admit the primary real-EEG frontend and tensor self-check
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 8
+  prerequisites:
+    - S0_A_INTERFACE
+    - S0_DATA_CARD
+  produces:
+    - artifacts/a1_frontend_freeze.yaml
+    - reports/a1_frontend_selfcheck.md
+  acceptance:
+    - real physical data traverse preprocessing and masking without guessed units or channels
+    - fold-local fitting is enforced
+    - deterministic finite tensors match the frozen A contract
+    - synthetic success is not mislabeled real-data admission
+  blocked_reason: No dataset or scientific frontend/backbone implementation was found; B_V1_DATA_NOT_PRESENT and B_V2_BACKBONE_NOT_PRESENT are active.
+
+S0_A1_ADMISSION:
+  title: Admit the primary frontend on outer-train real data
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 9
+  prerequisites:
+    - S0_A1_FRONTEND
+    - S0_JOINT_SPLIT
+    - S0_LEAKAGE_AUDIT
+  produces:
+    - reports/a1_admission.md
+  acceptance:
+    - sampling channel order units finite values lengths and masks pass
+    - checks read outer-train only
+    - failures remain blockers rather than guessed conversions
+  blocked_reason: No dataset, frontend, split, or leakage evidence exists; V1 and V2 plus prerequisite tasks remain unresolved.
+
+S0_A3_CONTAMINATION_CHECK:
+  title: Audit an optional second backbone for contamination license and tensor compatibility
+  stage: stage_0
+  status: BLOCKED
+  critical_path: false
+  priority: 30
+  prerequisites:
+    - S0_REPOSITORY_AUDIT
+    - S0_DATA_CARD
+  produces:
+    - reports/a3_contamination_check.md
+  acceptance:
+    - pretraining overlap checkpoint license channels preprocessing and output are recorded
+    - failure removes the optional backbone without substituting a third model
+    - no Gate depends on this optional task
+  blocked_reason: Repository and dataset facts are unknown.
+
+S0_N1_BLOCK_FEASIBILITY:
+  title: Freeze outcome-blind N1 block feasibility before sampler implementation
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 10
+  prerequisites:
+    - S0_A1_ADMISSION
+    - S0_JOINT_SPLIT
+  produces:
+    - artifacts/nulls/n1_block_feasibility.yaml
+  acceptance:
+    - EEG-observable length bins and train-frozen power bins are used
+    - block-size singleton coverage unique-permutation and fixed-point distributions are reported
+    - no adjacent-block borrowing or outcome-driven merging occurs
+    - feasibility decision is frozen before semantic results
+  blocked_reason: Real frontend and splits are not admitted; V4 is open.
+
+S0_N1_SAMPLER:
+  title: Implement N1 replicate-level joint block permutations
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 11
+  prerequisites:
+    - S0_N1_BLOCK_FEASIBILITY
+  produces:
+    - artifacts/nulls/n1_contract.yaml
+    - reports/n1_selfcheck.md
+  acceptance:
+    - each replicate is a within-block bijection across the evaluation split
+    - fixed points singleton exclusions scope hashes and permutation IDs are ledgered
+    - K equals 199 joint permutations and rebuilds are deterministic
+    - selection-aware pseudo-real statistic tests pass
+  blocked_reason: N1 block feasibility has not been frozen.
+
+S0_N2_SAMPLER:
+  title: Implement and diagnose multivariate Fourier N2 surrogates
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 12
+  prerequisites:
+    - S0_A1_ADMISSION
+  produces:
+    - artifacts/nulls/n2_contract.yaml
+    - reports/n2_selfcheck.md
+  acceptance:
+    - common phase increments preserve conjugate symmetry on unpadded data
+    - PSD cross-spectrum covariance amplitude endpoint and mask diagnostics are recorded
+    - independent per-channel phase is rejected as primary
+    - surrogate generation is deterministic by trial and seed
+  blocked_reason: Real frontend is not admitted and V4 tolerances are not frozen.
+
+GATE_A1:
+  title: Decide structural N1 and empirical N2 null validity
+  stage: gate_a1
+  status: BLOCKED
+  critical_path: true
+  priority: 13
+  prerequisites:
+    - S0_LEAKAGE_AUDIT
+    - S0_N1_SAMPLER
+    - S0_N2_SAMPLER
+  produces:
+    - reports/gate_a1.md
+    - artifacts/gates/gate_a1.yaml
+  acceptance:
+    - N1 structural audit and checksum are decided separately
+    - N2 AUC nuisance recovery and second-order tolerances are all checked
+    - outcome is PASS FAIL or DEGRADED with fixed claim consequences
+    - no semantic model free LLM or held-out test result is used
+  blocked_reason: Leakage and both primary null families are incomplete.
+
+S0_SEMANTIC_ITEM:
+  title: Freeze L1-L3 typed semantic units projections evaluator and L4 renderer
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 14
+  prerequisites:
+    - GATE_A1
+    - S0_DATA_CARD
+  produces:
+    - artifacts/semantic_schema.yaml
+    - artifacts/semantic_matcher.yaml
+  acceptance:
+    - L1 topic L2 concept or entity-event and L3 proposition units are versioned
+    - typed union risk units and deterministic P2 P3 projections are executable
+    - L4 contributes no semantic-depth unit and rejects new entities numbers relations polarity and modifiers
+    - schema and matcher are fit without test text
+  blocked_reason: Gate A1 has not permitted semantic work and V3 is open.
+
+S0_H_DEFINITION:
+  title: Freeze legal candidate context and selection firewall
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 15
+  prerequisites:
+    - S0_SEMANTIC_ITEM
+    - S0_JOINT_SPLIT
+  produces:
+    - artifacts/candidate_selection_contract.yaml
+  acceptance:
+    - candidate libraries use outer-train schema and legal non-EEG context only
+    - test gold test sentence retrieval current test EEG and calibration label frequencies are forbidden
+    - parent-consistent paths tie deterministically
+    - every candidate library ordering and selection statistic is hashed
+  blocked_reason: Semantic schema and splits are not frozen; V6 is open.
+
+S0_SCHEMA_AUDIT:
+  title: Run blinded human and machine audit of semantic identifiability
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 16
+  prerequisites:
+    - S0_SEMANTIC_ITEM
+    - S0_H_DEFINITION
+  produces:
+    - reports/schema_audit.md
+  acceptance:
+    - truth-side and prediction-side parent consistency are measured
+    - two blinded annotators and Cohen kappa are reported where required
+    - matcher errors and unidentifiable units are ledgered
+    - failure blocks Gate A rather than changing thresholds
+  blocked_reason: Schema and selection contracts are incomplete.
+
+S0_GATE_A_POPULATION_E5:
+  title: Freeze Gate A subject-macro population and cluster inference contract
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 17
+  prerequisites:
+    - S0_JOINT_SPLIT
+  produces:
+    - artifacts/gate_a_population.yaml
+  acceptance:
+    - trial aggregation seed aggregation and subject clustering order are explicit
+    - no zero-fill or trial-level iid inference is allowed
+    - subject coverage and exclusion rules are outcome-blind
+  blocked_reason: Split manifests and subject coverage are unknown.
+
+STAGE1_PROBES:
+  title: Run no-free-LLM structured real versus N1 and N2 pilot
+  stage: stage_1
+  status: BLOCKED
+  critical_path: true
+  priority: 18
+  prerequisites:
+    - GATE_A1
+    - S0_A_INTERFACE
+    - S0_H_DEFINITION
+    - S0_SCHEMA_AUDIT
+    - S0_GATE_A_POPULATION_E5
+    - S0_LEAKAGE_AUDIT
+  produces:
+    - artifacts/stage1/stage1_scores.parquet
+    - reports/stage1_run_card.md
+  acceptance:
+    - L1-L3 candidate score matrices include real N1 and N2 with symmetric pseudo-real statistics
+    - no free LLM teacher forcing test retrieval or representation fitting on calibration occurs
+    - per trial subject seed split candidate and null hashes are present
+  blocked_reason: Gate A1 schema selection population and leakage prerequisites are incomplete.
+
+SHAM_VALIDATION:
+  title: Validate null score sanity before Gate A
+  stage: stage_1
+  status: BLOCKED
+  critical_path: true
+  priority: 19
+  prerequisites:
+    - STAGE1_PROBES
+  produces:
+    - reports/sham_validation.md
+  acceptance:
+    - null-null and language-only controls cannot masquerade as EEG increment
+    - N1 and N2 depth and W distributions are reported separately
+    - candidate-selection symmetry and parent consistency assertions pass
+  blocked_reason: No valid structured pilot scores exist.
+
+GATE_A:
+  title: Decide reproducible real-versus-null semantic increment
+  stage: gate_a
+  status: BLOCKED
+  critical_path: true
+  priority: 20
+  prerequisites:
+    - STAGE1_PROBES
+    - SHAM_VALIDATION
+    - S0_SCHEMA_AUDIT
+    - S0_GATE_A_POPULATION_E5
+  produces:
+    - artifacts/gates/gate_a.yaml
+    - reports/gate_a.md
+  acceptance:
+    - N1 and N2 both satisfy L1 and L2 signed effect CI and subject-direction criteria for full route
+    - only-L1 and full-fail outcomes trigger the frozen downgrade routes
+    - no main-test metric is used to change the decision
+  blocked_reason: Stage 1 and sham validation do not exist.
+
+S0_CALIBRATION_CONTRACT:
+  title: Freeze multiplicity-valid policy selection and risk certification
+  stage: stage_2
+  status: BLOCKED
+  critical_path: true
+  priority: 21
+  prerequisites:
+    - GATE_A
+    - S0_GATE_A_POPULATION_E5
+  produces:
+    - artifacts/calibration_contract.yaml
+  acceptance:
+    - exactly one of cal-select plus cal-cert or simultaneous LTT is selected
+    - bounded loss policy grid size delta and subject-macro unit are explicit
+    - pointwise UCB after same-data policy search is rejected
+    - insufficient subject count forces empirical-risk wording
+  blocked_reason: Gate A has not established the route and V5 is open.
+
+S0_DIRECT_C:
+  title: Implement the strongest flat direct-C control
+  stage: stage_2
+  status: BLOCKED
+  critical_path: true
+  priority: 22
+  prerequisites:
+    - GATE_A
+    - S0_CALIBRATION_CONTRACT
+  produces:
+    - reports/direct_c_selfcheck.md
+  acceptance:
+    - A F candidates null scores compute budget calibration size and alpha match NC-HSG
+    - one global W gate controls output or rejection
+    - no parent pass levelwise fallback or hierarchical policy remains
+  blocked_reason: Gate A and calibration are incomplete.
+
+S0_PMI_BASELINE:
+  title: Implement LM-prior correction and lambda interpolation baseline
+  stage: stage_2
+  status: BLOCKED
+  critical_path: true
+  priority: 23
+  prerequisites:
+    - GATE_A
+    - S0_CALIBRATION_CONTRACT
+  produces:
+    - reports/pmi_baseline_selfcheck.md
+  acceptance:
+    - LM log probability uses the same frozen candidates and no EEG
+    - lambda grid is frozen before test and charged to the same search budget
+    - outputs support partial-regression and Comparison 1
+  blocked_reason: Gate A and calibration are incomplete.
+
+S0_NC_HSG_CORE:
+  title: Implement NC-HSG score matrix hierarchy and calibrated policy
+  stage: stage_2
+  status: BLOCKED
+  critical_path: true
+  priority: 24
+  prerequisites:
+    - GATE_A
+    - S0_CALIBRATION_CONTRACT
+    - S0_H_DEFINITION
+  produces:
+    - reports/nc_hsg_core_selfcheck.md
+  acceptance:
+    - W is computed per frozen candidate for N1 and N2
+    - selection-aware pseudo-real statistic and parent-consistent paths are tested
+    - semantic depth is L0-L3 and L4 renderer cannot alter D
+    - N1 donor embeddings and frozen N2 scores are cached outside training
+  blocked_reason: Gate A calibration and selection contracts are incomplete.
+
+S0_ANMA_ORIG:
+  title: Preserve required legacy task name as not applicable to NC-HSG
+  stage: superseded
+  status: SKIPPED
+  critical_path: false
+  priority: 99
+  prerequisites: []
+  produces: []
+  acceptance:
+    - skip reason is explicit
+  skip_reason: ANMA-orig belongs to the example project's unrelated scientific route and is not part of the active NC-HSG SPEC.
+
+S0_ALIGN_UNIT_COST:
+  title: Measure one real primary-backbone training and null-scoring unit cost
+  stage: stage_2
+  status: BLOCKED
+  critical_path: true
+  priority: 25
+  prerequisites:
+    - S0_A1_ADMISSION
+    - S0_N1_SAMPLER
+    - S0_N2_SAMPLER
+  produces:
+    - artifacts/alignment_unit_cost.yaml
+  acceptance:
+    - training inference N1 reuse and N2 generation costs are measured separately
+    - no held-out result is read and no scientific threshold changes
+    - batch and cache plan is frozen for the main experiment
+  blocked_reason: Real frontend and null samplers are incomplete.
+
+GATE_B:
+  title: Decide hierarchical value over direct-C and rule out PMI
+  stage: gate_b
+  status: BLOCKED
+  critical_path: true
+  priority: 26
+  prerequisites:
+    - S0_NC_HSG_CORE
+    - S0_DIRECT_C
+    - S0_PMI_BASELINE
+    - S0_ALIGN_UNIT_COST
+  produces:
+    - artifacts/gates/gate_b.yaml
+    - reports/gate_b.md
+  acceptance:
+    - NC-HSG versus direct-C uses positive subject-cluster CI with miss-rate guard
+    - NC-HSG versus PMI preserves the brain-evidence route or triggers the frozen downgrade
+    - compute-matched EB-HSG is included before attributing gains to W
+  blocked_reason: NC-HSG and its strongest controls are not implemented.
+
+ROUTE_LOCK:
+  title: Lock exactly one claim route after Gate A and Gate B
+  stage: route_lock
+  status: BLOCKED
+  critical_path: true
+  priority: 27
+  prerequisites:
+    - GATE_A
+    - GATE_B
+    - S0_CALIBRATION_CONTRACT
+  produces:
+    - artifacts/route_lock.yaml
+  acceptance:
+    - exactly one of full NC-HSG topic-level flat null-gated prior-correction or negative-audit route is selected
+    - decision follows frozen Gate outcomes without threshold changes
+    - config metric split candidates null seeds and calibration are hashed before test unlock
+  blocked_reason: Gate decisions and calibration are unavailable.
+
+MAIN_EXPERIMENT:
+  title: Run and freeze the primary-dataset main experiment
+  stage: main_experiment
+  status: BLOCKED
+  critical_path: true
+  priority: 28
+  prerequisites:
+    - ROUTE_LOCK
+    - S0_LEAKAGE_AUDIT
+    - S0_ALIGN_UNIT_COST
+  produces:
+    - artifacts/main_experiment_manifest.yaml
+  acceptance:
+    - five seeds and all frozen primary baselines run on identical test indices
+    - subject-macro Specificity at Risk and actual risk are reported together
+    - three confirmatory comparisons use Holm correction
+    - invalid missing and risk-violating cells remain explicit
+  blocked_reason: Route lock and protocol prerequisites are incomplete.
+
+ABLATIONS:
+  title: Run the frozen three-seed attribution ablations
+  stage: analysis
+  status: BLOCKED
+  critical_path: false
+  priority: 29
+  prerequisites:
+    - MAIN_EXPERIMENT
+  produces:
+    - artifacts/ablation_manifest.yaml
+  acceptance:
+    - each ablation changes exactly one attribution variable
+    - no ablation replaces a failed primary result
+  blocked_reason: Main experiment is not frozen.
+
+ROBUSTNESS:
+  title: Run Regime II COFETT and optional-backbone descriptive robustness
+  stage: robustness
+  status: BLOCKED
+  critical_path: false
+  priority: 31
+  prerequisites:
+    - MAIN_EXPERIMENT
+  produces:
+    - artifacts/robustness_manifest.yaml
+  acceptance:
+    - primary route thresholds and method are frozen before replication
+    - COFETT with two subjects remains descriptive
+    - no risk guarantee is claimed for Regime II
+  blocked_reason: Primary experiment is not frozen and external data are unverified.
+
+WRITING_FREEZE:
+  title: Freeze title abstract claims limitations and reproducibility appendix
+  stage: writing
+  status: BLOCKED
+  critical_path: true
+  priority: 32
+  prerequisites:
+    - MAIN_EXPERIMENT
+    - ABLATIONS
+  produces:
+    - artifacts/writing_claim_lock.yaml
+  acceptance:
+    - title abstract and conclusion follow the result-conditioned contraction table
+    - every claim maps to admitted evidence
+    - limitations include subject pool null validity calibration assumptions and renderer boundary
+  blocked_reason: Main results and attribution evidence do not exist.
