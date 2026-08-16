@@ -1,15 +1,19 @@
-# NO_READY_TASK
+# Codex Next Task
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (version `v1.4`).
+`NO_READY_TASK`
 
-The six ZuCo 2.0 NR admission conditions are `PASS, PASS, FAIL, PASS, PASS, PASS`. The sole remaining V1 blocker is machine-specific:
+Run 006 completed `S0_ZUCO2_NR_ADMISSION_REPAIR` under SPEC v1.5. The active
+schema-v2 admission result is FAIL, so do not begin a scientific task.
 
-```text
-physical EEG unit is absent from selectively readable metadata for
-task1 - NR/Matlab files/results*_NR.mat:sentenceData/rawData and
-task1 - NR/Preprocessed/*/*_EEG.mat:EEG/data
-```
+Exact condition-3 blockers:
 
-Minimum next action: locate authoritative release-applicable unit metadata in an official source document or a selectively readable field/attribute for those exact layers, record its URL/path and identity hash, and rerun only `scripts/audit_zuco2_nr.py`. Do not infer the unit from `trust_align` code or historical outputs, and do not rerun `scripts/audit_input_sources.py`.
+- `event_semantics_bound`: two YTL blocks have non-pairable physical 10/11 event ordering.
+- `summary_layer_bound`: unresolved.
+- `summary_reference_bound`: unresolved.
+- `preprocessed_unit_bound`: unresolved.
+- `summary_unit_bound`: unresolved.
 
-Until all six conditions PASS, do not generate `artifacts/data_card.yaml` or `reports/data_card.md`. Keep `S0_A_INTERFACE` BLOCKED pending a later explicit selection of exactly one primary A.
+Wait for new authoritative release-applicable evidence or an explicit research
+decision. Do not repeat broad discovery or large-file hashes, infer missing
+metadata, create a data card, select A, create splits, read outcomes, download
+data/weights, train, or run any Gate.

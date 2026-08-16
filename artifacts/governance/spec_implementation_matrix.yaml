@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-16_005_active_spec_guard_zuco2_nr_admission
-evidence_as_of_commit: 250ca9a67cf386784005a1edbbfe502d7df6f192
+updated_by_run: 2026-08-16_006_zuco2_nr_admission_repair
+evidence_as_of_commit: d6751eadd96b2f651e5dbd1bfd5366679688ce4d
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -18,10 +18,15 @@ items:
       - reports/input_discovery_audit.md
       - artifacts/admission/zuco2_nr_targeted_manifest.yaml
       - reports/zuco2_nr_targeted_admission.md
+      - artifacts/admission/zuco2_nr_targeted_manifest_v2.yaml
+      - artifacts/admission/zuco2_nr_stimulus_manifest_v2.jsonl
+      - artifacts/admission/zuco2_nr_unit_source_audit.yaml
+      - reports/zuco2_nr_targeted_admission_v2.md
     tests_rerun: []
     acceptance_gaps:
-      - official license, 27-file identity, channels, coordinates, sampling, references, events, trials, and stimuli are verified
-      - physical EEG unit is not recoverable, so strict admission condition 3 fails and no data card exists
+      - schema-v2 classifies 5,911 valid multisample, 367 nonfinite placeholder, and 4 finite single-sample cells
+      - 6,282/6,282 material occurrences match, but event semantics, summary layer/reference, and both unit bindings fail condition 3
+      - strict admission remains FAIL and no data card exists
     target_task: S0_DATA_CARD
     blocker: B_V1_DATA_NOT_PRESENT
   stimulus_identity:
@@ -29,9 +34,11 @@ items:
     evidence_paths:
       - artifacts/admission/zuco2_nr_stimulus_manifest.jsonl
       - artifacts/admission/zuco2_nr_targeted_manifest.yaml
+      - artifacts/admission/zuco2_nr_stimulus_manifest_v2.jsonl
+      - artifacts/admission/zuco2_nr_targeted_manifest_v2.yaml
     tests_rerun: []
     acceptance_gaps:
-      - physical normalized hashes and duplicates exist but formal S0_STIMULUS_ID cannot begin before data admission
+      - exact block/line occurrence hashes and five cross-block duplicate groups exist, but formal S0_STIMULUS_ID cannot begin before data admission
     target_task: S0_STIMULUS_ID
     blocker: B_V1_DATA_NOT_PRESENT
   split:

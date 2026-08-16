@@ -1,0 +1,92 @@
+schema_version: 1
+retrieved_at_utc: '2026-08-16T13:35:34.240529+00:00'
+bounded_search_complete: true
+sources:
+- source_id: local_zuco2_nr_summary_arrays
+  source: task1 - NR/Matlab files/results*_NR.mat
+  source_type: release_array_metadata
+  content_sha256: 723e547f9f671bb29f1f474cb60233a0b317595997ba87606c6da949d14addbe
+  release_applicability: DIRECT_ZUCO2_NR
+  binds_array: sentenceData/rawData
+  unit: null
+  reference: null
+  layer: null
+  locator: rawData object-reference dataset and referenced numeric leaves; no binding
+    attrs
+  verdict: UNRESOLVED
+- source_id: local_zuco2_nr_preprocessed_arrays
+  source: task1 - NR/Preprocessed/*/*_EEG.mat
+  source_type: release_array_metadata
+  content_sha256: 29c7420829c4a032d440c3cd183c481503ca8e6ece745522f46c35bc3f2662b5
+  release_applicability: DIRECT_ZUCO2_NR
+  binds_array: EEG/data
+  unit: null
+  reference: common-average
+  layer: preprocessed Automagic EEG
+  locator: EEG/ref=common; automagic/EEGReference=Cz; no unit field or attr
+  verdict: REFERENCE_AND_LAYER_BOUND_UNIT_UNRESOLVED
+- source_id: osf_wiki_data_format
+  source: https://api.osf.io/v2/wikis/s3nrk/content/
+  source_type: official_release_wiki
+  content_sha256: 3cc1b85c021042d93db4f077145b84e6c3beebad3a474f6781746a6a40dbdbb4
+  release_applicability: DIRECT_ZUCO2
+  binds_array: event triggers and missing sentence convention
+  unit: null
+  reference: null
+  layer: null
+  locator: 'lines 43 and 47-67: missing sentences are NaN; triggers 10/11/12/13/15'
+  verdict: EVENT_SEMANTICS_BOUND_UNIT_NOT_STATED
+- source_id: acl_lrec_2020_paper
+  source: https://aclanthology.org/2020.lrec-1.18.pdf
+  source_type: author_dataset_paper
+  content_sha256: c521618fb009bbf22f39529a66e60fc5fba43c5bbb17f22ee4a333328b7c54be
+  release_applicability: ZUCO2_CONTEXT_NOT_ARRAY_STORAGE_BINDING
+  binds_array: null
+  unit: microvolt context
+  reference: Cz acquisition
+  layer: acquisition/preprocessing narrative
+  locator: sections 3.5-3.6; 90 microvolt rejection criterion and figure axes
+  verdict: NON_BINDING_CONTEXT
+- source_id: frontiers_2022_benchmark
+  source: https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.1028824/full
+  source_type: zuco_author_benchmark_paper
+  content_sha256: 4394e99779f3380b7275973295adf5790572e58de695a4ae1f098cdfe64f8c23
+  release_applicability: ZUCO2_PROCESSING_CONTEXT
+  binds_array: processed pipeline, not stored array unit
+  unit: 90 microvolt threshold context
+  reference: common-average
+  layer: preprocessed pipeline
+  locator: sections 2.6.2.1-2.6.2.3
+  verdict: PROCESSED_REFERENCE_CONTEXT_BOUND_STORAGE_UNIT_UNRESOLVED
+- source_id: zuco_benchmark_issue_5
+  source: https://api.github.com/repos/norahollenstein/zuco-benchmark/issues/5
+  source_type: author_repository_issue
+  content_sha256: 17d413073062a34ea1555e01a040b3449398fb73b4998c8fa41abaa90e87afdb
+  related_comments_sha256: 9127902e7cca23c2b43464ee284577bd57b71bc6a3c35e8a1ce77007993f4bb0
+  release_applicability: ZUCO1_TASK1_SR_RESULTSZAB_NOT_ZUCO2_NR
+  binds_array: ZuCo 1.0 sentenceData/rawData
+  unit: microvolt stated by repository collaborator
+  reference: null
+  layer: null
+  locator: 'open issue #5; collaborator response 2024-04-18; question names task1-SR/resultsZAB_SR.mat'
+  verdict: NON_BINDING_CONTEXT_FOR_ZUCO2_NR
+- source_id: osf_wiki_home
+  source: https://api.osf.io/v2/wikis/kw2df/content/
+  source_type: official_release_wiki
+  content_sha256: 754438321cb7163f10cfa2f399ce8d3e85446b8a1e628768c99c0882cde33f94
+  release_applicability: DIRECT_ZUCO2
+  binds_array: null
+  unit: null
+  reference: null
+  layer: null
+  locator: same formats statement except MAT v7 versus v7.3
+  verdict: INSUFFICIENT_FOR_UNIT_OR_LAYER_BINDING
+preprocessed_EEG_data_reference_status: BOUND
+preprocessed_EEG_data_unit_status: UNRESOLVED
+summary_rawData_layer_status: UNRESOLVED
+summary_rawData_reference_status: UNRESOLVED
+summary_rawData_unit_status: UNRESOLVED
+event_semantics_status: BOUND
+author_issue_5_state: OPEN_WITH_COLLABORATOR_REPLY_NOT_APPLICABLE_TO_ZUCO2_NR
+stop_reason: Bounded sources exhausted; no direct ZuCo 2.0 stored-array unit or summary-layer/reference
+  binding.

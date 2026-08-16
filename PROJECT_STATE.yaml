@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-16"
-updated_by_run: 2026-08-16_005_active_spec_guard_zuco2_nr_admission
+updated_by_run: 2026-08-16_006_zuco2_nr_admission_repair
 
 project:
   name: nc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 250ca9a67cf386784005a1edbbfe502d7df6f192
-  reviewed_commit: 250ca9a67cf386784005a1edbbfe502d7df6f192
-  repository_status: SPEC_V14_ACTIVE_TARGETED_NR_AUDIT_COMPLETE_UNIT_BLOCKED
-  spec_version: v1.4
-  spec_path: guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md
+  baseline_commit: d6751eadd96b2f651e5dbd1bfd5366679688ce4d
+  reviewed_commit: d6751eadd96b2f651e5dbd1bfd5366679688ce4d
+  repository_status: SPEC_V15_ACTIVE_ZUCO2_NR_SCHEMA_V2_ADMISSION_BLOCKED
+  spec_version: v1.5
+  spec_path: guide/NC_HSG_Paper_Spec_v1_5_2026-08-16.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -42,14 +42,14 @@ gates:
 
 blockers:
   - id: B_V1_DATA_NOT_PRESENT
-    reason: The authorized ZuCo 2.0 NR view has official CC-BY-4.0 evidence, 27/27 local-to-OSF SHA256 matches, 18x349 summary assignments, and consistent 126-block channel, coordinate, 500 Hz, Cz acquisition-reference, common-average processed-reference, event, and trial metadata; only the physical EEG unit is not recoverable from selectively readable local metadata, so admission condition 3 fails.
+    reason: Schema-v2 recomputation classifies all 6,282 cells and proves 6,282/6,282 ordered material occurrences. Admission condition 3 fails on event_semantics_bound, summary_layer_bound, summary_reference_bound, preprocessed_unit_bound, and summary_unit_bound. The ledger excludes 367 nonfinite placeholders and 4 finite single-sample cells; event structure passes but two YTL blocks have non-pairable sentence-boundary trigger ordering.
     blocks:
       - S0_DATA_CARD
       - S0_STIMULUS_ID
       - S0_JOINT_SPLIT
       - S0_A1_FRONTEND
       - S0_A1_ADMISSION
-    resolution: Recover an authoritative release-applicable physical unit for summary sentenceData/rawData and preprocessed EEG/data from a metadata field or source document, then rerun only scripts/audit_zuco2_nr.py; do not repeat broad discovery or infer the unit from another pipeline.
+    resolution: Obtain authoritative release-applicable bindings for the unresolved arrays and resolve the two physical event-order anomalies before rerunning only the bounded targeted auditor; do not repeat broad discovery or infer missing facts.
   - id: B_V2_BACKBONE_NOT_PRESENT
     reason: Candidate evidence now exists for trust_align A1, trust_align LaBraM, and official NeuroLM-B plus VQ, but no single primary A has been selected and each candidate retains license, physical-interface, checkpoint-locality, channel-map, or common-score acceptance gaps.
     blocks:
@@ -88,12 +88,12 @@ blockers:
       - GATE_A
     resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
 
-last_completed_task: S0_ZUCO2_NR_TARGETED_ADMISSION
+last_completed_task: S0_ZUCO2_NR_ADMISSION_REPAIR
 recommended_next_task: null
-last_run: runs/2026-08-16_005_active_spec_guard_zuco2_nr_admission.md
+last_run: runs/2026-08-16_006_zuco2_nr_admission_repair.md
 
 do_not_do_yet:
-  - Do not infer the unresolved EEG unit, split, checkpoint contents, or scientific admission from candidate discovery or another pipeline.
+  - Do not infer unresolved EEG unit, summary layer/reference, event semantics, split, checkpoint contents, or scientific admission from candidate discovery or another pipeline.
   - Do not import scientific state, DONE tasks, blockers, commits, or evidence from the trust_align reference project or other example archives.
   - Do not implement N1, N2, schema, NC-HSG, direct-C, PMI, or free LLM generation until their prerequisites and blockers are resolved.
   - Do not read held-out metrics, unlock test data, train models, or run Gate A1, Gate A, Gate B, or a main experiment.

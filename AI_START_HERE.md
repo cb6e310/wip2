@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (version `v1.4`).
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_5_2026-08-16.md` (version `v1.5`).
 
 ## Verified location
 
@@ -13,7 +13,7 @@ Active SPEC: `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (version `v1.4`).
 
 ## Source of truth
 
-1. `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (active version `v1.4`)
+1. `guide/NC_HSG_Paper_Spec_v1_5_2026-08-16.md` (active version `v1.5`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
@@ -34,9 +34,9 @@ Before changing files, record HEAD, branch, origin, and dirty state. If entry po
 
 ## Current evidence boundary
 
-Run 005 completed `SPEC_V14_REVIEW`, `S0_ACTIVE_SPEC_GUARD`, and `S0_ZUCO2_NR_TARGETED_ADMISSION`. The targeted audit found official CC-BY-4.0 evidence and 27/27 OSF hash matches, plus stable NR channel/coordinate/sampling/reference/event/trial/stimulus metadata. Admission condition 3 still FAILS because no physical EEG unit is recoverable. Therefore `S0_DATA_CARD` is BLOCKED, no scientific task is READY, and no data card exists.
+Run 005 remains immutable history. Run 006 completed `SPEC_V15_REVIEW` and `S0_ZUCO2_NR_ADMISSION_REPAIR`; schema v2 supersedes only run 005's active admission conclusion. It classifies all 6,282 cells as 5,911 valid finite multisample, 367 nonfinite placeholders, and 4 finite single-sample exclusions, and proves 6,282/6,282 ordered block occurrences. Conditions are `PASS, PASS, FAIL, PASS, PASS, PASS`: event structure passes but event semantics fails in two YTL blocks, and summary layer/reference plus both stored-array units remain unresolved. Therefore `S0_DATA_CARD` is BLOCKED, no scientific task is READY, and no data card exists.
 
-Do not infer the unit, repeat broad discovery, select primary A, read historical/test outcomes, deserialize unsafe objects, download data/weights, train, or run a Gate.
+Do not infer unresolved unit/layer/reference semantics, repeat broad discovery, select primary A, read historical/test outcomes, deserialize unsafe objects, download data/weights, train, or run a Gate.
 
 ## End-of-session contract
 

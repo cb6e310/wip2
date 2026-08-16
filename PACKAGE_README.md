@@ -1,7 +1,27 @@
-# NC-HSG Project Memory — Iteration 3 Applied
+# NC-HSG Iteration 4 Handoff Package
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (version `v1.4`), reviewed at baseline `250ca9a67cf386784005a1edbbfe502d7df6f192`.
+Purpose: update the project from verified remote state
+`wip2@d6751eadd96b2f651e5dbd1bfd5366679688ce4d` to SPEC v1.5 and repair the
+ZuCo 2.0 NR targeted-admission predicates.
 
-Run 005 repaired the active-SPEC entry points and completed a bounded, outcome-blind ZuCo 2.0 NR physical audit. Official license evidence and all 27 admitted local-to-OSF hashes pass. Physical channel, coordinate, sampling, reference, event, trial, and stimulus identity metadata are recovered, but EEG unit metadata is not. Overall admission is therefore FAIL, `S0_DATA_CARD` remains BLOCKED, and no data card was generated.
+This is a delta package, not a replacement repository. Verify
+`PACKAGE_MANIFEST.sha256`, import only manifest-listed files into the existing
+clean checkout, and execute `CODEX_NEXT_TASK.md`.
 
-Start with `AI_START_HERE.md`, then `PROJECT_STATE.yaml`, `HANDOFF.md`, `TASKS.yaml`, and `runs/2026-08-16_005_active_spec_guard_zuco2_nr_admission.md`.
+The package contains no EEG, stimulus text, checkpoint, result, scientific
+model code, or claim that the dataset is admitted. It preserves run 005 as
+historical evidence and freezes a bounded correction for invalid/missing EEG
+cells, exact block occurrence, event semantics, and storage-unit/layer binding.
+
+Contents:
+
+- `guide/NC_HSG_Paper_Spec_v1_5_2026-08-16.md`: next active SPEC.
+- `artifacts/spec_review/nc_hsg_v15_post_push_review.md`: independent review.
+- `CODEX_NEXT_TASK.md`: exact executable Codex task.
+- `PACKAGE_MANIFEST.sha256`: integrity allowlist.
+
+Execution result: package integrity passed and SPEC v1.5 was activated at
+baseline `d6751eadd96b2f651e5dbd1bfd5366679688ce4d`. Run 006 generated the
+schema-v2 targeted evidence. Admission remains FAIL on event semantics,
+summary layer/reference, and preprocessed/summary unit bindings, so no data
+card or downstream scientific task was created.
