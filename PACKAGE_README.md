@@ -1,7 +1,19 @@
-# NC-HSG First-Iteration Package
+# NC-HSG Iteration 2 Handoff Package
 
-This package contains the active NC-HSG SPEC v1.2, conservative bootstrap state, task graph, handoff, decision log, and the exact first Codex task.
+Purpose: update the project from the verified remote state at
+`wip2@1b836fe56970d262f4e8f3ae8262fd0abb670dbe` to the outcome-blind v1.3
+governance and input-discovery task.
 
-It is not a snapshot of the `wip2` repository. The initial state intentionally says `UNINSPECTED_BY_CURRENT_ITERATION`; Codex must install the governance system and replace that uncertainty with physical repository evidence.
+This is a delta package, not a replacement repository. Verify
+`PACKAGE_MANIFEST.sha256`, import only manifest-listed files into the existing
+checkout, and follow `CODEX_NEXT_TASK.md`.
 
-Give the entire ZIP plus the text of `CODEX_NEXT_TASK.md` to Codex. Codex must verify `PACKAGE_MANIFEST.sha256`, preserve unrelated repository changes, and stop after governance plus the read-only repository audit.
+The package does not contain EEG, checkpoints, results, scientific code, or a
+claim that data/backbone has been admitted.
+
+Contents:
+
+- `guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md`: next active SPEC.
+- `artifacts/spec_review/nc_hsg_v13_post_push_review.md`: independent review.
+- `CODEX_NEXT_TASK.md`: exact executable Codex task.
+- `PACKAGE_MANIFEST.sha256`: integrity allowlist.

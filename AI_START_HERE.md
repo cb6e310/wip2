@@ -14,7 +14,7 @@ The root `AGENTS.md` makes this recovery contract automatically discoverable.
 
 ## Source of truth
 
-1. `guide/NC_HSG_Paper_Spec_v1_2_2026-08-16.md`
+1. `guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md`
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
@@ -33,7 +33,7 @@ Read in this order:
 1. `PROJECT_STATE.yaml`
 2. `HANDOFF.md`
 3. `TASKS.yaml`
-4. Relevant v1.2 SPEC sections
+4. Relevant v1.3 SPEC sections
 5. The current task's physical evidence paths
 
 Then run:
@@ -63,7 +63,7 @@ If state, tasks, evidence, and the SPEC disagree, report
 
 ## Current boundary
 
-- This is the first NC-HSG iteration.
+- This is the second governance/input-discovery iteration under active SPEC v1.3.
 - The GitHub remote was empty before this governance bootstrap.
 - The pre-bootstrap server directory contained only the management contract
   and an older v1 SPEC; no scientific source, dependency manifest, dataset,
@@ -73,8 +73,12 @@ If state, tasks, evidence, and the SPEC disagree, report
 - `S0_ENVIRONMENT_SYNC` confirms that `.venv` matches the frozen package set
   from `trust_align/.venv`; it is environment evidence only, not backbone,
   checkpoint, data, model, Gate, or result admission.
-- No scientific task is READY until its recorded physical-evidence blocker is
-  resolved. Do not invent a dataset path or backbone.
+- `SPEC_V13_REVIEW`, `S0_GOVERNANCE_HARDENING`, and
+  `S0_INPUT_DISCOVERY_AUDIT` are DONE as governance evidence only.
+- An authorized local ZuCo 2.0 candidate and three backbone candidates are
+  physically inventoried, but no dataset or primary A is admitted.
+- No scientific task is READY. Resume only after the user provides the local
+  ZuCo license/authorization file and physical channel-name/coordinate metadata.
 - Do not implement scientific modules, train, download data, read held-out
   metrics, or run a Gate under the governance task.
 

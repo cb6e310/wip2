@@ -55,7 +55,8 @@ class ProjectMemoryTests(unittest.TestCase):
         for field in ("spec_path", "management_contract_path"):
             path = self.root / self.state["project"][field]
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(f"fixture {field}\n", encoding="utf-8")
+            content = f"# fixture {self.state['project']['spec_version']}\n" if field == "spec_path" else f"fixture {field}\n"
+            path.write_text(content, encoding="utf-8")
         last_run = self.root / self.state["last_run"]
         last_run.parent.mkdir(parents=True, exist_ok=True)
         last_run.write_text("fixture last run\n", encoding="utf-8")
@@ -81,6 +82,20 @@ class ProjectMemoryTests(unittest.TestCase):
                     path.write_text("fixture artifact\n", encoding="utf-8")
                 else:
                     path.mkdir(parents=True, exist_ok=True)
+        (self.root / "CODEX_NEXT_TASK.md").write_text(
+            "NO_READY_TASK\n" if self.state.get("recommended_next_task") is None else str(self.state["recommended_next_task"]),
+            encoding="utf-8",
+        )
+        for relative in CHECKER.SNAPSHOT_PATHS:
+            source = yaml.safe_load((PROJECT_ROOT / relative).read_text(encoding="utf-8"))
+            target = self.root / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(yaml.safe_dump(source, sort_keys=False), encoding="utf-8")
+        active_spec = self.root / self.state["project"]["spec_path"]
+        active_spec.write_text(
+            f"# fixture {self.state['project']['spec_version']}\n",
+            encoding="utf-8",
+        )
 
     def _save(self) -> None:
         (self.root / "PROJECT_STATE.yaml").write_text(
@@ -104,9 +119,11 @@ class ProjectMemoryTests(unittest.TestCase):
         task = self.tasks[task_id]
         task["status"] = "DONE"
         task["completed_by_run"] = "fixture_order"
+        task["acceptance_evidence"] = ["fixture_order_evidence.txt"]
         run = self.root / "runs" / "fixture_order.md"
         run.parent.mkdir(parents=True, exist_ok=True)
         run.write_text("fixture\n", encoding="utf-8")
+        (self.root / "fixture_order_evidence.txt").write_text("fixture\n", encoding="utf-8")
         for artifact in task.get("produces", []):
             path = self.root / artifact
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -201,6 +218,87 @@ class ProjectMemoryTests(unittest.TestCase):
         self.state["route"]["locked"] = ["FULL_NC_HSG", "TOPIC_LEVEL"]
         self.state["route"]["locked_by_run"] = "fixture"
         self._assert_code(self._errors(), "MULTIPLE_ROUTES_LOCKED")
+
+    def test_v13_generic_spec_passes(self) -> None:
+        self.assertEqual(self._errors(), [])
+
+    def test_spec_filename_mismatch_fails(self) -> None:
+        self.state["project"]["spec_path"] = "guide/NC_HSG_Paper_Spec_v1_2_fixture.md"
+        self._assert_code(self._errors(), "SPEC_VERSION_MISMATCH")
+
+    def test_spec_header_mismatch_fails(self) -> None:
+        path = self.root / self.state["project"]["spec_path"]
+        path.write_text("# fixture v9.9\n", encoding="utf-8")
+        self._save()
+        self._assert_code(CHECKER.validate(self.root), "SPEC_VERSION_MISMATCH")
+
+    def test_route_done_requires_locked_value(self) -> None:
+        self._complete_for_order_test("ROUTE_LOCK")
+        self.state["route"]["locked"] = None
+        self.state["route"]["locked_by_run"] = "fixture_order"
+        self._assert_code(self._errors(), "ROUTE_LOCK_REQUIRED")
+
+    def test_route_lock_run_must_exist(self) -> None:
+        self._complete_for_order_test("ROUTE_LOCK")
+        self.state["route"]["locked"] = "FULL_NC_HSG"
+        self.state["route"]["locked_by_run"] = "missing_lock_run"
+        self._assert_code(self._errors(), "ROUTE_LOCK_RUN_MISSING")
+
+    def test_route_cannot_be_premature(self) -> None:
+        self.state["route"]["locked"] = "FULL_NC_HSG"
+        self._assert_code(self._errors(), "ROUTE_LOCK_PREMATURE")
+
+    def test_done_acceptance_evidence_required(self) -> None:
+        self.tasks["S0_ENVIRONMENT_SYNC"].pop("acceptance_evidence")
+        self._assert_code(self._errors(), "DONE_ACCEPTANCE_EVIDENCE_MISSING")
+
+    def test_done_acceptance_evidence_invalid_path_fails(self) -> None:
+        self.tasks["S0_ENVIRONMENT_SYNC"]["acceptance_evidence"] = ["../outside"]
+        self._assert_code(self._errors(), "DONE_ACCEPTANCE_EVIDENCE_PATH_INVALID")
+
+    def test_done_acceptance_evidence_missing_path_fails(self) -> None:
+        self.tasks["S0_ENVIRONMENT_SYNC"]["acceptance_evidence"] = ["missing.txt"]
+        self._assert_code(self._errors(), "DONE_ACCEPTANCE_EVIDENCE_MISSING_PATH")
+
+    def test_updated_by_run_must_match_last_run(self) -> None:
+        self.state["updated_by_run"] = "wrong_run"
+        self._assert_code(self._errors(), "UPDATED_BY_RUN_MISMATCH")
+
+    def test_snapshot_updated_run_required(self) -> None:
+        relative = CHECKER.SNAPSHOT_PATHS[0]
+        snapshot = yaml.safe_load((self.root / relative).read_text(encoding="utf-8"))
+        snapshot.pop("updated_by_run")
+        (self.root / relative).write_text(yaml.safe_dump(snapshot), encoding="utf-8")
+        self._save()
+        self._assert_code(CHECKER.validate(self.root), "SNAPSHOT_PROVENANCE_RUN_MISSING")
+
+    def test_snapshot_commit_required(self) -> None:
+        relative = CHECKER.SNAPSHOT_PATHS[0]
+        snapshot = yaml.safe_load((self.root / relative).read_text(encoding="utf-8"))
+        snapshot["evidence_as_of_commit"] = "bad"
+        (self.root / relative).write_text(yaml.safe_dump(snapshot), encoding="utf-8")
+        self._save()
+        self._assert_code(CHECKER.validate(self.root), "SNAPSHOT_PROVENANCE_COMMIT_INVALID")
+
+    def test_snapshot_run_must_exist(self) -> None:
+        relative = CHECKER.SNAPSHOT_PATHS[0]
+        snapshot = yaml.safe_load((self.root / relative).read_text(encoding="utf-8"))
+        snapshot["updated_by_run"] = "missing_snapshot_run"
+        (self.root / relative).write_text(yaml.safe_dump(snapshot), encoding="utf-8")
+        self._save()
+        self._assert_code(CHECKER.validate(self.root), "SNAPSHOT_PROVENANCE_RUN_MISSING")
+
+    def test_stale_next_task_fails(self) -> None:
+        (self.root / "CODEX_NEXT_TASK.md").write_text("bootstrap again\n", encoding="utf-8")
+        self._save()
+        self._assert_code(CHECKER.validate(self.root), "NEXT_TASK_STALE")
+
+    def test_discovery_is_first_after_hardening(self) -> None:
+        task = self.tasks["S0_INPUT_DISCOVERY_AUDIT"]
+        task["status"] = "READY"
+        task.pop("completed_by_run", None)
+        task.pop("acceptance_evidence", None)
+        self.assertEqual(CHECKER.ready_tasks(self.tasks, self.state), ["S0_INPUT_DISCOVERY_AUDIT"])
 
     def test_foreign_project_state_fails(self) -> None:
         self.state["notes"] = "foreign marker 711340d"

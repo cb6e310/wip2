@@ -1,5 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+updated_by_run: 2026-08-16_004_governance_hardening_input_discovery
+evidence_as_of_commit: 1b836fe56970d262f4e8f3ae8262fd0abb670dbe
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -10,10 +12,14 @@ allowed_statuses:
 items:
   data_loader_and_data_card:
     status: BLOCKED
-    evidence_paths: []
+    evidence_paths:
+      - artifacts/admission/input_source_inventory.yaml
+      - artifacts/admission/data_source_candidates.yaml
+      - reports/input_discovery_audit.md
     tests_rerun: []
     acceptance_gaps:
-      - no dataset file manifest license record or documented external path exists
+      - local ZuCo 2.0 candidate exists but physical license or authorization evidence is missing
+      - channel names coordinates sampling units reference event and trial semantics remain incomplete
     target_task: S0_DATA_CARD
     blocker: B_V1_DATA_NOT_PRESENT
   stimulus_identity:
@@ -45,12 +51,15 @@ items:
     evidence_paths:
       - requirements-trust-align.lock.txt
       - artifacts/governance/trust_align_dependency_sync.yaml
+      - artifacts/admission/backbone_source_candidates.yaml
+      - artifacts/admission/zuco_neurolm_compatibility.yaml
     tests_rerun:
       - exact sorted pip freeze comparison
       - pip check
       - torch CUDA and key scientific package import smoke
     acceptance_gaps:
-      - package environment is synchronized but no source checkpoint tensor preprocessing or license contract exists
+      - candidate source and checkpoint metadata exist but no single primary A is selected
+      - exact physical channel compatibility adapter and common score interface remain unverified
     target_task: S0_A_INTERFACE
     blocker: B_V2_BACKBONE_NOT_PRESENT
   semantic_schema_and_evaluator:
@@ -148,6 +157,22 @@ items:
     acceptance_gaps:
       - governance and specification artifacts only; no scientific artifact exists
     target_task: S0_REPOSITORY_AUDIT
+    blocker: null
+  governance_input_discovery:
+    status: VALIDATED
+    evidence_paths:
+      - scripts/audit_input_sources.py
+      - tests/test_audit_input_sources.py
+      - artifacts/admission/input_source_inventory.yaml
+      - artifacts/admission/data_source_candidates.yaml
+      - artifacts/admission/backbone_source_candidates.yaml
+      - artifacts/admission/zuco_neurolm_compatibility.yaml
+      - reports/input_discovery_audit.md
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_audit_input_sources.py'"
+    acceptance_gaps:
+      - governance discovery is validated but scientific data and backbone admission remain blocked
+    target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
 held_out_content_read: false

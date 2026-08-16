@@ -1,0 +1,131 @@
+schema_version: 1
+generated_by_run: 2026-08-16_004_governance_hardening_input_discovery
+evidence_as_of_commit: 1b836fe56970d262f4e8f3ae8262fd0abb670dbe
+selection_made: false
+candidates:
+  - id: TRUST_ALIGN_A1_SPECTRAL
+    status: STATICALLY_COMPATIBLE_UNVALIDATED
+    source_commit: 31164dc3d70b00fb383862f88b6404bd616db696
+    source_path: /home/song/projects/trust_align/02_code/src/backbones/a1_spectral.py
+    source_sha256: 01962aab393853774768e1e14bc752acf633e48fc136095595f4af3b93f35042
+    license_evidence: NOT_FOUND_FOR_PROJECT_ROOT
+    entry_points:
+      - bandpower_features
+      - extract_fixed_window_sequence
+      - A1AlignmentEncoder
+    checkpoint_identity: NOT_APPLICABLE_RANDOMLY_INITIALIZED_CANDIDATE
+    input_tensor: numeric EEG epoch with explicit 105-channel axis
+    sampling_filter_unit_channel_mask_window_contract:
+      sampling_hz: 500
+      channels: 105
+      unit: release-native amplitude unlabeled
+      filter_bands: eight statically frozen spectral bands
+      window: word epochs or fixed windows
+      mask: boolean sequence mask
+    output_score_api: 384-dimensional pooled alignment representation; NC-HSG scoring adapter absent
+    freeze_or_peft_evidence: no pretrained checkpoint; encoder trainable
+    tests_run:
+      command: PYTHONPATH=src .venv/bin/python -m unittest tests.test_a1_contract
+      result: 9_TESTS_PASS_AS_PART_OF_15_TEST_COMBINED_RUN
+    data_assumptions:
+      - requires verified 105-channel release-native matrices
+    missing_acceptance:
+      - source license for the reference project is absent
+      - no frozen checkpoint identity
+      - no NC-HSG common score interface
+      - no real-data admission imported from the reference project
+    forbidden_historical_result_paths:
+      - /home/song/projects/trust_align/03_runs
+      - /home/song/projects/trust_align/04_results
+  - id: TRUST_ALIGN_LABRAM_A3
+    status: FOUND_INCOMPLETE
+    source_commit: 31164dc3d70b00fb383862f88b6404bd616db696
+    source_path: /home/song/projects/trust_align/02_code/src/backbones/a3_labram.py
+    source_sha256: 79f134bfb724b69a1e0143e70515b71f3fbc4aa68d17a4868c57dd1a638d7062
+    license_evidence:
+      path: /home/song/projects/trust_align/02_code/vendor/LaBraM/LICENSE
+      sha256: bc3f03e2c9071fb40507f5c575d95eeaa98d07c54c54fb2855942b2a729adc71
+      license: MIT
+    entry_points:
+      - preprocess_raw_signal
+      - load_labram_base
+      - extract_pooled_embeddings
+    checkpoint_identity:
+      path: /home/song/projects/trust_align/02_code/vendor/checkpoints/labram-base.pth
+      size_bytes: 96612769
+      mtime_utc: "2026-08-13T06:16:00.377786952Z"
+      sha256: 7c50583826afac76c4ab18f43d958df40496c8229accc09ed6a227c9bb57c37c
+      deserialized: false
+    input_tensor: float EEG windows shaped N x 128 x 1000
+    sampling_filter_unit_channel_mask_window_contract:
+      source_hz: 500
+      model_hz: 200
+      bandpass_hz: [0.1, 75.0]
+      notch_hz: 50.0
+      unit_scale_divisor: 100.0
+      channels: 128
+      window_seconds: 5.0
+      patch_samples: 200
+    output_score_api: pooled 200-dimensional embedding; NC-HSG scoring adapter absent
+    freeze_or_peft_evidence: local loader supports frozen checkpoint inference but map validation is fail-closed
+    tests_run:
+      command: PYTHONPATH=src .venv/bin/python -m unittest tests.test_a3_contract
+      result: 6_TESTS_PASS_AS_PART_OF_15_TEST_COMBINED_RUN
+    data_assumptions:
+      - explicit verified 128-channel model-order map
+      - author-approved filter order notch Q and source unit
+    missing_acceptance:
+      - channel map is unverified
+      - filter order notch Q and physical source unit are unresolved
+      - checkpoint upstream identity sidecar is absent
+      - no NC-HSG common score interface
+    forbidden_historical_result_paths:
+      - /home/song/projects/trust_align/03_runs
+      - /home/song/projects/trust_align/04_results
+  - id: OFFICIAL_NEUROLM_B_VQ
+    status: FOUND_INCOMPLETE
+    source_commit: 0cda9876d8ce6ee07ed0c43eee5e9a6f5c24b177
+    source_repo: https://github.com/935963004/NeuroLM
+    code_license: MIT
+    license_evidence: https://raw.githubusercontent.com/935963004/NeuroLM/0cda9876d8ce6ee07ed0c43eee5e9a6f5c24b177/LICENSE
+    entry_points:
+      - dataset.py:PickleLoader
+      - model/model_neurolm.py:NeuroLM
+      - model/model_vq.py:VQ.get_codebook_indices
+    checkpoint_identity:
+      model_repo: https://huggingface.co/Weibang/NeuroLM
+      revision: eddfff5c64a4139442f826d6c67c8369fd00f45a
+      model_card_license: cc-by-4.0
+      NeuroLM-B.pt:
+        size_bytes: 2377399148
+        sha256: ffe098bc138b89f8817d3710a3604498d8ecd15135080e2ca27735d05c6d29ab
+      VQ.pt:
+        size_bytes: 1904671888
+        sha256: e792c39a6a9e6d1bf4604cf63090730424f1d37f942597883d0c0a1375a2663a
+      downloaded: false
+    input_tensor: B x token_count x 200 float EEG patches plus channel time and padding masks
+    sampling_filter_unit_channel_mask_window_contract:
+      sampling_hz: 200
+      bandpass_hz: [0.1, 75.0]
+      notch_hz: 50_or_60
+      unit: microvolt
+      standard_channel_vocabulary: dataset.py standard_1020
+      patch_samples: 200
+      max_block_size: 1024
+      masks: input_time input_mask and EEG attention masks
+    output_score_api: tokenizer features and NeuroLM logits exist; NC-HSG common scoring adapter absent
+    freeze_or_peft_evidence: VQ tokenizer parameters are frozen by official NeuroLM source
+    tests_run: STATIC_SOURCE_AND_METADATA_ONLY
+    data_assumptions:
+      - exact physical channel names must exist in official standard_1020 vocabulary
+      - preprocessing must reach 200 Hz and microvolt units
+      - official loader uses pickle and cannot be used as the sole NC-HSG data entry
+    missing_acceptance:
+      - weights are intentionally not downloaded
+      - exact ZuCo physical channel intersection and coordinates are unavailable
+      - reference and adapter policy are not frozen
+      - common NC-HSG scoring interface is absent
+    forbidden_historical_result_paths: []
+upstream_metadata_drift: false
+scientific_primary_a_selected: false
+historical_result_content_read: false

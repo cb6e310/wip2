@@ -9,6 +9,7 @@ ordering.  Scientific unknowns remain blockers rather than inferred facts.
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 from typing import Any, Iterable
@@ -46,6 +47,9 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V13_REVIEW",
+    "S0_GOVERNANCE_HARDENING",
+    "S0_INPUT_DISCOVERY_AUDIT",
     "SPEC_V12_REVIEW",
     "S0_GOVERNANCE_BOOTSTRAP",
     "S0_REPOSITORY_AUDIT",
@@ -77,6 +81,13 @@ REQUIRED_TASK_IDS = {
     "ROUTE_LOCK",
     "MAIN_EXPERIMENT",
 }
+SNAPSHOT_PATHS = (
+    "artifacts/governance/repository_inventory.yaml",
+    "artifacts/governance/environment_snapshot.yaml",
+    "artifacts/governance/spec_implementation_matrix.yaml",
+)
+SPEC_VERSION_RE = re.compile(r"^v[0-9]+\.[0-9]+(?:\.[0-9]+)?$")
+COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 FOREIGN_PROJECT_MARKERS = {
     "EQ-ANMA",
     "CSPE",
@@ -384,6 +395,30 @@ def validate(root: Path) -> list[str]:
                         _error(errors, "ARTIFACT_PATH_INVALID", f"{task_id}: {artifact!r}")
                     elif not artifact_path.exists():
                         _error(errors, "DONE_ARTIFACT_MISSING", f"{task_id}: {artifact}")
+            evidence = task.get("acceptance_evidence")
+            if not isinstance(evidence, list) or not evidence:
+                _error(errors, "DONE_ACCEPTANCE_EVIDENCE_MISSING", task_id)
+            else:
+                valid_evidence: list[str] = []
+                for item in evidence:
+                    evidence_path = _safe_relative_path(root, item)
+                    if evidence_path is None:
+                        _error(
+                            errors,
+                            "DONE_ACCEPTANCE_EVIDENCE_PATH_INVALID",
+                            f"{task_id}: {item!r}",
+                        )
+                    elif not evidence_path.exists():
+                        _error(
+                            errors,
+                            "DONE_ACCEPTANCE_EVIDENCE_MISSING_PATH",
+                            f"{task_id}: {item}",
+                        )
+                    else:
+                        valid_evidence.append(str(item))
+                non_run = [item for item in valid_evidence if not item.startswith("runs/")]
+                if not non_run and any(not str(item).startswith("runs/") for item in produces):
+                    _error(errors, "DONE_ACCEPTANCE_EVIDENCE_MISSING", f"{task_id}: run-only evidence")
         elif status == "BLOCKED":
             if not isinstance(task.get("blocked_reason"), str) or not task.get(
                 "blocked_reason", ""
@@ -412,12 +447,28 @@ def validate(root: Path) -> list[str]:
             _error(errors, code, repr(project.get(field)))
     spec_version = project.get("spec_version")
     spec_path_value = project.get("spec_path", "")
-    if spec_version != "v1.2" or "v1_2" not in str(spec_path_value):
+    spec_path = _safe_relative_path(root, spec_path_value)
+    spec_header = ""
+    if spec_path is not None and spec_path.is_file():
+        try:
+            with spec_path.open("r", encoding="utf-8") as handle:
+                spec_header = "".join(handle.readline() for _ in range(5))
+        except OSError:
+            pass
+    version_token = spec_version.replace(".", "_") if isinstance(spec_version, str) else ""
+    if (
+        not isinstance(spec_version, str)
+        or SPEC_VERSION_RE.fullmatch(spec_version) is None
+        or version_token not in Path(str(spec_path_value)).name
+        or spec_version not in spec_header
+    ):
         _error(
             errors,
             "SPEC_VERSION_MISMATCH",
             f"version={spec_version!r}, path={spec_path_value!r}",
         )
+    if COMMIT_RE.fullmatch(str(project.get("reviewed_commit", ""))) is None:
+        _error(errors, "REVIEWED_COMMIT_INVALID", repr(project.get("reviewed_commit")))
 
     execution = state.get("execution", {})
     if not isinstance(execution, dict) or execution.get("status") not in ALLOWED_STATUSES:
@@ -457,6 +508,7 @@ def validate(root: Path) -> list[str]:
         _error(errors, "ROUTE_SECTION_INVALID", "route must be a mapping")
         route = {}
     locked = route.get("locked")
+    route_lock_done = tasks.get("ROUTE_LOCK", {}).get("status") == "DONE"
     if isinstance(locked, list):
         if len(locked) > 1:
             _error(errors, "MULTIPLE_ROUTES_LOCKED", repr(locked))
@@ -464,18 +516,28 @@ def validate(root: Path) -> list[str]:
     elif locked is None:
         locked_values = set()
     elif isinstance(locked, str):
-        locked_values = {locked}
+        locked_values = {locked} if locked else set()
     else:
         _error(errors, "ROUTE_LOCK_INVALID", repr(locked))
         locked_values = set()
     illegal_routes = locked_values - ALLOWED_LOCKED_ROUTES
     if illegal_routes:
         _error(errors, "ROUTE_VALUE_INVALID", repr(sorted(illegal_routes)))
-    if locked_values:
-        if tasks.get("ROUTE_LOCK", {}).get("status") != "DONE":
+    locked_by_run = route.get("locked_by_run")
+    if route_lock_done:
+        if not isinstance(locked, str) or not locked:
+            _error(errors, "ROUTE_LOCK_REQUIRED", repr(locked))
+        if not isinstance(locked_by_run, str) or not locked_by_run.strip():
+            _error(errors, "ROUTE_LOCK_RUN_MISSING", repr(locked_by_run))
+        else:
+            lock_run_path = _run_record_path(root, locked_by_run)
+            if lock_run_path is None or not lock_run_path.is_file():
+                _error(errors, "ROUTE_LOCK_RUN_MISSING", repr(locked_by_run))
+    else:
+        if locked_values:
             _error(errors, "ROUTE_LOCK_PREMATURE", repr(sorted(locked_values)))
-        if not route.get("locked_by_run"):
-            _error(errors, "ROUTE_LOCK_RUN_MISSING", repr(sorted(locked_values)))
+        if locked_by_run not in (None, ""):
+            _error(errors, "ROUTE_LOCK_PREMATURE", f"locked_by_run={locked_by_run!r}")
 
     last_completed = state.get("last_completed_task")
     if last_completed is not None and tasks.get(last_completed, {}).get("status") != "DONE":
@@ -483,6 +545,23 @@ def validate(root: Path) -> list[str]:
     last_run = _safe_relative_path(root, state.get("last_run"))
     if last_run is None or not last_run.is_file():
         _error(errors, "LAST_RUN_MISSING", repr(state.get("last_run")))
+    else:
+        expected_run_id = last_run.stem
+        if state.get("updated_by_run") != expected_run_id:
+            _error(
+                errors,
+                "UPDATED_BY_RUN_MISMATCH",
+                f"expected {expected_run_id!r}, got {state.get('updated_by_run')!r}",
+            )
+        if isinstance(last_completed, str):
+            completed_by = tasks.get(last_completed, {}).get("completed_by_run")
+            completed_path = _run_record_path(root, completed_by)
+            if completed_path is None or completed_path.resolve() != last_run.resolve():
+                _error(
+                    errors,
+                    "LAST_COMPLETED_RUN_MISMATCH",
+                    f"{last_completed}: {completed_by!r}",
+                )
 
     candidates = ready_tasks(tasks, state)
     recommended = state.get("recommended_next_task")
@@ -505,6 +584,30 @@ def validate(root: Path) -> list[str]:
             "RECOMMENDATION_WITHOUT_READY_TASK",
             repr(recommended),
         )
+
+    next_task_path = root / "CODEX_NEXT_TASK.md"
+    try:
+        next_task_text = next_task_path.read_text(encoding="utf-8")
+    except OSError:
+        _error(errors, "NEXT_TASK_STALE", "CODEX_NEXT_TASK.md missing or unreadable")
+    else:
+        if recommended is not None and str(recommended) not in next_task_text:
+            _error(errors, "NEXT_TASK_STALE", f"missing recommended task {recommended}")
+        if recommended is None and "NO_READY_TASK" not in next_task_text:
+            _error(errors, "NEXT_TASK_STALE", "missing NO_READY_TASK")
+
+    for relative in SNAPSHOT_PATHS:
+        snapshot = _load_yaml(root / relative, errors, relative)
+        if not isinstance(snapshot, dict):
+            continue
+        for field in ("generated_by_run", "updated_by_run"):
+            run_id = snapshot.get(field)
+            run_path = _run_record_path(root, run_id)
+            if not isinstance(run_id, str) or not run_id.strip() or run_path is None or not run_path.is_file():
+                _error(errors, "SNAPSHOT_PROVENANCE_RUN_MISSING", f"{relative}.{field}={run_id!r}")
+        commit = snapshot.get("evidence_as_of_commit")
+        if COMMIT_RE.fullmatch(str(commit or "")) is None:
+            _error(errors, "SNAPSHOT_PROVENANCE_COMMIT_INVALID", f"{relative}: {commit!r}")
 
     try:
         state_text = state_path.read_text(encoding="utf-8")

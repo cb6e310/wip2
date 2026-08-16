@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-16"
-updated_by_run: 2026-08-16_003_trust_align_dependency_sync
+updated_by_run: 2026-08-16_004_governance_hardening_input_discovery
 
 project:
   name: nc_hsg_eeg_text
@@ -9,10 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: null
-  repository_status: INITIALIZED_FROM_EMPTY_REMOTE_AND_AUDITED
-  spec_version: v1.2
-  spec_path: guide/NC_HSG_Paper_Spec_v1_2_2026-08-16.md
+  baseline_commit: 1b836fe56970d262f4e8f3ae8262fd0abb670dbe
+  reviewed_commit: 1b836fe56970d262f4e8f3ae8262fd0abb670dbe
+  repository_status: GOVERNANCE_HARDENED_INPUT_DISCOVERY_COMPLETE
+  spec_version: v1.3
+  spec_path: guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -41,22 +42,22 @@ gates:
 
 blockers:
   - id: B_V1_DATA_NOT_PRESENT
-    reason: The audited repository contains no dataset file, data manifest, license record, or documented external dataset path. Dataset identity, subjects, sessions, trials, channels, sampling rate, stimulus duplicates, and semantic targets therefore remain unverified.
+    reason: An authorized local ZuCo 2.0 candidate tree was found under trust_align and safe headers confirm NR and TSR summary structure, but no local license/terms/author authorization or channel-name/coordinate evidence exists; sampling, units, reference, event and full trial semantics remain unverified.
     blocks:
       - S0_DATA_CARD
       - S0_STIMULUS_ID
       - S0_JOINT_SPLIT
       - S0_A1_FRONTEND
       - S0_A1_ADMISSION
-    resolution: Provide or document the authorized physical dataset location and license evidence, then build the data card from hashes and metadata without reading held-out metrics.
+    resolution: Provide the specific local ZuCo 2.0 license, terms, or author-authorization file plus physical channel-name and coordinate metadata for the audited release, then rerun targeted admission without reading held-out metrics.
   - id: B_V2_BACKBONE_NOT_PRESENT
-    reason: The Python environment now exactly matches trust_align by frozen package set, but the repository still contains no scientific source tree, checkpoint reference, backbone implementation, tensor contract, preprocessing contract, or license evidence.
+    reason: Candidate evidence now exists for trust_align A1, trust_align LaBraM, and official NeuroLM-B plus VQ, but no single primary A has been selected and each candidate retains license, physical-interface, checkpoint-locality, channel-map, or common-score acceptance gaps.
     blocks:
       - S0_A_INTERFACE
       - S0_A1_FRONTEND
       - S0_A1_ADMISSION
       - S0_ALIGN_UNIT_COST
-    resolution: Provide or document the authorized backbone code and checkpoint source, then freeze exactly one primary A from physical evidence before training.
+    resolution: After data metadata is admissible, have the author or next outcome-blind review select exactly one A from artifacts/admission/backbone_source_candidates.yaml and freeze its adapter and score contract before training.
   - id: B_V3_SCHEMA_UNFROZEN
     reason: L1-L3 typed semantic units, projections, evaluator, L4 renderer, and blinded audit protocol are not implemented or frozen.
     blocks:
@@ -87,12 +88,12 @@ blockers:
       - GATE_A
     resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
 
-last_completed_task: S0_ENVIRONMENT_SYNC
+last_completed_task: S0_INPUT_DISCOVERY_AUDIT
 recommended_next_task: null
-last_run: runs/2026-08-16_003_trust_align_dependency_sync.md
+last_run: runs/2026-08-16_004_governance_hardening_input_discovery.md
 
 do_not_do_yet:
-  - Do not infer a dataset path, license, channel layout, sampling rate, split, checkpoint, or scientific implementation from the empty repository.
+  - Do not infer missing license, channel layout, sampling metadata, split, checkpoint contents, or scientific admission from candidate discovery.
   - Do not import scientific state, DONE tasks, blockers, commits, or evidence from the trust_align reference project or other example archives.
   - Do not implement N1, N2, schema, NC-HSG, direct-C, PMI, or free LLM generation until their prerequisites and blockers are resolved.
   - Do not read held-out metrics, unlock test data, train models, or run Gate A1, Gate A, Gate B, or a main experiment.

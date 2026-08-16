@@ -15,7 +15,102 @@ SPEC_V12_REVIEW:
     - calibration selection and certification multiplicity is explicit
     - no current-repository fact is inferred from the example ZIP
   completed_by_run: 2026-08-16_001_nc_hsg_v12_bootstrap
+  acceptance_evidence:
+    - guide/NC_HSG_Paper_Spec_v1_2_2026-08-16.md
+    - artifacts/spec_review/nc_hsg_v12_decision_log.md
+    - runs/2026-08-16_001_nc_hsg_v12_bootstrap.md
   evidence_scope: SPECIFICATION_ONLY_NO_REPOSITORY_OR_OUTCOME_EVIDENCE
+
+SPEC_V13_REVIEW:
+  title: Activate outcome-blind NC-HSG SPEC v1.3 and record the baseline review
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V12_REVIEW
+  produces:
+    - guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md
+    - artifacts/spec_review/nc_hsg_v13_post_push_review.md
+    - runs/2026-08-16_004_governance_hardening_input_discovery.md
+  acceptance:
+    - active version and path agree
+    - v1.2 scientific thresholds and Gates remain unchanged
+    - reviewed baseline commit is recorded exactly
+    - path-based acceptance evidence exists
+  completed_by_run: 2026-08-16_004_governance_hardening_input_discovery
+  acceptance_evidence:
+    - guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md
+    - artifacts/spec_review/nc_hsg_v13_post_push_review.md
+    - runs/2026-08-16_004_governance_hardening_input_discovery.md
+  evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
+
+S0_GOVERNANCE_HARDENING:
+  title: Harden project-memory continuity and regression coverage
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 1
+  prerequisites:
+    - SPEC_V13_REVIEW
+  produces:
+    - scripts/check_project_state.py
+    - scripts/project_status.py
+    - tests/test_project_memory.py
+    - PROJECT_STATE.yaml
+    - TASKS.yaml
+    - AI_START_HERE.md
+    - HANDOFF.md
+    - artifacts/governance/repository_inventory.yaml
+    - artifacts/governance/environment_snapshot.yaml
+    - artifacts/governance/spec_implementation_matrix.yaml
+    - runs/2026-08-16_004_governance_hardening_input_discovery.md
+  acceptance:
+    - generic SPEC route-lock DONE-evidence run-state snapshot and stale-next-task checks pass
+    - all required regression tests pass
+    - state entry handoff tasks and snapshots carry consistent provenance
+  completed_by_run: 2026-08-16_004_governance_hardening_input_discovery
+  acceptance_evidence:
+    - scripts/check_project_state.py
+    - tests/test_project_memory.py
+    - artifacts/governance/spec_implementation_matrix.yaml
+    - runs/2026-08-16_004_governance_hardening_input_discovery.md
+  evidence_scope: GOVERNANCE_ONLY_NO_SCIENTIFIC_IMPLEMENTATION
+
+S0_INPUT_DISCOVERY_AUDIT:
+  title: Audit authorized physical data and backbone inputs without outcomes
+  stage: stage_0
+  status: DONE
+  critical_path: true
+  priority: 2
+  prerequisites:
+    - S0_GOVERNANCE_HARDENING
+  produces:
+    - scripts/audit_input_sources.py
+    - tests/test_audit_input_sources.py
+    - artifacts/admission/input_source_inventory.yaml
+    - artifacts/admission/data_source_candidates.yaml
+    - artifacts/admission/backbone_source_candidates.yaml
+    - artifacts/admission/zuco_neurolm_compatibility.yaml
+    - reports/input_discovery_audit.md
+    - runs/2026-08-16_004_governance_hardening_input_discovery.md
+  acceptance:
+    - authorized roots exclusions and unread historical paths are recorded
+    - data and backbone candidates use only permitted classifications
+    - frozen official NeuroLM metadata is checked without downloading weights
+    - compatibility gaps are explicit and no primary A is selected
+    - scanner tests and deterministic inventory validation pass
+  completed_by_run: 2026-08-16_004_governance_hardening_input_discovery
+  acceptance_evidence:
+    - scripts/audit_input_sources.py
+    - tests/test_audit_input_sources.py
+    - artifacts/admission/input_source_inventory.yaml
+    - artifacts/admission/data_source_candidates.yaml
+    - artifacts/admission/backbone_source_candidates.yaml
+    - artifacts/admission/zuco_neurolm_compatibility.yaml
+    - reports/input_discovery_audit.md
+    - runs/2026-08-16_004_governance_hardening_input_discovery.md
+  evidence_scope: OUTCOME_BLIND_PHYSICAL_INPUT_METADATA_ONLY
 
 S0_GOVERNANCE_BOOTSTRAP:
   title: Install and validate persistent project context in the actual wip2 repository
@@ -43,6 +138,10 @@ S0_GOVERNANCE_BOOTSTRAP:
     - focused governance tests pass
     - the actual repository commit and dirty-state boundary are recorded
   completed_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+  acceptance_evidence:
+    - scripts/check_project_state.py
+    - tests/test_project_memory.py
+    - runs/2026-08-16_002_governance_bootstrap_repository_audit.md
   evidence_scope: GOVERNANCE_ONLY_NO_SCIENTIFIC_IMPLEMENTATION_OR_OUTCOME_EVIDENCE
 
 S0_REPOSITORY_AUDIT:
@@ -64,6 +163,11 @@ S0_REPOSITORY_AUDIT:
     - held-out result contents are not read
     - PROJECT_STATE TASKS HANDOFF and a run record are updated from evidence
   completed_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
+  acceptance_evidence:
+    - artifacts/governance/repository_inventory.yaml
+    - artifacts/governance/environment_snapshot.yaml
+    - artifacts/governance/spec_implementation_matrix.yaml
+    - runs/2026-08-16_002_governance_bootstrap_repository_audit.md
   evidence_scope: READ_ONLY_FILE_AND_METADATA_AUDIT_EMPTY_SCIENTIFIC_REPOSITORY
 
 S0_ENVIRONMENT_SYNC:
@@ -85,6 +189,10 @@ S0_ENVIRONMENT_SYNC:
     - pip check reports no broken requirements
     - torch CUDA MNE Transformers NumPy and SciPy smoke imports pass
   completed_by_run: 2026-08-16_003_trust_align_dependency_sync
+  acceptance_evidence:
+    - requirements-trust-align.lock.txt
+    - artifacts/governance/trust_align_dependency_sync.yaml
+    - runs/2026-08-16_003_trust_align_dependency_sync.md
   evidence_scope: ENVIRONMENT_ONLY_NO_BACKBONE_DATA_OR_SCIENTIFIC_ADMISSION
 
 S0_DATA_CARD:
@@ -103,7 +211,7 @@ S0_DATA_CARD:
     - subjects sessions trials channels sampling rate EEG fields text fields and exclusions are verified
     - subject-stimulus assignment and missing cells are enumerated
     - no result metric or test outcome is read
-  blocked_reason: The audited repository contains no dataset, data manifest, license record, or documented authorized external dataset path; B_V1_DATA_NOT_PRESENT blocks admission.
+  blocked_reason: An authorized local ZuCo 2.0 NR candidate exists, but no applicable local license/terms/author authorization or channel-name/coordinate evidence was found and the six strict v1.3 admission conditions are not all satisfied; B_V1_DATA_NOT_PRESENT remains active.
 
 S0_A_INTERFACE:
   title: Freeze exactly one controlled primary backbone A and its tensor contract
@@ -121,7 +229,7 @@ S0_A_INTERFACE:
     - input window sampling channels units mask output dimension and score interface are frozen
     - freeze versus PEFT scope and trainable parameter count are explicit
     - all comparison rows can share the same A and score API
-  blocked_reason: The Python package environment is synchronized, but no backbone code, checkpoint reference, tensor contract, preprocessing contract, or license evidence exists; B_V2_BACKBONE_NOT_PRESENT remains active.
+  blocked_reason: Three backbone candidates are inventoried, but discovery does not select primary A and every candidate retains physical-interface, license, checkpoint-locality, channel-map, adapter, or common-score gaps; B_V2_BACKBONE_NOT_PRESENT remains active.
 
 S0_STIMULUS_ID:
   title: Normalize stimulus identity and freeze near-duplicate groups
