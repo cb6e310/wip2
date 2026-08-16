@@ -1,8 +1,9 @@
 # NC-HSG Project Instructions
 
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (version `v1.4`).
+
 Before doing any work in this repository, read `AI_START_HERE.md` and follow
-its recovery sequence. The active scientific source of truth is
-`guide/NC_HSG_Paper_Spec_v1_2_2026-08-16.md`; project state must be recovered
+its recovery sequence. Project state must be recovered
 from `PROJECT_STATE.yaml`, `HANDOFF.md`, `TASKS.yaml`, physical evidence, and
 run records rather than chat history.
 

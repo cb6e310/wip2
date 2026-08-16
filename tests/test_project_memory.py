@@ -96,6 +96,12 @@ class ProjectMemoryTests(unittest.TestCase):
             f"# fixture {self.state['project']['spec_version']}\n",
             encoding="utf-8",
         )
+        entry = (
+            f"Active SPEC: `{self.state['project']['spec_path']}` "
+            f"(version `{self.state['project']['spec_version']}`).\n"
+        )
+        for name in ("AGENTS.md", "AI_START_HERE.md", "HANDOFF.md"):
+            (self.root / name).write_text(entry, encoding="utf-8")
 
     def _save(self) -> None:
         (self.root / "PROJECT_STATE.yaml").write_text(
@@ -114,6 +120,22 @@ class ProjectMemoryTests(unittest.TestCase):
             any(item.startswith(f"{code}:") for item in errors),
             f"missing {code}; errors={errors}",
         )
+
+    def test_active_spec_entrypoints_agree(self) -> None:
+        self.assertFalse(any(e.startswith("ENTRYPOINT_SPEC_MISMATCH:") for e in self._errors()))
+
+    def test_agents_wrong_spec_path_fails(self) -> None:
+        (self.root / "AGENTS.md").write_text("v1.2 guide/old_spec.md\n", encoding="utf-8")
+        self._assert_code(self._errors(), "ENTRYPOINT_SPEC_MISMATCH")
+
+    def test_ai_start_wrong_version_fails(self) -> None:
+        path = self.state["project"]["spec_path"]
+        (self.root / "AI_START_HERE.md").write_text(f"{path} version v1.2\n", encoding="utf-8")
+        self._assert_code(self._errors(), "ENTRYPOINT_SPEC_MISMATCH")
+
+    def test_missing_agents_fails(self) -> None:
+        (self.root / "AGENTS.md").unlink()
+        self._assert_code(self._errors(), "FILE_MISSING")
 
     def _complete_for_order_test(self, task_id: str) -> None:
         task = self.tasks[task_id]

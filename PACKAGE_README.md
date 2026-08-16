@@ -1,19 +1,7 @@
-# NC-HSG Iteration 2 Handoff Package
+# NC-HSG Project Memory — Iteration 3 Applied
 
-Purpose: update the project from the verified remote state at
-`wip2@1b836fe56970d262f4e8f3ae8262fd0abb670dbe` to the outcome-blind v1.3
-governance and input-discovery task.
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (version `v1.4`), reviewed at baseline `250ca9a67cf386784005a1edbbfe502d7df6f192`.
 
-This is a delta package, not a replacement repository. Verify
-`PACKAGE_MANIFEST.sha256`, import only manifest-listed files into the existing
-checkout, and follow `CODEX_NEXT_TASK.md`.
+Run 005 repaired the active-SPEC entry points and completed a bounded, outcome-blind ZuCo 2.0 NR physical audit. Official license evidence and all 27 admitted local-to-OSF hashes pass. Physical channel, coordinate, sampling, reference, event, trial, and stimulus identity metadata are recovered, but EEG unit metadata is not. Overall admission is therefore FAIL, `S0_DATA_CARD` remains BLOCKED, and no data card was generated.
 
-The package does not contain EEG, checkpoints, results, scientific code, or a
-claim that data/backbone has been admitted.
-
-Contents:
-
-- `guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md`: next active SPEC.
-- `artifacts/spec_review/nc_hsg_v13_post_push_review.md`: independent review.
-- `CODEX_NEXT_TASK.md`: exact executable Codex task.
-- `PACKAGE_MANIFEST.sha256`: integrity allowlist.
+Start with `AI_START_HERE.md`, then `PROJECT_STATE.yaml`, `HANDOFF.md`, `TASKS.yaml`, and `runs/2026-08-16_005_active_spec_guard_zuco2_nr_admission.md`.

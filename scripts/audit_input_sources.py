@@ -68,7 +68,7 @@ def _record(root_label: str, root: Path, path: Path, max_hash: int) -> dict[str,
         item.update(hash_status="HASH_SKIPPED_SENSITIVE_NAME", content_read=False)
     elif suffix in UNSAFE_SUFFIXES:
         item.update(hash_status="HASH_SKIPPED_UNSAFE_FORMAT", content_read=False)
-    elif "datasets" in {part.lower() for part in path.parts} or suffix in DATA_SUFFIXES:
+    elif suffix in DATA_SUFFIXES:
         item.update(hash_status="HASH_SKIPPED_DATA_FORMAT", content_read=False)
     elif info.st_size > max_hash:
         item.update(hash_status="HASH_SKIPPED_TOO_LARGE", content_read=False)

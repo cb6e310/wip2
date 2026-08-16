@@ -1,6 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_004_governance_hardening_input_discovery
-evidence_as_of_commit: 1b836fe56970d262f4e8f3ae8262fd0abb670dbe
+evidence_as_of_commit: 250ca9a67cf386784005a1edbbfe502d7df6f192
+updated_by_run: 2026-08-16_005_active_spec_guard_zuco2_nr_admission
 candidate_pair:
   data: ZuCo 2.0 task 1 NR
   backbone: official NeuroLM-B plus VQ frozen revisions
@@ -19,17 +20,17 @@ items:
       - /home/song/projects/trust_align/02_code/src/data/zuco2_loader.py
       - https://github.com/935963004/NeuroLM/blob/0cda9876d8ce6ee07ed0c43eee5e9a6f5c24b177/dataset.py
   physical_channels_and_coordinates:
-    status: UNVERIFIED
-    exact_intersection: NOT_COMPUTABLE
-    missing_channels: UNVERIFIED
-    extra_channels: UNVERIFIED
-    finding: no local ZuCo channel-name coordinate or montage file was found; nearest-neighbor mapping is forbidden.
+    status: LOCAL_ZUCO_VERIFIED_BACKBONE_MAPPING_UNVERIFIED
+    exact_intersection: NOT_COMPUTED_NO_PRIMARY_A_SELECTED
+    missing_channels: NOT_COMPUTED
+    extra_channels: NOT_COMPUTED
+    finding: local ZuCo exposes one complete 105-channel label/order/coordinate contract; compatibility remains unverified until exactly one primary A is selected. Nearest-neighbor mapping is forbidden.
     evidence_paths:
       - artifacts/admission/input_source_inventory.yaml
       - https://github.com/935963004/NeuroLM/blob/0cda9876d8ce6ee07ed0c43eee5e9a6f5c24b177/dataset.py
   reference_and_non_scalp_exclusions:
-    status: UNVERIFIED
-    finding: reference EOG face and neck exclusions cannot be reconstructed from physical metadata.
+    status: LOCAL_ZUCO_VERIFIED_BACKBONE_MAPPING_UNVERIFIED
+    finding: local acquisition reference is Cz, processed reference is common-average, and none of the 24 expected peripheral labels remains; backbone mapping is not selected.
     evidence_paths:
       - artifacts/admission/data_source_candidates.yaml
   masks_time_index_max_length_padding:
@@ -39,7 +40,7 @@ items:
       - https://github.com/935963004/NeuroLM/blob/0cda9876d8ce6ee07ed0c43eee5e9a6f5c24b177/dataset.py
   sentence_boundary_event_recoverability:
     status: UNVERIFIED
-    finding: 349 sentence slots and source fields are present, but event and trial semantics were not recovered without reading values.
+    finding: 349 sentence slots, 126 block files, one trial, and event type/latency fields are physically recoverable; model segmentation remains unfrozen.
     evidence_paths:
       - artifacts/admission/data_source_candidates.yaml
   checkpoint_and_code_license:
@@ -53,7 +54,7 @@ items:
     status: UNVERIFIED
     finding: a future adapter must freeze legal unit conversion resampling exact-name channel selection segmentation masks and a common score API; no adapter was implemented in this run.
     evidence_paths:
-      - guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md
+      - guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md
 forbidden_decisions:
   nearest_neighbor_channel_mapping_used: false
   interpolation_threshold_frozen: false

@@ -1,0 +1,21 @@
+schema_version: 1
+node_id: 2urht
+node_title: "ZuCo 2.0: A Dataset of Physiological Recordings During Natural Reading and Annotation"
+node_public: true
+node_date_modified: "2023-08-25T07:40:13.619361"
+license_relationship_id: 563c1cf88c5e4a3877f9e96a
+license_name: CC-By Attribution 4.0 International
+retrieved_at_utc: "2026-08-16T10:14:54.843256+00:00"
+source_urls:
+  - https://api.osf.io/v2/nodes/2urht/
+  - https://api.osf.io/v2/licenses/563c1cf88c5e4a3877f9e96a/
+normalized_evidence_sha256: 55dcfdb8c2a0968678cac50f509498074f1bf9e7370c76e61a80633c275215bb
+normalization_contract: canonical compact JSON with lexicographically sorted keys over node_id, node_title, node_public, node_date_modified, license_relationship_id, and license_name
+raw_response_sha256:
+  node: 9c2be2df138fce2ac9917b7dc416b897940cc77b8391de4c8742f22614cd4a13
+  license: 32fb3d7b32be0843803f96424fe7739f69574481211a2d323e16f8da8536c635
+relationship_evidence:
+  node_license_related_id: 563c1cf88c5e4a3877f9e96a
+  resolved_license_id: 563c1cf88c5e4a3877f9e96a
+  relationship_matches_resolved_license: true
+legal_text_committed: false

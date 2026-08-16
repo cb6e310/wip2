@@ -100,6 +100,26 @@ class AuditInputSourcesTests(unittest.TestCase):
         self.assertEqual(by_path["small.py"]["hash_status"], "SHA256")
         self.assertEqual(by_path["large.py"]["hash_status"], "HASH_SKIPPED_TOO_LARGE")
 
+    def test_safe_reader_inside_dataset_is_hashed_but_mat_is_not_opened(self) -> None:
+        dataset = self.reference / "datasets" / "x"
+        dataset.mkdir(parents=True)
+        reader = dataset / "reader.py"
+        data = dataset / "data.mat"
+        reader.write_text("# safe static reader\n", encoding="utf-8")
+        data.write_bytes(b"sensitive-mat")
+        original_open = Path.open
+
+        def guarded(path, *args, **kwargs):
+            if path == data:
+                raise AssertionError("MAT content opened")
+            return original_open(path, *args, **kwargs)
+
+        with mock.patch.object(Path, "open", guarded):
+            payload = self._audit(limit=1024)
+        by_path = {item["path"]: item for item in payload["entries"] if item["type"] == "file"}
+        self.assertEqual(by_path["datasets/x/reader.py"]["hash_status"], "SHA256")
+        self.assertEqual(by_path["datasets/x/data.mat"]["hash_status"], "HASH_SKIPPED_DATA_FORMAT")
+
     def test_output_is_sorted_and_byte_stable(self) -> None:
         (self.project / "z.py").write_text("z", encoding="utf-8")
         (self.project / "a.py").write_text("a", encoding="utf-8")

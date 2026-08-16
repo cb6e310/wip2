@@ -47,6 +47,9 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V14_REVIEW",
+    "S0_ACTIVE_SPEC_GUARD",
+    "S0_ZUCO2_NR_TARGETED_ADMISSION",
     "SPEC_V13_REVIEW",
     "S0_GOVERNANCE_HARDENING",
     "S0_INPUT_DISCOVERY_AUDIT",
@@ -87,6 +90,10 @@ SNAPSHOT_PATHS = (
     "artifacts/governance/spec_implementation_matrix.yaml",
 )
 SPEC_VERSION_RE = re.compile(r"^v[0-9]+\.[0-9]+(?:\.[0-9]+)?$")
+ACTIVE_SPEC_DECL_RE = re.compile(
+    r"Active SPEC:\s*`?([^`\s]+)`?\s*\(version\s*`?(v[0-9]+\.[0-9]+(?:\.[0-9]+)?)`?\)",
+    re.IGNORECASE,
+)
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 FOREIGN_PROJECT_MARKERS = {
     "EQ-ANMA",
@@ -127,6 +134,31 @@ def _safe_relative_path(root: Path, value: Any) -> Path | None:
     except ValueError:
         return None
     return resolved
+
+
+def _check_active_spec_entrypoints(root: Path, project: dict[str, Any], errors: list[str]) -> None:
+    """Fail closed when any live recovery entry point names another SPEC."""
+    expected_path = project.get("spec_path")
+    expected_version = project.get("spec_version")
+    for relative in ("AGENTS.md", "AI_START_HERE.md", "HANDOFF.md"):
+        path = root / relative
+        try:
+            content = path.read_text(encoding="utf-8")
+        except FileNotFoundError:
+            _error(errors, "FILE_MISSING", f"active SPEC entry point not found: {path}")
+            continue
+        except OSError as exc:
+            _error(errors, "FILE_UNREADABLE", f"{relative}: {type(exc).__name__}")
+            continue
+        declaration = ACTIVE_SPEC_DECL_RE.search(content)
+        if declaration is None:
+            _error(errors, "ENTRYPOINT_SPEC_MISMATCH", f"{relative}: Active SPEC declaration missing")
+            continue
+        declared_path, declared_version = declaration.groups()
+        if declared_path != expected_path:
+            _error(errors, "ENTRYPOINT_SPEC_MISMATCH", f"{relative}: path {declared_path!r} != {expected_path!r}")
+        if declared_version != expected_version:
+            _error(errors, "ENTRYPOINT_SPEC_MISMATCH", f"{relative}: version {declared_version!r} != {expected_version!r}")
 
 
 def _prerequisites_done(task: dict[str, Any], tasks: dict[str, Any]) -> bool:
@@ -438,6 +470,7 @@ def validate(root: Path) -> list[str]:
     if not isinstance(project, dict):
         _error(errors, "PROJECT_SECTION_INVALID", "project must be a mapping")
         project = {}
+    _check_active_spec_entrypoints(root, project, errors)
     for field, code in (
         ("spec_path", "SPEC_PATH_INVALID"),
         ("management_contract_path", "MANAGEMENT_CONTRACT_PATH_INVALID"),

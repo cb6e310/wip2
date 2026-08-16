@@ -1,0 +1,33 @@
+schema_version: 1
+node_id: 2urht
+retrieved_at_utc: "2026-08-16T10:14:54.843256+00:00"
+source: https://api.osf.io/v2/nodes/2urht/files/osfstorage/
+metadata_only: true
+files:
+  - {path: scripts/python_reader/data_loading_helpers.py, size_bytes: 10137, sha256: 90e3bab7d082891b4b53fcb154286d8a73eea0f3fa89a312176025f035cfa71c}
+  - {path: scripts/python_reader/read_matlab_files.py, size_bytes: 1610, sha256: daf147dee64cf53ae55050a3d19d0ea37d8811057cd9de3cfb2bc7f29fb91712}
+  - {path: "task1 - NR/Matlab files/resultsYAC_NR.mat", size_bytes: 1340390157, sha256: 0fbe472ed81fd80697c051e89d2af72ec12ebd2b4ec25f65ce47460aec26d8f5}
+  - {path: "task1 - NR/Matlab files/resultsYAG_NR.mat", size_bytes: 2426102526, sha256: aaa9ce8a8a615d3af2eafcf756f8a7fb5fc010d54d7485151b104ef585a94ce7}
+  - {path: "task1 - NR/Matlab files/resultsYAK_NR.mat", size_bytes: 1235552076, sha256: 07d877e639b899bdc9cb8f63d3250a9cbe3495eccad50a9e6226280d8fba533b}
+  - {path: "task1 - NR/Matlab files/resultsYDG_NR.mat", size_bytes: 1748510042, sha256: e7fc40698f3c87f31100b2f3f85278b56c498d00bf162a32c9b6bbd89ac6bf09}
+  - {path: "task1 - NR/Matlab files/resultsYDR_NR.mat", size_bytes: 1541159278, sha256: 5143ecd17a1942aed705da78d857e1551d1a211fc1a0827de098b6cce06840f5}
+  - {path: "task1 - NR/Matlab files/resultsYFR_NR.mat", size_bytes: 1892890796, sha256: 523bb9f407de077547e658cc173b6ab9d57d5bcdb17e470cba6141d611cb259a}
+  - {path: "task1 - NR/Matlab files/resultsYFS_NR.mat", size_bytes: 1404067839, sha256: db464aa7df52464979b6346a45183b3dc203882cfa9b3caa887b5d858bc389b3}
+  - {path: "task1 - NR/Matlab files/resultsYHS_NR.mat", size_bytes: 1290663769, sha256: f92093dfcfb39ddf142d28c24644ba63379fdd123407432c8fd9d15c24576857}
+  - {path: "task1 - NR/Matlab files/resultsYIS_NR.mat", size_bytes: 2026534731, sha256: bee4253689232fb54b1780db17e7e2799e37ef5ac9ea355068e7b6a59051a3c9}
+  - {path: "task1 - NR/Matlab files/resultsYLS_NR.mat", size_bytes: 1923277772, sha256: a1b2e948c3cdd5712ef86ac0509fcc4ccb58ecdeb8d727b563d52c2ddd0c5d5a}
+  - {path: "task1 - NR/Matlab files/resultsYMD_NR.mat", size_bytes: 2415535960, sha256: ef2933eb003d89c156db4977504336550c99f8d4a0e16dd71d8a8378e94a55af}
+  - {path: "task1 - NR/Matlab files/resultsYMS_NR.mat", size_bytes: 2446833984, sha256: f5584c11b11b02db7ef027108d33527b5f7ffe104b1586533e2aee1584730c10}
+  - {path: "task1 - NR/Matlab files/resultsYRH_NR.mat", size_bytes: 1544909024, sha256: 95cdcf44cd03dad9ad93a8bf74b5bfd22faf09ca59c12ffc82925548737d93a7}
+  - {path: "task1 - NR/Matlab files/resultsYRK_NR.mat", size_bytes: 2347425489, sha256: a91c4548e1caee4c6125aee5fefc25b361ca4fac2e4cb593c417ef5fc826dda6}
+  - {path: "task1 - NR/Matlab files/resultsYRP_NR.mat", size_bytes: 2319904154, sha256: 729df8d66c3151b853fe820cebdfadf9ffb5b4ae9c394ff63f1d723a8ad4a849}
+  - {path: "task1 - NR/Matlab files/resultsYSD_NR.mat", size_bytes: 1835711329, sha256: d71b0c8e78955c8768b680aa29c3ddee38dd45781456caee7566cb66b0703f13}
+  - {path: "task1 - NR/Matlab files/resultsYSL_NR.mat", size_bytes: 2356341298, sha256: dd006115a6817df048bb816e95f748f42583687eccb47cfd12f44999a1353ce2}
+  - {path: "task1 - NR/Matlab files/resultsYTL_NR.mat", size_bytes: 2495299295, sha256: b168d543a8f66f50276645fdbd662fcec6ee01370d986315fea1b12aa8cb8b73}
+  - {path: task_materials/nr_1.csv, size_bytes: 7891, sha256: 77291d9fe66797781efa7c093824a16198f38e92ac34067e8bf20d76d5c50386}
+  - {path: task_materials/nr_2.csv, size_bytes: 6080, sha256: 68a6885dd96d4fa386297d7f30352c2077b565577c68dcb2205b19d506042132}
+  - {path: task_materials/nr_3.csv, size_bytes: 6006, sha256: 1a1ead3a1dfa12d8ff73dbe619db94b6ce202b35a3d19358d67f01c3115553ba}
+  - {path: task_materials/nr_4.csv, size_bytes: 6669, sha256: d7b5c9b3a0e6d55958b976b0ea2cc6c236720ead947d6851d15de798e712965f}
+  - {path: task_materials/nr_5.csv, size_bytes: 6902, sha256: 2ca84d88f3267ecc4686f357cc97f2c077a2b90534ecbc8615b2197e2f93b5bc}
+  - {path: task_materials/nr_6.csv, size_bytes: 5975, sha256: 3722ba205f8b63e801791ef3303dcdbf52bbef3c6bd157bd11a16ccd40e1861a}
+  - {path: task_materials/nr_7.csv, size_bytes: 7104, sha256: 575a938092ca1db20d883fed180cb48fa66deca53097267874fe784fdc44cf9b}

@@ -1,13 +1,14 @@
 schema_version: 1
 generated_by_run: 2026-08-16_004_governance_hardening_input_discovery
-evidence_as_of_commit: 1b836fe56970d262f4e8f3ae8262fd0abb670dbe
+evidence_as_of_commit: 250ca9a67cf386784005a1edbbfe502d7df6f192
+updated_by_run: 2026-08-16_005_active_spec_guard_zuco2_nr_admission
 decision_contract:
   primary: ZuCo 2.0 task 1 NR
   later_robustness_only: ZuCo 2.0 task 2 TSR
   pooling_forbidden: true
 candidates:
   - id: ZUCO2_TASK1_NR_LOCAL
-    status: FOUND_LICENSE_UNVERIFIED
+    status: TARGETED_ADMISSION_FAILED_UNIT_ONLY
     authorized_root: /home/song/projects/trust_align
     local_path: 01_data_protocol/datasets/zuco_2.0
     physical_inventory:
@@ -24,7 +25,7 @@ candidates:
         content: 18
         rawData: 18
         word: 18
-      content_values_read: false
+      content_values_read_for_hash_only: true
       eeg_values_read: false
     official_expected_contract:
       valid_participants: 18
@@ -35,24 +36,28 @@ candidates:
       analyzed_scalp_channels: 105
       overlap_with_tsr_and_zuco1_requires_future_identity_audit: true
     license_evidence:
-      local_license_or_terms_path: null
-      matching_files_found: 0
-      status: MISSING_PHYSICAL_AUTHORIZATION_EVIDENCE
+      official_evidence_path: artifacts/admission/zuco2_osf_license.yaml
+      license: CC-By Attribution 4.0 International
+      status: VERIFIED_OFFICIAL_OSF_RELATIONSHIP
     recoverability:
       subject: VERIFIED_FROM_FILENAMES_AND_SUMMARY_COUNT
-      session: PARTIAL_RAW_SESSION_SLOTS_PRESENT
+      session: VERIFIED_SINGLE_SESSION
       task: VERIFIED_NR_PATH_AND_FIELD_STRUCTURE
-      block_trial: UNVERIFIED_WITHOUT_VALUE_READ
-      eeg: HEADER_FIELDS_PRESENT_VALUES_UNREAD
-      sampling: OFFICIAL_EXPECTATION_ONLY_NOT_LOCAL_HEADER
-      channel_names_coordinates: NOT_FOUND
-      event: UNVERIFIED
-      stimulus_id_text_fields: FIELD_PRESENCE_ONLY_VALUES_UNREAD
-    complete_sha256_manifest: NOT_GENERATED_LICENSE_AND_CHANNEL_ACCEPTANCE_ALREADY_FAILED
+      block_trial: VERIFIED_FROM_126_PREPROCESSED_BLOCKS_AND_TRIAL_METADATA
+      eeg: VERIFIED_HDF5_SHAPE_FINITE_AGGREGATES_WITHOUT_VALUE_OUTPUT
+      sampling: VERIFIED_500_HZ_ALL_126_BLOCKS
+      unit: NOT_RECOVERABLE
+      channel_names_coordinates: VERIFIED_ONE_COMPLETE_105_CHANNEL_CONTRACT
+      reference: VERIFIED_CZ_ACQUISITION_COMMON_AVERAGE_PROCESSED
+      event: VERIFIED_TYPE_AND_LATENCY_FIELDS
+      stimulus_id_text_fields: VERIFIED_HASH_ONLY_NO_TEXT_COMMITTED
+    complete_sha256_manifest: 27_OF_27_LOCAL_OSF_MATCH
     discrepancies:
-      - no local dataset license terms or author authorization file was found
-      - no local channel-name coordinate or montage evidence was found
-      - sampling unit reference event and trial semantics are not recoverable from the audited headers alone
+      - physical EEG unit is not recoverable from selectively readable local metadata
+    targeted_evidence:
+      - artifacts/admission/zuco2_nr_targeted_manifest.yaml
+      - artifacts/admission/zuco2_nr_stimulus_manifest.jsonl
+      - reports/zuco2_nr_targeted_admission.md
   - id: ZUCO2_TASK2_TSR_LOCAL
     status: FOUND_LICENSE_UNVERIFIED
     role: LATER_TASK_SHIFT_ROBUSTNESS_ONLY

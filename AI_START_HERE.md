@@ -1,114 +1,43 @@
 # AI Project Entry Point
 
-This file is the mandatory entry point for every new AI or Codex session.
-Repository state comes from files and physical evidence, never chat history.
-The root `AGENTS.md` makes this recovery contract automatically discoverable.
+This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-## Verified project location
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (version `v1.4`).
+
+## Verified location
 
 - Server: `song@10.244.144.87`
-- Project root: `/home/song/projects/trust_generative`
+- Root: `/home/song/projects/trust_generative`
 - Python: `/home/song/projects/trust_generative/.venv/bin/python`
-- Git remote: `https://github.com/cb6e310/wip2`
-- Branch: `main`
+- Remote/branch: `https://github.com/cb6e310/wip2` / `main`
 
 ## Source of truth
 
-1. `guide/NC_HSG_Paper_Spec_v1_3_2026-08-16.md`
+1. `guide/NC_HSG_Paper_Spec_v1_4_2026-08-16.md` (active version `v1.4`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
-5. The current task's code, tests, artifacts, and run records
+5. Current code, tests, artifacts, reports, and immutable runs
 
-The active scientific route is NC-HSG. Older SPEC files are retained for
-provenance but are not active. The example archive named
-`wip_v3_11_711340d_review_n10_common_support.zip` belongs to another project
-and is only a formatting reference. Never import its routes, task statuses,
-blockers, commit IDs, hashes, dataset findings, or evidence.
+Older SPECs and runs are provenance only. Never import state, claims, routes, metrics, or DONE decisions from `trust_align` or example archives.
 
-## Required recovery sequence
+## Recovery sequence
 
-Read in this order:
-
-1. `PROJECT_STATE.yaml`
-2. `HANDOFF.md`
-3. `TASKS.yaml`
-4. Relevant v1.3 SPEC sections
-5. The current task's physical evidence paths
-
-Then run:
+Read the five sources above, then run:
 
 ```bash
 .venv/bin/python scripts/check_project_state.py
 .venv/bin/python scripts/project_status.py
 ```
 
-Before changing files, print:
+Before changing files, record HEAD, branch, origin, and dirty state. If entry points and state disagree, report `STATE_SPEC_CONFLICT` and stop unless the current task explicitly authorizes repair.
 
-```text
-PROJECT SNAPSHOT
+## Current evidence boundary
 
-Current stage:
-Current route:
-Completed prerequisites:
-Active blockers:
-Ready tasks:
-Recommended next task:
-Why:
-Do not do yet:
-```
+Run 005 completed `SPEC_V14_REVIEW`, `S0_ACTIVE_SPEC_GUARD`, and `S0_ZUCO2_NR_TARGETED_ADMISSION`. The targeted audit found official CC-BY-4.0 evidence and 27/27 OSF hash matches, plus stable NR channel/coordinate/sampling/reference/event/trial/stimulus metadata. Admission condition 3 still FAILS because no physical EEG unit is recoverable. Therefore `S0_DATA_CARD` is BLOCKED, no scientific task is READY, and no data card exists.
 
-If state, tasks, evidence, and the SPEC disagree, report
-`STATE_SPEC_CONFLICT` and stop rather than guessing.
-
-## Current boundary
-
-- This is the second governance/input-discovery iteration under active SPEC v1.3.
-- The GitHub remote was empty before this governance bootstrap.
-- The pre-bootstrap server directory contained only the management contract
-  and an older v1 SPEC; no scientific source, dependency manifest, dataset,
-  checkpoint, result path, or pre-existing test was found.
-- `SPEC_V12_REVIEW`, `S0_GOVERNANCE_BOOTSTRAP`, and
-  `S0_REPOSITORY_AUDIT` are governance/specification evidence only.
-- `S0_ENVIRONMENT_SYNC` confirms that `.venv` matches the frozen package set
-  from `trust_align/.venv`; it is environment evidence only, not backbone,
-  checkpoint, data, model, Gate, or result admission.
-- `SPEC_V13_REVIEW`, `S0_GOVERNANCE_HARDENING`, and
-  `S0_INPUT_DISCOVERY_AUDIT` are DONE as governance evidence only.
-- An authorized local ZuCo 2.0 candidate and three backbone candidates are
-  physically inventoried, but no dataset or primary A is admitted.
-- No scientific task is READY. Resume only after the user provides the local
-  ZuCo license/authorization file and physical channel-name/coordinate metadata.
-- Do not implement scientific modules, train, download data, read held-out
-  metrics, or run a Gate under the governance task.
-
-## State discipline
-
-- Allowed statuses are `TODO`, `READY`, `IN_PROGRESS`, `DONE`, `BLOCKED`,
-  `FAILED`, `SKIPPED`, and `TERMINATED`.
-- `READY` requires every prerequisite `DONE` and no active blocker naming the
-  task.
-- `DONE` requires existing `produces`, satisfied acceptance criteria, a
-  `completed_by_run`, and a corresponding physical run record.
-- Code that exists but has not been validated is `IN_PROGRESS`, never `DONE`.
-- Missing or ambiguous facts create a blocker; they are not guessed from
-  filenames or documentation claims.
-- Gate A1 precedes semantic work; Gate A precedes calibration/method
-  comparison; Gate B precedes route lock; route lock precedes the test/main
-  experiment.
+Do not infer the unit, repeat broad discovery, select primary A, read historical/test outcomes, deserialize unsafe objects, download data/weights, train, or run a Gate.
 
 ## End-of-session contract
 
-Before ending any state-changing session:
-
-1. Update `PROJECT_STATE.yaml`.
-2. Update affected entries in `TASKS.yaml`.
-3. Replace `HANDOFF.md` with a concise current handoff.
-4. Add one immutable `runs/YYYY-MM-DD_<id>.md` record.
-5. Run `scripts/check_project_state.py`, `scripts/project_status.py`, relevant
-   tests, and `git diff --check`.
-6. Record exact tests, artifacts, hashes, state transitions, blockers, and the
-   next task.
-
-Scientific thresholds may only change through a new versioned SPEC before the
-affected results are read. Never change a Gate merely to make it pass.
+For state-changing work, update `PROJECT_STATE.yaml`, `TASKS.yaml`, `HANDOFF.md`, `CODEX_NEXT_TASK.md`, the affected artifacts, and one new immutable run. Then run focused tests, validator, status command, `git diff --check`, inspect the diff for sensitive or large content, and commit/push only validated files.

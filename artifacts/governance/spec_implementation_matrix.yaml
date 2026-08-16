@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-16_004_governance_hardening_input_discovery
-evidence_as_of_commit: 1b836fe56970d262f4e8f3ae8262fd0abb670dbe
+updated_by_run: 2026-08-16_005_active_spec_guard_zuco2_nr_admission
+evidence_as_of_commit: 250ca9a67cf386784005a1edbbfe502d7df6f192
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -16,18 +16,22 @@ items:
       - artifacts/admission/input_source_inventory.yaml
       - artifacts/admission/data_source_candidates.yaml
       - reports/input_discovery_audit.md
+      - artifacts/admission/zuco2_nr_targeted_manifest.yaml
+      - reports/zuco2_nr_targeted_admission.md
     tests_rerun: []
     acceptance_gaps:
-      - local ZuCo 2.0 candidate exists but physical license or authorization evidence is missing
-      - channel names coordinates sampling units reference event and trial semantics remain incomplete
+      - official license, 27-file identity, channels, coordinates, sampling, references, events, trials, and stimuli are verified
+      - physical EEG unit is not recoverable, so strict admission condition 3 fails and no data card exists
     target_task: S0_DATA_CARD
     blocker: B_V1_DATA_NOT_PRESENT
   stimulus_identity:
-    status: BLOCKED
-    evidence_paths: []
+    status: IMPLEMENTED_UNVALIDATED
+    evidence_paths:
+      - artifacts/admission/zuco2_nr_stimulus_manifest.jsonl
+      - artifacts/admission/zuco2_nr_targeted_manifest.yaml
     tests_rerun: []
     acceptance_gaps:
-      - no physical stimulus records exist
+      - physical normalized hashes and duplicates exist but formal S0_STIMULUS_ID cannot begin before data admission
     target_task: S0_STIMULUS_ID
     blocker: B_V1_DATA_NOT_PRESENT
   split:
