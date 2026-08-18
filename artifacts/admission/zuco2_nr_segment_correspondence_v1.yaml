@@ -1,0 +1,90 @@
+schema_version: 1
+endpoint_convention_grid:
+- EEGLAB_ONE_BASED_FINISH_EXCLUSIVE
+- EEGLAB_ONE_BASED_FINISH_INCLUSIVE
+pilot:
+  rows: 380
+  bytes_read: 2859996720
+  result: PASS
+  selected: EEGLAB_ONE_BASED_FINISH_INCLUSIVE
+full_scan:
+  completed: true
+  comparable_rows: 5905
+  bytes_read_total_including_pilot: 46511614800
+segment_convention_global_unique:
+  result: PASS
+  selected: EEGLAB_ONE_BASED_FINISH_INCLUSIVE
+  matching_conventions:
+  - EEGLAB_ONE_BASED_FINISH_INCLUSIVE
+counts:
+  EVENT_UNRESOLVED: 6
+  EXACT_MATCH: 5905
+equality_mode_counts:
+  CANONICAL_NUMERIC_EQUAL: 5905
+  DTYPE_EXACT_AND_EQUAL: 5905
+counts_by_subject:
+  YAC:
+    EXACT_MATCH: 247
+  YAG:
+    EXACT_MATCH: 349
+  YAK:
+    EXACT_MATCH: 298
+  YDG:
+    EXACT_MATCH: 349
+  YDR:
+    EXACT_MATCH: 346
+  YFR:
+    EXACT_MATCH: 243
+  YFS:
+    EXACT_MATCH: 336
+  YHS:
+    EXACT_MATCH: 349
+  YIS:
+    EXACT_MATCH: 349
+  YLS:
+    EXACT_MATCH: 343
+  YMD:
+    EXACT_MATCH: 342
+  YMS:
+    EXACT_MATCH: 346
+  YRH:
+    EXACT_MATCH: 297
+  YRK:
+    EXACT_MATCH: 339
+  YRP:
+    EXACT_MATCH: 343
+  YSD:
+    EXACT_MATCH: 348
+  YSL:
+    EXACT_MATCH: 343
+  YTL:
+    EVENT_UNRESOLVED: 6
+    EXACT_MATCH: 338
+counts_by_block:
+  1:
+    EXACT_MATCH: 891
+  2:
+    EXACT_MATCH: 779
+  3:
+    EVENT_UNRESOLVED: 1
+    EXACT_MATCH: 864
+  4:
+    EXACT_MATCH: 861
+  5:
+    EVENT_UNRESOLVED: 1
+    EXACT_MATCH: 832
+  6:
+    EVENT_UNRESOLVED: 4
+    EXACT_MATCH: 815
+  7:
+    EXACT_MATCH: 863
+comparison_policy:
+  matlab_logical_orientation:
+    preprocessed_EEG_data: channels_by_samples
+    summary_rawData: samples_by_channels
+  hdf5_oriented_comparison: samples_by_channels; transpose_only_when_105_is_first_axis
+  exact_only: true
+  tolerance: null
+  scaling: false
+  rereference: false
+  waveform_hashes_emitted: false

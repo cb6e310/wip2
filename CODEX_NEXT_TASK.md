@@ -1,19 +1,7 @@
-# Codex Next Task
+# NO_READY_TASK
 
-`NO_READY_TASK`
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md` (`v1.6`).
 
-Run 006 completed `S0_ZUCO2_NR_ADMISSION_REPAIR` under SPEC v1.5. The active
-schema-v2 admission result is FAIL, so do not begin a scientific task.
+Schema-v3 admission remains blocked. Minimum machine-operable action: obtain an authoritative corrected event ledger for the sanitized YTL NR3/NR6 ordinals and direct current-release unit evidence for `EEG/data` or `sentenceData/rawData`, then rerun only `S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE` under a future SPEC authorization.
 
-Exact condition-3 blockers:
-
-- `event_semantics_bound`: two YTL blocks have non-pairable physical 10/11 event ordering.
-- `summary_layer_bound`: unresolved.
-- `summary_reference_bound`: unresolved.
-- `preprocessed_unit_bound`: unresolved.
-- `summary_unit_bound`: unresolved.
-
-Wait for new authoritative release-applicable evidence or an explicit research
-decision. Do not repeat broad discovery or large-file hashes, infer missing
-metadata, create a data card, select A, create splits, read outcomes, download
-data/weights, train, or run any Gate.
+Do not broad-scan, infer units, select A, create splits, train, or run a Gate.

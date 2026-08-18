@@ -1,0 +1,112 @@
+schema_version: 1
+retrieval_scope: BOUNDED_V16_ALLOWLIST_ONLY
+sources:
+  - source_id: osf_wiki_data_format
+    url: https://api.osf.io/v2/wikis/s3nrk/content/
+    retrieved_at_utc: "2026-08-17T03:00:36.806534Z"
+    raw_response_sha256: 3cc1b85c021042d93db4f077145b84e6c3beebad3a474f6781746a6a40dbdbb4
+    normalized_claim_sha256: e9465a809b8d62bcc12e7c3bd49a62b856a24d24d4728922ae560e930e7022e6
+    source_type: official_release_wiki
+    release_applicability: DIRECT_ZUCO2_TASK1
+    binds_array_or_event: task1 event triggers and missing-sentence convention
+    locator: Raw data / Task 1 trigger table; Preprocessed folder description
+    extracted_claim:
+      event_mapping:
+        "10": ORDINARY_ONSET
+        "11": ORDINARY_FINISH
+        "12": CONTROL_ONSET
+        "13": CONTROL_FINISH
+        "15": CONTROL_RESPONSE
+      missing_sentence_representation: NaN
+      preprocessed_array: EEG/data in per-subject Automagic files
+    verdict: DIRECT_EVENT_SEMANTICS_BOUND_UNIT_NOT_STATED
+  - source_id: osf_wiki_home
+    url: https://api.osf.io/v2/wikis/kw2df/content/
+    retrieved_at_utc: "2026-08-17T03:00:37.707543Z"
+    raw_response_sha256: 754438321cb7163f10cfa2f399ce8d3e85446b8a1e628768c99c0882cde33f94
+    normalized_claim_sha256: 64f6f3e80baee064d1d85773fdf0344b46e3238fe7cddd2b6cfefb088090ef30
+    source_type: official_release_wiki
+    release_applicability: DIRECT_ZUCO2_RELEASE_CONTEXT
+    binds_array_or_event: release format context
+    locator: release home format summary
+    extracted_claim:
+      current_array_unit_binding: false
+      current_summary_layer_binding: false
+    verdict: INSUFFICIENT_FOR_CURRENT_ARRAY_UNIT_OR_LAYER
+  - source_id: acl_lrec_2020_landing
+    url: https://aclanthology.org/2020.lrec-1.18/
+    retrieved_at_utc: "2026-08-17T03:00:39.020557Z"
+    raw_response_sha256: 2cd8808066f0f621d72f4b40564d7a58b69df9eeb730fffb3494fc93e99c00f6
+    normalized_claim_sha256: be9798b6b339e7378db2bc2c4125ebf215ec93de778fb48063825c9ef8f3c36e
+    source_type: authoritative_paper_landing
+    release_applicability: ZUCO2_PAPER_IDENTITY
+    binds_array_or_event: publication identity only
+    locator: anthology metadata for LREC 2020 paper
+    extracted_claim:
+      current_array_unit_binding: false
+    verdict: NON_BINDING_CONTEXT
+  - source_id: acl_lrec_2020_pdf
+    url: https://aclanthology.org/2020.lrec-1.18.pdf
+    retrieved_at_utc: "2026-08-17T03:00:41.478582Z"
+    raw_response_sha256: c521618fb009bbf22f39529a66e60fc5fba43c5bbb17f22ee4a333328b7c54be
+    normalized_claim_sha256: 62219c912a46204a5773cc01afda714348b0046b83a58e3ec36cc82b033cebc6
+    source_type: author_dataset_paper
+    release_applicability: ZUCO2_ACQUISITION_AND_PROCESSING_CONTEXT
+    binds_array_or_event: acquisition and preprocessing narrative, not storage unit
+    locator: EEG acquisition and preprocessing sections
+    extracted_claim:
+      acquisition_reference: Cz
+      threshold_unit_context: microvolt
+      current_array_unit_binding: false
+    verdict: NON_BINDING_CONTEXT_FOR_STORAGE_UNIT
+  - source_id: frontiers_2022_benchmark
+    url: https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.1028824/full
+    retrieved_at_utc: "2026-08-17T03:00:45.821626Z"
+    raw_response_sha256: 5064126b1029b63991378607cd073ef06658a3b03577d126834a612e45bda05c
+    normalized_claim_sha256: 3b310db14657b9c62914677ebb64e349722cbb1f7f0a62cd5dda7dd8390b92a4
+    source_type: zuco_author_benchmark_paper
+    release_applicability: ZUCO2_PROCESSING_CONTEXT
+    binds_array_or_event: preprocessing narrative, not current stored-array unit
+    locator: preprocessing methods
+    extracted_claim:
+      processed_reference_context: common-average
+      current_array_unit_binding: false
+    verdict: PROCESSING_CONTEXT_ONLY
+  - source_id: pmc_2022_benchmark
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9878684/
+    retrieved_at_utc: "2026-08-17T03:00:47.626645Z"
+    raw_response_sha256: db5f977e4f590f4023279f087a987aad2ee37af76f70cefd1f082710fa6a0e69
+    normalized_claim_sha256: be9798b6b339e7378db2bc2c4125ebf215ec93de778fb48063825c9ef8f3c36e
+    source_type: archival_full_text
+    release_applicability: ZUCO2_PROCESSING_CONTEXT
+    binds_array_or_event: preprocessing narrative, not current stored-array unit
+    locator: preprocessing methods mirror
+    extracted_claim:
+      current_array_unit_binding: false
+    verdict: NON_BINDING_CONTEXT_FOR_STORAGE_UNIT
+  - source_id: zuco_benchmark_issue_5
+    url: https://api.github.com/repos/norahollenstein/zuco-benchmark/issues/5
+    retrieved_at_utc: "2026-08-17T03:00:48.681656Z"
+    raw_response_sha256: 2a9e35583fbbd71d72c25a04104be97d64698954407c93e1cb7777f858c4f5b5
+    normalized_claim_sha256: d5337726396b387e0a04993b28554073ccffcae47d6cd15ad8f5fce6f29745bb
+    source_type: author_repository_issue
+    release_applicability: ZUCO1_TASK1_SR_NOT_ZUCO2_NR
+    binds_array_or_event: ZuCo 1.0 task1 SR summary example
+    locator: issue question names task1-SR/resultsZAB_SR.mat
+    extracted_claim:
+      issue_state: open
+      current_zuco2_nr_array_binding: false
+    verdict: NON_BINDING_CONTEXT_FOR_ZUCO2_NR
+  - source_id: zuco_benchmark_issue_5_comments
+    url: https://api.github.com/repos/norahollenstein/zuco-benchmark/issues/5/comments
+    retrieved_at_utc: "2026-08-17T03:00:49.614665Z"
+    raw_response_sha256: 3df5bba6f60f9a7d8f85364b7d45028b9f0eac0771d6c89126741b7bbf2a914b
+    normalized_claim_sha256: 515c8b0e17eaac800072ba32c16578567fe1259cf956e11494b5f62ee76eeefd
+    source_type: author_repository_issue_comments
+    release_applicability: ZUCO1_TASK1_SR_NOT_ZUCO2_NR
+    binds_array_or_event: reply about the issue's ZuCo 1.0 SR file
+    locator: repository collaborator reply dated 2024-04-18
+    extracted_claim:
+      reply_unit_context: microvolt
+      current_zuco2_nr_array_binding: false
+    verdict: NON_BINDING_CONTEXT_FOR_ZUCO2_NR

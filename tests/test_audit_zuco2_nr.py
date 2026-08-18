@@ -10,6 +10,7 @@ from unittest import mock
 
 import h5py
 import numpy as np
+import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +20,11 @@ AUDIT = importlib.util.module_from_spec(spec)
 assert spec and spec.loader
 sys.modules[spec.name] = AUDIT
 spec.loader.exec_module(AUDIT)
+
+EVENT_MAPPING = {
+    "10": "ORDINARY_ONSET", "11": "ORDINARY_FINISH",
+    "12": "CONTROL_ONSET", "13": "CONTROL_FINISH", "15": "CONTROL_RESPONSE",
+}
 
 
 def _chars(group: h5py.Group, name: str, value: str) -> h5py.Dataset:
@@ -181,7 +187,7 @@ class AuditZuco2NRTests(unittest.TestCase):
         path = self.root / "events.mat"
         self._event_eeg(path)
         with h5py.File(path, "r") as file:
-            bound = AUDIT.audit_events(file, file["EEG"])
+            bound = AUDIT.audit_events(file, file["EEG"], semantic_mapping=EVENT_MAPPING)
             unbound = AUDIT.audit_events(file, file["EEG"], semantic_mapping={})
         self.assertTrue(bound["event_structure_valid"])
         self.assertTrue(bound["event_semantics_bound"])
@@ -199,18 +205,138 @@ class AuditZuco2NRTests(unittest.TestCase):
         self.assertEqual(AUDIT.condition3_from_subpredicates(items), ("PASS", []))
 
     def test_output_is_byte_stable_and_contains_no_text_or_values(self) -> None:
-        manifest = {"schema_version": 2, "audit_boundaries": {"eeg_values_emitted": False}}
+        manifest = {"schema_version": 3, "audit_boundaries": {"eeg_values_emitted": False}}
         rows = [{"subject": "YAC", "slot": 1, "stimulus_sha256": AUDIT.stimulus_id("SECRET_SENTENCE"), "raw_shape": [2, 105]}]
-        source = {"schema_version": 1, "retrieved_at_utc": "fixed"}
+        occurrences = [{"subject": "YAC", "global_slot": 1, "event_pair_state": "VALID"}]
+        correspondence = {"schema_version": 1, "counts": {"EXACT_MATCH": 1}}
         outputs = []
         for prefix in ("one", "two"):
-            paths = (self.root / f"{prefix}.yaml", self.root / f"{prefix}.jsonl", self.root / f"{prefix}-source.yaml")
-            AUDIT.write_outputs(manifest, rows, source, *paths)
+            paths = (
+                self.root / f"{prefix}.yaml", self.root / f"{prefix}.jsonl",
+                self.root / f"{prefix}-events.jsonl", self.root / f"{prefix}-segments.yaml",
+            )
+            AUDIT.write_outputs(manifest, rows, occurrences, correspondence, *paths)
             outputs.append(tuple(path.read_bytes() for path in paths))
         self.assertEqual(outputs[0], outputs[1])
         rendered = b"".join(outputs[0]).decode("utf-8")
         self.assertNotIn("SECRET_SENTENCE", rendered)
         self.assertNotIn("7.25", rendered)
+
+    def test_complete_event_parser_builds_303_plus_46_occurrences(self) -> None:
+        codes: list[str] = []
+        for _ in range(303):
+            codes.extend(("10", "11"))
+        for _ in range(46):
+            codes.extend(("12", "13", "15"))
+        result = AUDIT.parse_task1_events(codes, list(range(1, len(codes) + 1)), EVENT_MAPPING)
+        self.assertTrue(result["pair_contract_valid"])
+        self.assertEqual((result["ordinary_count"], result["control_count"]), (303, 46))
+        self.assertEqual(len(result["occurrences"]), 349)
+        self.assertEqual(result["control_response_count"], 46)
+
+    def test_event_parser_detects_orphan_nested_wrong_finish_and_response_errors(self) -> None:
+        fixtures = {
+            "ORPHAN_FINISH": ["11"],
+            "NESTED_ONSET": ["10", "10", "11", "11"],
+            "WRONG_FINISH_CLASS": ["10", "13"],
+            "MISSING_CONTROL_RESPONSE": ["12", "13", "10", "11"],
+            "EXTRA_OR_MISPLACED_CONTROL_RESPONSE": ["15"],
+        }
+        for reason, codes in fixtures.items():
+            with self.subTest(reason=reason):
+                result = AUDIT.parse_task1_events(codes, list(range(1, len(codes) + 1)), EVENT_MAPPING)
+                self.assertFalse(result["pair_contract_valid"])
+                self.assertIn(reason, {item["reason"] for item in result["anomalies"]})
+
+    def test_complete_parser_recovers_control_occurrence_ignored_by_old_projection(self) -> None:
+        codes = ["10", "11", "12", "13", "15"]
+        result = AUDIT.parse_task1_events(codes, [1, 2, 3, 4, 5], EVENT_MAPPING)
+        self.assertTrue(result["pair_contract_valid"])
+        self.assertEqual(len(result["occurrences"]), 2)
+        self.assertEqual(sum(code == "10" for code in codes), 1)
+
+    def test_event_count_and_material_alignment_mismatch_fail(self) -> None:
+        result = AUDIT.parse_task1_events(["10", "11"], [1, 2], EVENT_MAPPING)
+        self.assertNotEqual(len(result["occurrences"]), 50)
+        self.assertTrue(result["pair_contract_valid"])
+
+    def test_endpoint_conventions_and_exact_comparison(self) -> None:
+        data = np.arange(30, dtype=np.float64).reshape(10, 3)
+        summary_inclusive = data[1:5]
+        exclusive = data[1:4]
+        self.assertEqual(AUDIT.compare_segment_arrays(exclusive, summary_inclusive)["state"], "SHAPE_MISMATCH")
+        self.assertEqual(AUDIT.compare_segment_arrays(data[1:5], summary_inclusive)["state"], "EXACT_MATCH")
+        changed = summary_inclusive.copy()
+        changed[0, 0] += 1
+        self.assertEqual(AUDIT.compare_segment_arrays(data[1:5], changed)["state"], "VALUE_MISMATCH")
+        self.assertEqual(AUDIT._window_bounds(2, 5, AUDIT.ENDPOINT_CONVENTIONS[0]), (1, 4))
+        self.assertEqual(AUDIT._window_bounds(2, 5, AUDIT.ENDPOINT_CONVENTIONS[1]), (1, 5))
+        counts = {
+            AUDIT.ENDPOINT_CONVENTIONS[0]: __import__("collections").Counter({"SHAPE_MISMATCH": 2}),
+            AUDIT.ENDPOINT_CONVENTIONS[1]: __import__("collections").Counter({"EXACT_MATCH": 2}),
+        }
+        self.assertEqual(AUDIT.select_global_convention(counts, 2)["selected"], AUDIT.ENDPOINT_CONVENTIONS[1])
+        counts[AUDIT.ENDPOINT_CONVENTIONS[0]] = __import__("collections").Counter({"EXACT_MATCH": 2})
+        self.assertEqual(AUDIT.select_global_convention(counts, 2)["result"], "FAIL")
+
+    def test_source_cache_is_allowlisted_hashed_and_fail_closed(self) -> None:
+        claim = {"event_mapping": EVENT_MAPPING}
+        source = {
+            "source_id": "osf_wiki_data_format",
+            "url": "https://api.osf.io/v2/wikis/s3nrk/content/",
+            "retrieved_at_utc": "2026-08-17T00:00:00Z",
+            "raw_response_sha256": AUDIT.OSF_DATA_FORMAT_SHA256,
+            "normalized_claim_sha256": AUDIT.stable_hash(claim),
+            "source_type": "official_release_wiki",
+            "release_applicability": "DIRECT_ZUCO2_TASK1",
+            "binds_array_or_event": "task1 events", "locator": "trigger table",
+            "extracted_claim": claim, "verdict": "DIRECT_EVENT_SEMANTICS",
+        }
+        valid = AUDIT.validate_release_source_evidence({"schema_version": 1, "sources": [source]})
+        self.assertTrue(valid["valid"])
+        timestamp_changed = dict(source, retrieved_at_utc="2099-01-01T00:00:00Z")
+        changed = AUDIT.validate_release_source_evidence({"schema_version": 1, "sources": [timestamp_changed]})
+        self.assertEqual(valid["scientific_evidence_sha256"], changed["scientific_evidence_sha256"])
+        tampered = dict(source, extracted_claim={"event_mapping": {}})
+        self.assertFalse(AUDIT.validate_release_source_evidence({"schema_version": 1, "sources": [tampered]})["valid"])
+        bad_url = dict(source, url="https://example.invalid/")
+        self.assertFalse(AUDIT.validate_release_source_evidence({"schema_version": 1, "sources": [bad_url]})["valid"])
+        wrong_scope = dict(source, release_applicability="ZUCO1")
+        self.assertFalse(AUDIT.validate_release_source_evidence({"schema_version": 1, "sources": [wrong_scope]})["valid"])
+
+    def test_conditional_data_card_success_failure_and_stale_guard(self) -> None:
+        manifest = {
+            "admission_conditions": [{"result": "PASS"}],
+            "counts": {"subjects": 1, "rows": 2},
+            "eeg_cell_ledger": {"final_valid_count": 1, "final_excluded_count": 1},
+            "segment_correspondence": {"segment_convention_global_unique": {"selected": AUDIT.ENDPOINT_CONVENTIONS[1]}},
+            "unit_layer_contract": {"preprocessed_EEG_data_unit_status": "BOUND"},
+        }
+        yaml_path, report_path = self.root / "card.yaml", self.root / "card.md"
+        self.assertTrue(AUDIT.write_conditional_data_card(manifest, yaml_path, report_path))
+        self.assertTrue(yaml_path.exists() and report_path.exists())
+        yaml_path.unlink()
+        report_path.unlink()
+        manifest["admission_conditions"][0]["result"] = "FAIL"
+        self.assertFalse(AUDIT.write_conditional_data_card(manifest, yaml_path, report_path))
+        yaml_path.write_text("stale", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "STALE_DATA_CARD"):
+            AUDIT.write_conditional_data_card(manifest, yaml_path, report_path)
+
+    def test_final_admission_requires_content_event_and_exact_segment(self) -> None:
+        base = {
+            "content_present": True, "eeg_cell_state": "VALID_FINITE_MULTISAMPLE",
+            "missing_or_exclusion_reason": None,
+        }
+        row = dict(base)
+        AUDIT.finalize_row_admission(row, event_valid=True, segment_state="EXACT_MATCH")
+        self.assertTrue(row["final_admission_candidate"])
+        row = dict(base, content_present=False)
+        AUDIT.finalize_row_admission(row, event_valid=True, segment_state="EXACT_MATCH")
+        self.assertFalse(row["final_admission_candidate"])
+        row = dict(base)
+        AUDIT.finalize_row_admission(row, event_valid=True, segment_state="VALUE_MISMATCH")
+        self.assertFalse(row["final_admission_candidate"])
 
     def test_symlink_and_path_escape_are_rejected(self) -> None:
         outside = self.root.parent / (self.root.name + "_outside")

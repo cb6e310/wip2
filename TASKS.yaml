@@ -121,6 +121,28 @@ SPEC_V15_REVIEW:
     - runs/2026-08-16_006_zuco2_nr_admission_repair.md
   evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
 
+SPEC_V16_REVIEW:
+  title: Activate outcome-blind NC-HSG SPEC v1.6 at the reviewed baseline
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V15_REVIEW
+  produces:
+    - guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md
+    - artifacts/spec_review/nc_hsg_v16_post_push_review.md
+  acceptance:
+    - reviewed commit is exactly c807a2e83fad02763193a6c1db81fd26db19fd97
+    - review freezes the event-occurrence and exact segment-correspondence audit
+    - older SPECs reviews runs and admission artifacts remain immutable provenance
+  completed_by_run: 2026-08-16_007_zuco2_nr_segment_correspondence
+  acceptance_evidence:
+    - guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md
+    - artifacts/spec_review/nc_hsg_v16_post_push_review.md
+    - runs/2026-08-16_007_zuco2_nr_segment_correspondence.md
+  evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
+
 S0_ACTIVE_SPEC_GUARD:
   title: Guard every active SPEC entry point against state drift
   stage: governance
@@ -212,6 +234,43 @@ S0_ZUCO2_NR_ADMISSION_REPAIR:
     - reports/zuco2_nr_targeted_admission_v2.md
     - runs/2026-08-16_006_zuco2_nr_admission_repair.md
   evidence_scope: OUTCOME_BLIND_TARGETED_PHYSICAL_INPUT_METADATA_AND_EVENT_CODES_ONLY
+  admission_outcome: FAIL
+  superseded_for_active_admission_by: S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE
+
+S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE:
+  title: Verify ZuCo 2.0 NR event occurrences and summary-to-preprocessed segments
+  stage: stage_0
+  status: DONE
+  critical_path: true
+  priority: 2
+  prerequisites:
+    - SPEC_V16_REVIEW
+    - S0_ZUCO2_NR_ADMISSION_REPAIR
+  produces:
+    - scripts/audit_zuco2_nr.py
+    - tests/test_audit_zuco2_nr.py
+    - artifacts/admission/zuco2_nr_release_source_evidence.yaml
+    - artifacts/admission/zuco2_nr_event_occurrence_manifest_v1.jsonl
+    - artifacts/admission/zuco2_nr_segment_correspondence_v1.yaml
+    - artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
+    - artifacts/admission/zuco2_nr_stimulus_manifest_v3.jsonl
+    - reports/zuco2_nr_targeted_admission_v3.md
+    - runs/2026-08-16_007_zuco2_nr_segment_correspondence.md
+  acceptance:
+    - every subject has 303 ordinary and 46 control occurrences with sanitized anomaly evidence
+    - source facts are validated from the bounded release evidence cache rather than verdict constants
+    - one global predeclared endpoint convention is selected only by exact comparison
+    - all final row flags combine content cell event and segment predicates
+    - the conditional data-card success and fail-closed stale branches are tested
+  completed_by_run: 2026-08-16_007_zuco2_nr_segment_correspondence
+  acceptance_evidence:
+    - artifacts/admission/zuco2_nr_release_source_evidence.yaml
+    - artifacts/admission/zuco2_nr_event_occurrence_manifest_v1.jsonl
+    - artifacts/admission/zuco2_nr_segment_correspondence_v1.yaml
+    - artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
+    - reports/zuco2_nr_targeted_admission_v3.md
+    - runs/2026-08-16_007_zuco2_nr_segment_correspondence.md
+  evidence_scope: OUTCOME_BLIND_TARGETED_EVENT_METADATA_AND_CHUNKED_EXACT_SEGMENT_COMPARISON
   admission_outcome: FAIL
 
 S0_INPUT_DISCOVERY_AUDIT:
@@ -339,7 +398,7 @@ S0_DATA_CARD:
   critical_path: true
   priority: 3
   prerequisites:
-    - S0_ZUCO2_NR_ADMISSION_REPAIR
+    - S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE
   produces:
     - artifacts/data_card.yaml
     - reports/data_card.md
@@ -348,7 +407,7 @@ S0_DATA_CARD:
     - subjects sessions trials channels sampling rate EEG fields text fields and exclusions are verified
     - subject-stimulus assignment and missing cells are enumerated
     - no result metric or test outcome is read
-  blocked_reason: Schema-v2 targeted repair is complete and conditions 1, 2, 4, 5, and 6 PASS. Condition 3 fails on event_semantics_bound, summary_layer_bound, summary_reference_bound, preprocessed_unit_bound, and summary_unit_bound. The 367 nonfinite placeholders and 4 finite single-sample cells are exclusion candidates. No data card may be generated.
+  blocked_reason: Schema-v3 targeted audit is complete and conditions 1, 2, 4, 5, and 6 PASS. Condition 3 fails on event_semantics_bound, preprocessed_unit_bound, summary_unit_bound, control_response_contract_valid, and event_to_material_slot_alignment_exact. Six valid cells are event-unresolved; 367 nonfinite placeholders and 4 finite single-sample cells remain excluded. No data card may be generated.
 
 S0_A_INTERFACE:
   title: Freeze exactly one controlled primary backbone A and its tensor contract

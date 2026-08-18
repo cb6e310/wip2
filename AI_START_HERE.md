@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_5_2026-08-16.md` (version `v1.5`).
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md` (version `v1.6`).
 
 ## Verified location
 
@@ -13,7 +13,7 @@ Active SPEC: `guide/NC_HSG_Paper_Spec_v1_5_2026-08-16.md` (version `v1.5`).
 
 ## Source of truth
 
-1. `guide/NC_HSG_Paper_Spec_v1_5_2026-08-16.md` (active version `v1.5`)
+1. `guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md` (active version `v1.6`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
@@ -34,7 +34,7 @@ Before changing files, record HEAD, branch, origin, and dirty state. If entry po
 
 ## Current evidence boundary
 
-Run 005 remains immutable history. Run 006 completed `SPEC_V15_REVIEW` and `S0_ZUCO2_NR_ADMISSION_REPAIR`; schema v2 supersedes only run 005's active admission conclusion. It classifies all 6,282 cells as 5,911 valid finite multisample, 367 nonfinite placeholders, and 4 finite single-sample exclusions, and proves 6,282/6,282 ordered block occurrences. Conditions are `PASS, PASS, FAIL, PASS, PASS, PASS`: event structure passes but event semantics fails in two YTL blocks, and summary layer/reference plus both stored-array units remain unresolved. Therefore `S0_DATA_CARD` is BLOCKED, no scientific task is READY, and no data card exists.
+Runs 005-006 and schema v1/v2 artifacts remain immutable history. Run 007 completed `SPEC_V16_REVIEW` and `S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE`; schema v3 supersedes only the active admission conclusion. All subjects retain 303 ordinary plus 46 control occurrences. The unique finish-inclusive convention gives 5,905 exact comparable segments and 6 event-unresolved valid cells in two YTL blocks. Summary layer/reference are bound by exact identity; both current-array units and the strict YTL event contract remain unresolved. Conditions are `PASS, PASS, FAIL, PASS, PASS, PASS`; `S0_DATA_CARD` is BLOCKED, no scientific task is READY, and no data card exists.
 
 Do not infer unresolved unit/layer/reference semantics, repeat broad discovery, select primary A, read historical/test outcomes, deserialize unsafe objects, download data/weights, train, or run a Gate.
 

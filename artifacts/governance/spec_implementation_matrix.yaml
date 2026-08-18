@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-16_006_zuco2_nr_admission_repair
-evidence_as_of_commit: d6751eadd96b2f651e5dbd1bfd5366679688ce4d
+updated_by_run: 2026-08-16_007_zuco2_nr_segment_correspondence
+evidence_as_of_commit: c807a2e83fad02763193a6c1db81fd26db19fd97
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -22,10 +22,17 @@ items:
       - artifacts/admission/zuco2_nr_stimulus_manifest_v2.jsonl
       - artifacts/admission/zuco2_nr_unit_source_audit.yaml
       - reports/zuco2_nr_targeted_admission_v2.md
+      - artifacts/admission/zuco2_nr_release_source_evidence.yaml
+      - artifacts/admission/zuco2_nr_event_occurrence_manifest_v1.jsonl
+      - artifacts/admission/zuco2_nr_segment_correspondence_v1.yaml
+      - artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
+      - artifacts/admission/zuco2_nr_stimulus_manifest_v3.jsonl
+      - reports/zuco2_nr_targeted_admission_v3.md
     tests_rerun: []
     acceptance_gaps:
-      - schema-v2 classifies 5,911 valid multisample, 367 nonfinite placeholder, and 4 finite single-sample cells
-      - 6,282/6,282 material occurrences match, but event semantics, summary layer/reference, and both unit bindings fail condition 3
+      - schema-v3 classifies 5,911 valid multisample cells and derives 5,905 final candidates plus 377 exclusions
+      - all 5,905 comparable segments match exactly under one finish-inclusive convention, binding summary layer/reference
+      - two YTL blocks leave six event-unresolved cells and both current-array unit bindings fail condition 3
       - strict admission remains FAIL and no data card exists
     target_task: S0_DATA_CARD
     blocker: B_V1_DATA_NOT_PRESENT
@@ -36,6 +43,8 @@ items:
       - artifacts/admission/zuco2_nr_targeted_manifest.yaml
       - artifacts/admission/zuco2_nr_stimulus_manifest_v2.jsonl
       - artifacts/admission/zuco2_nr_targeted_manifest_v2.yaml
+      - artifacts/admission/zuco2_nr_stimulus_manifest_v3.jsonl
+      - artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
     tests_rerun: []
     acceptance_gaps:
       - exact block/line occurrence hashes and five cross-block duplicate groups exist, but formal S0_STIMULUS_ID cannot begin before data admission
