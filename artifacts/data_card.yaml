@@ -1,0 +1,160 @@
+schema_version: 1
+dataset:
+  name: ZuCo 2.0
+  revision: OSF node revision modified 2023-08-25
+provenance:
+  osf_node_id: 2urht
+  license_name: CC-By Attribution 4.0 International
+  license_relationship_id: 563c1cf88c5e4a3877f9e96a
+  license_evidence: artifacts/admission/zuco2_osf_license.yaml
+  file_metadata_evidence: artifacts/admission/zuco2_osf_file_metadata.yaml
+  run005_identity_evidence: 27/27 SHA256 matches reused without re-hash
+  license_evidence_sha256: e88412447528cf0a887e6cae0f992bd1b14a6955722454d966361c6f386cb7c4
+  file_metadata_evidence_sha256: 85a8c89eeb7a523c06fb7f38aa1c371e042413087e66dcc338c16833bd8bb721
+source_release:
+  physical_assignments: 6282
+  full_release_diagnostic:
+    status: FAIL
+    failed_subpredicates:
+    - event_semantics_bound
+    - preprocessed_unit_bound
+    - summary_unit_bound
+    - control_response_contract_valid
+    - event_to_material_slot_alignment_exact
+analysis_view:
+  status: PASS
+  counts:
+    all_rows: 6282
+    valid_finite_multisample: 5911
+    admitted: 5905
+    excluded_union: 377
+    nonfinite_placeholder: 367
+    finite_single_sample_review_required: 4
+    additional_finite_multisample_event_unresolved: 6
+  exclusion_reason_counts:
+    EVENT_OCCURRENCE_UNRESOLVED;SEGMENT_CORRESPONDENCE_NOT_EXACT: 6
+    FINITE_BUT_NOT_A_MULTISAMPLE_TIMESERIES;EVENT_OCCURRENCE_UNRESOLVED: 4
+    NO_FINITE_EEG_TIMESERIES_VALUES: 367
+  exclusion_overlap:
+    event_invalid_total: 10
+    finite_single_sample_and_event_invalid: 4
+    additional_finite_multisample_event_unresolved: 6
+    excluded_union_recomputed_from_final_flags: 377
+  input_evidence:
+    targeted_manifest:
+      path: artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
+      sha256: 50806a60937b28ae36207509c44d606af6f6b6b1be2a69c06081672f0931bfaf
+    stimulus_manifest:
+      path: artifacts/admission/zuco2_nr_stimulus_manifest_v3.jsonl
+      sha256: 2512c55bb7471896aad7bfa7ba96843fbce8a46067abffda6c16ad87ce3e44be
+    event_manifest:
+      path: artifacts/admission/zuco2_nr_event_occurrence_manifest_v1.jsonl
+      sha256: 44fa6ce6f797a6ca26c889c5e754419f3091ba937718af52ae07355617cab68d
+    segment_correspondence:
+      path: artifacts/admission/zuco2_nr_segment_correspondence_v1.yaml
+      sha256: 28612065ecba93b0e63f8e8c1b604076c63a398b799d5a45d4f437205a07b84e
+composition:
+  subjects: 18
+  sessions: 1
+  task: NR
+  blocks: 7
+  slots_per_subject: 349
+  subject_ids:
+  - YAC
+  - YAG
+  - YAK
+  - YDG
+  - YDR
+  - YFR
+  - YFS
+  - YHS
+  - YIS
+  - YLS
+  - YMD
+  - YMS
+  - YRH
+  - YRK
+  - YRP
+  - YSD
+  - YSL
+  - YTL
+signal:
+  source_fields:
+  - allFixations
+  - content
+  - mean_a1
+  - mean_a1_diff
+  - mean_a2
+  - mean_a2_diff
+  - mean_b1
+  - mean_b1_diff
+  - mean_b2
+  - mean_b2_diff
+  - mean_g1
+  - mean_g1_diff
+  - mean_g2
+  - mean_g2_diff
+  - mean_t1
+  - mean_t1_diff
+  - mean_t2
+  - mean_t2_diff
+  - omissionRate
+  - rawData
+  - word
+  - wordbounds
+  eeg_fields:
+  - rawData
+  text_fields:
+  - content
+  - word
+  text_metadata_fields:
+  - wordbounds
+  channels: 105
+  sampling_hz: 500
+  acquisition_reference: Cz
+  processed_reference: common-average
+  summary_layer_reference_status: BOUND_BY_EXACT_CORRESPONDENCE
+  segment_convention: EEGLAB_ONE_BASED_FINISH_INCLUSIVE
+assignment_contract:
+  key:
+  - subject
+  - slot
+  stimulus_identity: stimulus_sha256
+  source_locator: summary_file + rawData + one-based slot
+  missing_and_exclusion_policy: Every physical assignment is ledgered; only rows satisfying
+    the frozen conjunction enter the analysis view.
+unit_policy:
+  physical_unit_status: UNRESOLVED_RELEASE_NATIVE_AMPLITUDE
+  unit_inference_performed: false
+  unit_sensitive_use: PROHIBITED_UNTIL_S0_A_INTERFACE
+limitations:
+  event_anomaly_files:
+  - task1 - NR/Preprocessed/YTL/gip_YTL_NR3_EEG.mat
+  - task1 - NR/Preprocessed/YTL/gip_YTL_NR5_EEG.mat
+  - task1 - NR/Preprocessed/YTL/oip_YTL_NR6_EEG.mat
+  ytl_finite_multisample_event_unresolved_by_block:
+    3: 1
+    5: 1
+    6: 4
+  unknown_physical_unit: true
+  source_release_not_gap_free: true
+use_policy:
+  intended_use: Use only as the frozen outcome-blind input inventory for future NC-HSG
+    work after the required stimulus-disjoint split and downstream admissions.
+  prohibited_use: Do not infer physical units, admit a unit-sensitive frontend, treat
+    excluded rows as usable, read outcomes, or claim model or Gate validity from this
+    data-card PASS.
+  tsr_policy: TSR may be used only as a later robustness task, not as a substitute
+    for the primary NR analysis view.
+safety:
+  real_eeg_read: false
+  historical_or_test_outcome_read: false
+  data_or_weights_downloaded: false
+  backbone_selected: false
+  split_built: false
+  training_run: false
+  gate_run: false
+  stimulus_text_emitted: false
+  event_latency_emitted: false
+  eeg_values_emitted: false
+  waveform_hashes_emitted: false

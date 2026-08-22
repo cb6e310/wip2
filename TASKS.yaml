@@ -143,6 +143,28 @@ SPEC_V16_REVIEW:
     - runs/2026-08-16_007_zuco2_nr_segment_correspondence.md
   evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
 
+SPEC_V17_REVIEW:
+  title: Activate exclusion-tolerant NC-HSG SPEC v1.7 at the reviewed baseline
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V16_REVIEW
+  produces:
+    - guide/NC_HSG_Paper_Spec_v1_7_2026-08-21.md
+    - artifacts/spec_review/nc_hsg_v17_post_push_review.md
+  acceptance:
+    - reviewed commit is exactly bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
+    - review freezes the exclusion-tolerant analysis-view admission correction without changing scientific design
+    - older SPECs reviews runs and admission artifacts remain immutable provenance
+  completed_by_run: 2026-08-21_008_data_admission_policy_repair
+  acceptance_evidence:
+    - guide/NC_HSG_Paper_Spec_v1_7_2026-08-21.md
+    - artifacts/spec_review/nc_hsg_v17_post_push_review.md
+    - runs/2026-08-21_008_data_admission_policy_repair.md
+  evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
+
 S0_ACTIVE_SPEC_GUARD:
   title: Guard every active SPEC entry point against state drift
   stage: governance
@@ -273,6 +295,39 @@ S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE:
   evidence_scope: OUTCOME_BLIND_TARGETED_EVENT_METADATA_AND_CHUNKED_EXACT_SEGMENT_COMPARISON
   admission_outcome: FAIL
 
+S0_DATA_ADMISSION_POLICY_REPAIR:
+  title: Freeze the exclusion-tolerant ZuCo 2.0 NR analysis view
+  stage: stage_0
+  status: DONE
+  critical_path: true
+  priority: 2
+  prerequisites:
+    - SPEC_V17_REVIEW
+    - S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE
+  produces:
+    - scripts/build_zuco2_nr_analysis_view.py
+    - tests/test_build_zuco2_nr_analysis_view.py
+    - scripts/audit_zuco2_nr.py
+    - tests/test_audit_zuco2_nr.py
+    - artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    - artifacts/admission/zuco2_nr_analysis_view_v1.yaml
+    - runs/2026-08-21_008_data_admission_policy_repair.md
+  acceptance:
+    - committed schema-v3 ledgers reproduce 5,905 admitted rows and a 377-row exclusion union
+    - full-release diagnostic FAIL and analysis-view admission PASS coexist without unit inference
+    - YTL finite-multisample event anomalies cover NR3 NR5 and NR6 with block counts 1 1 and 4
+    - deterministic output contains only the frozen non-sensitive field allowlist
+  completed_by_run: 2026-08-21_008_data_admission_policy_repair
+  acceptance_evidence:
+    - artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    - artifacts/admission/zuco2_nr_analysis_view_v1.yaml
+    - tests/test_build_zuco2_nr_analysis_view.py
+    - tests/test_audit_zuco2_nr.py
+    - runs/2026-08-21_008_data_admission_policy_repair.md
+  evidence_scope: REPOSITORY_ONLY_DERIVATION_FROM_COMMITTED_SCHEMA_V3_NO_REAL_EEG_OR_OUTCOME_READ
+  analysis_view_admission: PASS
+  full_release_diagnostic: FAIL
+
 S0_INPUT_DISCOVERY_AUDIT:
   title: Audit authorized physical data and backbone inputs without outcomes
   stage: stage_0
@@ -394,12 +449,15 @@ S0_ENVIRONMENT_SYNC:
 S0_DATA_CARD:
   title: Admit the primary EEG-text dataset and build a machine-checkable data card
   stage: stage_0
-  status: BLOCKED
+  status: DONE
   critical_path: true
   priority: 3
   prerequisites:
     - S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE
+    - S0_DATA_ADMISSION_POLICY_REPAIR
   produces:
+    - artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    - artifacts/admission/zuco2_nr_analysis_view_v1.yaml
     - artifacts/data_card.yaml
     - reports/data_card.md
   acceptance:
@@ -407,7 +465,15 @@ S0_DATA_CARD:
     - subjects sessions trials channels sampling rate EEG fields text fields and exclusions are verified
     - subject-stimulus assignment and missing cells are enumerated
     - no result metric or test outcome is read
-  blocked_reason: Schema-v3 targeted audit is complete and conditions 1, 2, 4, 5, and 6 PASS. Condition 3 fails on event_semantics_bound, preprocessed_unit_bound, summary_unit_bound, control_response_contract_valid, and event_to_material_slot_alignment_exact. Six valid cells are event-unresolved; 367 nonfinite placeholders and 4 finite single-sample cells remain excluded. No data card may be generated.
+    - analysis-view evidence records input hashes the 5,905 admitted rows and all 377 exclusions
+    - unknown release-native amplitude remains explicit and blocks unit-sensitive use only
+  completed_by_run: 2026-08-21_008_data_admission_policy_repair
+  acceptance_evidence:
+    - artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    - artifacts/admission/zuco2_nr_analysis_view_v1.yaml
+    - artifacts/data_card.yaml
+    - reports/data_card.md
+  evidence_scope: OUTCOME_BLIND_DATA_DOCUMENTATION_FROM_COMMITTED_SCHEMA_V3_ARTIFACTS
 
 S0_A_INTERFACE:
   title: Freeze exactly one controlled primary backbone A and its tensor contract
@@ -425,12 +491,12 @@ S0_A_INTERFACE:
     - input window sampling channels units mask output dimension and score interface are frozen
     - freeze versus PEFT scope and trainable parameter count are explicit
     - all comparison rows can share the same A and score API
-  blocked_reason: Three backbone candidates are inventoried, but discovery does not select primary A and every candidate retains physical-interface, license, checkpoint-locality, channel-map, adapter, or common-score gaps; B_V2_BACKBONE_NOT_PRESENT remains active.
+  blocked_reason: The data card is complete, but release-native amplitude remains unit-unbound for unit-sensitive candidates and no primary A is selected; physical-interface, license, checkpoint-locality, channel-map, adapter, and common-score gaps keep B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT active.
 
 S0_STIMULUS_ID:
   title: Normalize stimulus identity and freeze near-duplicate groups
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 5
   prerequisites:
@@ -442,7 +508,7 @@ S0_STIMULUS_ID:
     - exact normalized document paragraph and stimulus keys are recorded
     - edit-distance and frozen-embedding thresholds are outcome-blind and versioned
     - exact duplicates paraphrases and unjoinable records are ledgered
-  blocked_reason: A 6,282-row physical stimulus hash ledger exists, but formal stimulus freezing cannot start until the unresolved EEG unit permits S0_DATA_CARD; B_V1_DATA_NOT_PRESENT remains active.
+  why_ready: The admitted analysis view and data card freeze all physical assignments hashes and exclusions; stimulus identity does not require a bound physical EEG unit.
 
 S0_JOINT_SPLIT:
   title: Build Regime I stimulus-disjoint and Regime II subject-stimulus manifests
@@ -462,7 +528,7 @@ S0_JOINT_SPLIT:
     - Regime II holds out subject and stimulus without overlap
     - train cal test and inner-val identities are disjoint as specified
     - deterministic rebuilds are byte-identical and hashes are frozen
-  blocked_reason: Physical assignments and stimulus hashes exist, but the dataset is not admitted because EEG unit metadata is unresolved; B_V1_DATA_NOT_PRESENT remains active.
+  blocked_reason: The data card is complete, but formal stimulus identity and near-duplicate groups must be frozen before split construction.
 
 S0_LEAKAGE_AUDIT:
   title: Audit split preprocessing candidate and test-time leakage
@@ -500,7 +566,7 @@ S0_A1_FRONTEND:
     - fold-local fitting is enforced
     - deterministic finite tensors match the frozen A contract
     - synthetic success is not mislabeled real-data admission
-  blocked_reason: Targeted NR physical metadata exists but admission fails on EEG unit, and no scientific frontend/backbone has been selected or implemented; B_V1_DATA_NOT_PRESENT and B_V2_BACKBONE_NOT_PRESENT are active.
+  blocked_reason: The data card is complete, but release-native amplitude remains unit-unbound for unit-sensitive frontends and no scientific frontend/backbone has been selected or implemented; B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT are active.
 
 S0_A1_ADMISSION:
   title: Admit the primary frontend on outer-train real data
@@ -518,7 +584,7 @@ S0_A1_ADMISSION:
     - sampling channel order units finite values lengths and masks pass
     - checks read outer-train only
     - failures remain blockers rather than guessed conversions
-  blocked_reason: Targeted dataset metadata exists but EEG unit admission, frontend, split, and leakage prerequisites remain unresolved; V1 and V2 are active.
+  blocked_reason: Unit-sensitive admission, frontend, split, and leakage prerequisites remain unresolved; B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT are active.
 
 S0_A3_CONTAMINATION_CHECK:
   title: Audit an optional second backbone for contamination license and tensor compatibility
@@ -535,7 +601,7 @@ S0_A3_CONTAMINATION_CHECK:
     - pretraining overlap checkpoint license channels preprocessing and output are recorded
     - failure removes the optional backbone without substituting a third model
     - no Gate depends on this optional task
-  blocked_reason: Repository and dataset facts are unknown.
+  blocked_reason: The dataset card is complete, but no optional backbone is selected and its checkpoint identity, license, pretraining overlap, and tensor contract are not frozen; B_V2_BACKBONE_NOT_PRESENT remains active.
 
 S0_N1_BLOCK_FEASIBILITY:
   title: Freeze outcome-blind N1 block feasibility before sampler implementation

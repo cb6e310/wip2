@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-16_007_zuco2_nr_segment_correspondence
-evidence_as_of_commit: c807a2e83fad02763193a6c1db81fd26db19fd97
+updated_by_run: 2026-08-21_008_data_admission_policy_repair
+evidence_as_of_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -11,7 +11,7 @@ allowed_statuses:
 
 items:
   data_loader_and_data_card:
-    status: BLOCKED
+    status: VALIDATED
     evidence_paths:
       - artifacts/admission/input_source_inventory.yaml
       - artifacts/admission/data_source_candidates.yaml
@@ -28,14 +28,19 @@ items:
       - artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
       - artifacts/admission/zuco2_nr_stimulus_manifest_v3.jsonl
       - reports/zuco2_nr_targeted_admission_v3.md
-    tests_rerun: []
+      - scripts/build_zuco2_nr_analysis_view.py
+      - artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+      - artifacts/admission/zuco2_nr_analysis_view_v1.yaml
+      - artifacts/data_card.yaml
+      - reports/data_card.md
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_build_zuco2_nr_analysis_view.py'"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_audit_zuco2_nr.py'"
     acceptance_gaps:
-      - schema-v3 classifies 5,911 valid multisample cells and derives 5,905 final candidates plus 377 exclusions
-      - all 5,905 comparable segments match exactly under one finish-inclusive convention, binding summary layer/reference
-      - two YTL blocks leave six event-unresolved cells and both current-array unit bindings fail condition 3
-      - strict admission remains FAIL and no data card exists
+      - full-release diagnostic remains FAIL while the reproducible 5,905-row analysis view and complete 377-row exclusion union PASS
+      - physical unit remains UNRESOLVED_RELEASE_NATIVE_AMPLITUDE and unit-sensitive use is prohibited until S0_A_INTERFACE
     target_task: S0_DATA_CARD
-    blocker: B_V1_DATA_NOT_PRESENT
+    blocker: null
   stimulus_identity:
     status: IMPLEMENTED_UNVALIDATED
     evidence_paths:
@@ -47,17 +52,17 @@ items:
       - artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
     tests_rerun: []
     acceptance_gaps:
-      - exact block/line occurrence hashes and five cross-block duplicate groups exist, but formal S0_STIMULUS_ID cannot begin before data admission
+      - exact block/line occurrence hashes and five cross-block duplicate groups exist; formal normalized and near-duplicate grouping is the sole READY task
     target_task: S0_STIMULUS_ID
-    blocker: B_V1_DATA_NOT_PRESENT
+    blocker: null
   split:
     status: BLOCKED
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no subject stimulus inventory or split implementation exists
+      - no split implementation exists and S0_STIMULUS_ID must finish first
     target_task: S0_JOINT_SPLIT
-    blocker: B_V1_DATA_NOT_PRESENT
+    blocker: prerequisites incomplete
   leakage:
     status: ABSENT
     evidence_paths: []
@@ -80,8 +85,9 @@ items:
     acceptance_gaps:
       - candidate source and checkpoint metadata exist but no single primary A is selected
       - exact physical channel compatibility adapter and common score interface remain unverified
+      - release-native amplitude is unit-unbound for unit-sensitive candidates
     target_task: S0_A_INTERFACE
-    blocker: B_V2_BACKBONE_NOT_PRESENT
+    blocker: B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT
   semantic_schema_and_evaluator:
     status: BLOCKED
     evidence_paths: []

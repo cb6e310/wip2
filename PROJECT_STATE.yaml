@@ -1,6 +1,6 @@
 schema_version: 2
-updated_at: "2026-08-18"
-updated_by_run: 2026-08-16_007_zuco2_nr_segment_correspondence
+updated_at: "2026-08-22"
+updated_by_run: 2026-08-21_008_data_admission_policy_repair
 
 project:
   name: nc_hsg_eeg_text
@@ -9,16 +9,16 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: c807a2e83fad02763193a6c1db81fd26db19fd97
-  reviewed_commit: c807a2e83fad02763193a6c1db81fd26db19fd97
-  repository_status: SPEC_V16_ACTIVE_ZUCO2_NR_SCHEMA_V3_ADMISSION_BLOCKED
-  spec_version: v1.6
-  spec_path: guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md
+  baseline_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
+  reviewed_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
+  repository_status: SPEC_V17_ACTIVE_ZUCO2_NR_ANALYSIS_VIEW_ADMITTED
+  spec_version: v1.7
+  spec_path: guide/NC_HSG_Paper_Spec_v1_7_2026-08-21.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
   stage: stage_0
-  status: BLOCKED
+  status: READY
   current_gate: null
 
 route:
@@ -41,15 +41,13 @@ gates:
     outcome: null
 
 blockers:
-  - id: B_V1_DATA_NOT_PRESENT
-    reason: Schema-v3 recovers 303 ordinary plus 46 control occurrences per subject and proves a unique finish-inclusive convention with 5,905/5,905 comparable exact segments. Six valid cells remain event-unresolved in YTL NR3/NR6. Condition 3 fails on event_semantics_bound, preprocessed_unit_bound, summary_unit_bound, control_response_contract_valid, and event_to_material_slot_alignment_exact. The final ledger admits 5,905 candidates and excludes 377 rows; summary layer/reference are bound by exact correspondence.
+  - id: B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A
+    reason: The 5,905-row analysis view is admitted and the 377-row exclusion union is fully ledgered, but the physical unit remains UNRESOLVED_RELEASE_NATIVE_AMPLITUDE. Unit inference was not performed, so unit-sensitive frontend conversion and candidate admission remain prohibited until S0_A_INTERFACE.
     blocks:
-      - S0_DATA_CARD
-      - S0_STIMULUS_ID
-      - S0_JOINT_SPLIT
+      - S0_A_INTERFACE
       - S0_A1_FRONTEND
       - S0_A1_ADMISSION
-    resolution: Obtain an authoritative corrected event ledger for the sanitized YTL ordinals and direct current-release unit evidence before a future bounded targeted rerun; do not repeat broad discovery or infer missing facts.
+    resolution: Freeze a primary A interface that either safely accepts release-native amplitude with train-only scale handling or obtains direct authoritative unit evidence; do not infer microvolts.
   - id: B_V2_BACKBONE_NOT_PRESENT
     reason: Candidate evidence now exists for trust_align A1, trust_align LaBraM, and official NeuroLM-B plus VQ, but no single primary A has been selected and each candidate retains license, physical-interface, checkpoint-locality, channel-map, or common-score acceptance gaps.
     blocks:
@@ -57,6 +55,7 @@ blockers:
       - S0_A1_FRONTEND
       - S0_A1_ADMISSION
       - S0_ALIGN_UNIT_COST
+      - S0_A3_CONTAMINATION_CHECK
     resolution: After data metadata is admissible, have the author or next outcome-blind review select exactly one A from artifacts/admission/backbone_source_candidates.yaml and freeze its adapter and score contract before training.
   - id: B_V3_SCHEMA_UNFROZEN
     reason: L1-L3 typed semantic units, projections, evaluator, L4 renderer, and blinded audit protocol are not implemented or frozen.
@@ -88,12 +87,13 @@ blockers:
       - GATE_A
     resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
 
-last_completed_task: S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE
-recommended_next_task: null
-last_run: runs/2026-08-16_007_zuco2_nr_segment_correspondence.md
+last_completed_task: S0_DATA_CARD
+recommended_next_task: S0_STIMULUS_ID
+last_run: runs/2026-08-21_008_data_admission_policy_repair.md
 
 do_not_do_yet:
-  - Do not infer unresolved EEG unit, repair YTL event semantics by guess, or infer split, checkpoint contents, or scientific admission from candidate discovery or another pipeline.
+  - Do not infer unresolved EEG unit, repair YTL event semantics by guess, or infer checkpoint contents or scientific admission from candidate discovery or another pipeline.
+  - Do not include the 377 excluded rows in the frozen analysis view or treat analysis-view PASS as full-release, model, training, or Gate admission.
   - Do not import scientific state, DONE tasks, blockers, commits, or evidence from the trust_align reference project or other example archives.
   - Do not implement N1, N2, schema, NC-HSG, direct-C, PMI, or free LLM generation until their prerequisites and blockers are resolved.
   - Do not read held-out metrics, unlock test data, train models, or run Gate A1, Gate A, Gate B, or a main experiment.

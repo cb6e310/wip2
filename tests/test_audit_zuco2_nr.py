@@ -47,6 +47,23 @@ class AuditZuco2NRTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.temp.cleanup()
 
+    def test_compact_ytl_anomalies_include_nr3_nr5_nr6(self) -> None:
+        files = [
+            {
+                "path": f"task1 - NR/Preprocessed/YTL/gip_YTL_NR{block}_EEG.mat",
+                "subject": "YTL",
+                "events": {"event_semantics_bound": False, "sanitized_anomalies": [{"block": block}]},
+            }
+            for block in (3, 5, 6)
+        ]
+        files.extend([
+            {"path": "other.mat", "subject": "YTL", "events": {"event_semantics_bound": True}},
+            {"path": "nr5-other-subject.mat", "subject": "YAC", "events": {"event_semantics_bound": False}},
+        ])
+        verdicts = AUDIT.compact_ytl_anomaly_verdicts(files)
+        self.assertEqual([item["path"] for item in verdicts], [item["path"] for item in files[:3]])
+        self.assertTrue(all(item["verdict"] == "PHYSICAL_ANOMALY_RETAINED" for item in verdicts))
+
     def _material_files(self, *, mismatch: bool = False) -> tuple[list[Path], list[dict[str, object]]]:
         paths: list[Path] = []
         expected: list[dict[str, object]] = []

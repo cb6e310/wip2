@@ -93,6 +93,21 @@ def stable_hash(value: Any) -> str:
     return hashlib.sha256(rendered.encode("utf-8")).hexdigest()
 
 
+def compact_ytl_anomaly_verdicts(eeg_files: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Derive compact YTL anomaly verdicts from every unbound YTL event file."""
+    verdicts = []
+    for item in eeg_files:
+        events = item.get("events", {})
+        if item.get("subject") != "YTL" or events.get("event_semantics_bound") is not False:
+            continue
+        verdicts.append({
+            "path": item["path"],
+            "verdict": "PHYSICAL_ANOMALY_RETAINED",
+            "sanitized_anomalies": events.get("sanitized_anomalies", []),
+        })
+    return sorted(verdicts, key=lambda item: item["path"])
+
+
 def validate_release_source_evidence(cache: dict[str, Any]) -> dict[str, Any]:
     """Validate compact source evidence and derive event roles from the cache."""
     failures: list[str] = []
@@ -1101,19 +1116,7 @@ def audit(
         event_type_counts.update(item["events"].get("type_counts", {}))
         for code in item["events"].get("unmapped_trigger_codes", []):
             event_unknown_counts[code] += item["events"]["type_counts"].get(code, 0)
-    ytl_paths = {
-        "task1 - NR/Preprocessed/YTL/gip_YTL_NR3_EEG.mat",
-        "task1 - NR/Preprocessed/YTL/oip_YTL_NR6_EEG.mat",
-    }
-    ytl_verdicts = []
-    for item in eeg_files:
-        if item["path"] in ytl_paths:
-            resolved = item["events"]["event_semantics_bound"]
-            ytl_verdicts.append({
-                "path": item["path"],
-                "verdict": "OLD_PROJECTION_FALSE_ANOMALY" if resolved else "PHYSICAL_ANOMALY_RETAINED",
-                "sanitized_anomalies": item["events"].get("sanitized_anomalies", []),
-            })
+    ytl_verdicts = compact_ytl_anomaly_verdicts(eeg_files)
     correspondence = {
         "schema_version": 1,
         "endpoint_convention_grid": list(ENDPOINT_CONVENTIONS),

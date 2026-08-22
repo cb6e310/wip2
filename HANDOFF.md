@@ -1,29 +1,27 @@
 # Current Handoff
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md` (version `v1.6`).
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_7_2026-08-21.md` (version `v1.7`).
 
 ## Current state
 
-Runs 005-006 and schema v1/v2 artifacts are immutable history. Run 007 completed the bounded schema-v3 event/segment audit and supersedes only the active admission conclusion. Data admission remains blocked by the exact failed condition-3 subpredicates below.
+Run 008 completed `SPEC_V17_REVIEW -> S0_DATA_ADMISSION_POLICY_REPAIR -> S0_DATA_CARD`. Runs 005-007 and schema-v1/v2/v3 artifacts remain immutable history. The repository-only builder froze a deterministic analysis view and data card from the four committed schema-v3 inputs. `S0_STIMULUS_ID` is READY and is the only recommendation; it was not executed in run 008.
 
 ## Verified evidence
 
-- Official OSF node `2urht` resolves to CC-BY-4.0 through license relationship `563c1cf88c5e4a3877f9e96a`.
-- All 27 admitted files retain the run-005 OSF SHA256 matches; no large summary file was re-hashed.
-- 18 subjects x 349 slots; all 6,282 material occurrences match exactly, with 21 practice rows excluded before the 349-row ordered contract.
-- Cell ledger: 5,911 `VALID_FINITE_MULTISAMPLE`, 367 `NONFINITE_PLACEHOLDER`, and 4 `FINITE_SINGLE_SAMPLE_REVIEW_REQUIRED`; all 371 non-valid cells are exclusion candidates.
-- 126 preprocessed blocks retain stable 105-channel, coordinate, 500 Hz, `Cz` acquisition-reference, and `common-average` processed-reference contracts.
-- Every subject has 303 ordinary and 46 control occurrences; aggregate codes are `10=11=5,454` and `12=13=15=828`.
-- The complete state machine retains physical anomalies in YTL blocks 3 and 6: six valid cells are event-unresolved.
-- Finish-inclusive is the unique global convention. All 5,905 comparable segments are exact; summary layer/reference are bound by this identity.
-- Summary `rawData` and preprocessed `EEG/data` units remain unresolved after the bounded source audit.
-- Six admission conditions: `PASS, PASS, FAIL, PASS, PASS, PASS`.
-- No data card was generated. `S0_DATA_CARD` remains BLOCKED.
+- Source release: 6,282 physical assignments; strict full-release diagnostic remains `FAIL` with the schema-v3 failed subpredicates preserved.
+- Analysis view: `PASS`; 5,905 admitted and 377 excluded, recomputed row by row.
+- EEG classes: 5,911 valid finite multisample, 367 nonfinite placeholders, and 4 finite single-sample rows.
+- Event overlap: 10 event-invalid rows, including all 4 single-sample rows; the additional 6 finite-multisample rows are distributed across YTL NR3/NR5/NR6 blocks as 1/1/4.
+- Identity: 18 subjects, one session, NR task, 7 blocks, 349 slots per subject, and reused run-005 27/27 OSF SHA256 evidence without re-hashing large files.
+- Signal contract: 105 channels at 500 Hz, Cz acquisition reference, common-average processed reference, and exact finish-inclusive summary correspondence.
+- Unit: `UNRESOLVED_RELEASE_NATIVE_AMPLITUDE`; inference was not performed and unit-sensitive use is prohibited until `S0_A_INTERFACE`.
+- Safety: no real EEG or outcome was read; no download, A selection, split, training, or Gate occurred.
 
 ## Required next action
 
-`NO_READY_TASK`. The failed condition-3 subpredicates are `event_semantics_bound`, `preprocessed_unit_bound`, `summary_unit_bound`, `control_response_contract_valid`, and `event_to_material_slot_alignment_exact`. The minimum next action is authoritative correction/clarification for the two sanitized YTL event sequences plus direct current-release unit evidence. Do not repeat broad discovery. Keep `S0_A_INTERFACE` BLOCKED.
+Execute only `S0_STIMULUS_ID`: normalize stimulus identity and freeze exact/near-duplicate groups using committed, outcome-blind assignment evidence. Do not build a split in the same run unless a later explicit task authorizes it. Unknown physical unit does not block identity-only work.
 
 ## Safety boundary
 
-Do not read historical results, metrics, predictions, or held-out outcomes; deserialize checkpoints/pickles; download data/weights; infer unit/layer/reference semantics; select a backbone; implement scientific algorithms; train; or run a Gate.
+Do not read historical results, metrics, predictions, held-out/test outcomes, raw EEG values, checkpoints, pickle/joblib objects, or the `trust_align` result trees. Do not infer microvolts, repair YTL events by guess, select a backbone, build a split early, train, or run a Gate.
+

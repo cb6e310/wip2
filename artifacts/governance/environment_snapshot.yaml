@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-16_005_active_spec_guard_zuco2_nr_admission
-evidence_as_of_commit: 250ca9a67cf386784005a1edbbfe502d7df6f192
+updated_by_run: 2026-08-21_008_data_admission_policy_repair
+evidence_as_of_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
 
 host:
   hostname: songxingyuan

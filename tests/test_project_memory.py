@@ -183,17 +183,17 @@ class ProjectMemoryTests(unittest.TestCase):
         self._assert_code(self._errors(), "DONE_PREREQUISITE_NOT_DONE")
 
     def test_ready_named_by_blocker_fails(self) -> None:
-        self.tasks["S0_DATA_CARD"]["status"] = "READY"
-        self.tasks["S0_DATA_CARD"].pop("blocked_reason", None)
+        self.tasks["S0_A_INTERFACE"]["status"] = "READY"
+        self.tasks["S0_A_INTERFACE"].pop("blocked_reason", None)
         self._assert_code(self._errors(), "READY_BLOCKED")
 
     def test_blocked_without_reason_fails(self) -> None:
-        self.tasks["S0_DATA_CARD"].pop("blocked_reason", None)
+        self.tasks["S0_A_INTERFACE"].pop("blocked_reason", None)
         self._assert_code(self._errors(), "BLOCKED_REASON_MISSING")
 
     def test_recommendation_must_be_ready(self) -> None:
         self.state["recommended_next_task"] = "S0_DATA_CARD"
-        self._assert_code(self._errors(), "RECOMMENDATION_WITHOUT_READY_TASK")
+        self._assert_code(self._errors(), "RECOMMENDATION_NOT_READY")
 
     def test_recommendation_must_be_first_ranked(self) -> None:
         template = {
@@ -320,7 +320,7 @@ class ProjectMemoryTests(unittest.TestCase):
         task["status"] = "READY"
         task.pop("completed_by_run", None)
         task.pop("acceptance_evidence", None)
-        self.assertEqual(CHECKER.ready_tasks(self.tasks, self.state), ["S0_INPUT_DISCOVERY_AUDIT"])
+        self.assertEqual(CHECKER.ready_tasks(self.tasks, self.state)[0], "S0_INPUT_DISCOVERY_AUDIT")
 
     def test_foreign_project_state_fails(self) -> None:
         self.state["notes"] = "foreign marker 711340d"

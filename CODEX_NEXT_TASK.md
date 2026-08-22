@@ -1,7 +1,19 @@
-# NO_READY_TASK
+# Codex Next Task: Freeze Stimulus Identity
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_6_2026-08-16.md` (`v1.6`).
+Active task: `S0_STIMULUS_ID`.
 
-Schema-v3 admission remains blocked. Minimum machine-operable action: obtain an authoritative corrected event ledger for the sanitized YTL NR3/NR6 ordinals and direct current-release unit evidence for `EEG/data` or `sentenceData/rawData`, then rerun only `S0_ZUCO2_NR_SEGMENT_CORRESPONDENCE` under a future SPEC authorization.
+Recover state from `AI_START_HERE.md`, `PROJECT_STATE.yaml`, `HANDOFF.md`, `TASKS.yaml`, active SPEC v1.7, run 008, and committed evidence. Confirm a clean expected baseline before changing files.
 
-Do not broad-scan, infer units, select A, create splits, train, or run a Gate.
+## Scope
+
+Normalize stimulus identity and freeze exact and near-duplicate groups using only committed outcome-blind stimulus/assignment evidence. Record deterministic document, paragraph, and stimulus keys; version edit-distance and frozen-embedding thresholds; ledger exact duplicates, paraphrases, and unjoinable records.
+
+## Boundaries
+
+- Do not read real EEG values, event latency, historical predictions/metrics, held-out/test outcomes, or `trust_align` result trees.
+- Do not infer the unresolved physical unit or repair YTL event semantics.
+- Do not select A, build the joint split, train, or run any Gate in this task.
+- Preserve runs 001-008, older SPECs, and all prior admission/analysis-view artifacts as immutable provenance.
+
+The 5,905-row analysis view and 377-row exclusion union are frozen inputs. `analysis_view_admission=PASS` does not change `full_release_diagnostic=FAIL`.
+
