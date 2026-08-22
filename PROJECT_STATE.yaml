@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-22"
-updated_by_run: 2026-08-21_008_data_admission_policy_repair
+updated_by_run: 2026-08-22_009_stimulus_similarity_diagnostic
 
 project:
   name: nc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
-  reviewed_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
-  repository_status: SPEC_V17_ACTIVE_ZUCO2_NR_ANALYSIS_VIEW_ADMITTED
-  spec_version: v1.7
-  spec_path: guide/NC_HSG_Paper_Spec_v1_7_2026-08-21.md
+  baseline_commit: b72ed5ab9720b7a922f7d1c6d8681cb646c344ab
+  reviewed_commit: b72ed5ab9720b7a922f7d1c6d8681cb646c344ab
+  repository_status: SPEC_V18_ACTIVE_STIMULUS_SIMILARITY_DIAGNOSTIC_COMPLETE
+  spec_version: v1.8
+  spec_path: guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -87,9 +87,9 @@ blockers:
       - GATE_A
     resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
 
-last_completed_task: S0_DATA_CARD
-recommended_next_task: S0_STIMULUS_ID
-last_run: runs/2026-08-21_008_data_admission_policy_repair.md
+last_completed_task: S0_STIMULUS_SIMILARITY_DIAGNOSTIC
+recommended_next_task: S0_STIMULUS_GROUP_POLICY_REVIEW
+last_run: runs/2026-08-22_009_stimulus_similarity_diagnostic.md
 
 do_not_do_yet:
   - Do not infer unresolved EEG unit, repair YTL event semantics by guess, or infer checkpoint contents or scientific admission from candidate discovery or another pipeline.
@@ -98,3 +98,4 @@ do_not_do_yet:
   - Do not implement N1, N2, schema, NC-HSG, direct-C, PMI, or free LLM generation until their prerequisites and blockers are resolved.
   - Do not read held-out metrics, unlock test data, train models, or run Gate A1, Gate A, Gate B, or a main experiment.
   - Do not change alpha_0, K, the primary metric, split discipline, Gate thresholds, or failure routes to fit available files.
+  - Do not select a final stimulus-similarity threshold, emit near-duplicate groups, or construct a split until S0_STIMULUS_GROUP_POLICY_REVIEW is completed by ChatGPT or the author.

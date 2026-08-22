@@ -1,0 +1,5292 @@
+schema_version: 1
+artifact: ZUCO2_NR_STIMULUS_SOURCE_BINDING_V1
+source_files:
+- path: task_materials/nr_1.csv
+  sha256: 77291d9fe66797781efa7c093824a16198f38e92ac34067e8bf20d76d5c50386
+- path: task_materials/nr_2.csv
+  sha256: 68a6885dd96d4fa386297d7f30352c2077b565577c68dcb2205b19d506042132
+- path: task_materials/nr_3.csv
+  sha256: 1a1ead3a1dfa12d8ff73dbe619db94b6ce202b35a3d19358d67f01c3115553ba
+- path: task_materials/nr_4.csv
+  sha256: d7b5c9b3a0e6d55958b976b0ea2cc6c236720ead947d6851d15de798e712965f
+- path: task_materials/nr_5.csv
+  sha256: 2ca84d88f3267ecc4686f357cc97f2c077a2b90534ecbc8615b2197e2f93b5bc
+- path: task_materials/nr_6.csv
+  sha256: 3722ba205f8b63e801791ef3303dcdbf52bbef3c6bd157bd11a16ccd40e1861a
+- path: task_materials/nr_7.csv
+  sha256: 575a938092ca1db20d883fed180cb48fa66deca53097267874fe784fdc44cf9b
+committed_input_hashes:
+  targeted_manifest: 50806a60937b28ae36207509c44d606af6f6b6b1be2a69c06081672f0931bfaf
+  stimulus_manifest: 2512c55bb7471896aad7bfa7ba96843fbce8a46067abffda6c16ad87ce3e44be
+  analysis_view: 0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff
+  analysis_summary: 5e387ef3dc9e930e3ca3e4b6ccb6a009a3cc719281f1ac183cfbf56ac7b66181
+  data_card: d9331bfe34937c264b7b8c667a2b831569c4440120e1d445011aeaf419c30f84
+normalization_contract:
+  N_exact: Unicode NFKC; strip; every Unicode whitespace run to one ASCII space
+  exact_stimulus_id: SHA256(UTF8(N_exact))
+  N_lex: N_exact; Unicode casefold; maximal non-alphanumeric run to one space; collapse
+    and strip
+  lexical_sha256: SHA256(UTF8(N_lex))
+  tokens: non-empty N_lex items split by ASCII space; tokens are not emitted
+counts:
+  material_rows: 370
+  practice_rows_excluded: 21
+  post_practice_slots: 349
+  slot_hash_matches: 349
+  unique_exact_identities: 344
+  exact_duplicate_groups: 5
+  analysis_view_rows: 5905
+  analysis_view_identities_covered: 344
+per_block_post_practice_slots:
+  1: 50
+  2: 50
+  3: 51
+  4: 50
+  5: 50
+  6: 49
+  7: 49
+identities:
+- exact_stimulus_id: 0009ee32ba202b79af8c3610fafd91bce2c1282385635097c8de5f008e04a788
+  lexical_sha256: d3e188f76234d935190f0a05fabdbd2b0a4375b0e3b1b8e98e1db76afe05c925
+  length_chars: 131
+  slots:
+  - 241
+  blocks:
+  - 5
+  material_lines:
+  - 43
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 00ad6e589a0f45a5e7760584178f23c51da620eb176ba87edf8bff51c4f4f6d7
+  lexical_sha256: b8c0d20d9de0b70019a41527c128d719306f6531e25c86441f529be89e2b9ea3
+  length_chars: 134
+  slots:
+  - 45
+  blocks:
+  - 1
+  material_lines:
+  - 48
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 01af3b70e8a9544f54ac106acf88464f585dc22264fff17b180f2f49fed0cbed
+  lexical_sha256: ef948ff254dd6ee683a4a056f03168361862e47eaee2b1b2eb33cedad126f6b2
+  length_chars: 56
+  slots:
+  - 281
+  blocks:
+  - 6
+  material_lines:
+  - 33
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 01ed7611afaa8273c758569fd89ac2a6db4ed14de2e88ddd4c43adddcdb9542a
+  lexical_sha256: 3b582bbba3b01f07dedce16aec1bd81423844ed2857713de0cd5c23e84034c74
+  length_chars: 87
+  slots:
+  - 227
+  blocks:
+  - 5
+  material_lines:
+  - 29
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0200cb47849ad7534ed12dbe8ff7b1a870a0ffe389980969bef274422e234eea
+  lexical_sha256: a0a5ad324ad1c99fab852d0dea3ea9a1c147c20a1eb31c3773bbb8824d7edcfd
+  length_chars: 203
+  slots:
+  - 12
+  blocks:
+  - 1
+  material_lines:
+  - 15
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0291e1b2c7c55cd06ff8a243cf8ca9a63e882eb0f72bcb581deeb1f8c803482a
+  lexical_sha256: 6a1ec428b973c395b219450851f4ff0d3b3870f0d87cdbd29a2ff7d480f22605
+  length_chars: 219
+  slots:
+  - 207
+  blocks:
+  - 5
+  material_lines:
+  - 9
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 02fba9d259c59bc325ac42f76a2a2e68113dfcc5c00c2100cdd3e89f1461c386
+  lexical_sha256: d9239d8e72f1ef169db7e5f75a69990c78a65378ee407f259c825ba913fd12f6
+  length_chars: 30
+  slots:
+  - 268
+  blocks:
+  - 6
+  material_lines:
+  - 20
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 03ae71c116516fff296eccae7ac166b90a4adc34adaf4fabd9e16bf1e99af9d3
+  lexical_sha256: e7bf741b765c6b59e7d763bb5e22b25913c30e71a9ed59bfcab9ea4505fe8df6
+  length_chars: 171
+  slots:
+  - 46
+  blocks:
+  - 1
+  material_lines:
+  - 49
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 04bb1d2e316df59d1b2ec037720058db7ab674621c47d5c30f5b9a302f6e9734
+  lexical_sha256: 1e62e420817a0725984bf2f5cfaf62fc9382050371f8bfb7b9df390f5447d43c
+  length_chars: 199
+  slots:
+  - 317
+  blocks:
+  - 7
+  material_lines:
+  - 20
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 05279dfbf8755782b3b3b1626b4f1f1a9f795d9a8c8a74a60dd48d374cf8aba7
+  lexical_sha256: c25f398e9ce5722d8a3e76259942ba8f62ea474322badcf8961f9ac26be2f768
+  length_chars: 180
+  slots:
+  - 289
+  blocks:
+  - 6
+  material_lines:
+  - 41
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 057d41d1d31ca18f844c52756351c337a8ca7e5d7ccd516a326a78b2e48f22cc
+  lexical_sha256: 8cb8739f29f86f1b6491290f38f17d510670306bc5bdc58ecac691bfc89534f6
+  length_chars: 183
+  slots:
+  - 90
+  blocks:
+  - 2
+  material_lines:
+  - 43
+  analysis_view_row_count: 14
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0655a62b7d291256a6cbc66ef72d015da00742877a20a9fd3f12aa5f4ba05e71
+  lexical_sha256: d2ae9c0372d1fccd8319058f1073dbeb474bfddc6acc62da1cecabd5b76205ec
+  length_chars: 122
+  slots:
+  - 149
+  blocks:
+  - 3
+  material_lines:
+  - 52
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 06b4fffb27ca6eafe6244fb1a0acc08edf1df32ae931b10e1b42cd9f0b649b17
+  lexical_sha256: 483c301917304e5c13e687b342dcddf9c32efab8f6bbb110f21f7870ebcc5108
+  length_chars: 41
+  slots:
+  - 72
+  blocks:
+  - 2
+  material_lines:
+  - 25
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 071eacc32d72bdab6bc234a79518a62001663e069b26b49c9b5a0b077efda4a4
+  lexical_sha256: b504ffb1d22641c864eb0f5a44089cdfaa6abc887677504b26a2dcc39415d248
+  length_chars: 119
+  slots:
+  - 79
+  blocks:
+  - 2
+  material_lines:
+  - 32
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0789ea756c10bdb0cfe3bcf6d19cf91ae573cdc9c7d30d212ae431c967467373
+  lexical_sha256: af8cb70dd19f3a9021c3a57be95ad24ca49502d00d124862cc5fe63a1a862f65
+  length_chars: 65
+  slots:
+  - 138
+  blocks:
+  - 3
+  material_lines:
+  - 41
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 07c2e45ed63825930e222ff04ef499daf4be940479678dcec7244abf1c7e22ca
+  lexical_sha256: deaff47a872927ed60e1de5c26684acc2ed9dd523719e428dba922a295f7e967
+  length_chars: 35
+  slots:
+  - 119
+  blocks:
+  - 3
+  material_lines:
+  - 22
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 07f7a4e20525323cfde6be7bb30d8db54135314ba985f69110a0697c2eae1f7b
+  lexical_sha256: 3746105ac4564dd9f959487006e8f5f9b58e1d1cdce48916667ac21fffe62752
+  length_chars: 108
+  slots:
+  - 61
+  blocks:
+  - 2
+  material_lines:
+  - 14
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 07fff5527261fb611b95fd8bb85e5c0ca879a4009fec1c5ec4e533bcadc16233
+  lexical_sha256: 309b8ea5028baa4407d78488d0266e9b5bf8d60e54eb2dbc24f78bb8ed837115
+  length_chars: 69
+  slots:
+  - 83
+  blocks:
+  - 2
+  material_lines:
+  - 36
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0933460e0fbf6418baede9d2111ad2cad3cae10aec9d7c9fd1abf7f3411d3c62
+  lexical_sha256: 23e3003330af90ea25499074750e78637525b7605ae97cf0d7cde4242217299b
+  length_chars: 185
+  slots:
+  - 39
+  blocks:
+  - 1
+  material_lines:
+  - 42
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0a05bb9826ded450cdcf97eea14ad626b4f7132bb4c29553a108604ec6b1fbc5
+  lexical_sha256: c7f119fa3f104b5e5a5da2fa7287e71dddec3a19368747887f5529da11702c86
+  length_chars: 276
+  slots:
+  - 310
+  blocks:
+  - 7
+  material_lines:
+  - 13
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0b4d7447a4eba641fd3fc3e754b80879baeb55a76ef1360aabbb8fcb00f9b047
+  lexical_sha256: 39dd66ef14e03d378723ce1f3d8902ca68d251d996f6156310ec491d55580c39
+  length_chars: 155
+  slots:
+  - 346
+  blocks:
+  - 7
+  material_lines:
+  - 49
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0c0f75574386d92af8f8d58262ff802d577d235191292e78dee1d9a4490b013f
+  lexical_sha256: 6599c4d6b310b2f7908ef8ac31e759218d3aa0f51a0e81547bfa48853b86160d
+  length_chars: 99
+  slots:
+  - 246
+  blocks:
+  - 5
+  material_lines:
+  - 48
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0c6c73292ec395d54d07c3bb8a2555779c0ac72623351d016fb1b97dc6162503
+  lexical_sha256: 35205ba68e0f7a99da2e7de41b320dc2f7c1805cda41e94abf184731a19783d1
+  length_chars: 60
+  slots:
+  - 233
+  blocks:
+  - 5
+  material_lines:
+  - 35
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0f65e344e130dfa7ad44a79e3e3d1c79c464978eb06e9a4f18687a2a9c0b08e1
+  lexical_sha256: e0f62165d98dbbc3461bc9b653871f6e58693521b00a452fdd03e4ba77b872d7
+  length_chars: 58
+  slots:
+  - 112
+  blocks:
+  - 3
+  material_lines:
+  - 15
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 0fcd3c6687bb3df3ffc00de2e8457e0e99992a6101c3ab776e164a125c1f16df
+  lexical_sha256: 335cdeca173e2eb46b10bfe6128d6afc7b448eebb0e184ba753e9fed038256ec
+  length_chars: 147
+  slots:
+  - 174
+  blocks:
+  - 4
+  material_lines:
+  - 26
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1191fae0ce1272ea2e4b87a6bde3dcf3bb608debf697f46a199f6ffe8c22d862
+  lexical_sha256: 5a524b294c5fc739b32924900836936ac5c55ba8efcbbb06705c0fadad102c3b
+  length_chars: 57
+  slots:
+  - 123
+  blocks:
+  - 3
+  material_lines:
+  - 26
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 125d8305ea0e1b2f9ed664a1aa28859c3fff78d286efa07b3c8066cc2b6fac0b
+  lexical_sha256: 30ebf6c62a6ba54efc80471e0e43bf16af222b99dec6862a40bf151c77e00c0e
+  length_chars: 112
+  slots:
+  - 126
+  blocks:
+  - 3
+  material_lines:
+  - 29
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 12b4bf00769348135960c993cd1b187efbfc42165539333d25aa571e29bfa140
+  lexical_sha256: 55caff768e918041cf0c3a598a21b1493c478fb92bd8d8f0cb4921d7f9f858c1
+  length_chars: 142
+  slots:
+  - 214
+  blocks:
+  - 5
+  material_lines:
+  - 16
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 14a66187a4404e02e7dd814493144e38d62a824c8de0c488a481f7ac45d99476
+  lexical_sha256: 39f9d58b4639f4861dd1810f491e7d95471932e51b11a3a9f05415e20aab8adf
+  length_chars: 175
+  slots:
+  - 263
+  blocks:
+  - 6
+  material_lines:
+  - 15
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 14b5d3543b7d434f62af80aa49df0a9655056215bdadaa637f0d458627343705
+  lexical_sha256: eb77fc36a7194ffeb673460578dfba350394fc74ce83ee5e563d8ec8e11fdb1c
+  length_chars: 103
+  slots:
+  - 201
+  blocks:
+  - 4
+  material_lines:
+  - 53
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1684b7cb16aa32b8170db29f7bec93017c08db91b61829f3dcb59c9abb01fccb
+  lexical_sha256: c749f6c6c34af95c2a61492fd8c7d4a753dcddce95a78af31890b1483561a138
+  length_chars: 108
+  slots:
+  - 122
+  blocks:
+  - 3
+  material_lines:
+  - 25
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1759c561027d9d878e457336d88e2097e379d34475b2bb8d75abe93875cf645c
+  lexical_sha256: a26837e438c85bfccce1e024652bf9faa617df1feb35aefd34d834466aaf2cfe
+  length_chars: 168
+  slots:
+  - 175
+  blocks:
+  - 4
+  material_lines:
+  - 27
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 19f400fd910dea7f408ca2fa1eb926e524e6fb32076dc593f811f133a49fcc83
+  lexical_sha256: 5cc7f5d079437d64a85ae0def4c959bfa889566ab3f69471e9bb3461e33d398d
+  length_chars: 116
+  slots:
+  - 143
+  blocks:
+  - 3
+  material_lines:
+  - 46
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1a300f5ea746b402cda4f6dd5450487a4ee61095477d03541381fdc53f9c80f2
+  lexical_sha256: 98bd0d550f961981ea854e1da44f7fa839e80e0e7eb5a993c8be5ce7b34dd292
+  length_chars: 214
+  slots:
+  - 8
+  blocks:
+  - 1
+  material_lines:
+  - 11
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1a437964486446ab58e371439326fe1c05d7b9d1a1f89680ff2d98abcb11e3ec
+  lexical_sha256: fe9493c0bf0f2dd15e5f51e1e832c0276baa9dd71b062335aeb27be94b39b2a1
+  length_chars: 132
+  slots:
+  - 5
+  blocks:
+  - 1
+  material_lines:
+  - 8
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1b496d78a52fd1149189508d103ad4c3dc13c93792e2ff3e2fb6572823706dee
+  lexical_sha256: 89c3f38d82c4dd17709db4fc8ba71f3f6aa9d451c885cf769313a2c7a54bb543
+  length_chars: 130
+  slots:
+  - 75
+  blocks:
+  - 2
+  material_lines:
+  - 28
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1b5560645c54183aca16e90afd8db84beb8d5599bff53fd008f1a3b5cc64769e
+  lexical_sha256: 6978b3096145d4357e7937aa98348159e172f3973214c3603a436fc28a002ae1
+  length_chars: 34
+  slots:
+  - 324
+  blocks:
+  - 7
+  material_lines:
+  - 27
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1c09ddd173c9bc30936c3057a18fbc83ea90eeba8ac95e22684b076a90e520ee
+  lexical_sha256: a0c745471c3870dcf284d608e505f08ea0162123ae95383ed5313044f8d7210b
+  length_chars: 84
+  slots:
+  - 31
+  blocks:
+  - 1
+  material_lines:
+  - 34
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1c400e91f1fa1a04f6288ebe78525f81f12b884379785d1696517e415f93687f
+  lexical_sha256: cec87efdc9a0a19b05754014e25c577c74c09487b372c40d6eefe08eae06d320
+  length_chars: 83
+  slots:
+  - 3
+  blocks:
+  - 1
+  material_lines:
+  - 6
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1cbad28650a5d6c2ba1d1b9db68b0a1a64c86fd2b150ba670f66215bdc5478c1
+  lexical_sha256: 6efbb73791bc35ecc3cccc0b83e10c68ad831f44d4874412f807bfcf1ef8d9d1
+  length_chars: 73
+  slots:
+  - 312
+  blocks:
+  - 7
+  material_lines:
+  - 15
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1e071572eb8a2bc81db855c7efcaa01bbbb296e6193691632778481ba5218fcb
+  lexical_sha256: fb6bd0af3ab206142787b1df745f8823bacfe0f9316b23b3e44bb65474ebb3b2
+  length_chars: 86
+  slots:
+  - 96
+  blocks:
+  - 2
+  material_lines:
+  - 49
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1e46f6399c4731222bfba9f5b048d79a2717d8a11feb350465b18daa5be279ed
+  lexical_sha256: c7a9e9bb39321a248601a4d36081ed4cef068fd4f7d747afe456aff1008baa62
+  length_chars: 71
+  slots:
+  - 264
+  blocks:
+  - 6
+  material_lines:
+  - 16
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1e7a82f10fd4a3d570b2ad723b7f609f29a4474a830304d0227b07b87b1f8c13
+  lexical_sha256: 190f91f17373282be4be2f7c2028c6faa3a7a686da558db1d8a1f60d3e5c1b6e
+  length_chars: 77
+  slots:
+  - 292
+  blocks:
+  - 6
+  material_lines:
+  - 44
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 1ef234c116efd6b5106e093b322f90c24054d3afb12619483e4d774dd2ca5379
+  lexical_sha256: aec03552faeffb8a3b1501c01d6a3047f7071705b0c1e9f7f3ef9a29b4fc02a0
+  length_chars: 28
+  slots:
+  - 151
+  blocks:
+  - 3
+  material_lines:
+  - 54
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 20098832effab6bce1d5e137bb7118bff066f3aaf125a1a24919002db09e8e23
+  lexical_sha256: 790b6de67946d8fb3a51a46a78c2bd5ad625f5c3e9d0000acfb38f7f8d277b6d
+  length_chars: 115
+  slots:
+  - 334
+  blocks:
+  - 7
+  material_lines:
+  - 37
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 212766f7b44c3efb8df9696ef8d4f13180b981f384eec71f8f542b63a16091a9
+  lexical_sha256: 55ecbb15c431c86f2b5713dbefbd386271ab653418a2c5bbb6d1b7f3f9c1d5a5
+  length_chars: 40
+  slots:
+  - 44
+  blocks:
+  - 1
+  material_lines:
+  - 47
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 21a2999972e0aa2e93ff848d9663da854a2345cb451838f5a69c169c2ca1f62b
+  lexical_sha256: e2bbe0c9e25d05df5388a6c528bb854b543388503faddc9f6076c5439e905744
+  length_chars: 139
+  slots:
+  - 100
+  blocks:
+  - 2
+  material_lines:
+  - 53
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 223e2538cab8b9e88e51105691ab2d57d8bb462300d5c8fd595120293f0801c5
+  lexical_sha256: 4f1838baf9940988e2dc2cd04ed9daf6331c68d3652f51e805ab4c04fddc379a
+  length_chars: 62
+  slots:
+  - 165
+  blocks:
+  - 4
+  material_lines:
+  - 17
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 23192dac4657dfa15473e303f1e17aded94678aeeb1ba99cd5b58cef552a0546
+  lexical_sha256: 3c2e8f61ea4913a2539a86535e07eff82700668b65a9a3793d2e248e60a962c4
+  length_chars: 148
+  slots:
+  - 196
+  blocks:
+  - 4
+  material_lines:
+  - 48
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2350e6fdf9becbc18830e237d907ff7e9db932743471930bb8748f45a79e3902
+  lexical_sha256: 31dee43bd9b2f90504165e584329fce6a11bb48686fa6159bf66695c9d0fe0d0
+  length_chars: 81
+  slots:
+  - 309
+  blocks:
+  - 7
+  material_lines:
+  - 12
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 23f65fe3298c052505cff35a16cbbabc4dc7483ea760fb748e3ae0516952ddef
+  lexical_sha256: 8a04c2f37dc89a5c40891678db2f9e9d57cb07f8956241d06aac3736f475d70d
+  length_chars: 129
+  slots:
+  - 226
+  blocks:
+  - 5
+  material_lines:
+  - 28
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2414dc9257cc3f4d8b88cf146b505f27dc85f2985ce69ed5f5d622483597369c
+  lexical_sha256: 447394d61642d2c3f389191b528434a17ddc1425dc9598a83d08903a086a2ea4
+  length_chars: 187
+  slots:
+  - 248
+  blocks:
+  - 5
+  material_lines:
+  - 50
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 243c4c0e4578d63712fd160ba7947b2b8d6dfaad2125645aa198b2a180cbe633
+  lexical_sha256: e8270fa6b9c9fd07ee8170dad2942580c10c933192f5e2eec62e26b7dd460bcf
+  length_chars: 78
+  slots:
+  - 293
+  blocks:
+  - 6
+  material_lines:
+  - 45
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2547deb2fef8b1271c01b516e7eadd9d0fe5b6c29d1760af589f7d01ffd4e183
+  lexical_sha256: e39d4ee36ae571b3bdc244939e253e629174e460b69b4e6b4ea8d95cd5b1d1cf
+  length_chars: 67
+  slots:
+  - 54
+  blocks:
+  - 2
+  material_lines:
+  - 7
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 25aa1832b09cb281a0a8dff3484249e81b304579c86233de1a4c895940d27c6a
+  lexical_sha256: 50e4fb909ef8dacda93aaf8387a6e33192ef1ffc37297e3d3b21d443a74a125d
+  length_chars: 109
+  slots:
+  - 208
+  blocks:
+  - 5
+  material_lines:
+  - 10
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 25dfcb079e03a4ca21bfa60fdcc1e25d38ff53f6dca31978b0c515f20da598d9
+  lexical_sha256: 71c54b353e20557889ae427d75a2082cb5e67f3249835a3032a13dca11b617d9
+  length_chars: 124
+  slots:
+  - 137
+  blocks:
+  - 3
+  material_lines:
+  - 40
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 27495c03c8dfdb03547b0438d628ce8ec52c7565bc3b5224f961334d62f8de14
+  lexical_sha256: 7435c045701505a52c684de8e82a4458cfd2336a72212d6f308286c35cb3772f
+  length_chars: 112
+  slots:
+  - 209
+  blocks:
+  - 5
+  material_lines:
+  - 11
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 28634750dff9f1401c48a8496779d5d21626ce3de21429280d69668d0dbc5986
+  lexical_sha256: c84c691d82b7a8d1d3b48fc655f15235f0e828baa9efb205b715de1421af26f0
+  length_chars: 195
+  slots:
+  - 235
+  blocks:
+  - 5
+  material_lines:
+  - 37
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 29a19ee3f3e3f2438ae3186bea90817afbafd1e6364caf760fc69e57bc51c9f7
+  lexical_sha256: 5babf0a06af8f3eeba653bcf58aaed66347df1040c79ec5b8a330ed0d7b43142
+  length_chars: 103
+  slots:
+  - 130
+  blocks:
+  - 3
+  material_lines:
+  - 33
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 29b5168e2818c92055f901d2edefdab22631c43ef4344a6e6c6fef3328102a5e
+  lexical_sha256: fa051adaada28a355b056506323eb2ecbc23566fa93aa3ff95359a06365a4bc0
+  length_chars: 78
+  slots:
+  - 306
+  blocks:
+  - 7
+  material_lines:
+  - 9
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2a932178cf852bd2c5c1dff972f7d007f8a0de259d235d8ed1af5a6e6b137e48
+  lexical_sha256: 8109eb9012d04f6de32326c659869189172d77a13c3c0d70fa3372d389a49232
+  length_chars: 203
+  slots:
+  - 262
+  blocks:
+  - 6
+  material_lines:
+  - 14
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2abc3d997ef3e024f90bbc24b592ca753aa2c99a95682b9663cd71b60b984cf1
+  lexical_sha256: 54be4c95ccdc29c5e6ebab7a045582972df8804106bc0475c5ae70eab0d07374
+  length_chars: 166
+  slots:
+  - 4
+  blocks:
+  - 1
+  material_lines:
+  - 7
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2abc98090d23b169c6d5f7e6a554fbf161246f0bd41f3ab9ed4b831713a43bba
+  lexical_sha256: f4ba1524d631edaa757c7bd1ec1759640f64d82b549d24a21acb251bcc9cabae
+  length_chars: 65
+  slots:
+  - 217
+  blocks:
+  - 5
+  material_lines:
+  - 19
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2b4f9d9b8b0200ae0e92344ea34a505af680af5dbf4aaef59c432de5ca60151b
+  lexical_sha256: 7e68811bd1e6a7d84fba21f4b6e62bcdce7b245a8545713f868e6e3843f91499
+  length_chars: 105
+  slots:
+  - 95
+  blocks:
+  - 2
+  material_lines:
+  - 48
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2ba9cd355b5e4d4ebe1771d17976190db823773844606307ec4def496f5f78ed
+  lexical_sha256: f0153f5ded20461bdba3e2bb3b00a803fa76ba666f8f33487a64cdeff3c59f81
+  length_chars: 70
+  slots:
+  - 121
+  blocks:
+  - 3
+  material_lines:
+  - 24
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2bae816770c3f9c92acf4556359d6e72fd4dda68e3799eedbf7f08723dd3fe5c
+  lexical_sha256: dc824a74963213dc99a8a7e5af424ebb8dd8637331d0e5897f733b8cefca01f9
+  length_chars: 106
+  slots:
+  - 82
+  blocks:
+  - 2
+  material_lines:
+  - 35
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2d100bff39319ac193db5c486eef88809999f2a5186780e3c619daef3afbe939
+  lexical_sha256: ce5b9df6c9c016b621c187c2671b56c6bf536d4a03106d9b663bec63b7a5285c
+  length_chars: 90
+  slots:
+  - 240
+  blocks:
+  - 5
+  material_lines:
+  - 42
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2daf1d8ad261b3d9537ee0413f73c6b23f5b4bf34130905850d3e25d04031b5e
+  lexical_sha256: 341deef00ea06ea93f02881e31b831f43abfd75438338605536e51567fa7e062
+  length_chars: 153
+  slots:
+  - 57
+  blocks:
+  - 2
+  material_lines:
+  - 10
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2f72aa036ca13f64d4628b5c01be46a0634a6ccc4a8b911cb4d4ae2d5ed68f54
+  lexical_sha256: a5a4daa644e5e20abaeeb9c410ea843f83629aae8deaed2138a4917ba10ab51e
+  length_chars: 54
+  slots:
+  - 109
+  blocks:
+  - 3
+  material_lines:
+  - 12
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 2f8df3528f9eb83753aa999a6812fe4d0f0a296324f0f41e6976b03a2fc422e5
+  lexical_sha256: 3b728fddf9ff584461cc94044da19f96ab9d26e28f28bce84cf40a775f710137
+  length_chars: 149
+  slots:
+  - 144
+  blocks:
+  - 3
+  material_lines:
+  - 47
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3115bf5f4927e678f58647ba7c3ef3180beb01bc972dac85818c0baea292c57a
+  lexical_sha256: 5a4ed9c1fa7af2cd4388b5cc928f2634aaeab8e8db0f75937a6d302f84ab6552
+  length_chars: 170
+  slots:
+  - 323
+  blocks:
+  - 7
+  material_lines:
+  - 26
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 31906a4b9e100e30a595c8182214af0c8527ac60db31a24e7bba84d6296cdf63
+  lexical_sha256: 3fdde21f0a8bf7f67b87bc80081fc717132b971e270255bfbb1e5fc0eaaf3a77
+  length_chars: 63
+  slots:
+  - 282
+  blocks:
+  - 6
+  material_lines:
+  - 34
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 32d4de92dc10757ea0794330c4057e548f1a50be072ccc6440346a17a649d3bc
+  lexical_sha256: 4bc24a1acbb474d30f9c24f8665ee59552bb646c505ac492c6cb097c286b95fd
+  length_chars: 126
+  slots:
+  - 211
+  blocks:
+  - 5
+  material_lines:
+  - 13
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 337f7742685001f4ded5ec4e96b5dac27eeaa198b1272e4838ab60a26feec47d
+  lexical_sha256: 73770fa841991e53d1c5b7c8521467b2917e3799d9c2ab29760282c2ef9081ca
+  length_chars: 168
+  slots:
+  - 249
+  blocks:
+  - 5
+  material_lines:
+  - 51
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 339b03b8d06fc481e4d9a7a2ac1936146a826412d2943e67c7e376a923a9ead3
+  lexical_sha256: 7d0f3db2910fd935f8eb9de1c8955024444fcfec21e6674f34a2cb533f00e20e
+  length_chars: 170
+  slots:
+  - 48
+  blocks:
+  - 1
+  material_lines:
+  - 51
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 33a9c69a7424c82fa453322891377e4ad4554a37656922ddf3f7355f86b69e5a
+  lexical_sha256: 81260b519772a593d81d3afed02e3658c473ef364580a7c4c4a1df00685cc7ee
+  length_chars: 193
+  slots:
+  - 103
+  blocks:
+  - 3
+  material_lines:
+  - 6
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 33b251483e5caa86fe53d0c833da79cf50cf14763ca9d70f6c7a36ecf28ec243
+  lexical_sha256: e395366dd5bfe8009c9878a1ddd1d54fa7f256e1bc91b3e18196b2a52b7b91db
+  length_chars: 151
+  slots:
+  - 332
+  blocks:
+  - 7
+  material_lines:
+  - 35
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 349e5c85d8acc0da4fadda45c7feb57ae10ecc4646ed99103a5965289cb8ba7c
+  lexical_sha256: f60eea2b2d591169a36bbcc5a8dc7f0be1ba1a82d6d4ba907a3924e0dd9918ea
+  length_chars: 173
+  slots:
+  - 55
+  blocks:
+  - 2
+  material_lines:
+  - 8
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 34dabcc0096dc0ebc87a75ecd649492a494bc7cf7399de600afb1e89b5ba660d
+  lexical_sha256: 407bd022d9c04d6b48693ff0099fdedcf8c0c8755d0852477e2f8215b0ac24c5
+  length_chars: 69
+  slots:
+  - 230
+  blocks:
+  - 5
+  material_lines:
+  - 32
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 34ee5c5d5917e71ba589bb0cede9009566e51d24c2fc7712c8dbae6497f02cc0
+  lexical_sha256: 0109c7d969664ecb543c0fa79e857a1fdbcfd8c51f5dbc8a8be4dcd377c31aae
+  length_chars: 93
+  slots:
+  - 43
+  blocks:
+  - 1
+  material_lines:
+  - 46
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3540c7363b2c4a4cdf407f106cb2e90351fe15dc21f70aeaa93409f178f28a12
+  lexical_sha256: 561e79cba6bf9532ce76667545839971e13c394c4ac580d4010ecaa4ed3595a0
+  length_chars: 102
+  slots:
+  - 27
+  blocks:
+  - 1
+  material_lines:
+  - 30
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3584148fd2c48faff8786be7d0392545f3cf8e98796aa1bd1200c9c2dcd7daee
+  lexical_sha256: bda43f90fce812469e0b378f729a18f748c621883522cca96e3f8a2cd399d50e
+  length_chars: 84
+  slots:
+  - 291
+  blocks:
+  - 6
+  material_lines:
+  - 43
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 36b8315ff85d773067ad6ea18c463f4468bd3fa75ff349d5b57c771b418c5f67
+  lexical_sha256: b31590b1ae4e6cfab1767b83791e7ce0a9a7c4e8d670920706b947b598d966de
+  length_chars: 98
+  slots:
+  - 333
+  blocks:
+  - 7
+  material_lines:
+  - 36
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 376aeafa437510310ecedc2503b273939d8ab1c4e9d295a226398b20a9439487
+  lexical_sha256: 6b254a14381386ac1d8489f2e48be75fd309cd006a3c2839dcc158091884d8d2
+  length_chars: 59
+  slots:
+  - 314
+  blocks:
+  - 7
+  material_lines:
+  - 17
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 380702c98d554ba8474088450fa6025c22363e8ec6c1e9be12d4fa0009743f98
+  lexical_sha256: c9b5081213e473a9cc70591dd810a094aadb363246c1afb7a5440ce1366513b8
+  length_chars: 81
+  slots:
+  - 127
+  blocks:
+  - 3
+  material_lines:
+  - 30
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 38eaeb68f2d57e3bd06f920302b78c566c070058ded77d646fafc5b27b5b3c27
+  lexical_sha256: d21f17293619f80ebb690cdefd1828749def4ac07781126017199fe110ae2bde
+  length_chars: 101
+  slots:
+  - 267
+  blocks:
+  - 6
+  material_lines:
+  - 19
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 39fb249665e8644899bd5aa238725d4c23ead9637a4c709cd670ac3a47b658c3
+  lexical_sha256: edd5fcfe781369f5d308cf010887b065e550cc21b52038e9c3f91690be4c887f
+  length_chars: 114
+  slots:
+  - 125
+  blocks:
+  - 3
+  material_lines:
+  - 28
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3ae512256c2acedc4e195f26e50a206cbdf10364e3cb4d995b0a7bcdccdd73f4
+  lexical_sha256: 1db9d068459892575d5feddb5f2cb67f68df9f8aca96c811c3eadb58a3895a87
+  length_chars: 115
+  slots:
+  - 52
+  blocks:
+  - 2
+  material_lines:
+  - 5
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3b2859c8c8f561c0d065b9ba8c8e8315c90a49d4f9972b6b8c96af8fb5bdf8a4
+  lexical_sha256: 652b5ce6618c02bd1e67995937674dbe8cc5ad687a8c0ee7094fa983ecc3b0b5
+  length_chars: 116
+  slots:
+  - 134
+  blocks:
+  - 3
+  material_lines:
+  - 37
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3c110411eeabae13c724bdf060e25431442584861362ecc1cfd293666c172893
+  lexical_sha256: c7e6b9523a75c888e675981f3aab0a7ac8bf8afd796700906e2f31fa31808f37
+  length_chars: 137
+  slots:
+  - 21
+  blocks:
+  - 1
+  material_lines:
+  - 24
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3e337b5ab4690493fe6b9a10044784fa6a5009e2630c926dc476e05e7025fe30
+  lexical_sha256: 5f4d747b7ade2ceff5d165e81d44999650250e035b09e15bcbf93c613460d869
+  length_chars: 99
+  slots:
+  - 347
+  blocks:
+  - 7
+  material_lines:
+  - 50
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3e6f9b37650483e83302d567065ab8d1151a879535e4733d9593906ad87436d0
+  lexical_sha256: 07a2cddb2204ef74fb7892ac5765f4cbacd4c1c7c18fc9eb62db087d0fae7296
+  length_chars: 132
+  slots:
+  - 206
+  blocks:
+  - 5
+  material_lines:
+  - 8
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3eb93b7a91f38e9123a338e2ffdb6f11e5ed17fd395148f006a6a48effdec45a
+  lexical_sha256: 0aa3186eeb764a1b880eb620dc129673c496716d5091abb4074105d00c933634
+  length_chars: 59
+  slots:
+  - 326
+  blocks:
+  - 7
+  material_lines:
+  - 29
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 3ffee0a5676f176868c752f6f14f8ba33fc07c7bddb45a34db6ed9b42254da44
+  lexical_sha256: 69308d74d86c7091c49d98b4531fc6fcccedaacb739f4bffa6afd649341e8d7b
+  length_chars: 179
+  slots:
+  - 329
+  blocks:
+  - 7
+  material_lines:
+  - 32
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 40a37563c0d726a1b9bd798230aed8ca52af1e355bc33cf22d5e4c8ac6b4824b
+  lexical_sha256: ffabc4d676ce3f65b120a3adec5dcb8a5009b79eaa8127493b1fe6631768d480
+  length_chars: 71
+  slots:
+  - 146
+  blocks:
+  - 3
+  material_lines:
+  - 49
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 41573a0117301c625fb077834a124686026ed6bfe6a9b617cc86d0804df72231
+  lexical_sha256: afa6745070d376d1b6e82a3a74f2a3b9907812f371a59763421b20b57e68590f
+  length_chars: 72
+  slots:
+  - 37
+  blocks:
+  - 1
+  material_lines:
+  - 40
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4180b40a2958585f7a069f9a7506a5011a54bb01b3af558b4fab4da9efec2895
+  lexical_sha256: c9b77f635c329f809fa48b00a7cc9f22f08046bc4fe7f19a89437b54ef23fef0
+  length_chars: 157
+  slots:
+  - 7
+  blocks:
+  - 1
+  material_lines:
+  - 10
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4379bfe7173ad4bd33d66c099d3cd4810cf1e0dda4f5fbb43a10b205a9316c76
+  lexical_sha256: 8960c39ad8d8b0ecd2f918838ef31326ef216a3895dde9c3ef2d9a6e6d1e5271
+  length_chars: 134
+  slots:
+  - 266
+  blocks:
+  - 6
+  material_lines:
+  - 18
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 44bd67132165d55446b2528793bb38b8829e66d397825b5f2f457399d28e0a76
+  lexical_sha256: 9a1bedcc17ee0a23c42d6a5fb39242556ec201d4f47615ae4cfbcec88a51f11f
+  length_chars: 120
+  slots:
+  - 339
+  blocks:
+  - 7
+  material_lines:
+  - 42
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 44ec70e2f0d70f6392dda3b4b587986142ce651affc2cc5f93313688ba63c87a
+  lexical_sha256: 0b369a8181e1295a6d85deb3981aff02e81b95a20b6ad7dc4aa5783d1ff5a46f
+  length_chars: 42
+  slots:
+  - 228
+  blocks:
+  - 5
+  material_lines:
+  - 30
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 46572b9ed78797e3626189184b5c022dbe2471289d9a2ae7eb3293d47ebd9499
+  lexical_sha256: 9ce8d1d173219d644ab9a07f8d1b92fcc665830dc840834b9030415719875006
+  length_chars: 80
+  slots:
+  - 245
+  blocks:
+  - 5
+  material_lines:
+  - 47
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 47301f89a21adbade03446ca165a6d084f02dc467010e601a61fc4725daa6cf1
+  lexical_sha256: 14dc10a1fe9851276f30f6bc18cd3e095d5a687cd5d96627c43bdacd30427021
+  length_chars: 91
+  slots:
+  - 133
+  blocks:
+  - 3
+  material_lines:
+  - 36
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 481e37b0eafe3bd01d02d6e70f1eca39b114577a45c9b353b5104890609f7cd0
+  lexical_sha256: 69e411ceb8426c8d3bc547588a82952f558e7b2590e25907b207fd19a052f15b
+  length_chars: 82
+  slots:
+  - 99
+  blocks:
+  - 2
+  material_lines:
+  - 52
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 48d598e928f85338a4bb543db7f74627c2e5365d5f20543e6c3f4ada2a0d5234
+  lexical_sha256: dcd315ae304de628a52a9a97c4ecd16e55a466c95b95e414afd95228ae868810
+  length_chars: 181
+  slots:
+  - 135
+  blocks:
+  - 3
+  material_lines:
+  - 38
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4a4fdbe9f605a77ed9a01c49075b635c599c026c3f437271d636b872328e1422
+  lexical_sha256: 18a68977439ad43d14b321c387b39691e4b064bbbce379acc04efe5242932c16
+  length_chars: 82
+  slots:
+  - 102
+  blocks:
+  - 3
+  material_lines:
+  - 5
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4ae952e5f55d6222dfb5cae232650ebf404e4941bac5ca70d53c168f935e1861
+  lexical_sha256: a37136cb8a470c34a942c05848f5917a93608c549f3824c118bf471cd6d9794b
+  length_chars: 109
+  slots:
+  - 24
+  blocks:
+  - 1
+  material_lines:
+  - 27
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4c7cf2e00f2835239c1c44062e09eab08f796c84e45e85325d55644564d1e572
+  lexical_sha256: 61484c9c770f3a110ef6ac194e91b6ce06b9b860056ca38afbd959a63ac0e335
+  length_chars: 74
+  slots:
+  - 156
+  blocks:
+  - 4
+  material_lines:
+  - 8
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4d8972f4ce59e8b3a2f5a02b2a763f6ae0aaf02e553038569d497fe92ec8a27e
+  lexical_sha256: ca5e617fa6b3a4837416e618f89f9970f5989c9573e564889c0cf73bda9fcaf8
+  length_chars: 98
+  slots:
+  - 270
+  blocks:
+  - 6
+  material_lines:
+  - 22
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4e19d3ff7e744e91ede3e64f1d69be1bf847819c96646eeea594815d4698878c
+  lexical_sha256: 7ff148949a07538e03fb3d73804e4beb6d710dc38c5994c692299874e29d3543
+  length_chars: 69
+  slots:
+  - 161
+  blocks:
+  - 4
+  material_lines:
+  - 13
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4ed885dabdeec1611b5428b691a421356c5d0902093757b5016c91de2ead8989
+  lexical_sha256: 7858e2a471306aee5a160fc40da14e261f1fa9b5779106d7f12ce6e0199b0894
+  length_chars: 85
+  slots:
+  - 141
+  blocks:
+  - 3
+  material_lines:
+  - 44
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 4fdd149180786c57899b48782857c446d2e5df6aafed0539d7f787bd1206cdab
+  lexical_sha256: a6726a20f4b466b5553f40a2f5a53263c8ae237b1856ed858de21be9288f9267
+  length_chars: 139
+  slots:
+  - 193
+  - 319
+  blocks:
+  - 4
+  - 7
+  material_lines:
+  - 45
+  - 22
+  analysis_view_row_count: 35
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 50fa5e714c5e92b3b2322ba162bb35c97e8cee345fa519b3beddcda734631848
+  lexical_sha256: a05f3fb7f73a9b6bdf4060f83ecf74516f95b0fd01a4e688cad056327a6ae317
+  length_chars: 119
+  slots:
+  - 320
+  blocks:
+  - 7
+  material_lines:
+  - 23
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 51eb1a7161b59b39ff46ce9b16cadc39da33ee0bca2d57571b7d9525a65f19bb
+  lexical_sha256: 904971c0f1e6cd4f86146bde2cb04f008632d225298f4f0a1e2a45c07b36dff7
+  length_chars: 88
+  slots:
+  - 106
+  blocks:
+  - 3
+  material_lines:
+  - 9
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 522c11d93d263f7e923ed50d3ecfd2655e1495babf9e1144d317e187a4c319ea
+  lexical_sha256: b264906803c9e71b31c3b4efa16187ab28f80147104aef4674c65f1a9b20367e
+  length_chars: 61
+  slots:
+  - 294
+  blocks:
+  - 6
+  material_lines:
+  - 46
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 53cf5777557761441b95fee44385b513f07e008855320a933e0158080156ca71
+  lexical_sha256: dee95486801b1eb09e3a343d3e9841676cc0819650ff620ed36aa34c8efbd519
+  length_chars: 140
+  slots:
+  - 223
+  blocks:
+  - 5
+  material_lines:
+  - 25
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 53d6b691f2221e7cbba6130e79d7620ca8d9ac104ee5c03f556a08a3846bde8d
+  lexical_sha256: 40e0793fb63d9ec624ab6ce608d67c74a0d6f8962c68d7ff9221eb7247772bf2
+  length_chars: 80
+  slots:
+  - 93
+  blocks:
+  - 2
+  material_lines:
+  - 46
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 542a0ed8d0572f6dd8387c21d431ade84eb3e72b4ca92ff62274abe949b2bf43
+  lexical_sha256: bcc0e5f0929e19bb2e5f984ca5966beca2e1138ef09b10cf178d9483b1c4d3c1
+  length_chars: 199
+  slots:
+  - 202
+  blocks:
+  - 5
+  material_lines:
+  - 4
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 54d3e22334b9b302b854d1a1bb335ef82e869758d7eb57f8d3c71191cc2a7b21
+  lexical_sha256: 730aeee3afc74894028eceb0172a25e243fac5b4a2a49438cc2f048b6b7b8bd3
+  length_chars: 92
+  slots:
+  - 259
+  blocks:
+  - 6
+  material_lines:
+  - 11
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 552b9255cb3584580774a50b2d3487ecf88c947bb56c752f2426b9bd9ecfd4bb
+  lexical_sha256: 632d9ccbd381e7d24420369a89d6e12bb7925a004522ee8889050b0404668dc0
+  length_chars: 75
+  slots:
+  - 64
+  blocks:
+  - 2
+  material_lines:
+  - 17
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5571eec97f329f8ca66abace1a43e7a396a55f7a30c3161c262b6548eda91027
+  lexical_sha256: 6623d8e6842d3baa8daac760016a81ad93a22294b5efd77cd4eefb43bd8bb84c
+  length_chars: 53
+  slots:
+  - 63
+  blocks:
+  - 2
+  material_lines:
+  - 16
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5736cb8dc416dd2ec7607402783260a6e3bd16e9c930ca7655da2e296d7b41a6
+  lexical_sha256: 624cfe2e4eab8a4c40632f094c1b2cbd8993084f34856c2d4067989b5df9875e
+  length_chars: 125
+  slots:
+  - 260
+  blocks:
+  - 6
+  material_lines:
+  - 12
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 57704ac414445e7a0c525b9599b413abd0c158bf647ac9039fc5be69d2e831b0
+  lexical_sha256: 9b8c0cb16e22dff3d912d4a4a23aa9e28fcf8b454529e46dcfcac491f6e9702c
+  length_chars: 158
+  slots:
+  - 34
+  blocks:
+  - 1
+  material_lines:
+  - 37
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 583411b4f0c69031d163d6fc16db70f02c49ad13a0d9474fa266809b3c980ed8
+  lexical_sha256: 34d4ee3d7c5fc8710ec2f0547743f69fe868a977b457808e5a265e72ecdf90c7
+  length_chars: 79
+  slots:
+  - 140
+  blocks:
+  - 3
+  material_lines:
+  - 43
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5881fe950ba90c97458c531388a760d610837937ba2308c0b1af94e803ae3cf0
+  lexical_sha256: 32db7741d5c91f66323843f09498acfdb7807bb9317ed6ddcc1c8a90cb424eac
+  length_chars: 211
+  slots:
+  - 70
+  blocks:
+  - 2
+  material_lines:
+  - 23
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5a93f021fbef9a5b11e6a699eb2bac8a71666378f97b9e9d5f83309259b211ce
+  lexical_sha256: 487b5f59ff4da55ab30535fd60d3c2df89c162dd33ea09a41a52d08736665c1c
+  length_chars: 77
+  slots:
+  - 101
+  blocks:
+  - 3
+  material_lines:
+  - 4
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5afd43c1a8d15874b675a96373ca8c31d20f1b86be038578a76e4c1c52992a3d
+  lexical_sha256: a2549341c6260624c6c70fc44f4560504e8f32a08e4283800c1ddaf704d73635
+  length_chars: 85
+  slots:
+  - 73
+  blocks:
+  - 2
+  material_lines:
+  - 26
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5b5b2c247854520355b13bc21b52e4c587f86d2cdc194be6b71dbcc46a063c84
+  lexical_sha256: 8853b4efa00c9346604e8e6d3051c275680d63c6a77b78f3669bfa3699bdad99
+  length_chars: 108
+  slots:
+  - 162
+  blocks:
+  - 4
+  material_lines:
+  - 14
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5c0cc21bc456a91999eabe68ba9da0afb55a5ecf87349cf17766317ba619ce03
+  lexical_sha256: d81ddfc6f7357620d7d95b7d4efe3b9f7567adddc7dbf176f7141e8635814b6c
+  length_chars: 137
+  slots:
+  - 117
+  blocks:
+  - 3
+  material_lines:
+  - 20
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5c6b1852b1aba0e402a2e3797da85b31622587e3102c531bb1e83073087aadf1
+  lexical_sha256: dc0460b34150e6ee7d68b76a4c38e0342ce7bfe37e56f2bfd8505e9695699012
+  length_chars: 120
+  slots:
+  - 172
+  blocks:
+  - 4
+  material_lines:
+  - 24
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5de5de083745a782957445f5f23cb45249080d14af2c1f4a9cadd63cf9318fc5
+  lexical_sha256: 5f8085e511b6e627fe7b16dfcb78d78803ff5689931a3978ccaf8758ad2dffb3
+  length_chars: 91
+  slots:
+  - 53
+  blocks:
+  - 2
+  material_lines:
+  - 6
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5f50f3cc2f3cd8d541738f3d9481008ec712dd4d436c6b2af6b181dc2574af66
+  lexical_sha256: b19fe664af1e73cd788d0caa90555d4eccc2dfabe612f7a3d38c2541277376c0
+  length_chars: 113
+  slots:
+  - 258
+  blocks:
+  - 6
+  material_lines:
+  - 10
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 5fe1eca51bd24f1708ab7909fe37b62b8289f608fac865abf06d3894c85aeb62
+  lexical_sha256: 95d4794568d52dce69421f049e17a413b761c5840fb31f7274f49cea46aa4c36
+  length_chars: 72
+  slots:
+  - 13
+  blocks:
+  - 1
+  material_lines:
+  - 16
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6232cf67674f05b1e7b00416936d8d78e5f218381a89db05635aa71982eb9222
+  lexical_sha256: e30915802ae9bd1cdc447037320fa3ebb8c82c4d3fb5c231153a7b8ec678d9dd
+  length_chars: 167
+  slots:
+  - 129
+  blocks:
+  - 3
+  material_lines:
+  - 32
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 623989624ecf5ebc788af5bfc21aaa71bfe49a6758bb05a0a78b9390e31f3e04
+  lexical_sha256: 090d69d672543b48cacdbb83f95f90b33a27d7aa50e0537db0780c248c4fdd7e
+  length_chars: 117
+  slots:
+  - 283
+  blocks:
+  - 6
+  material_lines:
+  - 35
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 63345f05e45644d761372b758f27fbf9621c4bd4593d32b96e03e8856276a0d6
+  lexical_sha256: 38dd3444161af280cfc8c3c9f74011b9fe3085c47e7db466ab50bebb1bb54944
+  length_chars: 112
+  slots:
+  - 30
+  blocks:
+  - 1
+  material_lines:
+  - 33
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 635665263e8d4f56a18108a6149ceeb15e8c3c65d18cc3fbe89bd54776b0ab75
+  lexical_sha256: c9309750477571ab27b9597f0cfbe42d934c2bac09850620d0d7d0ddf1209fd4
+  length_chars: 106
+  slots:
+  - 181
+  blocks:
+  - 4
+  material_lines:
+  - 33
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 648256e28bdf85452f0aa36d7dacee8eb19b1d41e8f0e95849e99e4fa297ec0f
+  lexical_sha256: 0ffadeb8e9779b693e78cea63e598fe82ab4a531dd61b052ec7c20bb70556ac6
+  length_chars: 48
+  slots:
+  - 40
+  blocks:
+  - 1
+  material_lines:
+  - 43
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 64ef4ccb8efec7df6c1edf3ce3b885cda595a85f4e8469b9ea94cc304917e88c
+  lexical_sha256: 59837a92e2dc7c9159d278dc5b247c91f197917931dfda1228cddff389bbe790
+  length_chars: 109
+  slots:
+  - 33
+  blocks:
+  - 1
+  material_lines:
+  - 36
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 65cf80833ccf4a8f507ad7a948c2fe736f7e704fd35a94d08dea19e71875d588
+  lexical_sha256: e5977901a79ed1133581f22f30759928646f48bc9d1ffce175a47a7740d2f105
+  length_chars: 152
+  slots:
+  - 1
+  blocks:
+  - 1
+  material_lines:
+  - 4
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 664c76421054c00212fe6ae8af6576b86541e4d88da6b4395bcaf2c590bc284e
+  lexical_sha256: ad9f2792a2d51f8fc460e352f701220e2fb679da91b22a0112d74f0f49636de6
+  length_chars: 142
+  slots:
+  - 183
+  blocks:
+  - 4
+  material_lines:
+  - 35
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 674c608a5e85855a58b61070de0b7cec42d4657dd6145e45f8aac7cd6a7a95df
+  lexical_sha256: 3c73bc37c32838818049541bac087f89f913e228c45e6465b3436d1bb7a3679f
+  length_chars: 73
+  slots:
+  - 35
+  - 113
+  blocks:
+  - 1
+  - 3
+  material_lines:
+  - 38
+  - 16
+  analysis_view_row_count: 35
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 68e38fca086f6da0216f92311563c661418f52609222e417af24c050352e08b6
+  lexical_sha256: fee839f2daa16ffd37af8a4a7177b83ac20d21ebfa02a5986a30c6d7876b9ce2
+  length_chars: 41
+  slots:
+  - 155
+  blocks:
+  - 4
+  material_lines:
+  - 7
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6a686a9f27067a249832c95769da16d41b8828e647aa296c1aacc57845980650
+  lexical_sha256: ffe5683792d2ec88672aaa4178d76b3bbe6ba2d219a0c7f7d3f5894fb7f5552f
+  length_chars: 109
+  slots:
+  - 91
+  blocks:
+  - 2
+  material_lines:
+  - 44
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6ae207ee9aec1da4b602a5eb748dc36cb1acbaa359a31394f9d4b9f95bcdc7e6
+  lexical_sha256: 8fcf1b43fd830427a0bd826f955968d7b3182139cb1c539bc2df621df39d09fd
+  length_chars: 278
+  slots:
+  - 284
+  blocks:
+  - 6
+  material_lines:
+  - 36
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6b98b897abab8d7e61fcfab55eda1c84174e692d3a05cbe1f6727e14c14cdc31
+  lexical_sha256: 38e956aaaa69ec71047e8b4a6c443bd7a287f8ba723f99afa25ff45514bc4ad9
+  length_chars: 90
+  slots:
+  - 23
+  blocks:
+  - 1
+  material_lines:
+  - 26
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6bbf4da2a70e9552c6fff5fc47a1d37908a105477ff04ded460ed09cd35a2bdd
+  lexical_sha256: b647303b0e3d5b41bbd1e383732d6a54a0421242adf5049ffc8300a3270cb217
+  length_chars: 72
+  slots:
+  - 271
+  blocks:
+  - 6
+  material_lines:
+  - 23
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6c495c43bb8ffc490aa557e2a3372338d7361eafc369063a7a90c06b14509467
+  lexical_sha256: 9073a7a4b0ff4d41fde31cc8334a67560e561ff845212472e86d1977e5a0536c
+  length_chars: 59
+  slots:
+  - 60
+  blocks:
+  - 2
+  material_lines:
+  - 13
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6c68fd13a3004e5fcc3a1d4160a426675976959b5463de7cdb7a15934565f3d5
+  lexical_sha256: b07b72490a69ef2d770995e22f7a29baf92c4b8e22246952e3651d8edb1e3a47
+  length_chars: 139
+  slots:
+  - 179
+  blocks:
+  - 4
+  material_lines:
+  - 31
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6cad024d9afffdd47b3fd031dfd271c983e4295ef33aa33e3712ad0d386be2af
+  lexical_sha256: b6de3c181bb87919e98e049beede86a98abd77bd303de160114b0d4059842a35
+  length_chars: 102
+  slots:
+  - 256
+  blocks:
+  - 6
+  material_lines:
+  - 8
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6ce903d0c8e3e9df0587db292ef3be25f56892cc602ec9fd3aff0d254f63fc58
+  lexical_sha256: 6f00ba1f748e76d3657e27c1de28f3247a01122e1bc153c21c60bd49f0b9b3b5
+  length_chars: 92
+  slots:
+  - 280
+  blocks:
+  - 6
+  material_lines:
+  - 32
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6d312ea729ebc1042bd14539991fbb9a823e83a9fbff32f9bc824af343e5b451
+  lexical_sha256: 847ee2f37d383c828081363062ceed532b48eed6cdf3dee7d480b0dba49f0271
+  length_chars: 60
+  slots:
+  - 198
+  blocks:
+  - 4
+  material_lines:
+  - 50
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6d5d35bf405e8caaef3977d775f35a35781e82531c0a1da8eda74b69a0cfe51a
+  lexical_sha256: 5b1e23e28effed77cf6fb32248faf2990cebb9e20ec541a3538b0d6eeb42940b
+  length_chars: 93
+  slots:
+  - 41
+  blocks:
+  - 1
+  material_lines:
+  - 44
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6d73cb0748b8abe54f6b2085415cd8d11747c5c9f3b2fe6fd7afb24504fa0dad
+  lexical_sha256: bd61807b57cbe7ef9efbfb52d88c7ec6f3a1545cf9d5a940753ba727ae6d2c15
+  length_chars: 137
+  slots:
+  - 190
+  blocks:
+  - 4
+  material_lines:
+  - 42
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6e25f3a04e0be94c29db525e0513588a38fecba598ff51d3a2c2562c65a09d62
+  lexical_sha256: 729bff1dd7d1e3cb18d72d0710f07e52750ed62b081c6955feedcd3dd3f30b2f
+  length_chars: 98
+  slots:
+  - 120
+  blocks:
+  - 3
+  material_lines:
+  - 23
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6e363e02604b4c1d2c6dd1e055972e3d9314e24a9bb153f9bf301c03abd4372d
+  lexical_sha256: 10363a19283c8234d2cf604eb705943c1dda202acceee9ead5cb348445e8db43
+  length_chars: 155
+  slots:
+  - 328
+  blocks:
+  - 7
+  material_lines:
+  - 31
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6e5b15897ea6d71fbe1f53cf386656f221a0178587ebf7381c0701a6c83c2c87
+  lexical_sha256: f6c39002b8df636f01a5f06bd0781f8dc4bcadb882532328c73945cc611dfb5d
+  length_chars: 110
+  slots:
+  - 218
+  blocks:
+  - 5
+  material_lines:
+  - 20
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6f3ab4351024c49885991fdea331817d7148f0db82f650e5b847c4c60091d038
+  lexical_sha256: 8c34b526848c18faafe869e29d0fc0010a17b3a9032b111f698186e219de5650
+  length_chars: 43
+  slots:
+  - 36
+  blocks:
+  - 1
+  material_lines:
+  - 39
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 6f5a919148aa90de0496cb60608960f6b3e705cfdb987125ff81249c3bcaf327
+  lexical_sha256: 7ee942fda6e7d00d1566e4cd315d23ee2b75885c41795bcf0e818d535eb6e3f7
+  length_chars: 134
+  slots:
+  - 308
+  blocks:
+  - 7
+  material_lines:
+  - 11
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 72db557fb05b8fa712ca0c94eb9d3c7d8646a2c5762789638058e0649d1b556f
+  lexical_sha256: f1dae6590e9137b47712e50fb93363be7a001c7c5648d93987ba113c3f964cb0
+  length_chars: 300
+  slots:
+  - 18
+  blocks:
+  - 1
+  material_lines:
+  - 21
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 72e5adb806fa00610a20d9716fe96989d00ea301bacd42922a1057a0c72d8162
+  lexical_sha256: 37470002da2b64cf8bd1311fba54c37e87aaadc0a443d9658b9110622603b595
+  length_chars: 76
+  slots:
+  - 124
+  blocks:
+  - 3
+  material_lines:
+  - 27
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7404a55e2875e9e1e746d66951eb8638b188f5ef0d695144abc74b914733b73e
+  lexical_sha256: f67be27f58d6cf5290a347e08a52782a4673d49bdacd2e83080205ece4ffaa5a
+  length_chars: 82
+  slots:
+  - 180
+  blocks:
+  - 4
+  material_lines:
+  - 32
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 74282cae679ec136c3d8ec59ff134968622ccc5d328a80e12d509fe825b9b10a
+  lexical_sha256: e7fa32c8966ee082331cf919ecc3b9f5f5300db748af6521912848a0f2f44ced
+  length_chars: 189
+  slots:
+  - 25
+  blocks:
+  - 1
+  material_lines:
+  - 28
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 74b0f8d84efc80e2cf57353ed85cd0a6095c6b8ebfcbfa9ef046d49ee8e039b1
+  lexical_sha256: 59e128732001359cbebff66687888db6668534c864cac3b2ca65d56a58009cb1
+  length_chars: 68
+  slots:
+  - 185
+  blocks:
+  - 4
+  material_lines:
+  - 37
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 753a9d9d0f3ba9c1ecac0be6c419d9de7e13d7f11185c0812e419638fcfa758e
+  lexical_sha256: 278932a271aa142f9074e15f2c1753feaa4ef4237993af11499d19162e53ab28
+  length_chars: 239
+  slots:
+  - 341
+  blocks:
+  - 7
+  material_lines:
+  - 44
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 76679de6cafb70674a4d9ae4f048f7b082846c57a1d6d90b5fe10b774c4eb6b5
+  lexical_sha256: 8f1c15dc3706e8338e5094fb18e9f9028cc424a054ef288d868e8407ef2edbde
+  length_chars: 89
+  slots:
+  - 247
+  blocks:
+  - 5
+  material_lines:
+  - 49
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 76bc3b172619c078fe315e4cc2ee3f2a2303fb1829dc16dfee094ea97c67af70
+  lexical_sha256: 9bb10f2dab0cfe8f5676845e8f47217a9f84b2b5b81087b123c8376f8e8d6e26
+  length_chars: 205
+  slots:
+  - 92
+  blocks:
+  - 2
+  material_lines:
+  - 45
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 770207d2e34bdd4abac021b7f206de1764f13b4a90a3646ad2c3473ca635e96a
+  lexical_sha256: 6c130334f46c583045484e1d6e03c193c063b00e209a191ecff4d04357041012
+  length_chars: 101
+  slots:
+  - 343
+  blocks:
+  - 7
+  material_lines:
+  - 46
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 78017b9d5d2030be6e5cc42aac4a967d0cbcebc9a97d78486b3287a5239cd230
+  lexical_sha256: 24a58cc0acc5f6ce3cd6d59022a80e22e98378f64cdd94f6171f1adda2054498
+  length_chars: 127
+  slots:
+  - 279
+  blocks:
+  - 6
+  material_lines:
+  - 31
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 79157e3f30e8795de230b24320583c57b778452f7df624f256e9f3701bd4c631
+  lexical_sha256: 66ec4a4dd8c2e40b0dcc04e3b10999839e06038e35912110971e398c4cf2bf45
+  length_chars: 114
+  slots:
+  - 28
+  blocks:
+  - 1
+  material_lines:
+  - 31
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7975877102dae32d5a125c24d55f316c8617db3909083a66f12907fb6a864fba
+  lexical_sha256: 58910b97782ec6435d0634c165c83bbfa589f89641e83a31b230f5773860ee3d
+  length_chars: 88
+  slots:
+  - 277
+  blocks:
+  - 6
+  material_lines:
+  - 29
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 79beb9bfcc7af480fa3aac1718233885bcbf49bd0748799b5502861b6efdfe51
+  lexical_sha256: d6b49c1a85afc6b752c8ef239d9357491bc283f14d8efb0dfb6b5b3ed4c9860a
+  length_chars: 63
+  slots:
+  - 188
+  blocks:
+  - 4
+  material_lines:
+  - 40
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 79f762c0ba8ebe517dbf253698dc9f7b1a8a9abe219b8f566d6df7702c55c318
+  lexical_sha256: c678accfd8ec6f761c644f0449ee09767a390192b2227f02c2a3dd09b354fc5b
+  length_chars: 152
+  slots:
+  - 337
+  blocks:
+  - 7
+  material_lines:
+  - 40
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7a945af77b44b9e40acba764cd641d79dc0981fa7e75f929c0e002c7a1742db4
+  lexical_sha256: 360bb9ded0e8c0c8f232d9004fda8805e4461b815be7f2277d76e00e004f6539
+  length_chars: 79
+  slots:
+  - 9
+  blocks:
+  - 1
+  material_lines:
+  - 12
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7baf173995bdcafe40fdfdb38c2edbf291815a867576869cad64074ad51f528b
+  lexical_sha256: 92b54c804460f752db031e575229dd3c8f53b6eedf4232df53404d2701f4e21c
+  length_chars: 180
+  slots:
+  - 173
+  blocks:
+  - 4
+  material_lines:
+  - 25
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7be145379ced713118fdccffb740deea2a23f8bafc6362a58e493d9b6415eaf5
+  lexical_sha256: 04cf282b0d09ade9c922e53555f5560d63164d476713d0f7aa3a2d6aa0ff07e3
+  length_chars: 66
+  slots:
+  - 274
+  blocks:
+  - 6
+  material_lines:
+  - 26
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7d66db4ea50c2f750b2ac2f6e4bbe9d10ad2407100597dd643c2747542017b03
+  lexical_sha256: 8e08911ab7a816d02fb91f077dced954ae92c1f147e31c8b9a602ead34436bc4
+  length_chars: 167
+  slots:
+  - 176
+  blocks:
+  - 4
+  material_lines:
+  - 28
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7d9600dfb599be0c75a59f5a093c9878fe9595fa6bba84a7401d3c58838be16f
+  lexical_sha256: b3ab5f1ea59078179bb8247101993b0b49e330aaf88001272a3949c9288571e8
+  length_chars: 68
+  slots:
+  - 114
+  blocks:
+  - 3
+  material_lines:
+  - 17
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7e32df0df0601f7096c8042f23274ce4f2ab8e6fcbc043aee9e10c5530efdfb9
+  lexical_sha256: 9ac813fc33a4ef010f34e7c118ea9785c77343be47e2f7505372ceaebce71905
+  length_chars: 57
+  slots:
+  - 20
+  blocks:
+  - 1
+  material_lines:
+  - 23
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7e59c117d6d317a2bdc1f0029b2901f2148e356657f094e7d4033d4939f7ce08
+  lexical_sha256: cf459f1bdfd190d1a37f7b8e2264279c9e2f54d53292379108428beb120a719f
+  length_chars: 248
+  slots:
+  - 166
+  blocks:
+  - 4
+  material_lines:
+  - 18
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7f3fb84f906d98152f6b6e29aaa2170259cd17149115197b67ca916138a51667
+  lexical_sha256: 3a5409475ee04b2a8826c13ca5fe1836c4ee4da0e78c8620d8904bf606cd7ec4
+  length_chars: 61
+  slots:
+  - 153
+  blocks:
+  - 4
+  material_lines:
+  - 5
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 7fb9e350e483f40ebb4a198587e2e128a0c5fb5da05ca816603ee4f5538d6344
+  lexical_sha256: 5d4280099f54bd20fa235d7128435d97938bf730c9f0e61f5fd6b990b12ad2c8
+  length_chars: 162
+  slots:
+  - 215
+  blocks:
+  - 5
+  material_lines:
+  - 17
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 80ec4953df081af9a21135ea00711ec57e1de3db64d7a3c248c9447e690ea26c
+  lexical_sha256: d95f392d8ab877b88a8621bb740be75b6217ddc946d20669ee141c31e315dee9
+  length_chars: 138
+  slots:
+  - 147
+  blocks:
+  - 3
+  material_lines:
+  - 50
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8339128a9d8fec561d5f8e330e87b4cf976aba91d76ac40983de5ac207f0b566
+  lexical_sha256: 300ee8b291399e9672a12f0f1145a346e353ff43ea73beec6481c601e8dcaa20
+  length_chars: 102
+  slots:
+  - 302
+  blocks:
+  - 7
+  material_lines:
+  - 5
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 84e251ffb0b5ef731b5bf1a8cb047d87cfce25f8b58331dc68acf758315fb98e
+  lexical_sha256: b53be3317d1cc79441789ec018029a4ad464b8fa31bc79d455ba9fb10dec723c
+  length_chars: 47
+  slots:
+  - 221
+  blocks:
+  - 5
+  material_lines:
+  - 23
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8558c6d4b00c54afedd2d85bcce87e672222e8b7abc0398e58875de6029c6c16
+  lexical_sha256: f1fb546f29a4cc12298c683381d83ad51fe13aff6728ff24e85ed23106c03842
+  length_chars: 97
+  slots:
+  - 278
+  blocks:
+  - 6
+  material_lines:
+  - 30
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8668150476d34941ad6743b6147c8d0c06597a7885f33433c87282d91a80e32c
+  lexical_sha256: 764e4fd5d5a1e57d2b5142c4b7214f8a7bdf446ff1690529b3fb8af819504bb4
+  length_chars: 146
+  slots:
+  - 307
+  blocks:
+  - 7
+  material_lines:
+  - 10
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 88d2605095a5ebb4be547e7407f203710202649a0e6d35e65142b5e7095b0766
+  lexical_sha256: 0bdbccf0c9d2e58ca02c546a03a4b3c30e21d34ace16b22efc148bd13f2f9106
+  length_chars: 91
+  slots:
+  - 252
+  blocks:
+  - 6
+  material_lines:
+  - 4
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8adb03db3d864e40dad2ad082ad6e8029661bc8c4633d2a9c24c129f8776d707
+  lexical_sha256: 0bcb367e5ef9d54eac516fbe747eb83db1ff50bb0b181faebd22778ef51c0a01
+  length_chars: 273
+  slots:
+  - 287
+  blocks:
+  - 6
+  material_lines:
+  - 39
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8bef3a920246a60fd9174be79bd3def91321dd1e73bc56a957b0130f2af8cfac
+  lexical_sha256: b4b9a9ae48940e245fe4f55f6c12cba29972433d44aad2deae061e78f2d651e1
+  length_chars: 72
+  slots:
+  - 210
+  blocks:
+  - 5
+  material_lines:
+  - 12
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8d29acaaa60a7b4c3ddfb94e0f957bf12fc6317bd97488bd215b1830ef80494f
+  lexical_sha256: 041c0861bbfd4018a859a484a1009f14e33e6f8b8a2951dc81ccade13a4260b8
+  length_chars: 96
+  slots:
+  - 325
+  blocks:
+  - 7
+  material_lines:
+  - 28
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8d3ec0d34144227959c8859762f9c8d65ee82a32029d9dd26400c7c89ddebc3c
+  lexical_sha256: b04aa92e41ba8812cbbacd34ad7e12ce2275dc70e7cdda4014540928aba091a8
+  length_chars: 116
+  slots:
+  - 242
+  blocks:
+  - 5
+  material_lines:
+  - 44
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8ea36584c15846f730b49ec270696fc31b33cb1344eab0211978cc751f9a10f1
+  lexical_sha256: d28ff78f912cb290b7b325c177dcf71226cd3a6224204e35a6d9ba3da3bba35e
+  length_chars: 25
+  slots:
+  - 232
+  blocks:
+  - 5
+  material_lines:
+  - 34
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8f0fd9558b9dbc4af857b44fa486ae3f9a5aa21e96746b2ca713bd0d4b16b8ab
+  lexical_sha256: 82175b995aa29c75f15a4b0a77719997671eac6b514e046311a8c1a0d655115c
+  length_chars: 78
+  slots:
+  - 186
+  blocks:
+  - 4
+  material_lines:
+  - 38
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8f3f680f18ed7e55b4e590b90ca6422d1fdcc19610c4536423de2a9ad25a457c
+  lexical_sha256: 4242d0a74c5f4880d79861c985ce951e370696eb77407493735c3fe019c65daa
+  length_chars: 104
+  slots:
+  - 236
+  blocks:
+  - 5
+  material_lines:
+  - 38
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8f7fccd18ad15956d5a8a55455fcae9262e1ef3a782d61e5357457caf2a5386c
+  lexical_sha256: 41032e383554f546d8795c70fbc86dfbd79d7ed4fca84e5b4d95eb3fce37055d
+  length_chars: 139
+  slots:
+  - 142
+  blocks:
+  - 3
+  material_lines:
+  - 45
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 8fe44755aaeab26997ca1acade855415478a0a05f2f466e2afd320ebd8cb320f
+  lexical_sha256: ae60f058c4c9b806acd6c5d22504bfd217d418b13504dc9f8bd93724d9f3ea9b
+  length_chars: 214
+  slots:
+  - 301
+  blocks:
+  - 7
+  material_lines:
+  - 4
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 901df9fb3ae72e647724fe72fd747404f6a847949d2d7ed241b32383894f2441
+  lexical_sha256: 0cf984d92c85d6645bee78cd93c45f480efb8e3e3cda8bb0cfd90bd80a2cafac
+  length_chars: 50
+  slots:
+  - 132
+  blocks:
+  - 3
+  material_lines:
+  - 35
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 91c9d6259cf5274c55f46aaceec8f81833368ddc86800bfc941eb7e7a4e29fbd
+  lexical_sha256: 00c26b022f3af74d31c51137b22d49273430287ab2f97313a6ad02c9f8bcb402
+  length_chars: 119
+  slots:
+  - 182
+  blocks:
+  - 4
+  material_lines:
+  - 34
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 91e2043c068512fd5c23a7c4fa88ac365d2b54a13f212eef97f1b3636db1f229
+  lexical_sha256: 959d0c1562619a689ac41cff1c829076f3c5934acda7e08e68b20de619b441f3
+  length_chars: 106
+  slots:
+  - 97
+  blocks:
+  - 2
+  material_lines:
+  - 50
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 91e71959c61d459c5b3c7d05215731f19d19396072a74e26d24927aa48ebcb9f
+  lexical_sha256: 12eb7f361337b08e95b7abe75b3f6dacc6a7cb103449e4911cdd5a89f56f54a6
+  length_chars: 165
+  slots:
+  - 311
+  blocks:
+  - 7
+  material_lines:
+  - 14
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 928c92fe52c0d845cdbd9ad3e354f75861c13b83a73d8312dc1aef8d76438583
+  lexical_sha256: e50bc46dd4da359f9d5d8b3df9a10f3782ba299264566cfce629453bb30a1ff1
+  length_chars: 240
+  slots:
+  - 250
+  blocks:
+  - 5
+  material_lines:
+  - 52
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 93107f7a16c37221ee96f97c1a3da9dd07688c485785374a13a8e05ba61f92d8
+  lexical_sha256: 776b81239d584403bce40124694612e74dc3ae6230e08a7512edde36641c130a
+  length_chars: 32
+  slots:
+  - 164
+  blocks:
+  - 4
+  material_lines:
+  - 16
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9355b0116450a1eaf7be2975b98c225cbc147388862a44b39038a8ee2930fa35
+  lexical_sha256: 0599196337e018c7ccfb00ebf0e95a451bd738e57e388bacbdaac630c60197e3
+  length_chars: 111
+  slots:
+  - 275
+  blocks:
+  - 6
+  material_lines:
+  - 27
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 936b89bc6fe03148bc3d4c862dc2fe3ff3ecbff7a4996f1a508b0e5b3ffc333c
+  lexical_sha256: 4c891f1f38875e6abc0774a485855f98ec0ca84ce142245a07a357c3692219db
+  length_chars: 92
+  slots:
+  - 111
+  blocks:
+  - 3
+  material_lines:
+  - 14
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 940adc6fbc84ab10c3afa3a96426d29c6e6c6013b475dc94f3571569b9fa4b49
+  lexical_sha256: 01fbc2c271c715e0dec7f684e61d3817e4ba4adeac64da732687e26307380fc7
+  length_chars: 124
+  slots:
+  - 342
+  blocks:
+  - 7
+  material_lines:
+  - 45
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 95481c8bd1268345a96df71314cce3309b1d06cd124c9fbc07aae30d08988187
+  lexical_sha256: 78b2ab4c9f50dfddfe8a8eb4e250ded2a2f37b70f1f30bbd8ea47a089be6b820
+  length_chars: 92
+  slots:
+  - 167
+  blocks:
+  - 4
+  material_lines:
+  - 19
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 95703640f68280c1b5fac1b1eede182c3156482f1367f47b1eac304a575dd181
+  lexical_sha256: 3c05376001f65a62c69702aaf814e7480536fc4ade79a99e3d07cda41c5f39c5
+  length_chars: 68
+  slots:
+  - 145
+  blocks:
+  - 3
+  material_lines:
+  - 48
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 95e751d6b6d53a8e591772f6f1104f77346057283dbf47561c5867a5d25158f8
+  lexical_sha256: 4fc73affc0902cb6bb075f55cb56a347f1808fca27411bba6f537a39d6ce54b3
+  length_chars: 146
+  slots:
+  - 84
+  blocks:
+  - 2
+  material_lines:
+  - 37
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 971cfb7b258ee35e0c2885e49c72f2325364ed41d314bf55263dad69c4cadd06
+  lexical_sha256: 128de9b58f7b4d6ccae575543f15fd539a381aa745c9ad51df56fd6c3f07e890
+  length_chars: 107
+  slots:
+  - 340
+  blocks:
+  - 7
+  material_lines:
+  - 43
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 975b917ee2e3145f4511cc8c1cbca79d44c7a528b2ff9482ddc583227432d191
+  lexical_sha256: 32d6322e99292bcc0bad7df183cf5826395a3730675d4b0084566a61c186dd0d
+  length_chars: 133
+  slots:
+  - 184
+  blocks:
+  - 4
+  material_lines:
+  - 36
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 97d6d85ad8f9e895cd7fefa591cf0ace6fd6a6a9c0eeaa0544ad74bbf4abb5c5
+  lexical_sha256: 130e51565aab26fb7b21fe372ffd5e175802dfaea9db9aca7d183703b70aa537
+  length_chars: 97
+  slots:
+  - 234
+  blocks:
+  - 5
+  material_lines:
+  - 36
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 99002212acc766338ca1ae7f4303c8ad957a74702e65d50f2a69df01f486ed80
+  lexical_sha256: 6a5f19cd5d27343b33a6e7767f909a617afcb246bfc1a60e2a50a277a70746da
+  length_chars: 46
+  slots:
+  - 76
+  blocks:
+  - 2
+  material_lines:
+  - 29
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 99217a7e2d34247a8ce98a5d9d66632f1094934b25e9bdf65e4cea7ea038de93
+  lexical_sha256: e99bc517686d151413dd6aad59c9a43fa3e6a9de1878f375d5053bceae4f7952
+  length_chars: 64
+  slots:
+  - 345
+  blocks:
+  - 7
+  material_lines:
+  - 48
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 99743e166d9016f1cb5c256f2090a6aafa156fb1714324cd4ef994f228cff470
+  lexical_sha256: 002d1e5a2a8750c16ea8a414ec6b4aa0de495bbb5f11598841c66c79ba14d578
+  length_chars: 137
+  slots:
+  - 197
+  blocks:
+  - 4
+  material_lines:
+  - 49
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 998007760728f3bde0185608aec2e9b740f7003eb6e8a18e39874efcb5460836
+  lexical_sha256: 6b962f06fe9735c1ab4d9576f17154f3e598f9b56ad5298d3e9d7cf9eac7464f
+  length_chars: 73
+  slots:
+  - 300
+  blocks:
+  - 6
+  material_lines:
+  - 52
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9a0f063979be3e645a5385ccdbabc8cd3d976af96ed2e1b19862f1daaa800303
+  lexical_sha256: 2632caad21c3b0a243a27d339e6e0284a0730856f14a645751bf07e5464bb8c0
+  length_chars: 74
+  slots:
+  - 157
+  blocks:
+  - 4
+  material_lines:
+  - 9
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9c4ec62ecc144670eab3b6cdba4c2151677c3fbc0931597344aaacb046158be2
+  lexical_sha256: 74602c0628e10cb100b3aca01912970e343fa7dc63b3e43275aa00f2a506a336
+  length_chars: 54
+  slots:
+  - 69
+  blocks:
+  - 2
+  material_lines:
+  - 22
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9cdbec06007a2526da5c9d54cebee68a20da82d9b672e1c8915b291a4bf171f8
+  lexical_sha256: 6fb5fc003b16b14878c4fead61322daae13d2c2d37c8700dac496fc02628e2f4
+  length_chars: 90
+  slots:
+  - 349
+  blocks:
+  - 7
+  material_lines:
+  - 52
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9e0818fd7be74e198364e56f34d06a34d1928106b673bc684fd41fdfbd5515f2
+  lexical_sha256: 3eb8917b56151901c1c7c483724a12a5ba9f4a924ab81a710b385a263b5843cf
+  length_chars: 189
+  slots:
+  - 316
+  blocks:
+  - 7
+  material_lines:
+  - 19
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9e93f32c58318ee5b2fcf1e0de867b1964e2498c8098033c70b76ffe04388602
+  lexical_sha256: d9d40f77a4913adbb63482ffeb57373088a7c43b82e0728b77931fd94492c885
+  length_chars: 110
+  slots:
+  - 290
+  blocks:
+  - 6
+  material_lines:
+  - 42
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9f307f863b75383867433b47f7f9b95fc5001314a20517018c85e86542649567
+  lexical_sha256: 44afa9c23c85d0e45274373f2c18d0acb3cc64b72783a281daf9def3e77d6af4
+  length_chars: 123
+  slots:
+  - 148
+  blocks:
+  - 3
+  material_lines:
+  - 51
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: 9f926eb7b6fe480339838cb716df6025c51fa4a5ef22e449b552bd5a6d133463
+  lexical_sha256: 420820086ddd505b5f45bd0ac069c217309ee4f3020da2ed393403c94fcce866
+  length_chars: 230
+  slots:
+  - 6
+  blocks:
+  - 1
+  material_lines:
+  - 9
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a1397809faf2db13d6ebccff54edb86e6fc252d6ee48431673969b98a6837b83
+  lexical_sha256: c50844af5c8adf12d3150d3a1ae4d5e7dae63b11772a2033319dcb7be890c60a
+  length_chars: 93
+  slots:
+  - 163
+  blocks:
+  - 4
+  material_lines:
+  - 15
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a2aee4354da6da84b56a2cfda0ca79fe4b6496a494bec7ba66dce326093bb05c
+  lexical_sha256: c74cfc6c3be5a935b41bbccfc3fbc8d1628a6b58c1db99897742dfcfb1a71606
+  length_chars: 210
+  slots:
+  - 318
+  blocks:
+  - 7
+  material_lines:
+  - 21
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a3f882fece6da72783acc6b3e53f3a84d1dc362b2e47a797433a4c99653ca5b2
+  lexical_sha256: 0a11d29bf1c9ca94b7951a4f90a1488a8bbb5cb41bcd98ffed0a4a4e009a62bc
+  length_chars: 130
+  slots:
+  - 229
+  blocks:
+  - 5
+  material_lines:
+  - 31
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a50e22381cb2d081c0ec7dcb2c44adfd79846db16deddf3e7bc40d63ce204dca
+  lexical_sha256: 3a0533e71c3fb944f403348854a03b02fe410cb41dc4971317639872bbfa2501
+  length_chars: 83
+  slots:
+  - 288
+  blocks:
+  - 6
+  material_lines:
+  - 40
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a57d3dcffa24f68a89a491731579390d18c04a29c9ee112630930737720aaf56
+  lexical_sha256: 8127ba63ed7daa0623ec569dedd79a70bdf49a6f832f4939b459735d47ec221f
+  length_chars: 106
+  slots:
+  - 110
+  blocks:
+  - 3
+  material_lines:
+  - 13
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a627dbc481776c85f1fa8856d43eabd2277d8ac2d8beec3710c6f69156346ed1
+  lexical_sha256: 458956a8f48a3d784cb960ab114f624677ce1ee26b0550e47d087961fab6bc33
+  length_chars: 103
+  slots:
+  - 304
+  blocks:
+  - 7
+  material_lines:
+  - 7
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a7d9d53fff7fa8e6bb6b0778be4566a769f617fffcdb3884ec31a4cf71ad55d6
+  lexical_sha256: 39457e5e17a3f2532d03e6e5e03ffa614f49cf2159c3a8d1b696f3403d8ae484
+  length_chars: 102
+  slots:
+  - 107
+  blocks:
+  - 3
+  material_lines:
+  - 10
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: a83fbf4191232bba7225eaebb4b2c0e5ccf07b706f7523729232981efc4e5711
+  lexical_sha256: d1c236fdfa2b69c51d9175eca7a29206c8d4cc8d5b2844f0474f702c96506084
+  length_chars: 167
+  slots:
+  - 331
+  blocks:
+  - 7
+  material_lines:
+  - 34
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: aa84f5d546d1a762217402ed79a90bda61d7eb391e451001664443b469cb62c8
+  lexical_sha256: 03656463bf6100220e5c5c785609e0ba717f7c89e21b58d1b58548449c537131
+  length_chars: 49
+  slots:
+  - 276
+  blocks:
+  - 6
+  material_lines:
+  - 28
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: acb150dd7b3de5966cfa0db24396997b6184472a60484e5414a5ca35a668443a
+  lexical_sha256: f776b0660498bd9e20b6780a6ad9b0c33b09d08808f3ceca40dcb1d32377dacb
+  length_chars: 210
+  slots:
+  - 204
+  blocks:
+  - 5
+  material_lines:
+  - 6
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ae36872a187164528b74481633833abf2beb5afb80944768d88c4e46b811b598
+  lexical_sha256: 5d3e3736251fb6db1f62fea025fa69b9c31e7820e7888dec1a57ed3dc9947726
+  length_chars: 81
+  slots:
+  - 67
+  blocks:
+  - 2
+  material_lines:
+  - 20
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ae76b0b7010b005ba25432a209c00090e3a6e08e735b4e2152288c0f0b4a659a
+  lexical_sha256: 71c92b5de3e9c8cd714f411d37729841a119b3b6eb084498671cfc86edfec6c6
+  length_chars: 97
+  slots:
+  - 116
+  blocks:
+  - 3
+  material_lines:
+  - 19
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: af0dedd871f39408e391198c2ba2273e75e180f88ba43a4157e3602ec7253cb0
+  lexical_sha256: 8e540b77a5b67879b1bc4f0c12fa30823de7946e1c590fd63231c992cf41b47e
+  length_chars: 57
+  slots:
+  - 59
+  blocks:
+  - 2
+  material_lines:
+  - 12
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: af4ee0b1bd42b561ba7e938c7627bca679aff93e63a29669bfbff6402e3b2a63
+  lexical_sha256: 212c9fe8a64b326a66525a07f8ed0b68b257cee6a09e564511b2e6eb55f9f1f3
+  length_chars: 304
+  slots:
+  - 29
+  blocks:
+  - 1
+  material_lines:
+  - 32
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: afef6c0cb49a996a2823fa73e8879da8c5fb217c38474bd9bd44ce217c9ddbe0
+  lexical_sha256: 18390f253d6a1d7caa40ded2cae632bea238357ad6d55f2e25740d89f1a75bc9
+  length_chars: 168
+  slots:
+  - 168
+  blocks:
+  - 4
+  material_lines:
+  - 20
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b0c5a149cb87b1ff67410963a53aceb6f1d92c630d58a91c556c6390740b43d8
+  lexical_sha256: 347a8454ea86b3d0a9d3ea1dddd58961f5601df948d2a8e23bd1d13ec3e55fd6
+  length_chars: 182
+  slots:
+  - 237
+  blocks:
+  - 5
+  material_lines:
+  - 39
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b2efa45b1df67ac7d04eacc1a429c86097309c11d2e238240bea76fd5d644555
+  lexical_sha256: c443530b4809cfe3b14ac26849db2d2c38d6645fcfae35c786c27fe56593da48
+  length_chars: 105
+  slots:
+  - 66
+  blocks:
+  - 2
+  material_lines:
+  - 19
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b36389d6936114300fd087a58cb4fcf94725969faa868a40b359fac6d773f5d8
+  lexical_sha256: 8e95823a974bb796029f1f152837d14239e003ac5f17f90e2492756424bf97be
+  length_chars: 101
+  slots:
+  - 272
+  blocks:
+  - 6
+  material_lines:
+  - 24
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b426574195b96ffdfeccaa25b8c1f57cc554641e609b439475b439829dc49778
+  lexical_sha256: 4581aaad968de1910be28b6ab2c76f20fb8779483de4128eb33121da54f7ca69
+  length_chars: 36
+  slots:
+  - 78
+  blocks:
+  - 2
+  material_lines:
+  - 31
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b4b033032df3ca4964fcaa7f2233ebde119a444436a6c56b9b46376897412360
+  lexical_sha256: 33b6918eb63069d4d2137b21bdca5aa3c07ad241e509aaeb2b72adfa9440bf6d
+  length_chars: 72
+  slots:
+  - 87
+  blocks:
+  - 2
+  material_lines:
+  - 40
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b4e7d59119b944343278c9de133477801287d20f13cf3eb8d5c7018c5da126a0
+  lexical_sha256: 364b3e0a4c91dfa419dbb25ff441bf6a73d7cb7a5bd3e62131dc96a93c8d92e3
+  length_chars: 56
+  slots:
+  - 220
+  blocks:
+  - 5
+  material_lines:
+  - 22
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b4f7e938353fe0afd81e3582549baec7de66b9802dce7bf8c865600b8f9d8b09
+  lexical_sha256: 7e108616cfcdf00b059ad513b4c34cccd0f15b831161210811e548959522654f
+  length_chars: 91
+  slots:
+  - 26
+  blocks:
+  - 1
+  material_lines:
+  - 29
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b52ed4bd75ba7b3c1a1306b8dbdd202fdd87f0c1a673817e50ccc7f778223dde
+  lexical_sha256: 361fdad878e69858e8567e0ff92cfbb1887a613ac452ad5d9f23c01e42777e18
+  length_chars: 166
+  slots:
+  - 213
+  blocks:
+  - 5
+  material_lines:
+  - 15
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b70278641597b3fe51c04a87cf8313853d5fec6db1fc3f701b9e335d8602b9a8
+  lexical_sha256: e95f9161567f2d8b655e49e6a01c167bee42cf83ff1c1d6fe03d3f7a374e7077
+  length_chars: 229
+  slots:
+  - 187
+  blocks:
+  - 4
+  material_lines:
+  - 39
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b852321728314cd422ef4ed0804c69e4d1a59091798240ed10b0bce048909481
+  lexical_sha256: 24a2761382dcaaf8842612e907afe2180c667b2acaac32610d3255c7b75d8c65
+  length_chars: 37
+  slots:
+  - 178
+  blocks:
+  - 4
+  material_lines:
+  - 30
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b95abca07d882d32bac972039acc75bc00d9b0ba84b58d8ce16a863c79847caf
+  lexical_sha256: 251d7f13f0e85e3d170e78490eccc6733c5180817771763ae4edb05e8dfba0d3
+  length_chars: 145
+  slots:
+  - 315
+  blocks:
+  - 7
+  material_lines:
+  - 18
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b9e3db60b8805f4869a9158a2724ab3a6f9288485db0917ecc19ba191478a60b
+  lexical_sha256: ed6bb3d2fa8b9aa21deb17a300fc2e73ba8ad585f45cab94810343c4f6c20eeb
+  length_chars: 77
+  slots:
+  - 243
+  blocks:
+  - 5
+  material_lines:
+  - 45
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: b9f26d7c94e08e52ae03aecc9afaececdec2ba51bc65cdd8a18f9255906555fc
+  lexical_sha256: 0ff5f980db181d4a77ac76101a203073495823c535889d8529837956dd1f4869
+  length_chars: 71
+  slots:
+  - 77
+  blocks:
+  - 2
+  material_lines:
+  - 30
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ba069dea5f418fbf1d65cc81056eacb7c5d3a5182df59f0ceb3b1e9a184ae944
+  lexical_sha256: 5c0082b06c7f1a5cf78970590eaad2ddca64ff4317ae334d671b4b92624d0d73
+  length_chars: 158
+  slots:
+  - 118
+  blocks:
+  - 3
+  material_lines:
+  - 21
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ba0e7fb6d57e9c4b116c18714008e2641377dc0ebe16040899754fff85806859
+  lexical_sha256: 58a5aec361bb9cdfc9b112493af9397b76ca7ca0db183c7a751faed51018cd99
+  length_chars: 107
+  slots:
+  - 105
+  blocks:
+  - 3
+  material_lines:
+  - 8
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: bac5aa0d7c25488d0838716afcbb82927408f1e40c729130ac8dde4745aeaddb
+  lexical_sha256: 6cc77d60b6528a50b6a879ec8be9e5943495a40bb9ecb66d7aae0e5a2b1417db
+  length_chars: 350
+  slots:
+  - 32
+  blocks:
+  - 1
+  material_lines:
+  - 35
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: bb9db49370e7d3298d93e003c51428f5dab18e170a2350aa6a3e117c8157ea94
+  lexical_sha256: 71a000bf5bc587821d64305a6ab65e64847d2910da0ab5862e36f1ec7248f914
+  length_chars: 142
+  slots:
+  - 50
+  blocks:
+  - 1
+  material_lines:
+  - 53
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: bbba3d4356700e335e93d47633184c17c884ee423082399c50fab9f4edd640a2
+  lexical_sha256: be9406e781de45be7607c53876e4f3a5a2ed9cf74fcabf33295b2ae4eb4a2217
+  length_chars: 99
+  slots:
+  - 195
+  blocks:
+  - 4
+  material_lines:
+  - 47
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: bceec207b405b3d15a32d66af6a632574cf136372420178fc47ad384307759d2
+  lexical_sha256: f3936631dc570331f78546e257ce9441bb4a5db2b36b33e5fc64dc0c623bb867
+  length_chars: 126
+  slots:
+  - 336
+  blocks:
+  - 7
+  material_lines:
+  - 39
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: bd4945e9dce8ef512546d3b8c010b785a9040e7b56d90e1f69cd4cb029e840b2
+  lexical_sha256: edfa9302ed732f69d04273620c82aae5b2ca85170670a78d0e179b435c032ef8
+  length_chars: 96
+  slots:
+  - 224
+  blocks:
+  - 5
+  material_lines:
+  - 26
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: bd70789c777b7695d8b3598d6e40ed32656261db79a2e6ec84f6f0585d0899c5
+  lexical_sha256: bbbeae9f6ed33cf13e393a8d6d6f22c63653b4fd9950299e17b221c999526c3b
+  length_chars: 155
+  slots:
+  - 22
+  blocks:
+  - 1
+  material_lines:
+  - 25
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: bde0f374b98c530aaa71f9939ba7e90ce7edd3e03c8ab3dd881ad41dac11d464
+  lexical_sha256: 01e34219469a2ae2eff050ef817763aeba8cfdb07aa2330982dcf1f7654e5231
+  length_chars: 126
+  slots:
+  - 335
+  blocks:
+  - 7
+  material_lines:
+  - 38
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: be4235b14b0d75f59dd63e6f4cabbea24448c46fc5501eb59cbfe2dcb55aae11
+  lexical_sha256: 0da76476ffeeb6ddf4e16fd2936a3d2e496aa6ecec59ddb7ba4886149e0d8d9a
+  length_chars: 133
+  slots:
+  - 89
+  blocks:
+  - 2
+  material_lines:
+  - 42
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c0fbb89a23e8bbd9207ed476390054ca0ed97a9449edb17f0df1c189ef53ab85
+  lexical_sha256: 7c9b34be80c545babbdf5ce88097f065ea2ccdf4de5ec71293a84b55f641d8be
+  length_chars: 118
+  slots:
+  - 251
+  blocks:
+  - 5
+  material_lines:
+  - 53
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c1738fc5701155b6ece1c39dbb6182e054f4c5a33d496acd9df65fd8def5d231
+  lexical_sha256: 04d865663648f26a3aaef8e6325b6b9bd7e686d223aebaec20e3c1ed0938094a
+  length_chars: 129
+  slots:
+  - 150
+  blocks:
+  - 3
+  material_lines:
+  - 53
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c20354c12eda156a5ad9ac89f6eae8d69838e22a0cc1bb1b3b85ca5fc4660b97
+  lexical_sha256: 454647e91349f2c56ab83c96fcf6947dd1c4fb280db979565a3be0b3c5304cda
+  length_chars: 123
+  slots:
+  - 2
+  blocks:
+  - 1
+  material_lines:
+  - 5
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c22b7f35919cf628e9d2c34eb77317d52d6f942514aaf0632ef5818381403ae2
+  lexical_sha256: ea94438f30117709f02ab9b7d9daf03ec2e344fe3e4a150fde7ed17a3d004913
+  length_chars: 63
+  slots:
+  - 189
+  blocks:
+  - 4
+  material_lines:
+  - 41
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c35104bb110bf28d718b38541ed292cb3f3caae8336e77f907d58f6dcfad81e1
+  lexical_sha256: 207a8a1f1878dd3f6bf5e38279fa7bcb247e760fa7bbb1e2d7d7daaf66a59433
+  length_chars: 119
+  slots:
+  - 199
+  blocks:
+  - 4
+  material_lines:
+  - 51
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c3c1b0f2894126a907e6e00f4a98515c92f8d1cf8a7a8d3a58a8ff19d5604ee9
+  lexical_sha256: aaf8d05244ecfdd31aff230c63691402c1ddce59eedb705bf17d5e70ca9fc7a7
+  length_chars: 122
+  slots:
+  - 344
+  blocks:
+  - 7
+  material_lines:
+  - 47
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c3d7131d5f8d0e7f899acf94855721ace821717e320ad152501aa233509bfc0c
+  lexical_sha256: 82c7d62819acc5e9e6c08f4d912c4349d2a42f35357e97037afb56634813a0bd
+  length_chars: 116
+  slots:
+  - 68
+  blocks:
+  - 2
+  material_lines:
+  - 21
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c45143e788e3cfb00ca114e5aa2ebb16418bafd650f10799aee3c9832d138e45
+  lexical_sha256: 945a901ad4f32b7598f2c3ede949005aa1725544fc0ddcf060398e9732ed7623
+  length_chars: 99
+  slots:
+  - 244
+  blocks:
+  - 5
+  material_lines:
+  - 46
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c7ac3e0096ceb83334e8f62d3a48916debc417fccf102dbdb82e81063b125970
+  lexical_sha256: 0009be07a37e610c8fb1a47a21c99270c5a8302c8b9b4a51b0e3fea8ae8d3176
+  length_chars: 36
+  slots:
+  - 286
+  blocks:
+  - 6
+  material_lines:
+  - 38
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c8da2e950b59462451d493b583518bcd90932fe050921639cda9fdd056257e17
+  lexical_sha256: 6fa1e8e72e8b1dd613d62a5fb41ad6328cb9c3a949d9db4534929feceaf902d4
+  length_chars: 159
+  slots:
+  - 51
+  blocks:
+  - 2
+  material_lines:
+  - 4
+  analysis_view_row_count: 14
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c966cdc3e80dc8769491c0d72df9ee680c0b87b21b083ab90f2468f2642ded61
+  lexical_sha256: 4e5fb61354e868fffe584936b10d78474851fb7ab6bfbb493318c240cef5cdc0
+  length_chars: 111
+  slots:
+  - 348
+  blocks:
+  - 7
+  material_lines:
+  - 51
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: c9906893f7716e034fec95605d12025db33cad1addad4ce47bb4189366cdb5c3
+  lexical_sha256: af6038f42ccd310d2a5c1bce65c05c0c25689fc64b4217a47a450b44415b77b7
+  length_chars: 71
+  slots:
+  - 128
+  blocks:
+  - 3
+  material_lines:
+  - 31
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ca171a9ac42e503186bc6bf1d9ea9b9778f4d3c1afdb710234b6fb2d6275b507
+  lexical_sha256: a85d132283a7f3495f0459111c7b7ef3d998eb1a5b2119aa3ffa44207aa180d9
+  length_chars: 171
+  slots:
+  - 152
+  blocks:
+  - 4
+  material_lines:
+  - 4
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ca546b19e0a67024ca5464d5c56caa123c02685cf708ddde5f01ca5e6fa1fdfd
+  lexical_sha256: 9e60e2e40cca7b0786f77981b74936ecdd08fbb0034247d5880394d8b4b0d275
+  length_chars: 80
+  slots:
+  - 65
+  blocks:
+  - 2
+  material_lines:
+  - 18
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: caa0669b7b909fcdb7d3e9beeeeab9a8e63ec840fcc581b67c49588095178661
+  lexical_sha256: a4001de59f5aaed0335c82fc1466879a6b1dba91b82d289cb5c9f0c928b8ccfd
+  length_chars: 113
+  slots:
+  - 330
+  blocks:
+  - 7
+  material_lines:
+  - 33
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: cb40b902a08393ebd4aed78158d8306f53706bac19d4ba37ff0965b2dd733794
+  lexical_sha256: 82dceefaccad760d43c216e51399d078facf41ebe3c30a6f853152ddf036ffc9
+  length_chars: 94
+  slots:
+  - 136
+  blocks:
+  - 3
+  material_lines:
+  - 39
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: cb4cf5c1b4efe0537f65f25c8d881cb1b7d939558d30967d5f4ddec9fe3f6a2c
+  lexical_sha256: ab4fa1c9a587c7704f207727d0574e610971d7872d66c37f0bcd18616f48ff35
+  length_chars: 102
+  slots:
+  - 108
+  blocks:
+  - 3
+  material_lines:
+  - 11
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: cc240b3868ada675ce26aee24d6e0a57660e1be9144163b498552ca9758e8207
+  lexical_sha256: be8fb4230e70450d638648af1a953e2a5aa94ed175fc36b991e76a2c6c2a1cc0
+  length_chars: 245
+  slots:
+  - 255
+  blocks:
+  - 6
+  material_lines:
+  - 7
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: cc768abc74a13477b9d40ae8345236130bb5c3bfb45c78576e94ccd566812dc5
+  lexical_sha256: 87679a55ba8d30c0d16daf109dc6e66109a9bf14f1267446b1415bd66a772bf7
+  length_chars: 129
+  slots:
+  - 257
+  blocks:
+  - 6
+  material_lines:
+  - 9
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: cc8f569087e70aeb464b5fc2f9f63298ade129b6e52bd27f027da833878d85c3
+  lexical_sha256: 9d0c33ecb2a40c5e89d91339e4c921b6c757c1cbf356508ef50b87a189f0d74a
+  length_chars: 105
+  slots:
+  - 81
+  blocks:
+  - 2
+  material_lines:
+  - 34
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: cd7bc664fcc6349f3a559eb703eb38059e554257308251c2c8295242a0082fb5
+  lexical_sha256: a522c16c1049947a05d059e3061561edc058f5e8f76530aba16ebcabd7f4c302
+  length_chars: 93
+  slots:
+  - 192
+  blocks:
+  - 4
+  material_lines:
+  - 44
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: cec1b3b8c2b1fac1201230cccc842a4dc6e6918995a43f8e246a9f93f3e29990
+  lexical_sha256: 0bbb5b2f246fdd062872fb46a6a42afd5b5f267ab2f385741dc0c1b3750017ca
+  length_chars: 117
+  slots:
+  - 62
+  blocks:
+  - 2
+  material_lines:
+  - 15
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d0fddda2c57d4b06e622bb305c5174b3ed34529e586b1852785ebb3ffbec1e0e
+  lexical_sha256: 3f0b1f9bec497efb0ff6ca64475c63deb7e3e407137fb7ec27bcfdfa0b3e0efb
+  length_chars: 138
+  slots:
+  - 322
+  blocks:
+  - 7
+  material_lines:
+  - 25
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d14e51afda8b61752ef6c2295cccd5d563fffc3a1fdb7886e33dcbd554509cdd
+  lexical_sha256: 1f8967b9c0e46687040afff83576572364651fe31200482dc405ded906b986e1
+  length_chars: 118
+  slots:
+  - 14
+  blocks:
+  - 1
+  material_lines:
+  - 17
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d4fb2933cc1901fba927bea7a58f0460196d44b6fb61116b438275f166b7c165
+  lexical_sha256: a41947b1acc5fdfbdfb3617e1eaa8cebd51d1cf797bf0996b7ec023973c90cd0
+  length_chars: 27
+  slots:
+  - 177
+  blocks:
+  - 4
+  material_lines:
+  - 29
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d539e08ac5c3c75cd998af62c04a2a1d95e69ea95715fafda0bd2516d1cba413
+  lexical_sha256: dce249da9aea09ab6eb3799c89ad4eb7deae9fb6e4c2437f2230e5dea68a73df
+  length_chars: 143
+  slots:
+  - 219
+  blocks:
+  - 5
+  material_lines:
+  - 21
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d607e49ef1b0be7532e564d3cbdc591b8953835a11be811185081d70e0cb72ff
+  lexical_sha256: ff3228d7063293030f60d2dd0c03766708b2227207e0722a40c1be40089a4b64
+  length_chars: 94
+  slots:
+  - 38
+  blocks:
+  - 1
+  material_lines:
+  - 41
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d6574d3b7a26ce62f42b896f1c18cba027a906253d67c4cf45fb868015e28ec7
+  lexical_sha256: 14d3795263e94a4f1fe8d0e68894f618e97a871107cefa9968ecb3056bf707df
+  length_chars: 147
+  slots:
+  - 42
+  blocks:
+  - 1
+  material_lines:
+  - 45
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d74e7cdb3909ba958878e5a973ca663fcc0625d4cd0ad7194b3c3c409e19dc10
+  lexical_sha256: 040ed6334e10bd6e766a2311094b4229668777792b746931abcbed773628d589
+  length_chars: 32
+  slots:
+  - 80
+  blocks:
+  - 2
+  material_lines:
+  - 33
+  analysis_view_row_count: 15
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d77c1cc4baac55f6ca3bdb8f39f7636e734fb1cf6917d123216f6bd7c6c74743
+  lexical_sha256: ac558d87edfede842d9880b2ddeea03880244f78ab32ea580fa461e50766de5f
+  length_chars: 39
+  slots:
+  - 86
+  blocks:
+  - 2
+  material_lines:
+  - 39
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d7c8ca0a0cfc15fd866a2adf4d242b677d5d4c33a6686478779fe8ad2fa3929e
+  lexical_sha256: 95af687f28d7d08430cff9678cdd6072700cd3d38678aaedbeec426b5d102025
+  length_chars: 116
+  slots:
+  - 47
+  blocks:
+  - 1
+  material_lines:
+  - 50
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d8ddde53e36d3b2f2dc02a2ef9b73a6e7ff76b63b22e3b8e9e85acc3f3b8add6
+  lexical_sha256: b968f1554d59c0217a320aefd8636ba9868f120fe58cc8407a659d37f39e13d9
+  length_chars: 146
+  slots:
+  - 71
+  blocks:
+  - 2
+  material_lines:
+  - 24
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: d92cb87f431bd3846958be66ca247284342ea9bc31eb6c03ec8cb56e2a0c9596
+  lexical_sha256: 3d0a8bad2fe125253fbbdba76a52c836bce07719bf934da975242018a78a158c
+  length_chars: 62
+  slots:
+  - 194
+  - 321
+  blocks:
+  - 4
+  - 7
+  material_lines:
+  - 46
+  - 24
+  analysis_view_row_count: 36
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: dae4d2dd8a3be5fe68f88dca7ceb946576339342a67031699c1ee8d9c0fa4aa7
+  lexical_sha256: 4001c42fe4f0cf8d22929bb691726be2ebff163d422ee0d4b813acdcbd638591
+  length_chars: 75
+  slots:
+  - 159
+  blocks:
+  - 4
+  material_lines:
+  - 11
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: daf6b173ae3d7628924c13ebebb8e8b2abda2a92ee5e476e5b9915e1665f800a
+  lexical_sha256: ca5bea5c018b73dfd66525a1c66a635d346d1f132837f9c9285efa4c0a9fd062
+  length_chars: 59
+  slots:
+  - 203
+  blocks:
+  - 5
+  material_lines:
+  - 5
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: db1bd985e3273e37ae3785c566e277dd6e141e1e659ed0fb3dda6118ec94ec64
+  lexical_sha256: 95068b35231de270451418116ab07112a70a63e4a3461dc083450697259bb822
+  length_chars: 93
+  slots:
+  - 205
+  blocks:
+  - 5
+  material_lines:
+  - 7
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: dbfcf28010b8ab7d1e948a77c62a17568fbc28c8b3b8d746efe01bb595f5f0b5
+  lexical_sha256: 382b9d40a84b31f1146d39efc9815aed513ed18120b7462e2773b1bd8af3cac4
+  length_chars: 159
+  slots:
+  - 154
+  blocks:
+  - 4
+  material_lines:
+  - 6
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: dd3f6a5d47b3b2986ddd34b1d81fe89699bc3a1199258a37756163a4012db5ce
+  lexical_sha256: a179c37ba78fd75d2f25635ef1266c9336795bbb7ff2d58ec362ccb834849b12
+  length_chars: 57
+  slots:
+  - 231
+  blocks:
+  - 5
+  material_lines:
+  - 33
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ddc9a364088a5e16e403b57d60ea634b59a2050360bef1a7032ede43f6f6d8e7
+  lexical_sha256: cd8d7f88c10215a8795fb457aeb0cc5803ed7508ed5db73a6a297e594ab7b224
+  length_chars: 65
+  slots:
+  - 216
+  blocks:
+  - 5
+  material_lines:
+  - 18
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: de2eacda282694959d5b5a4208198e14b7f1f7179d1dc921603273baac61a0a1
+  lexical_sha256: c64a6de32427108eccf672f5ba7f7444a170fde0b31736a895eeb74ac31277e7
+  length_chars: 90
+  slots:
+  - 269
+  blocks:
+  - 6
+  material_lines:
+  - 21
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: de7676cad214f2ba5cc0e903fa6dd48f8c433771e6e64c06449b40c096aba3d8
+  lexical_sha256: bb0cbe39f52caabd58f1e581b39d3d158b3f86d8d87009cbb32ea2185a0eca5f
+  length_chars: 164
+  slots:
+  - 15
+  blocks:
+  - 1
+  material_lines:
+  - 18
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: dee51241292cf722957ff244473c87cbb3f54cd7eac29e621a1a58a8b37b9875
+  lexical_sha256: b8bf397fd02923e5611d023b7406ae81c83c4ec5a8170a677fb08780f4c0dba2
+  length_chars: 109
+  slots:
+  - 261
+  blocks:
+  - 6
+  material_lines:
+  - 13
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: dfe15002f92a33483f81c1d1847459a0876f2aff5c4dbd29899cf7770a469489
+  lexical_sha256: 424db06dc7151a7e564b9ee8345e64b4e5a125cafc8405ff7c9ba43a85bcb2ae
+  length_chars: 153
+  slots:
+  - 265
+  blocks:
+  - 6
+  material_lines:
+  - 17
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e04d872999d16e039ef9cda099f8d032b4eec1f5c022144c889e0be37d3b80ae
+  lexical_sha256: 8fa7bd15962c2d76b81272e36bfe81e02c20702d1b43e53675f3184411ad41d0
+  length_chars: 61
+  slots:
+  - 17
+  - 98
+  blocks:
+  - 1
+  - 2
+  material_lines:
+  - 20
+  - 51
+  analysis_view_row_count: 34
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e26a801a18013757aabf4222435b9b29cb2e77c95e748c78e50f372190fcd074
+  lexical_sha256: db9587ba9429daa92cdaa86028c4836399c60ab0318ac7c79ed9c7d91d39777b
+  length_chars: 211
+  slots:
+  - 169
+  blocks:
+  - 4
+  material_lines:
+  - 21
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e28ac3ca667df131cd9187ebec3878f02bea35b0545e66c7e5e0b8abb12cdcad
+  lexical_sha256: 12ab116cab663a4ee0ee758534946da54cd3f168c1135497bfa7057c11ab40d1
+  length_chars: 139
+  slots:
+  - 85
+  blocks:
+  - 2
+  material_lines:
+  - 38
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e3a0299ec08ab17cf82f7fbb346a906413c7c0834343539b1fbf19caadc0f783
+  lexical_sha256: d173553a9722625bc51b3d8d9ea8abf75f812dad74815e4184e70222a89ab714
+  length_chars: 257
+  slots:
+  - 11
+  blocks:
+  - 1
+  material_lines:
+  - 14
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e4157b64d778388329fa4b5b5833bf296833c873001acb880f210b00a5b703c4
+  lexical_sha256: 902e4f8b8e4b152538a34e16c8ba3685f2d9a4cab37c6dcdf5943c503f7f38cf
+  length_chars: 134
+  slots:
+  - 10
+  blocks:
+  - 1
+  material_lines:
+  - 13
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e43796111f6128d2646c103d49dc4014cb9b2022ee7a71bb16bb42262a788b99
+  lexical_sha256: 27b8d92b67a2c1f63b3ac95e489b93cfe085ffc1a77d476a8a459da30bc94505
+  length_chars: 110
+  slots:
+  - 88
+  blocks:
+  - 2
+  material_lines:
+  - 41
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e4810f58aa7eab00f27164fabf9e2b21286dde94787c7e08f0f31ab41e10f449
+  lexical_sha256: ccea566b1c9ee9123d9011114d70c7bf25a98ef404e917cafe881f4ca986398e
+  length_chars: 130
+  slots:
+  - 139
+  blocks:
+  - 3
+  material_lines:
+  - 42
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e694883b60dc83dd122530e295ac2ad302b12a497e57a515f76ad51a83117074
+  lexical_sha256: b011f8c2ba6b1d6a856627c0e8865e8891ed73a9bc61bb2c031832a44e6a268e
+  length_chars: 90
+  slots:
+  - 297
+  blocks:
+  - 6
+  material_lines:
+  - 49
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e7823ac0b078c22eb4b2b1db769b8f476dceb87b8321b4676df278cc7a5d7d03
+  lexical_sha256: a102433edf083dfdf4b44c80e059bd6c5e0a8d3d7c357ab484028b29ba152364
+  length_chars: 126
+  slots:
+  - 305
+  blocks:
+  - 7
+  material_lines:
+  - 8
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e7983cd37c989c34d545137431bdae7df6e0169211c58dc31586832d8a291df5
+  lexical_sha256: 03b4de0d94c9d99cf515fbed5f6662a6138d1d4a0794c974434da4cd64c00c05
+  length_chars: 165
+  slots:
+  - 222
+  blocks:
+  - 5
+  material_lines:
+  - 24
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e829d526d32034c3cba7993b4d19f8f2cc93d0ebdc78597cafbe498a65a37a79
+  lexical_sha256: fdec91996b203d4561ad3b4f505657e09b5b18188e67912cff4177a7ebafc2cc
+  length_chars: 97
+  slots:
+  - 131
+  blocks:
+  - 3
+  material_lines:
+  - 34
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e872fe6a81a40bec2a1463d0e01a66e06cd6be365270d53108abe698fe2bf942
+  lexical_sha256: 72baaae65adf23e1393111a3a2a1fa7cd969484330ba794045503242feb893f4
+  length_chars: 102
+  slots:
+  - 58
+  blocks:
+  - 2
+  material_lines:
+  - 11
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: e8d850e4f42644126fd553558102fcdf9901c644678e649c383a4c9621bd9b61
+  lexical_sha256: d1d57947eba6364ce48fb0f15f00fdeaa81b8bb9e4fed3b9035c14b291700abd
+  length_chars: 89
+  slots:
+  - 303
+  blocks:
+  - 7
+  material_lines:
+  - 6
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ea3ec93dc19fab8753c6ea408fc593c0955d80b6adc96636811cbe3b44307b20
+  lexical_sha256: 69c3f9f3bf8a3da9835e257fbb1fa15960589e022d8c8d7dd2bb26fddd79b719
+  length_chars: 174
+  slots:
+  - 200
+  blocks:
+  - 4
+  material_lines:
+  - 52
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: eb135338f6d3e91524aa4abbb7f9562c8c07f24b264c9d16066ae66b7cdda241
+  lexical_sha256: f1574aba0e60761dfe925206d9aec392de07456ba7ec937e0d28212aa379b1cc
+  length_chars: 100
+  slots:
+  - 338
+  blocks:
+  - 7
+  material_lines:
+  - 41
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: eb974bf7cbfbfd0599b55abe081263012c4e02f610098d1cba795208d0263e24
+  lexical_sha256: 959d0c1562619a689ac41cff1c829076f3c5934acda7e08e68b20de619b441f3
+  length_chars: 106
+  slots:
+  - 327
+  blocks:
+  - 7
+  material_lines:
+  - 30
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ec0037ee6fd67757f3c4418b6a8b789355b182baecc7cd8a8b0dce36a924d3fe
+  lexical_sha256: a7cbbb280d76088d03b5035bfed3e0f74aef4e750155c5c75e469a530eeeecc8
+  length_chars: 78
+  slots:
+  - 296
+  blocks:
+  - 6
+  material_lines:
+  - 48
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ec350390f62cb070e9178ee0c0507b6ba66242982e7aa41b5c4cbf93abbcfd0b
+  lexical_sha256: 0ea3121e8af6b9fd6c59961293e17c7ccfa8366c004f916396777f5e0e738272
+  length_chars: 277
+  slots:
+  - 56
+  blocks:
+  - 2
+  material_lines:
+  - 9
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ec56094b1849c2279b9a351182508265f5f676e236e8f21acbb6e2498e97f957
+  lexical_sha256: 83c8e942fe6201d5b79e0b362d8118644118e8d70ef9c3ba42f32f4b80f1d47f
+  length_chars: 87
+  slots:
+  - 225
+  blocks:
+  - 5
+  material_lines:
+  - 27
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ed2a63d6582fa3ac1612d096e1f75b841063b7f20945fef2c816fae363caf443
+  lexical_sha256: 1b898760dce5812cd1e423f782084366d834860846dfc537110d2a28350934a4
+  length_chars: 70
+  slots:
+  - 253
+  blocks:
+  - 6
+  material_lines:
+  - 5
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: ee172d867425eb8cdb0b20295e3ae72cd7461a7eefff9c26f2cb58a3d8f4bc81
+  lexical_sha256: 2898fcbcd71ecdad17916d6c20c30b0f679b5dea190d99d83e1899b96db5f4f2
+  length_chars: 131
+  slots:
+  - 49
+  blocks:
+  - 1
+  material_lines:
+  - 52
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f0eadefa7e9fb2d09ddc93f1a2e52f3044081d391e357bd0f951ba9885ed3ec6
+  lexical_sha256: 45e80f010b058824f2f7f2a7f1f43925347f98173ec8881c2dab08accbdec54c
+  length_chars: 48
+  slots:
+  - 299
+  blocks:
+  - 6
+  material_lines:
+  - 51
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f10daacab4095bd745b6bbef34b441a01e12b7fa7143f5f5dd2bf02fdeeae3ad
+  lexical_sha256: 72c779c3817203ac5a1e4036befc115ad0831c4c43faa482f3d90c9433be77d2
+  length_chars: 164
+  slots:
+  - 239
+  blocks:
+  - 5
+  material_lines:
+  - 41
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f133a143c6a8f48bc7943f30e096ba000a0b16705ad414b5480541cbf77610af
+  lexical_sha256: 85f2e9495003d60faa2f1177783f29651dd88ce7fa493383b50991e75553360a
+  length_chars: 213
+  slots:
+  - 16
+  blocks:
+  - 1
+  material_lines:
+  - 19
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f1558a656aed03f8d149467f1c2691903cebde8bee6f224a5cfa258e7119c963
+  lexical_sha256: 0f1b6fdbc7aa48f001678de011282c9b35973be23ade73aa190eccf752b6c72e
+  length_chars: 229
+  slots:
+  - 115
+  blocks:
+  - 3
+  material_lines:
+  - 18
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f1a38fff8c0c3f912834f62287b7dfe79f2a047506e580900a4d357f041fd39e
+  lexical_sha256: 684a86b549d5eae7f6fddd2cb72b7cdf379094806753921d98bd1b07f779de1f
+  length_chars: 163
+  slots:
+  - 171
+  blocks:
+  - 4
+  material_lines:
+  - 23
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f3a8f3e65a99fea643bb3f3e6e088cd4ec67d9a5579e656bd50d1fdeacb84303
+  lexical_sha256: 68d1e99aa88bfcbcbf4e49fef0de319db69b970851d0e9ea24b3a51362dfe3e7
+  length_chars: 76
+  slots:
+  - 74
+  blocks:
+  - 2
+  material_lines:
+  - 27
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f40bfd62a7d384cd1ec661892c14bc71e7040a4da6d87354933876f5182e4c28
+  lexical_sha256: 603ac2f485d7b18d202435a3378289bf11ed340af9b18d655ab8696eafa0ae28
+  length_chars: 92
+  slots:
+  - 295
+  blocks:
+  - 6
+  material_lines:
+  - 47
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f415aedb768a6a0d6a14cde493f1e927a325e1120a92c4cb1626c4ff39830940
+  lexical_sha256: af50f60b96c3a883ca5e18a948a068c555332f5ef674ee9e73cedf6b4d853d9b
+  length_chars: 89
+  slots:
+  - 19
+  blocks:
+  - 1
+  material_lines:
+  - 22
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f5c471fbc4d6c1db83dc72b25e7cfeb2a5e8bca05394a9f4ade09c313223f26e
+  lexical_sha256: eb0c284eabc4c3eb49c251f637617bd52fabfaf30b03830ad3d4e9f6097f7304
+  length_chars: 165
+  slots:
+  - 191
+  - 313
+  blocks:
+  - 4
+  - 7
+  material_lines:
+  - 43
+  - 16
+  analysis_view_row_count: 35
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f61c98f5de09c69aa32adb3f62566c7b213c3c19e4e095ea83697c39f658e6da
+  lexical_sha256: d59e7fbc0248be140107641d152d76e4792b55dd8a607f8efc359e873db705d0
+  length_chars: 100
+  slots:
+  - 212
+  blocks:
+  - 5
+  material_lines:
+  - 14
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f682d0fb040225edb8626b56734de4c58328fbadfa67b1b7180edfb29e3af068
+  lexical_sha256: 111dcddc715d0c566b636fb7834547c97f9f7d16fa0b627d9a50affecd2f0bee
+  length_chars: 108
+  slots:
+  - 273
+  blocks:
+  - 6
+  material_lines:
+  - 25
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f68782f82f51c4dd0d8918188ba0854df5786724de95bb1a3cc7c7c717cdbe96
+  lexical_sha256: 7661d9bca4d1336d15379afd42c6c71f1b4fc217fb0b030f12d921216224d30e
+  length_chars: 59
+  slots:
+  - 298
+  blocks:
+  - 6
+  material_lines:
+  - 50
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f6cde685e58287f62eb4256960a5bef912c46ac7e304e85c8f40e3e60879e6f0
+  lexical_sha256: 8531a3565acd6e1362aed5c601ef9befdffa40f9ed0606781e0cf05baf86bc9c
+  length_chars: 148
+  slots:
+  - 158
+  blocks:
+  - 4
+  material_lines:
+  - 10
+  analysis_view_row_count: 18
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f8aaae8185fb35914a1cfda7b62d9364c907427800c109d9bc1bb4cac315d560
+  lexical_sha256: 72aceb2e168244e173f5d53c0da5fce908f4c48c212a2bea0d69fd3afec801c0
+  length_chars: 85
+  slots:
+  - 285
+  blocks:
+  - 6
+  material_lines:
+  - 37
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f8ab475272a514065a9b71e84a0a72fc3b4055c457e3d19d646c1a7881d83a61
+  lexical_sha256: e088c33b6c4a09d6e65f3457bfa7e9af11b62b926295241194080a0e55fd4c65
+  length_chars: 180
+  slots:
+  - 170
+  blocks:
+  - 4
+  material_lines:
+  - 22
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f96859bc8725c2b523b7892089974b1c7356eecfeb4f0ec7a162eb8393e02e62
+  lexical_sha256: 7e497a12aae45f10e62e3d4acf92d844492c54e2b7350f08b676c750621b7cf5
+  length_chars: 96
+  slots:
+  - 254
+  blocks:
+  - 6
+  material_lines:
+  - 6
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: f9960793db27100badedcaf9e70046c4888ff8f4b74f51f7ef8d47c2d54680a1
+  lexical_sha256: d38b838e0cac6fc79a468b7301b448a351b50dbf3d7e0aa5db30e3e60b38a54e
+  length_chars: 102
+  slots:
+  - 104
+  blocks:
+  - 3
+  material_lines:
+  - 7
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: fa2a1e3cf6881c2df5805100483ed7d38fa67a451124821e926fc51412584806
+  lexical_sha256: 37056905985b375aada33d1971238cbb9327926dd928de61a2fd1669401b997e
+  length_chars: 314
+  slots:
+  - 238
+  blocks:
+  - 5
+  material_lines:
+  - 40
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: fa5ccfac0daec26ff19723b37453515c69bfe4ef69e1b098e318b561bc7630ab
+  lexical_sha256: e7f29a3b9e74fd55a6871c92eaf29ddb91a6a9a3b7bd9c0c0736134b56b52229
+  length_chars: 166
+  slots:
+  - 160
+  blocks:
+  - 4
+  material_lines:
+  - 12
+  analysis_view_row_count: 17
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+- exact_stimulus_id: fc54bff68bf9a5cb7dd8e05f5081b054165368077a495ca7f21bde14ab92b5b3
+  lexical_sha256: 4a281304ded38c07a63a65d8be2299c2ee78d750084da19de1ac4b1d5dc94223
+  length_chars: 127
+  slots:
+  - 94
+  blocks:
+  - 2
+  material_lines:
+  - 47
+  analysis_view_row_count: 16
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+exact_duplicate_groups:
+- exact_stimulus_id: 4fdd149180786c57899b48782857c446d2e5df6aafed0539d7f787bd1206cdab
+  slots:
+  - 193
+  - 319
+  blocks:
+  - 4
+  - 7
+  material_lines:
+  - 45
+  - 22
+  occurrences_remain_distinct: true
+- exact_stimulus_id: 674c608a5e85855a58b61070de0b7cec42d4657dd6145e45f8aac7cd6a7a95df
+  slots:
+  - 35
+  - 113
+  blocks:
+  - 1
+  - 3
+  material_lines:
+  - 38
+  - 16
+  occurrences_remain_distinct: true
+- exact_stimulus_id: d92cb87f431bd3846958be66ca247284342ea9bc31eb6c03ec8cb56e2a0c9596
+  slots:
+  - 194
+  - 321
+  blocks:
+  - 4
+  - 7
+  material_lines:
+  - 46
+  - 24
+  occurrences_remain_distinct: true
+- exact_stimulus_id: e04d872999d16e039ef9cda099f8d032b4eec1f5c022144c889e0be37d3b80ae
+  slots:
+  - 17
+  - 98
+  blocks:
+  - 1
+  - 2
+  material_lines:
+  - 20
+  - 51
+  occurrences_remain_distinct: true
+- exact_stimulus_id: f5c471fbc4d6c1db83dc72b25e7cfeb2a5e8bca05394a9f4ade09c313223f26e
+  slots:
+  - 191
+  - 313
+  blocks:
+  - 4
+  - 7
+  material_lines:
+  - 43
+  - 16
+  occurrences_remain_distinct: true
+metadata_availability:
+  document_id: null
+  paragraph_id: null
+  document_status: SOURCE_METADATA_NOT_AVAILABLE
+  paragraph_status: SOURCE_METADATA_NOT_AVAILABLE
+  block_or_line_inference_performed: false
+  near_duplicate_group_status: PENDING_GROUP_POLICY_REVIEW
+safety:
+  stimulus_text_emitted: false
+  lexical_text_emitted: false
+  tokens_or_ngrams_emitted: false
+  eeg_or_event_read: false
+  outcome_read: false

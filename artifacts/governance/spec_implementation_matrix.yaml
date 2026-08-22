@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-21_008_data_admission_policy_repair
-evidence_as_of_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
+updated_by_run: 2026-08-22_009_stimulus_similarity_diagnostic
+evidence_as_of_commit: b72ed5ab9720b7a922f7d1c6d8681cb646c344ab
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -50,17 +50,23 @@ items:
       - artifacts/admission/zuco2_nr_targeted_manifest_v2.yaml
       - artifacts/admission/zuco2_nr_stimulus_manifest_v3.jsonl
       - artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
-    tests_rerun: []
+      - scripts/build_stimulus_similarity_diagnostic.py
+      - artifacts/stimulus_source_binding_v1.yaml
+      - artifacts/stimulus_similarity_diagnostic_v1.yaml
+      - artifacts/stimulus_similarity_candidates_v1.jsonl
+      - reports/stimulus_similarity_diagnostic_v1.md
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_build_stimulus_similarity_diagnostic.py'"
     acceptance_gaps:
-      - exact block/line occurrence hashes and five cross-block duplicate groups exist; formal normalized and near-duplicate grouping is the sole READY task
+      - exact source binding and all-pair similarity diagnostics are validated, but final threshold and grouping policy require ChatGPT or author review
     target_task: S0_STIMULUS_ID
-    blocker: null
+    blocker: S0_STIMULUS_GROUP_POLICY_REVIEW
   split:
     status: BLOCKED
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no split implementation exists and S0_STIMULUS_ID must finish first
+      - no split implementation exists and grouping policy plus S0_STIMULUS_ID must finish first
     target_task: S0_JOINT_SPLIT
     blocker: prerequisites incomplete
   leakage:
@@ -164,12 +170,13 @@ items:
     status: VALIDATED
     evidence_paths:
       - tests/test_project_memory.py
+      - tests/test_build_stimulus_similarity_diagnostic.py
       - scripts/check_project_state.py
       - scripts/project_status.py
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - governance validation only; no scientific test exists
+      - governance and stimulus diagnostic validation only; no scientific model test exists
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:

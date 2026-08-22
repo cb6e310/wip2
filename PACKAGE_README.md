@@ -1,21 +1,23 @@
-# NC-HSG v1.7 iteration-6 handoff
+# NC-HSG v1.8 iteration-7 active handoff
 
-Baseline: `wip2@bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7`  
-Prepared: 2026-08-21
+Baseline: `wip2@b72ed5ab9720b7a922f7d1c6d8681cb646c344ab`  
+Activated: 2026-08-22
 
 ## Purpose
 
-This package activates SPEC v1.7 and authorizes one bounded repository-only task: derive a 5,905-row ZuCo 2.0 NR analysis view and data card from committed schema-v3 evidence, while retaining the strict full-release diagnostic FAIL and unknown physical unit.
+SPEC v1.8 authorizes a bounded, outcome-blind binding of seven frozen ZuCo 2.0 NR material CSVs and a text-free all-pair similarity diagnostic. Run 009 binds 349 post-practice slots to 344 exact identities and scores all 58,996 unordered identity pairs without selecting a final threshold or grouping policy.
 
-No real EEG needs to be reread. No unit inference, backbone selection, split, training, outcome access, download, or Gate is authorized.
+The active repository does not contain material CSV copies, stimulus text, tokens, embedding vectors, or model weights. Document and paragraph metadata remain unavailable. No EEG, event, TSR, outcome, historical result, checkpoint, backbone selection, split, training, or Gate is part of this work.
 
-## Files
+## Active files
 
-- `guide/NC_HSG_Paper_Spec_v1_7_2026-08-21.md`: active scientific and governance contract.
-- `artifacts/spec_review/nc_hsg_v17_post_push_review.md`: independent review of the pushed baseline and policy defect.
-- `CODEX_NEXT_TASK.md`: exact executable Codex task.
-- `PACKAGE_MANIFEST.sha256`: payload integrity manifest.
+- `guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md`: active scientific and governance contract.
+- `artifacts/spec_review/nc_hsg_v18_post_push_review.md`: independent baseline review.
+- `artifacts/stimulus_source_binding_v1.yaml`: opaque source-to-identity binding.
+- `artifacts/stimulus_similarity_diagnostic_v1.yaml`: text-free score and component-risk summaries.
+- `artifacts/stimulus_similarity_candidates_v1.jsonl`: broad diagnostic OR-prefilter ledger.
+- `runs/2026-08-22_009_stimulus_similarity_diagnostic.md`: immutable execution record.
 
-## Import rule
+## Stop state
 
-Verify `PACKAGE_MANIFEST.sha256` outside the repository, then copy only manifest-listed project files. `PACKAGE_README.md` and the manifest are package metadata; Codex may keep the repository's active `PACKAGE_README.md` synchronized to v1.7 as directed, but must not delete or rewrite historical SPECs, reviews, runs, or admission artifacts.
+`S0_STIMULUS_GROUP_POLICY_REVIEW` is the sole READY recommendation and is owned by ChatGPT or the author. Codex must not choose a final threshold, create near-duplicate groups, or construct a split until that policy review is versioned.

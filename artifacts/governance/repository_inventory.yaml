@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-21_008_data_admission_policy_repair
-evidence_as_of_commit: bf958fe2fc543e6b5c465a9eed3c743d4b0d0aa7
+updated_by_run: 2026-08-22_009_stimulus_similarity_diagnostic
+evidence_as_of_commit: b72ed5ab9720b7a922f7d1c6d8681cb646c344ab
 audit_mode: read_only_physical_evidence_before_scientific_work
 
 repository:

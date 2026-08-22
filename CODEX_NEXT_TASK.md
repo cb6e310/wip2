@@ -1,19 +1,15 @@
-# Codex Next Task: Freeze Stimulus Identity
+# Waiting for stimulus grouping policy review
 
-Active task: `S0_STIMULUS_ID`.
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md` (version `v1.8`).
 
-Recover state from `AI_START_HERE.md`, `PROJECT_STATE.yaml`, `HANDOFF.md`, `TASKS.yaml`, active SPEC v1.7, run 008, and committed evidence. Confirm a clean expected baseline before changing files.
+Run 009 completed the bounded source binding and all-pair similarity diagnostic. The sole READY and recommended task is:
 
-## Scope
+```text
+S0_STIMULUS_GROUP_POLICY_REVIEW
+owner: CHATGPT_OR_AUTHOR
+status: READY
+```
 
-Normalize stimulus identity and freeze exact and near-duplicate groups using only committed outcome-blind stimulus/assignment evidence. Record deterministic document, paragraph, and stimulus keys; version edit-distance and frozen-embedding thresholds; ledger exact duplicates, paraphrases, and unjoinable records.
+Review the committed score distributions, broad-prefilter candidates, trigger intersections, top opaque pairs, and component-risk summaries. Freeze a versioned final threshold and grouping policy, or explicitly reject grouping, before authorizing implementation.
 
-## Boundaries
-
-- Do not read real EEG values, event latency, historical predictions/metrics, held-out/test outcomes, or `trust_align` result trees.
-- Do not infer the unresolved physical unit or repair YTL event semantics.
-- Do not select A, build the joint split, train, or run any Gate in this task.
-- Preserve runs 001-008, older SPECs, and all prior admission/analysis-view artifacts as immutable provenance.
-
-The 5,905-row analysis view and 377-row exclusion union are frozen inputs. `analysis_view_admission=PASS` does not change `full_release_diagnostic=FAIL`.
-
+Codex must stop here. Do not infer paraphrases from high similarity, select a threshold from the observed distribution, emit `near_duplicate_group_id`, merge exact occurrences, construct a split, read EEG or outcomes, select backbone A, train, or run a Gate. `S0_STIMULUS_ID` and `S0_JOINT_SPLIT` remain BLOCKED.
