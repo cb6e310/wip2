@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_013_native_spectral_a_interface
-evidence_as_of_commit: 91997faa1de1616d1eb662cd36edc1547613206d
+updated_by_run: 2026-08-24_014_a1_real_frontend_validation
+evidence_as_of_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
 
 host:
   hostname: songxingyuan

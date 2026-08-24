@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_013_native_spectral_a_interface
-evidence_as_of_commit: 91997faa1de1616d1eb662cd36edc1547613206d
+updated_by_run: 2026-08-24_014_a1_real_frontend_validation
+evidence_as_of_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -85,11 +85,12 @@ items:
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - synthetic interface is implemented but real frontend validation is required before the full leakage audit
+      - early Regime-I data and A-path audit is READY but was not executed by run 014
+      - full method leakage remains a separate blocked task
     target_task: S0_LEAKAGE_AUDIT
     blocker: prerequisites incomplete
   backbone_a_and_frontend:
-    status: IMPLEMENTED_UNVALIDATED
+    status: VALIDATED
     evidence_paths:
       - requirements-trust-align.lock.txt
       - artifacts/governance/trust_align_dependency_sync.yaml
@@ -101,15 +102,21 @@ items:
       - artifacts/backbone_a_contract.yaml
       - artifacts/a_interface_eligibility_v1.jsonl
       - reports/a_interface_contract.md
+      - scripts/validate_a1_frontend.py
+      - artifacts/a1_frontend_audit_panel_v1.jsonl
+      - artifacts/a1_frontend_freeze.yaml
+      - reports/a1_frontend_selfcheck.md
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_native_spectral_a1.py'"
       - ".venv/bin/python -m unittest discover -s tests -p 'test_build_a_interface_contract.py'"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_validate_a1_frontend.py'"
     acceptance_gaps:
       - exact clean-room interface and metadata-only short-row overlay are implemented and synthetic-tested
-      - real outer-train tensor traversal finite-value device memory and admission behavior remain unvalidated
+      - bounded 107-row real frontend traversal and CPU/CUDA self-check pass
+      - full admission remains pending for 3390 eligible outer-train rows
       - release-native amplitude remains physically unresolved and conversion remains prohibited
-    target_task: S0_A1_FRONTEND
-    blocker: B_V8_A_REAL_FRONTEND_UNVALIDATED
+    target_task: S0_A1_ADMISSION
+    blocker: B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING
   semantic_schema_and_evaluator:
     status: BLOCKED
     evidence_paths: []
@@ -209,10 +216,12 @@ items:
       - tests/test_native_spectral_a1.py
       - tests/test_build_a_interface_contract.py
       - artifacts/backbone_a_contract.yaml
+      - tests/test_validate_a1_frontend.py
+      - artifacts/a1_frontend_freeze.yaml
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - synthetic A-interface and metadata builder validation pass; no real-data model validation exists
+      - synthetic interface and bounded real frontend validation pass; no full admission or scientific Gate exists
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:
@@ -244,7 +253,7 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
-active_spec: guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md
+active_spec: guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md
 active_method: RC-HSG
 active_gates:
   - GATE_R0

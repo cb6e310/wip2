@@ -1,32 +1,23 @@
-# Codex Next Task - RC-HSG v2.2 / S0_A1_FRONTEND
+# Codex Next Task - RC-HSG v2.3 / S0_LEAKAGE_AUDIT
 
-## Current state
+## Stop state
 
-Run 013 completed `SPEC_V22_REVIEW -> S0_A_INTERFACE`. The exact clean-room
-`RC_HSG_NATIVE_SPECTRAL_A1_V1` interface is implemented and synthetic-tested;
-the metadata overlay retains all 5,905 rows, with 5,832 eligible and 73 forced
-to L0 without frontend invocation. `S0_A1_FRONTEND` is the sole READY and
-recommended task, owned by `CODEX`.
+Run 014 completed `SPEC_V23_REVIEW -> S0_A1_FRONTEND`. The bounded 107-row
+real-frontend panel and all 44 no-read outer-train short ledger rows passed the
+frozen CPU/CUDA self-check. This is not full admission.
 
-## Required next instruction
+Current state is exactly 70 tasks, 33 DONE, 8 SKIPPED, 28 BLOCKED, and one
+READY task. The sole recommended task is `S0_LEAKAGE_AUDIT`, owner `CODEX`.
+Test remains `LOCKED_UNTIL_ROUTE_LOCK`.
 
-Wait for a new exact execution directive for `S0_A1_FRONTEND`. That task may
-validate the frozen interface on authorized outer-train real tensors, including
-finite-value, mask, device, memory, and deterministic tensor checks. It may not
-alter the API, preprocessing, bands, windows, model architecture, short-row
-route, split, population, or test lock.
+## Next boundary
 
-## Evidence boundary
+Under a new exact instruction, `S0_LEAKAGE_AUDIT` may audit only the Regime-I
+data split and A-frontend firewall: source/role allowlists, train-fit and
+inner-val scope, short bypass, zero calibration/test dereference, no cross-row
+normalization or fitting, no output cache, and fail-closed loading.
 
-Run 013 used only generated synthetic tensors and committed metadata. It is not
-real-data frontend admission, training, representation-quality, reference,
-performance, or Gate evidence. `B_V8_A_REAL_FRONTEND_UNVALIDATED` remains
-active. Test remains `LOCKED_UNTIL_ROUTE_LOCK`.
-
-## Hard stop
-
-Do not execute `S0_A1_FRONTEND` without the next exact directive. Do not infer
-units, train, implement admission/F/schema/candidates/N1/N2/reference/
-reliability/calibration/baselines, run the full leakage audit or any Gate,
-change split/population/bootstrap, read semantic/calibration/test outcomes, or
-unlock test.
+Do not execute that task from run 014. Do not start `S0_A1_ADMISSION`, read the
+remaining 3,390 eligible rows, read short/calibration/test arrays or outcomes,
+run `S0_METHOD_LEAKAGE_AUDIT`, train, implement later methods, execute a Gate,
+or unlock test without a new exact instruction.

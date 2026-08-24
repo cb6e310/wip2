@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md` (version `v2.2`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md` (version `v2.3`).
 
 ## Verified location
 
@@ -13,20 +13,20 @@ Active SPEC: `guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md` (version `v2.2`).
 
 ## Source of truth
 
-1. `guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md` (active version `v2.2`)
+1. `guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md` (active version `v2.3`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Sections 20-21 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
+Sections 20-22 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
 task graph, and A policy. Sections 14-19 and run-011 artifacts remain
 authoritative for physical data, identity, grouping, split, population, and
 test-lock facts. Older SPECs and runs remain immutable provenance.
 
 ## Recovery sequence
 
-Read the five sources above, `artifacts/backbone_a_policy.yaml`, `artifacts/backbone_a_contract.yaml`, run 013, and
+Read the five sources above, `artifacts/backbone_a_policy.yaml`, `artifacts/backbone_a_contract.yaml`, run 014, and
 the committed split/population manifests, then run:
 
 ```bash
@@ -41,17 +41,17 @@ authorizes repair.
 
 ## Current evidence boundary
 
-Run 013 implemented the frozen clean-room spectral interface and a metadata-only
-eligibility overlay. Synthetic tests passed with 1,270,528 parameters; 5,832
-rows are frontend-eligible and 73 short rows remain in the population with a
-forced-L0 route. This is interface evidence, not real-data admission or a
-performance conclusion.
+Run 014 validated the frozen clean-room spectral interface on a bounded
+107-row outer-train panel and ledgered all 44 outer-train short rows as no-read.
+CPU and conditional CUDA checks passed. The remaining 3,390 eligible
+outer-train rows are unread, so this is not full admission or a performance
+conclusion.
 
-`S0_A1_FRONTEND` is the sole READY and recommended task, owned by `CODEX`.
-Real EEG tensor traversal is unvalidated under B_V8. Test identities remain
-`LOCKED_UNTIL_ROUTE_LOCK`; no real EEG value, semantic outcome, calibration/test
-result, historical model metric, training result, or Gate outcome has been read
-or produced by run 013.
+The early `S0_LEAKAGE_AUDIT` is the sole READY and recommended task, owned by
+`CODEX`. B_V9 preserves the full-admission boundary without blocking its future
+resolver. Test identities remain `LOCKED_UNTIL_ROUTE_LOCK`; no semantic outcome,
+calibration/test EEG or result, historical metric, training result, or Gate
+outcome has been read or produced by run 014.
 
 ## End-of-session contract
 

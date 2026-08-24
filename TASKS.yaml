@@ -280,6 +280,29 @@ SPEC_V22_REVIEW:
     - runs/2026-08-24_013_native_spectral_a_interface.md
   evidence_scope: SPECIFICATION_AND_COMMITTED_METADATA_ONLY_NO_REAL_EEG_VALUES_NO_OUTCOMES
 
+SPEC_V23_REVIEW:
+  title: Activate the frozen RC-HSG v2.3 bounded real-frontend validation policy
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V22_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v23_real_frontend_review.md
+  acceptance:
+    - reviewed commit is exactly 237788090dcb20e533f304f63ae8feb2f545fe0b
+    - section 22 freezes the exact 107-row real-value audit panel and 44-row no-read short ledger
+    - early A-path leakage and later method leakage are distinct tasks with frozen prerequisites
+    - no panel-external EEG outcome training Gate or full admission is executed
+  completed_by_run: 2026-08-24_014_a1_real_frontend_validation
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v23_real_frontend_review.md
+    - runs/2026-08-24_014_a1_real_frontend_validation.md
+  evidence_scope: SPECIFICATION_AND_BOUNDED_REAL_FRONTEND_SELF_CHECK_NO_OUTCOMES_NO_TRAINING
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -793,35 +816,61 @@ S0_JOINT_SPLIT:
   evidence_scope: OUTCOME_BLIND_DETERMINISTIC_GROUP_AND_SUBJECT_SPLIT_NO_TEST_VALUES
 
 S0_LEAKAGE_AUDIT:
-  title: Audit split preprocessing candidate and test-time leakage
+  title: Audit Regime-I data split and A-frontend leakage firewall
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 7
+  owner: CODEX
   prerequisites:
     - S0_A1_FRONTEND
     - S0_JOINT_SPLIT
   produces:
-    - reports/leakage_audit.md
-    - artifacts/leakage_assertions.yaml
+    - artifacts/a_path_leakage_assertions.yaml
+    - reports/a_path_leakage_audit.md
   acceptance:
-    - subject stimulus paragraph paraphrase and record overlaps are zero where required
-    - normalization feature selection schema candidates and null bins fit on legal training data only
-    - teacher forcing gold prefixes test retrieval and calibration representation learning are rejected
-    - machine assertions fail closed
-  blocked_reason: The synthetic A interface is implemented, but real frontend validation remains incomplete under B_V8 and the full audit is outside run 013.
+    - source and role allowlists restrict reads to Regime-I train-fit and inner-val rows
+    - short rows bypass the frontend and calibration and test arrays are never dereferenced
+    - preprocessing has no cross-row normalization fitting or output cache
+    - loader and machine assertions fail closed
+  why_ready: The bounded real-frontend self-check passed; the next task is only the early Regime-I data and A-path firewall audit.
+
+S0_METHOD_LEAKAGE_AUDIT:
+  title: Audit full RC-HSG method and test-time leakage firewall
+  stage: stage_0
+  status: BLOCKED
+  critical_path: true
+  priority: 26
+  prerequisites:
+    - S0_A1_ADMISSION
+    - S0_SCHEMA_AUDIT
+    - S0_REFERENCE_FEATURES
+    - S0_RELIABILITY_MODELS
+    - S0_CALIBRATION_CONTRACT
+    - S0_ABSOLUTE_HSG
+    - S0_RC_HSG_CORE
+    - S0_FLAT_RC
+    - S0_PMI_BASELINE
+  produces:
+    - artifacts/method_leakage_assertions.yaml
+    - reports/method_leakage_audit.md
+  acceptance:
+    - schema candidate reference reliability calibration and baselines use only their frozen legal partitions
+    - test-time retrieval teacher forcing gold prefixes and representation fitting are rejected
+    - route-lock inputs and complete method assertions fail closed before any test-value read
+  blocked_reason: Full admission schema reference reliability calibration and pre-test method implementations are incomplete.
 
 S0_A1_FRONTEND:
   title: Validate the frozen native A frontend and tensor self-check
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 8
-  owner: CODEX
   prerequisites:
     - S0_A_INTERFACE
     - S0_DATA_CARD
   produces:
+    - artifacts/a1_frontend_audit_panel_v1.jsonl
     - artifacts/a1_frontend_freeze.yaml
     - reports/a1_frontend_selfcheck.md
   acceptance:
@@ -829,7 +878,15 @@ S0_A1_FRONTEND:
     - fold-local fitting is enforced
     - deterministic finite tensors match the frozen A contract
     - synthetic success is not mislabeled real-data admission
-  why_ready: The frozen synthetic A interface and metadata eligibility overlay pass; the next bounded task is real outer-train frontend validation without training, unit inference, outcome reads, or admission.
+  completed_by_run: 2026-08-24_014_a1_real_frontend_validation
+  acceptance_evidence:
+    - scripts/validate_a1_frontend.py
+    - tests/test_validate_a1_frontend.py
+    - artifacts/a1_frontend_audit_panel_v1.jsonl
+    - artifacts/a1_frontend_freeze.yaml
+    - reports/a1_frontend_selfcheck.md
+    - runs/2026-08-24_014_a1_real_frontend_validation.md
+  evidence_scope: BOUNDED_OUTER_TRAIN_REAL_EEG_FRONTEND_SELF_CHECK_NO_OUTCOMES_NO_TRAINING_NOT_FULL_ADMISSION
 
 S0_A1_ADMISSION:
   title: Admit the frozen native frontend on outer-train real data
@@ -847,7 +904,7 @@ S0_A1_ADMISSION:
     - sampling channel order units finite values lengths and masks pass
     - checks read outer-train only
     - failures remain blockers rather than guessed conversions
-  blocked_reason: Real frontend validation and the full leakage audit remain incomplete under B_V8; no guessed unit conversion is allowed.
+  blocked_reason: The bounded frontend panel passed, but the early A-path leakage audit and full outer-train admission remain incomplete; no guessed unit conversion is allowed.
 
 S0_A3_CONTAMINATION_CHECK:
   title: Audit an optional second backbone for contamination license and tensor compatibility
@@ -1206,7 +1263,7 @@ GATE_R0:
     - N2 text-free nuisance PSD cross-spectrum covariance amplitude endpoint mask and coverage checks are decided independently
     - each failed reference family is removed and all-family failure routes to ordinary hierarchical selective generation
     - no semantic outcome test value or Gate R C H result is read
-  blocked_reason: Real frontend admission, leakage, and both frozen reference families are incomplete; B_V4 and B_V8 remain active.
+  blocked_reason: Full frontend admission, early leakage, and both frozen reference families are incomplete; B_V4 and B_V9 remain active.
 
 S0_REFERENCE_FEATURES:
   title: Build frozen RC-HSG absolute and reference-relative feature tables
@@ -1466,7 +1523,7 @@ ROUTE_LOCK:
     - S0_FLAT_RC
     - S0_PMI_BASELINE
     - S0_CALIBRATION_CONTRACT
-    - S0_LEAKAGE_AUDIT
+    - S0_METHOD_LEAKAGE_AUDIT
     - S0_ALIGN_UNIT_COST
   produces:
     - artifacts/route_lock.yaml
@@ -1488,7 +1545,7 @@ MAIN_EXPERIMENT:
     - GATE_C
     - GATE_H
     - MECHANISM_A
-    - S0_LEAKAGE_AUDIT
+    - S0_METHOD_LEAKAGE_AUDIT
     - S0_ALIGN_UNIT_COST
   produces:
     - artifacts/main_experiment_manifest.yaml

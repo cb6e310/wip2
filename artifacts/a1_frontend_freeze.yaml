@@ -1,0 +1,240 @@
+schema_version: 1
+artifact: RC_HSG_A1_REAL_FRONTEND_VALIDATION_V1
+spec_version: v2.3
+baseline_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
+task: S0_A1_FRONTEND
+policy_id: RC_HSG_NATIVE_SPECTRAL_A1_V1
+evidence_scope: BOUNDED_OUTER_TRAIN_REAL_EEG_FRONTEND_SELF_CHECK_NO_OUTCOMES_NO_TRAINING_NOT_FULL_ADMISSION
+input_artifacts:
+  spec_v22:
+    path: guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md
+    sha256: a5d6d695f21a72dd2e3d8445771b6b3d772f0a42282ad5ce9feaa6e43da01911
+  a_policy:
+    path: artifacts/backbone_a_policy.yaml
+    sha256: 034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425
+  a_contract:
+    path: artifacts/backbone_a_contract.yaml
+    sha256: 4c9ccddf4d5c208870422c7e5ceee65ee184d812fce662bb885998b0dad65cac
+  eligibility:
+    path: artifacts/a_interface_eligibility_v1.jsonl
+    sha256: 8eded8fb2786747e96b8388d4d91315e39db9f8a9eb25ea69056d219e1e8e1ad
+  a_code:
+    path: src/rc_hsg/backbones/native_spectral_a1.py
+    sha256: 71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9
+  analysis_view:
+    path: artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    sha256: 0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff
+  split_regime_i:
+    path: artifacts/split_regimeI.json
+    sha256: e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab
+  data_card:
+    path: artifacts/data_card.yaml
+    sha256: d9331bfe34937c264b7b8c667a2b831569c4440120e1d445011aeaf419c30f84
+  targeted_manifest_v3:
+    path: artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
+    sha256: 50806a60937b28ae36207509c44d606af6f6b6b1be2a69c06081672f0931bfaf
+  osf_file_metadata:
+    path: artifacts/admission/zuco2_osf_file_metadata.yaml
+    sha256: 85a8c89eeb7a523c06fb7f38aa1c371e042413087e66dcc338c16833bd8bb721
+  requirements_lock:
+    path: requirements-trust-align.lock.txt
+    sha256: 72a2a3274ef9516dba95a4f4022cacfba0e02d10445e1618da2a569f59381910
+authorized_scope:
+  roles:
+  - train_fit
+  - inner_val
+  source_field: rawData
+  real_panel_only: true
+  real_distinct_rows: 107
+  short_rows_source_dataset_read: 0
+  calibration_rows_source_dataset_read: 0
+  test_rows_source_dataset_read: 0
+panel_contract:
+  path: artifacts/a1_frontend_audit_panel_v1.jsonl
+  sha256: 95db4e18501ae25f559bb6446621b6c062a7f36936ca0f4eec3236dc57ca43ed
+  canonical_order:
+  - subject
+  - slot
+  - occurrence_id
+  selection: SUBJECT_ROLE_WINDOW_STRATUM_MIN_KEY_PLUS_ROLE_MAX_STRESS_AND_ALL_OUTER_SHORT
+  strata:
+    W01_04:
+    - 1
+    - 4
+    W05_16:
+    - 5
+    - 16
+    W17_PLUS:
+    - 17
+    - null
+source_identity_contract:
+  summary_files_checked: 18
+  relative_path_and_size: PASS
+  osf_sha256: REUSED_VERIFIED_RUN005_NO_REHASH
+  files:
+  - subject: YAC
+    relative_path: task1 - NR/Matlab files/resultsYAC_NR.mat
+    size_bytes: 1340390157
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YAG
+    relative_path: task1 - NR/Matlab files/resultsYAG_NR.mat
+    size_bytes: 2426102526
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YAK
+    relative_path: task1 - NR/Matlab files/resultsYAK_NR.mat
+    size_bytes: 1235552076
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YDG
+    relative_path: task1 - NR/Matlab files/resultsYDG_NR.mat
+    size_bytes: 1748510042
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YDR
+    relative_path: task1 - NR/Matlab files/resultsYDR_NR.mat
+    size_bytes: 1541159278
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YFR
+    relative_path: task1 - NR/Matlab files/resultsYFR_NR.mat
+    size_bytes: 1892890796
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YFS
+    relative_path: task1 - NR/Matlab files/resultsYFS_NR.mat
+    size_bytes: 1404067839
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YHS
+    relative_path: task1 - NR/Matlab files/resultsYHS_NR.mat
+    size_bytes: 1290663769
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YIS
+    relative_path: task1 - NR/Matlab files/resultsYIS_NR.mat
+    size_bytes: 2026534731
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YLS
+    relative_path: task1 - NR/Matlab files/resultsYLS_NR.mat
+    size_bytes: 1923277772
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YMD
+    relative_path: task1 - NR/Matlab files/resultsYMD_NR.mat
+    size_bytes: 2415535960
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YMS
+    relative_path: task1 - NR/Matlab files/resultsYMS_NR.mat
+    size_bytes: 2446833984
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YRH
+    relative_path: task1 - NR/Matlab files/resultsYRH_NR.mat
+    size_bytes: 1544909024
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YRK
+    relative_path: task1 - NR/Matlab files/resultsYRK_NR.mat
+    size_bytes: 2347425489
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YRP
+    relative_path: task1 - NR/Matlab files/resultsYRP_NR.mat
+    size_bytes: 2319904154
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YSD
+    relative_path: task1 - NR/Matlab files/resultsYSD_NR.mat
+    size_bytes: 1835711329
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YSL
+    relative_path: task1 - NR/Matlab files/resultsYSL_NR.mat
+    size_bytes: 2356341298
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+  - subject: YTL
+    relative_path: task1 - NR/Matlab files/resultsYTL_NR.mat
+    size_bytes: 2495299295
+    sha256_status: REUSED_VERIFIED_RUN005_NO_REHASH
+loader_contract:
+  hdf5_path: sentenceData/rawData[slot-1,0]
+  reference_scope: SAME_FILE_OBJECT_REFERENCE_ONLY
+  source_shape: RAW_SAMPLES_BY_105
+  source_dtypes:
+  - float32
+  - float64
+  actual_source_dtype_counts:
+    float64: 107
+  cast: CONTIGUOUS_NATIVE_FLOAT32_NO_SCALE
+  transpose: EXPLICIT_T_105_TO_1_105_T
+  finite_before_and_after_cast: PASS
+execution_contract:
+  model_mode: EVAL_INFERENCE_MODE
+  maximum_batch_rows: 4
+  cpu_dtype: float32
+  individual_repeat: EXACT
+  attention_kernels: MATH_ONLY_NO_FASTPATH
+  torch_native_jit: false
+  torch_native_triton_overrides: false
+  batch_tolerance:
+    rtol: 2.0e-05
+    atol: 2.0e-05
+  cuda_tolerance:
+    rtol: 0.0002
+    atol: 0.0002
+  training: false
+  backward: false
+  optimizer: false
+acceptance_counts:
+  outer_train_rows: 3541
+  outer_train_eligible: 3497
+  outer_train_short: 44
+  outer_train_windows: 35745
+  ledger_rows: 151
+  real_distinct_rows_read: 107
+  short_no_read: 44
+  panel_windows: 1452
+  subject_count: 18
+  real_role_counts:
+    inner_val: 52
+    train_fit: 55
+check_results:
+  source_identity: PASS
+  hdf5_firewall: PASS
+  real_tensor_finite: PASS
+  window_mask_shape: PASS
+  cpu_status: PASS
+  cpu_repeat: PASS
+  batch_parity: PASS
+  padding_isolation: PASS
+  parameter_immutability: PASS
+  cuda:
+    status: PASS
+    available: true
+    rows: 20
+    windows: 199
+    device_count: 4
+    device_name: NVIDIA GeForce RTX 4090
+    tf32_disabled: true
+implementation:
+  validator_path: scripts/validate_a1_frontend.py
+  validator_sha256: ecc84a0363629e919409321cdc73327b6e3c7e779e224a18ab55a6b6ac6777cd
+  python_version: 3.12.3
+  torch_version: 2.13.0+cu130
+  numpy_version: 2.5.2
+  h5py_version: 3.16.0
+  audit_seed: 20260824
+  audit_seed_status: AUDIT_ONLY_NOT_MAIN_EXPERIMENT_SEED
+  cpu_status: PASS
+  cuda_status: PASS
+prohibited:
+- NON_PANEL_EEG_READ
+- SHORT_CAL_TEST_DEREFERENCE
+- TEXT_OR_OUTCOME_READ
+- TRAINING_OR_BACKWARD
+- OUTPUT_OR_TENSOR_HASH
+- VALUE_SUMMARY
+- CACHE_WRITE
+- UNIT_CONVERSION
+- RESAMPLING
+- REREFERENCE
+- CHANNEL_INTERPOLATION
+safety:
+  raw_or_tensor_emitted: false
+  value_summary_emitted: false
+  text_or_outcome_read: false
+  training_or_parameter_update: false
+  full_leakage_audit_run: false
+  test_status: LOCKED_UNTIL_ROUTE_LOCK
+downstream_boundary:
+  full_outer_train_admission_completed: false
+  remaining_eligible_rows_not_read: 3390
+  next_task: S0_LEAKAGE_AUDIT

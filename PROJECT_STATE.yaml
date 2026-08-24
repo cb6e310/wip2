@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-24"
-updated_by_run: 2026-08-24_013_native_spectral_a_interface
+updated_by_run: 2026-08-24_014_a1_real_frontend_validation
 
 project:
   name: rc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 91997faa1de1616d1eb662cd36edc1547613206d
-  reviewed_commit: 91997faa1de1616d1eb662cd36edc1547613206d
-  repository_status: RC_HSG_V22_A_INTERFACE_IMPLEMENTED_REAL_FRONTEND_PENDING
-  spec_version: v2.2
-  spec_path: guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md
+  baseline_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
+  reviewed_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
+  repository_status: RC_HSG_V23_REAL_FRONTEND_SELFCHECK_PASSED_A_LEAKAGE_PENDING
+  spec_version: v2.3
+  spec_path: guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -53,6 +53,9 @@ superseded_blockers:
   - id: B_V7_A_INTERFACE_UNIMPLEMENTED
     closed_by: S0_A_INTERFACE
     retained_limitation: Synthetic interface validation is not real EEG frontend validation or admission evidence.
+  - id: B_V8_A_REAL_FRONTEND_UNVALIDATED
+    closed_by: S0_A1_FRONTEND
+    retained_limitation: The bounded 107-row real frontend panel passed, but this is not full outer-train admission.
 
 blockers:
   - id: B_V3_SCHEMA_UNFROZEN
@@ -98,11 +101,9 @@ blockers:
       - S0_FLAT_RC
       - S0_PMI_BASELINE
     resolution: Freeze train-only candidate construction, absolute-score content selection, deterministic parent paths, and a common candidate hash before reliability fitting.
-  - id: B_V8_A_REAL_FRONTEND_UNVALIDATED
-    reason: The synthetic A interface is implemented, but real outer-train tensor traversal, finite-value behavior, device and memory behavior, and frontend admission remain unvalidated.
+  - id: B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING
+    reason: The bounded 107-row real frontend panel passed, but the remaining 3,390 eligible outer-train rows have not been read or admitted.
     blocks:
-      - S0_LEAKAGE_AUDIT
-      - S0_A1_ADMISSION
       - S0_A3_CONTAMINATION_CHECK
       - S0_N1_BLOCK_FEASIBILITY
       - S0_N1_SAMPLER
@@ -113,17 +114,17 @@ blockers:
       - S0_ABSOLUTE_HSG
       - S0_RC_HSG_CORE
       - S0_FLAT_RC
-    resolution: Validate only the frozen frontend on authorized outer-train real data under S0_A1_FRONTEND; do not infer units, alter the interface, train, or read outcomes.
+    resolution: After the early A-path leakage audit passes, execute S0_A1_ADMISSION as a streaming scan of the remaining 3,390 eligible outer-train rows without unit inference, training, or outcome reads.
 
-last_completed_task: S0_A_INTERFACE
-recommended_next_task: S0_A1_FRONTEND
-last_run: runs/2026-08-24_013_native_spectral_a_interface.md
+last_completed_task: S0_A1_FRONTEND
+recommended_next_task: S0_LEAKAGE_AUDIT
+last_run: runs/2026-08-24_014_a1_real_frontend_validation.md
 
 do_not_do_yet:
-  - Do not execute S0_A1_FRONTEND or read real EEG values without the next exact instruction; run 013 is synthetic and metadata-only.
+  - Do not execute the early A-path leakage audit without the next exact instruction; run 014 stops after the bounded frontend self-check.
   - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
   - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
   - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.
   - Do not implement F, semantic schema, reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
-  - Do not read real EEG values, semantic outcomes, calibration/test results, predictions, or historical model metrics.
-  - Do not unlock test identities, run the full leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.
+  - Do not read any remaining eligible, short, calibration, or test EEG values, semantic outcomes, predictions, or historical model metrics.
+  - Do not unlock test identities, run either leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.

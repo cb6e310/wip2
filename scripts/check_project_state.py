@@ -49,6 +49,7 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V23_REVIEW",
     "SPEC_V22_REVIEW",
     "SPEC_V21_REVIEW",
     "S0_SCIENTIFIC_REDESIGN_FREEZE",
@@ -78,6 +79,7 @@ REQUIRED_TASK_IDS = {
     "S0_H_DEFINITION",
     "S0_JOINT_SPLIT",
     "S0_LEAKAGE_AUDIT",
+    "S0_METHOD_LEAKAGE_AUDIT",
     "S0_A_INTERFACE",
     "S0_A1_FRONTEND",
     "S0_A1_ADMISSION",
@@ -218,6 +220,55 @@ V22_B8_BLOCKS = {
     "S0_ABSOLUTE_HSG",
     "S0_RC_HSG_CORE",
     "S0_FLAT_RC",
+}
+V23_DEPENDENCIES = {
+    **V22_DEPENDENCIES,
+    "S0_METHOD_LEAKAGE_AUDIT": {
+        "S0_A1_ADMISSION",
+        "S0_SCHEMA_AUDIT",
+        "S0_REFERENCE_FEATURES",
+        "S0_RELIABILITY_MODELS",
+        "S0_CALIBRATION_CONTRACT",
+        "S0_ABSOLUTE_HSG",
+        "S0_RC_HSG_CORE",
+        "S0_FLAT_RC",
+        "S0_PMI_BASELINE",
+    },
+    "ROUTE_LOCK": {
+        "S0_ABSOLUTE_HSG",
+        "S0_RC_HSG_CORE",
+        "S0_FLAT_RC",
+        "S0_PMI_BASELINE",
+        "S0_CALIBRATION_CONTRACT",
+        "S0_METHOD_LEAKAGE_AUDIT",
+        "S0_ALIGN_UNIT_COST",
+    },
+    "MAIN_EXPERIMENT": {
+        "ROUTE_LOCK",
+        "GATE_R",
+        "GATE_C",
+        "GATE_H",
+        "MECHANISM_A",
+        "S0_METHOD_LEAKAGE_AUDIT",
+        "S0_ALIGN_UNIT_COST",
+    },
+}
+V23_B9_BLOCKS = {
+    "S0_A3_CONTAMINATION_CHECK",
+    "S0_N1_BLOCK_FEASIBILITY",
+    "S0_N1_SAMPLER",
+    "S0_N2_SAMPLER",
+    "GATE_R0",
+    "S0_REFERENCE_FEATURES",
+    "S0_RELIABILITY_MODELS",
+    "S0_ABSOLUTE_HSG",
+    "S0_RC_HSG_CORE",
+    "S0_FLAT_RC",
+}
+V23_OUTPUT_HASHES = {
+    "artifacts/a1_frontend_audit_panel_v1.jsonl": "95db4e18501ae25f559bb6446621b6c062a7f36936ca0f4eec3236dc57ca43ed",
+    "artifacts/a1_frontend_freeze.yaml": "817b1be11d3545f1279e87fd40d391b71dd3347d0eed57c174abdfc6bf760d66",
+    "reports/a1_frontend_selfcheck.md": "703e999bc9903183dd019df853e92558a81ba8526945e32a24ae926d95af4503",
 }
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
@@ -683,6 +734,120 @@ def _check_v22_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         _error(errors, "V22_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
+def _check_v23_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.3":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    expected_statuses = {"DONE": 33, "SKIPPED": 8, "BLOCKED": 28, "READY": 1}
+    if len(tasks) != 70 or status_counts != expected_statuses:
+        _error(errors, "V23_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_LEAKAGE_AUDIT"] or tasks.get("S0_LEAKAGE_AUDIT", {}).get("owner") != "CODEX":
+        _error(errors, "V23_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("SPEC_V23_REVIEW", {}).get("status") != "DONE" or tasks.get("S0_A1_FRONTEND", {}).get("status") != "DONE":
+        _error(errors, "V23_COMPLETED_CHAIN_MISMATCH", "SPEC_V23_REVIEW or S0_A1_FRONTEND")
+    for task_id, expected in V23_DEPENDENCIES.items():
+        actual = tasks.get(task_id, {}).get("prerequisites")
+        if not isinstance(actual, list) or set(actual) != expected or len(actual) != len(expected):
+            _error(errors, "V23_DEPENDENCY_MISMATCH", f"{task_id}: {actual!r}")
+
+    early = tasks.get("S0_LEAKAGE_AUDIT", {})
+    method = tasks.get("S0_METHOD_LEAKAGE_AUDIT", {})
+    if early.get("produces") != ["artifacts/a_path_leakage_assertions.yaml", "reports/a_path_leakage_audit.md"]:
+        _error(errors, "V23_EARLY_LEAKAGE_TASK_MISMATCH", repr(early.get("produces")))
+    if method.get("produces") != ["artifacts/method_leakage_assertions.yaml", "reports/method_leakage_audit.md"]:
+        _error(errors, "V23_METHOD_LEAKAGE_TASK_MISMATCH", repr(method.get("produces")))
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    b9 = blockers.get("B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
+    if "B_V8_A_REAL_FRONTEND_UNVALIDATED" in blockers or not isinstance(b9, dict) or set(b9.get("blocks", [])) != V23_B9_BLOCKS:
+        _error(errors, "V23_B9_BLOCKER_MISMATCH", repr(b9))
+    if "S0_A1_ADMISSION" in (b9 or {}).get("blocks", []):
+        _error(errors, "V23_B9_RESOLVER_BLOCKED", "S0_A1_ADMISSION")
+    superseded = {item.get("id"): item for item in state.get("superseded_blockers", []) if isinstance(item, dict)}
+    if superseded.get("B_V8_A_REAL_FRONTEND_UNVALIDATED", {}).get("closed_by") != "S0_A1_FRONTEND":
+        _error(errors, "V23_B8_CLOSURE_MISMATCH", repr(superseded.get("B_V8_A_REAL_FRONTEND_UNVALIDATED")))
+
+    for relative, expected in {**FROZEN_RUN_011_HASHES, **V22_OUTPUT_HASHES, **V23_OUTPUT_HASHES}.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V23_ARTIFACT_HASH_MISMATCH", relative)
+    policy_path = root / "artifacts/backbone_a_policy.yaml"
+    if not policy_path.is_file() or _sha256(policy_path) != "034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425":
+        _error(errors, "V23_A_POLICY_HASH_MISMATCH", "artifacts/backbone_a_policy.yaml")
+    implementation_path = root / "src/rc_hsg/backbones/native_spectral_a1.py"
+    if not implementation_path.is_file() or _sha256(implementation_path) != "71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9":
+        _error(errors, "V23_A_IMPLEMENTATION_HASH_MISMATCH", "src/rc_hsg/backbones/native_spectral_a1.py")
+
+    panel_path = root / "artifacts/a1_frontend_audit_panel_v1.jsonl"
+    try:
+        with panel_path.open("r", encoding="utf-8") as handle:
+            panel = [json.loads(line) for line in handle]
+    except (OSError, json.JSONDecodeError) as exc:
+        panel = []
+        _error(errors, "V23_PANEL_PARSE_ERROR", type(exc).__name__)
+    fields = [
+        "subject", "slot", "occurrence_id", "role", "raw_samples", "window_count",
+        "selection_reason", "a_interface_status", "action", "source_file",
+        "source_field", "source_dataset_read",
+    ]
+    real = [row for row in panel if row.get("source_dataset_read") is True]
+    short = [row for row in panel if row.get("source_dataset_read") is False]
+    if (
+        len(panel) != 151
+        or any(list(row) != fields for row in panel)
+        or panel != sorted(panel, key=lambda row: (row.get("subject"), row.get("slot"), row.get("occurrence_id")))
+        or len(real) != 107
+        or len(short) != 44
+        or sum(row.get("window_count", 0) for row in real) != 1452
+        or len({row.get("subject") for row in real}) != 18
+        or any(row.get("source_field") != "rawData" for row in panel)
+        or any(row.get("action") != "FORCED_L0_NO_FRONTEND" for row in short)
+    ):
+        _error(errors, "V23_PANEL_MISMATCH", f"rows={len(panel)} real={len(real)} short={len(short)}")
+
+    freeze = _load_yaml(root / "artifacts/a1_frontend_freeze.yaml", errors, "A1 frontend freeze")
+    expected_keys = [
+        "schema_version", "artifact", "spec_version", "baseline_commit", "task", "policy_id",
+        "evidence_scope", "input_artifacts", "authorized_scope", "panel_contract",
+        "source_identity_contract", "loader_contract", "execution_contract", "acceptance_counts",
+        "check_results", "implementation", "prohibited", "safety", "downstream_boundary",
+    ]
+    if isinstance(freeze, dict):
+        counts = freeze.get("acceptance_counts", {})
+        checks = freeze.get("check_results", {})
+        boundary = freeze.get("downstream_boundary", {})
+        implementation = freeze.get("implementation", {})
+        validator_path = root / "scripts/validate_a1_frontend.py"
+        if (
+            list(freeze) != expected_keys
+            or freeze.get("artifact") != "RC_HSG_A1_REAL_FRONTEND_VALIDATION_V1"
+            or freeze.get("spec_version") != "v2.3"
+            or freeze.get("baseline_commit") != "237788090dcb20e533f304f63ae8feb2f545fe0b"
+            or freeze.get("task") != "S0_A1_FRONTEND"
+            or freeze.get("evidence_scope") != "BOUNDED_OUTER_TRAIN_REAL_EEG_FRONTEND_SELF_CHECK_NO_OUTCOMES_NO_TRAINING_NOT_FULL_ADMISSION"
+            or counts.get("real_distinct_rows_read") != 107
+            or counts.get("panel_windows") != 1452
+            or counts.get("short_no_read") != 44
+            or checks.get("cpu_status") != "PASS"
+            or checks.get("cuda", {}).get("status") != "PASS"
+            or checks.get("cuda", {}).get("rows") != 20
+            or checks.get("cuda", {}).get("windows") != 199
+            or boundary != {"full_outer_train_admission_completed": False, "remaining_eligible_rows_not_read": 3390, "next_task": "S0_LEAKAGE_AUDIT"}
+            or not validator_path.is_file()
+            or implementation.get("validator_sha256") != _sha256(validator_path)
+        ):
+            _error(errors, "V23_FRONTEND_FREEZE_MISMATCH", "header, counts, checks, boundary, or validator hash")
+
+    split = _load_yaml(root / "artifacts/split_manifest.yaml", errors, "split manifest")
+    if isinstance(split, dict) and split.get("assertions", {}).get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK":
+        _error(errors, "V23_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -820,6 +985,7 @@ def validate(root: Path) -> list[str]:
     _check_gate_order(tasks, errors)
     _check_v21_contract(root, state, tasks, errors)
     _check_v22_contract(root, state, tasks, errors)
+    _check_v23_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):
