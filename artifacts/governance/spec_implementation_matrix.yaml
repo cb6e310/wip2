@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_012_rc_hsg_scientific_redesign_freeze
-evidence_as_of_commit: 3b97fdc966b9b56d72287df619a80f6145d71189
+updated_by_run: 2026-08-24_013_native_spectral_a_interface
+evidence_as_of_commit: 91997faa1de1616d1eb662cd36edc1547613206d
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -85,27 +85,31 @@ items:
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no split preprocessing candidate or test-time pipeline exists to audit
+      - synthetic interface is implemented but real frontend validation is required before the full leakage audit
     target_task: S0_LEAKAGE_AUDIT
     blocker: prerequisites incomplete
   backbone_a_and_frontend:
-    status: BLOCKED
+    status: IMPLEMENTED_UNVALIDATED
     evidence_paths:
       - requirements-trust-align.lock.txt
       - artifacts/governance/trust_align_dependency_sync.yaml
       - artifacts/admission/backbone_source_candidates.yaml
       - artifacts/admission/zuco_neurolm_compatibility.yaml
       - artifacts/backbone_a_policy.yaml
+      - src/rc_hsg/backbones/native_spectral_a1.py
+      - scripts/build_a_interface_contract.py
+      - artifacts/backbone_a_contract.yaml
+      - artifacts/a_interface_eligibility_v1.jsonl
+      - reports/a_interface_contract.md
     tests_rerun:
-      - exact sorted pip freeze comparison
-      - pip check
-      - torch CUDA and key scientific package import smoke
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_native_spectral_a1.py'"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_build_a_interface_contract.py'"
     acceptance_gaps:
-      - RC_HSG_NATIVE_SPECTRAL_A1_V1 is author-selected without external code checkpoint or weight download
-      - the native spectral tensor masking initialization and outer-train-only admission interface is not implemented
+      - exact clean-room interface and metadata-only short-row overlay are implemented and synthetic-tested
+      - real outer-train tensor traversal finite-value device memory and admission behavior remain unvalidated
       - release-native amplitude remains physically unresolved and conversion remains prohibited
-    target_task: S0_A_INTERFACE
-    blocker: B_V7_A_INTERFACE_UNIMPLEMENTED
+    target_task: S0_A1_FRONTEND
+    blocker: B_V8_A_REAL_FRONTEND_UNVALIDATED
   semantic_schema_and_evaluator:
     status: BLOCKED
     evidence_paths: []
@@ -202,10 +206,13 @@ items:
       - scripts/check_project_state.py
       - scripts/project_status.py
       - artifacts/backbone_a_policy.yaml
+      - tests/test_native_spectral_a1.py
+      - tests/test_build_a_interface_contract.py
+      - artifacts/backbone_a_contract.yaml
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - governance A-policy and frozen-artifact validation only; no scientific model test exists
+      - synthetic A-interface and metadata builder validation pass; no real-data model validation exists
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:
@@ -237,7 +244,7 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
-active_spec: guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md
+active_spec: guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md
 active_method: RC-HSG
 active_gates:
   - GATE_R0
@@ -247,4 +254,4 @@ active_gates:
   - MECHANISM_A
 test_status: LOCKED_UNTIL_ROUTE_LOCK
 held_out_content_read: false
-scientific_implementation_changed: false
+scientific_implementation_changed: true

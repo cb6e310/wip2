@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-24"
-updated_by_run: 2026-08-24_012_rc_hsg_scientific_redesign_freeze
+updated_by_run: 2026-08-24_013_native_spectral_a_interface
 
 project:
   name: rc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 3b97fdc966b9b56d72287df619a80f6145d71189
-  reviewed_commit: 3b97fdc966b9b56d72287df619a80f6145d71189
-  repository_status: RC_HSG_V21_ACTIVE_SCIENTIFIC_REDESIGN_A_POLICY_FROZEN
-  spec_version: v2.1
-  spec_path: guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md
+  baseline_commit: 91997faa1de1616d1eb662cd36edc1547613206d
+  reviewed_commit: 91997faa1de1616d1eb662cd36edc1547613206d
+  repository_status: RC_HSG_V22_A_INTERFACE_IMPLEMENTED_REAL_FRONTEND_PENDING
+  spec_version: v2.2
+  spec_path: guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -49,7 +49,10 @@ superseded_blockers:
     retained_limitation: RELEASE_NATIVE_AMPLITUDE_UNRESOLVED; physical-unit conversion and microvolt inference remain prohibited.
   - id: B_V2_BACKBONE_NOT_PRESENT
     closed_by: RC_HSG_NATIVE_SPECTRAL_A1_V1
-    retained_limitation: The selected clean-room frontend policy is frozen but its interface and implementation remain incomplete.
+    retained_limitation: The selected clean-room interface is implemented synthetically, but real frontend validation and admission remain incomplete.
+  - id: B_V7_A_INTERFACE_UNIMPLEMENTED
+    closed_by: S0_A_INTERFACE
+    retained_limitation: Synthetic interface validation is not real EEG frontend validation or admission evidence.
 
 blockers:
   - id: B_V3_SCHEMA_UNFROZEN
@@ -95,13 +98,12 @@ blockers:
       - S0_FLAT_RC
       - S0_PMI_BASELINE
     resolution: Freeze train-only candidate construction, absolute-score content selection, deterministic parent paths, and a common candidate hash before reliability fitting.
-  - id: B_V7_A_INTERFACE_UNIMPLEMENTED
-    reason: The author selected RC_HSG_NATIVE_SPECTRAL_A1_V1, but its frontend tensor, masking, deterministic initialization, and outer-train-only admission checks are not implemented or validated.
+  - id: B_V8_A_REAL_FRONTEND_UNVALIDATED
+    reason: The synthetic A interface is implemented, but real outer-train tensor traversal, finite-value behavior, device and memory behavior, and frontend admission remain unvalidated.
     blocks:
-      - S0_A1_FRONTEND
+      - S0_LEAKAGE_AUDIT
       - S0_A1_ADMISSION
       - S0_A3_CONTAMINATION_CHECK
-      - S0_LEAKAGE_AUDIT
       - S0_N1_BLOCK_FEASIBILITY
       - S0_N1_SAMPLER
       - S0_N2_SAMPLER
@@ -111,14 +113,14 @@ blockers:
       - S0_ABSOLUTE_HSG
       - S0_RC_HSG_CORE
       - S0_FLAT_RC
-    resolution: Implement and validate only the frozen S0_A_INTERFACE contract in the next authorized run; do not switch backbone or infer units.
+    resolution: Validate only the frozen frontend on authorized outer-train real data under S0_A1_FRONTEND; do not infer units, alter the interface, train, or read outcomes.
 
-last_completed_task: S0_A_POLICY_REVIEW
-recommended_next_task: S0_A_INTERFACE
-last_run: runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md
+last_completed_task: S0_A_INTERFACE
+recommended_next_task: S0_A1_FRONTEND
+last_run: runs/2026-08-24_013_native_spectral_a_interface.md
 
 do_not_do_yet:
-  - Do not implement S0_A_INTERFACE without the next exact instruction; the A policy is selected but the frontend is not implemented.
+  - Do not execute S0_A1_FRONTEND or read real EEG values without the next exact instruction; run 013 is synthetic and metadata-only.
   - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
   - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
   - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.

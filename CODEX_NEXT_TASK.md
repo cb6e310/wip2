@@ -1,34 +1,32 @@
-# Codex Next Task - S0_A_INTERFACE
+# Codex Next Task - RC-HSG v2.2 / S0_A1_FRONTEND
 
 ## Current state
 
-Run 012 activated RC-HSG v2.1 and materialized the author-frozen
-`RC_HSG_NATIVE_SPECTRAL_A1_V1` policy. `S0_A_INTERFACE` is the sole READY and
+Run 013 completed `SPEC_V22_REVIEW -> S0_A_INTERFACE`. The exact clean-room
+`RC_HSG_NATIVE_SPECTRAL_A1_V1` interface is implemented and synthetic-tested;
+the metadata overlay retains all 5,905 rows, with 5,832 eligible and 73 forced
+to L0 without frontend invocation. `S0_A1_FRONTEND` is the sole READY and
 recommended task, owned by `CODEX`.
 
 ## Required next instruction
 
-Wait for an exact execution directive for `S0_A_INTERFACE`. That future run may
-implement and freeze only the project-native spectral frontend tensor,
-masking, deterministic initialization, and outer-train-only admission contract
-specified by active SPEC section 20.10 and `artifacts/backbone_a_policy.yaml`.
+Wait for a new exact execution directive for `S0_A1_FRONTEND`. That task may
+validate the frozen interface on authorized outer-train real tensors, including
+finite-value, mask, device, memory, and deterministic tensor checks. It may not
+alter the API, preprocessing, bands, windows, model architecture, short-row
+route, split, population, or test lock.
 
-## Frozen boundary
+## Evidence boundary
 
-- Input: finite 105 x T release-native EEG at 500 Hz in the frozen channel
-  order and common-average processed reference.
-- No physical-unit conversion, microvolt inference, channel interpolation,
-  external source-code copy, pretrained checkpoint, or weight download.
-- Segments shorter than 500 valid samples fail admission; silent padding is
-  prohibited.
-- N1, N2, real, and all comparison methods must eventually share one frontend
-  path.
+Run 013 used only generated synthetic tensors and committed metadata. It is not
+real-data frontend admission, training, representation-quality, reference,
+performance, or Gate evidence. `B_V8_A_REAL_FRONTEND_UNVALIDATED` remains
+active. Test remains `LOCKED_UNTIL_ROUTE_LOCK`.
 
 ## Hard stop
 
-Do not implement `S0_A_INTERFACE` without the next exact directive. Do not
-implement F, semantic schema, candidate selection, reference generation,
-reliability models, GLMs, calibration, or later methods. Do not read real EEG
-values, semantic outcomes, calibration/test results, predictions, or historical
-model metrics. Do not run the full leakage audit, train, execute any Gate, or
+Do not execute `S0_A1_FRONTEND` without the next exact directive. Do not infer
+units, train, implement admission/F/schema/candidates/N1/N2/reference/
+reliability/calibration/baselines, run the full leakage audit or any Gate,
+change split/population/bootstrap, read semantic/calibration/test outcomes, or
 unlock test.

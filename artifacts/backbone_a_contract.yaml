@@ -1,0 +1,171 @@
+schema_version: 1
+artifact: RC_HSG_NATIVE_SPECTRAL_A1_CONTRACT_V1
+policy_id: RC_HSG_NATIVE_SPECTRAL_A1_V1
+spec_version: v2.2
+baseline_commit: 91997faa1de1616d1eb662cd36edc1547613206d
+input_artifacts:
+  a_policy:
+    path: artifacts/backbone_a_policy.yaml
+    sha256: 034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425
+  analysis_view:
+    path: artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    sha256: 0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff
+  split_regime_i:
+    path: artifacts/split_regimeI.json
+    sha256: e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab
+  data_card:
+    path: artifacts/data_card.yaml
+    sha256: d9331bfe34937c264b7b8c667a2b831569c4440120e1d445011aeaf419c30f84
+  targeted_manifest_v3:
+    path: artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
+    sha256: 50806a60937b28ae36207509c44d606af6f6b6b1be2a69c06081672f0931bfaf
+  requirements_lock:
+    path: requirements-trust-align.lock.txt
+    sha256: 72a2a3274ef9516dba95a4f4022cacfba0e02d10445e1618da2a569f59381910
+input_contract:
+  tensor: FLOATING_B_105_T
+  valid_samples: INTEGER_B_INCLUSIVE_VALID_PREFIX
+  channel_order_hash: 23b8d1ee22d87560fe1a6384141b2713c450ca34ef9eeff8241e7bd3bd885ef5
+  sampling_hz: 500
+  unit_status: RELEASE_NATIVE_AMPLITUDE_UNRESOLVED
+  processed_reference: common-average
+  minimum_valid_samples: 500
+  implicit_device_move: false
+preprocessing_contract:
+  scope: PER_TRIAL_PER_CHANNEL_VALID_SLICE_ONLY
+  center: MEDIAN
+  scale: MAX_1.4826_MAD_CENTERED_RMS_1E-6
+  clip:
+  - -20.0
+  - 20.0
+  computation_dtype: float32
+spectral_contract:
+  window_samples: 500
+  hop_samples: 250
+  window: SYMMETRIC_HANN_PERIODIC_FALSE
+  tail: DROP_NO_PADDING
+  fft: RFFT_N500_NORM_BACKWARD
+  denominator_bins:
+  - 1
+  - 75
+  denominator_interval: HALF_OPEN
+  bands_hz_half_open:
+  - - 1
+    - 4
+  - - 4
+    - 8
+  - - 8
+    - 10
+  - - 10
+    - 13
+  - - 13
+    - 20
+  - - 20
+    - 30
+  - - 30
+    - 45
+  - - 55
+    - 75
+  band_bin_counts:
+  - 3
+  - 4
+  - 2
+  - 3
+  - 7
+  - 10
+  - 15
+  - 20
+  feature: LOG_RELATIVE_BANDPOWER
+  epsilon: 1.0e-12
+  flatten_order: CHANNEL_MAJOR_THEN_BAND_MAJOR
+  token_dim: 840
+encoder_contract:
+  projection: LINEAR_840_256_BIAS
+  activation: GELU_APPROXIMATE_NONE
+  projection_layer_norm_eps: 1.0e-05
+  dropout: 0.1
+  position: STANDARD_PARAMETER_FREE_SINUSOIDAL
+  transformer_layers: 2
+  attention_heads: 4
+  feedforward_dim: 512
+  batch_first: true
+  norm_first: true
+  final_layer_norm_eps: 1.0e-05
+output_contract:
+  window_embeddings: FLOAT_B_WMAX_256_MASKED_POSITIONS_ZERO
+  window_mask: BOOL_B_WMAX_TRUE_FOR_FULL_WINDOWS
+  pooled_embedding: FLOAT_B_256_ARITHMETIC_MASKED_MEAN
+initialization_contract:
+  constructor: 'NativeSpectralA1(init_seed: int)'
+  device_at_construction: CPU
+  caller_rng_pollution: false
+  matrix_weights: XAVIER_UNIFORM_GAIN_1
+  bias: ZERO
+  layer_norm_weight: ONE
+  layer_norm_bias: ZERO
+  main_experiment_seed_selected: false
+eligibility_contract:
+  population_rows: 5905
+  short_threshold_samples: 500
+  eligible_action: RUN_FRONTEND
+  short_status: A_INTERFACE_SHORT_SEGMENT
+  short_action: FORCED_L0_NO_FRONTEND
+  short_rows_remain_in_population: true
+  padding_or_imputation: false
+acceptance_counts:
+  by_role:
+    train_fit:
+      eligible: 2797
+      total_rows: 2832
+      full_windows: 29263
+      forced_l0: 35
+    inner_val:
+      eligible: 700
+      total_rows: 709
+      full_windows: 6482
+      forced_l0: 9
+    cal:
+      eligible: 1156
+      total_rows: 1171
+      full_windows: 11558
+      forced_l0: 15
+    test:
+      eligible: 1179
+      total_rows: 1193
+      full_windows: 13219
+      forced_l0: 14
+    total:
+      total_rows: 5905
+      eligible: 5832
+      forced_l0: 73
+      full_windows: 60522
+  calibration_reserves:
+    cal_select_reserve:
+      eligible: 582
+      forced_l0: 9
+    cal_cert_reserve:
+      eligible: 574
+      forced_l0: 6
+implementation:
+  code_path: src/rc_hsg/backbones/native_spectral_a1.py
+  code_sha256: 71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9
+  python_version: 3.12.3
+  torch_version: 2.13.0+cu130
+  numpy_version: 2.5.2
+  trainable_parameter_count: 1270528
+  real_eeg_validated: false
+prohibited_features:
+- raw_samples
+- window_count
+- a_interface_status
+- padding_amount
+prohibited_actions:
+- AUTO_TRANSPOSE
+- PADDING
+- IMPUTATION
+- RESAMPLING
+- UNIT_CONVERSION
+- CHANNEL_INTERPOLATION
+- EXTERNAL_CODE_OR_WEIGHT_IMPORT
+- SHORT_ROW_REMOVAL
+evidence_scope: SYNTHETIC_INTERFACE_AND_COMMITTED_METADATA_ONLY_NO_REAL_EEG_VALUES_NO_OUTCOMES

@@ -257,6 +257,29 @@ SPEC_V21_REVIEW:
     - runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md
   evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_EEG_OUTCOME_OR_MODEL_EVIDENCE
 
+SPEC_V22_REVIEW:
+  title: Activate the frozen RC-HSG v2.2 A-interface and short-segment policy
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V21_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v22_a_interface_review.md
+  acceptance:
+    - reviewed commit is exactly 91997faa1de1616d1eb662cd36edc1547613206d
+    - section 21 freezes the exact A API math encoder initialization and metadata-only eligibility contract
+    - all 73 short rows remain in the 5905-row population and route to forced L0 without frontend invocation
+    - no real EEG value outcome result model metric or external implementation is read
+  completed_by_run: 2026-08-24_013_native_spectral_a_interface
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_2_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v22_a_interface_review.md
+    - runs/2026-08-24_013_native_spectral_a_interface.md
+  evidence_scope: SPECIFICATION_AND_COMMITTED_METADATA_ONLY_NO_REAL_EEG_VALUES_NO_OUTCOMES
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -671,23 +694,39 @@ S0_DATA_CARD:
 S0_A_INTERFACE:
   title: Implement and freeze the RC_HSG_NATIVE_SPECTRAL_A1_V1 tensor interface
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 4
   owner: CODEX
   prerequisites:
+    - SPEC_V22_REVIEW
     - S0_REPOSITORY_AUDIT
     - S0_DATA_CARD
     - S0_A_POLICY_REVIEW
     - S0_JOINT_SPLIT
   produces:
+    - src/rc_hsg/backbones/native_spectral_a1.py
+    - scripts/build_a_interface_contract.py
+    - tests/test_native_spectral_a1.py
+    - tests/test_build_a_interface_contract.py
     - artifacts/backbone_a_contract.yaml
+    - artifacts/a_interface_eligibility_v1.jsonl
+    - reports/a_interface_contract.md
+    - runs/2026-08-24_013_native_spectral_a_interface.md
   acceptance:
     - implementation exactly matches RC_HSG_NATIVE_SPECTRAL_A1_V1 without external source code checkpoint or weight download
     - 105-channel 500-Hz release-native input robust transform window bands projection encoder masks and outputs match the frozen policy
     - segments shorter than 500 valid samples fail admission without silent padding
     - real N1 N2 and all methods share the same frontend path with deterministic project-owned initialization
-  why_ready: The author-frozen native spectral policy is materialized and run 011 split population and test lock remain intact. This task is implementation-only and may not select another backbone or read outcomes.
+  completed_by_run: 2026-08-24_013_native_spectral_a_interface
+  acceptance_evidence:
+    - src/rc_hsg/backbones/native_spectral_a1.py
+    - tests/test_native_spectral_a1.py
+    - artifacts/backbone_a_contract.yaml
+    - artifacts/a_interface_eligibility_v1.jsonl
+    - reports/a_interface_contract.md
+    - runs/2026-08-24_013_native_spectral_a_interface.md
+  evidence_scope: SYNTHETIC_INTERFACE_AND_COMMITTED_METADATA_ONLY_NO_REAL_EEG_VALUES_NO_OUTCOMES
 
 S0_STIMULUS_ID:
   title: Normalize stimulus identity and freeze near-duplicate groups
@@ -760,7 +799,7 @@ S0_LEAKAGE_AUDIT:
   critical_path: true
   priority: 7
   prerequisites:
-    - S0_A_INTERFACE
+    - S0_A1_FRONTEND
     - S0_JOINT_SPLIT
   produces:
     - reports/leakage_audit.md
@@ -770,14 +809,15 @@ S0_LEAKAGE_AUDIT:
     - normalization feature selection schema candidates and null bins fit on legal training data only
     - teacher forcing gold prefixes test retrieval and calibration representation learning are rejected
     - machine assertions fail closed
-  blocked_reason: The split and native A policy are frozen, but S0_A_INTERFACE and its admission path are not implemented; B_V7 remains active and the full audit is outside run 012.
+  blocked_reason: The synthetic A interface is implemented, but real frontend validation remains incomplete under B_V8 and the full audit is outside run 013.
 
 S0_A1_FRONTEND:
   title: Validate the frozen native A frontend and tensor self-check
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 8
+  owner: CODEX
   prerequisites:
     - S0_A_INTERFACE
     - S0_DATA_CARD
@@ -789,7 +829,7 @@ S0_A1_FRONTEND:
     - fold-local fitting is enforced
     - deterministic finite tensors match the frozen A contract
     - synthetic success is not mislabeled real-data admission
-  blocked_reason: RC_HSG_NATIVE_SPECTRAL_A1_V1 is selected but S0_A_INTERFACE is not implemented; B_V7 remains active and physical-unit conversion stays prohibited.
+  why_ready: The frozen synthetic A interface and metadata eligibility overlay pass; the next bounded task is real outer-train frontend validation without training, unit inference, outcome reads, or admission.
 
 S0_A1_ADMISSION:
   title: Admit the frozen native frontend on outer-train real data
@@ -807,7 +847,7 @@ S0_A1_ADMISSION:
     - sampling channel order units finite values lengths and masks pass
     - checks read outer-train only
     - failures remain blockers rather than guessed conversions
-  blocked_reason: The native frontend tensor checks and leakage prerequisites are incomplete; B_V7 remains active and no guessed unit conversion is allowed.
+  blocked_reason: Real frontend validation and the full leakage audit remain incomplete under B_V8; no guessed unit conversion is allowed.
 
 S0_A3_CONTAMINATION_CHECK:
   title: Audit an optional second backbone for contamination license and tensor compatibility
@@ -824,7 +864,7 @@ S0_A3_CONTAMINATION_CHECK:
     - pretraining overlap checkpoint license channels preprocessing and output are recorded
     - failure removes the optional backbone without substituting a third model
     - no Gate depends on this optional task
-  blocked_reason: LaBraM and NeuroLM are optional descriptive robustness only after the primary method and route freeze; no optional code or weight may enter while B_V7 remains active.
+  blocked_reason: LaBraM and NeuroLM are optional descriptive robustness only after the primary method and route freeze; no optional code or weight may enter during native frontend validation.
 
 S0_N1_BLOCK_FEASIBILITY:
   title: Freeze outcome-blind N1 block feasibility before sampler implementation
@@ -1166,7 +1206,7 @@ GATE_R0:
     - N2 text-free nuisance PSD cross-spectrum covariance amplitude endpoint mask and coverage checks are decided independently
     - each failed reference family is removed and all-family failure routes to ordinary hierarchical selective generation
     - no semantic outcome test value or Gate R C H result is read
-  blocked_reason: A admission leakage and both frozen reference families are incomplete; B_V4 and B_V7 remain active.
+  blocked_reason: Real frontend admission, leakage, and both frozen reference families are incomplete; B_V4 and B_V8 remain active.
 
 S0_REFERENCE_FEATURES:
   title: Build frozen RC-HSG absolute and reference-relative feature tables

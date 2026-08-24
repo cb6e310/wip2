@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import re
 import sys
 from pathlib import Path
@@ -48,6 +49,7 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V22_REVIEW",
     "SPEC_V21_REVIEW",
     "S0_SCIENTIFIC_REDESIGN_FREEZE",
     "SPEC_V20_REVIEW",
@@ -186,6 +188,36 @@ V21_DEPENDENCIES = {
         "S0_LEAKAGE_AUDIT",
         "S0_ALIGN_UNIT_COST",
     },
+}
+V22_DEPENDENCIES = {
+    **V21_DEPENDENCIES,
+    "S0_A_INTERFACE": {
+        "SPEC_V22_REVIEW",
+        "S0_REPOSITORY_AUDIT",
+        "S0_DATA_CARD",
+        "S0_A_POLICY_REVIEW",
+        "S0_JOINT_SPLIT",
+    },
+    "S0_LEAKAGE_AUDIT": {"S0_A1_FRONTEND", "S0_JOINT_SPLIT"},
+}
+V22_OUTPUT_HASHES = {
+    "artifacts/backbone_a_contract.yaml": "4c9ccddf4d5c208870422c7e5ceee65ee184d812fce662bb885998b0dad65cac",
+    "artifacts/a_interface_eligibility_v1.jsonl": "8eded8fb2786747e96b8388d4d91315e39db9f8a9eb25ea69056d219e1e8e1ad",
+    "reports/a_interface_contract.md": "925af0e2ccc95fb01c8479beac8901632ddfd4c180682af0e4f3b0a886133295",
+}
+V22_B8_BLOCKS = {
+    "S0_LEAKAGE_AUDIT",
+    "S0_A1_ADMISSION",
+    "S0_A3_CONTAMINATION_CHECK",
+    "S0_N1_BLOCK_FEASIBILITY",
+    "S0_N1_SAMPLER",
+    "S0_N2_SAMPLER",
+    "GATE_R0",
+    "S0_REFERENCE_FEATURES",
+    "S0_RELIABILITY_MODELS",
+    "S0_ABSOLUTE_HSG",
+    "S0_RC_HSG_CORE",
+    "S0_FLAT_RC",
 }
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
@@ -550,6 +582,107 @@ def _check_v21_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         _error(errors, "V21_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
+def _check_v22_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.2":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    if len(tasks) != 68 or status_counts != {"DONE": 31, "SKIPPED": 8, "BLOCKED": 28, "READY": 1}:
+        _error(errors, "V22_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_A1_FRONTEND"] or tasks.get("S0_A1_FRONTEND", {}).get("owner") != "CODEX":
+        _error(errors, "V22_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("SPEC_V22_REVIEW", {}).get("status") != "DONE" or tasks.get("S0_A_INTERFACE", {}).get("status") != "DONE":
+        _error(errors, "V22_COMPLETED_CHAIN_MISMATCH", "SPEC_V22_REVIEW or S0_A_INTERFACE")
+    for task_id, expected in V22_DEPENDENCIES.items():
+        actual = tasks.get(task_id, {}).get("prerequisites")
+        if not isinstance(actual, list) or set(actual) != expected or len(actual) != len(expected):
+            _error(errors, "V22_DEPENDENCY_MISMATCH", f"{task_id}: {actual!r}")
+    for task_id in V21_SUPERSEDED_TASKS:
+        task = tasks.get(task_id, {})
+        if task.get("status") != "SKIPPED" or task.get("critical_path") is not False or task.get("skip_reason") != "SUPERSEDED_BY_RC_HSG_V21":
+            _error(errors, "V22_SUPERSEDED_TASK_MISMATCH", task_id)
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    b8 = blockers.get("B_V8_A_REAL_FRONTEND_UNVALIDATED")
+    if "B_V7_A_INTERFACE_UNIMPLEMENTED" in blockers or not isinstance(b8, dict) or set(b8.get("blocks", [])) != V22_B8_BLOCKS:
+        _error(errors, "V22_B8_BLOCKER_MISMATCH", repr(b8))
+    superseded = {item.get("id"): item for item in state.get("superseded_blockers", []) if isinstance(item, dict)}
+    if superseded.get("B_V7_A_INTERFACE_UNIMPLEMENTED", {}).get("closed_by") != "S0_A_INTERFACE":
+        _error(errors, "V22_B7_CLOSURE_MISMATCH", repr(superseded.get("B_V7_A_INTERFACE_UNIMPLEMENTED")))
+
+    for relative, expected in {**FROZEN_RUN_011_HASHES, **V22_OUTPUT_HASHES}.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V22_ARTIFACT_HASH_MISMATCH", relative)
+    policy_path = root / "artifacts/backbone_a_policy.yaml"
+    if not policy_path.is_file() or _sha256(policy_path) != "034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425":
+        _error(errors, "V22_A_POLICY_HASH_MISMATCH", "artifacts/backbone_a_policy.yaml")
+    implementation_path = root / "src/rc_hsg/backbones/native_spectral_a1.py"
+    if not implementation_path.is_file() or _sha256(implementation_path) != "71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9":
+        _error(errors, "V22_IMPLEMENTATION_HASH_MISMATCH", "src/rc_hsg/backbones/native_spectral_a1.py")
+
+    contract = _load_yaml(root / "artifacts/backbone_a_contract.yaml", errors, "backbone A contract")
+    expected_keys = [
+        "schema_version", "artifact", "policy_id", "spec_version", "baseline_commit",
+        "input_artifacts", "input_contract", "preprocessing_contract", "spectral_contract",
+        "encoder_contract", "output_contract", "initialization_contract", "eligibility_contract",
+        "acceptance_counts", "implementation", "prohibited_features", "prohibited_actions", "evidence_scope",
+    ]
+    if isinstance(contract, dict):
+        implementation = contract.get("implementation", {})
+        if (
+            list(contract) != expected_keys
+            or contract.get("schema_version") != 1
+            or contract.get("artifact") != "RC_HSG_NATIVE_SPECTRAL_A1_CONTRACT_V1"
+            or contract.get("policy_id") != "RC_HSG_NATIVE_SPECTRAL_A1_V1"
+            or contract.get("spec_version") != "v2.2"
+            or contract.get("baseline_commit") != "91997faa1de1616d1eb662cd36edc1547613206d"
+            or contract.get("evidence_scope") != "SYNTHETIC_INTERFACE_AND_COMMITTED_METADATA_ONLY_NO_REAL_EEG_VALUES_NO_OUTCOMES"
+            or implementation.get("trainable_parameter_count") != 1_270_528
+            or implementation.get("real_eeg_validated") is not False
+            or implementation.get("code_sha256") != "71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9"
+        ):
+            _error(errors, "V22_A_CONTRACT_MISMATCH", "header, order, implementation, or evidence scope")
+        expected_counts = {
+            "train_fit": {"total_rows": 2832, "eligible": 2797, "forced_l0": 35, "full_windows": 29263},
+            "inner_val": {"total_rows": 709, "eligible": 700, "forced_l0": 9, "full_windows": 6482},
+            "cal": {"total_rows": 1171, "eligible": 1156, "forced_l0": 15, "full_windows": 11558},
+            "test": {"total_rows": 1193, "eligible": 1179, "forced_l0": 14, "full_windows": 13219},
+            "total": {"total_rows": 5905, "eligible": 5832, "forced_l0": 73, "full_windows": 60522},
+        }
+        if contract.get("acceptance_counts", {}).get("by_role") != expected_counts:
+            _error(errors, "V22_ACCEPTANCE_COUNT_MISMATCH", "contract by_role")
+
+    eligibility_path = root / "artifacts/a_interface_eligibility_v1.jsonl"
+    rows: list[dict[str, Any]] = []
+    try:
+        with eligibility_path.open("r", encoding="utf-8") as handle:
+            rows = [json.loads(line) for line in handle]
+    except (OSError, json.JSONDecodeError) as exc:
+        _error(errors, "V22_ELIGIBILITY_PARSE_ERROR", type(exc).__name__)
+    expected_fields = [
+        "occurrence_id", "subject", "slot", "role", "calibration_reserve",
+        "raw_samples", "window_count", "a_interface_status", "action",
+    ]
+    short = [row for row in rows if row.get("a_interface_status") == "A_INTERFACE_SHORT_SEGMENT"]
+    if (
+        len(rows) != 5905
+        or any(list(row) != expected_fields for row in rows)
+        or rows != sorted(rows, key=lambda row: (row.get("subject"), row.get("slot"), row.get("occurrence_id")))
+        or len(short) != 73
+        or any(row.get("window_count") != 0 or row.get("action") != "FORCED_L0_NO_FRONTEND" for row in short)
+        or sum(row.get("window_count", 0) for row in rows) != 60522
+    ):
+        _error(errors, "V22_ELIGIBILITY_MISMATCH", f"rows={len(rows)} short={len(short)}")
+    split = _load_yaml(root / "artifacts/split_manifest.yaml", errors, "split manifest")
+    if isinstance(split, dict) and split.get("assertions", {}).get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK":
+        _error(errors, "V22_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -686,6 +819,7 @@ def validate(root: Path) -> list[str]:
     _check_cycles(tasks, errors)
     _check_gate_order(tasks, errors)
     _check_v21_contract(root, state, tasks, errors)
+    _check_v22_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):
