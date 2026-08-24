@@ -1,6 +1,6 @@
 # RC-HSG v2.3 active project handoff
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md` (version `v2.3`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md` (version `v2.4`).
 
 Baseline reviewed: `wip2@237788090dcb20e533f304f63ae8feb2f545fe0b`  
 Activated: 2026-08-24

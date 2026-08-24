@@ -1,23 +1,28 @@
-# Codex Next Task - RC-HSG v2.3 / S0_LEAKAGE_AUDIT
+# Codex next task: STOP after run 015
 
-## Stop state
+Authoritative SPEC: `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md`, especially §23.
 
-Run 014 completed `SPEC_V23_REVIEW -> S0_A1_FRONTEND`. The bounded 107-row
-real-frontend panel and all 44 no-read outer-train short ledger rows passed the
-frozen CPU/CUDA self-check. This is not full admission.
+Run 015 completed:
 
-Current state is exactly 70 tasks, 33 DONE, 8 SKIPPED, 28 BLOCKED, and one
-READY task. The sole recommended task is `S0_LEAKAGE_AUDIT`, owner `CODEX`.
-Test remains `LOCKED_UNTIL_ROUTE_LOCK`.
+```text
+SPEC_V24_REVIEW
+-> S0_LEAKAGE_AUDIT
+-> S0_A1_ADMISSION READY
+-> STOP
+```
 
-## Next boundary
+The repository state is 71 tasks, 35 DONE, 8 SKIPPED, 27 BLOCKED, and sole
+READY `S0_A1_ADMISSION`, owner `CODEX`. B_V9 remains active but does not block
+its resolver. Test remains `LOCKED_UNTIL_ROUTE_LOCK`; route remains unlocked.
 
-Under a new exact instruction, `S0_LEAKAGE_AUDIT` may audit only the Regime-I
-data split and A-frontend firewall: source/role allowlists, train-fit and
-inner-val scope, short bypass, zero calibration/test dereference, no cross-row
-normalization or fitting, no output cache, and fail-closed loading.
+The early Regime-I split/data/frozen-A-path firewall passed through committed
+metadata, function-scoped AST checks, synthetic fixtures, and all twelve
+in-memory mutation probes. Production HDF5 was not opened, no new real EEG
+value was read, and the real frontend validator was not imported or executed.
 
-Do not execute that task from run 014. Do not start `S0_A1_ADMISSION`, read the
-remaining 3,390 eligible rows, read short/calibration/test arrays or outcomes,
-run `S0_METHOD_LEAKAGE_AUDIT`, train, implement later methods, execute a Gate,
-or unlock test without a new exact instruction.
+`S0_A1_ADMISSION` has not been executed and is not authorized by the run-015
+package. A later ChatGPT/author instruction must freeze its exact streaming
+order, counts, memory/CUDA sampling, failure ledger, deterministic outputs, and
+B_V9 closure before Codex may proceed. Do not execute full admission, the
+method leakage audit, training, schema/reference/calibration work, any Gate, or
+test unlock under the current authorization.

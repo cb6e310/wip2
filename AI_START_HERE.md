@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md` (version `v2.3`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md` (version `v2.4`).
 
 ## Verified location
 
@@ -13,20 +13,20 @@ Active SPEC: `guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md` (version `v2.3`).
 
 ## Source of truth
 
-1. `guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md` (active version `v2.3`)
+1. `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md` (active version `v2.4`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Sections 20-22 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
+Sections 20-23 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
 task graph, and A policy. Sections 14-19 and run-011 artifacts remain
 authoritative for physical data, identity, grouping, split, population, and
 test-lock facts. Older SPECs and runs remain immutable provenance.
 
 ## Recovery sequence
 
-Read the five sources above, `artifacts/backbone_a_policy.yaml`, `artifacts/backbone_a_contract.yaml`, run 014, and
+Read the five sources above, `artifacts/backbone_a_policy.yaml`, `artifacts/backbone_a_contract.yaml`, runs 014-015, and
 the committed split/population manifests, then run:
 
 ```bash
@@ -47,11 +47,12 @@ CPU and conditional CUDA checks passed. The remaining 3,390 eligible
 outer-train rows are unread, so this is not full admission or a performance
 conclusion.
 
-The early `S0_LEAKAGE_AUDIT` is the sole READY and recommended task, owned by
-`CODEX`. B_V9 preserves the full-admission boundary without blocking its future
-resolver. Test identities remain `LOCKED_UNTIL_ROUTE_LOCK`; no semantic outcome,
-calibration/test EEG or result, historical metric, training result, or Gate
-outcome has been read or produced by run 014.
+The early A-path leakage firewall passed through static code, committed metadata,
+synthetic fixtures, and twelve in-memory mutation probes without opening production
+HDF5 or reading new real values. `S0_A1_ADMISSION` is the sole READY and recommended
+task, owned by `CODEX`; B_V9 remains active but does not block this resolver. Test
+identities remain `LOCKED_UNTIL_ROUTE_LOCK`, and run 015 did not execute admission,
+the later method leakage audit, training, any Gate, or test unlock.
 
 ## End-of-session contract
 

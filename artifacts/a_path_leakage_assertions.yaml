@@ -1,0 +1,183 @@
+schema_version: 1
+artifact: RC_HSG_A_PATH_LEAKAGE_ASSERTIONS_V1
+spec_version: v2.4
+baseline_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
+task: S0_LEAKAGE_AUDIT
+evidence_scope: STATIC_CODE_COMMITTED_METADATA_AND_SYNTHETIC_FIXTURE_A_PATH_LEAKAGE_AUDIT_NO_NEW_REAL_EEG_VALUES_NO_OUTCOMES
+input_artifacts:
+  spec_v23:
+    path: guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md
+    sha256: f5fdb4f9815cb519cc44a214c5c75812d3ebffdd007314304f20e544ae15ba9a
+  split_regime_i:
+    path: artifacts/split_regimeI.json
+    sha256: e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab
+  analysis_view:
+    path: artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    sha256: 0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff
+  eligibility:
+    path: artifacts/a_interface_eligibility_v1.jsonl
+    sha256: 8eded8fb2786747e96b8388d4d91315e39db9f8a9eb25ea69056d219e1e8e1ad
+  a_policy:
+    path: artifacts/backbone_a_policy.yaml
+    sha256: 034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425
+  a_contract:
+    path: artifacts/backbone_a_contract.yaml
+    sha256: 4c9ccddf4d5c208870422c7e5ceee65ee184d812fce662bb885998b0dad65cac
+  a_code:
+    path: src/rc_hsg/backbones/native_spectral_a1.py
+    sha256: 71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9
+  a_interface_builder:
+    path: scripts/build_a_interface_contract.py
+    sha256: 153d887b7eafb605745eafd820162f5f636ff9fef40b0e4ef14d4db5d93ef964
+  joint_split_builder:
+    path: scripts/build_joint_split.py
+    sha256: 794083d43d7c15cfb970e22699e1504738393b015198f77edcca524a85a81b5b
+  frontend_validator:
+    path: scripts/validate_a1_frontend.py
+    sha256: ecc84a0363629e919409321cdc73327b6e3c7e779e224a18ab55a6b6ac6777cd
+  frontend_panel:
+    path: artifacts/a1_frontend_audit_panel_v1.jsonl
+    sha256: 95db4e18501ae25f559bb6446621b6c062a7f36936ca0f4eec3236dc57ca43ed
+  frontend_freeze:
+    path: artifacts/a1_frontend_freeze.yaml
+    sha256: 817b1be11d3545f1279e87fd40d391b71dd3347d0eed57c174abdfc6bf760d66
+  frontend_report:
+    path: reports/a1_frontend_selfcheck.md
+    sha256: 703e999bc9903183dd019df853e92558a81ba8526945e32a24ae926d95af4503
+  spec_v24:
+    path: guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md
+    sha256: 5878fa84db5abb380c71e6257a4a7c30e0587ab8d505ba0d9446c110d47426b5
+  audit_code:
+    path: scripts/audit_a_path_leakage.py
+    sha256: 797618af0113a2f8f357ea8c91f53de7b9375afcbb3860baf437ebc1bfbe5e24
+audited_components:
+  runtime_value_path:
+  - scripts/validate_a1_frontend.py
+  - src/rc_hsg/backbones/native_spectral_a1.py
+  metadata_provenance_path:
+  - scripts/build_a_interface_contract.py
+  - scripts/build_joint_split.py
+frozen_scope:
+  roles:
+  - train_fit
+  - inner_val
+  join_key:
+  - subject
+  - slot
+  - occurrence_id
+  panel_rows: 151
+  real_rows: 107
+  short_no_read_rows: 44
+  subjects: 18
+  panel_windows: 1452
+  remaining_eligible_rows_not_read: 3390
+  source_field: rawData
+  test_status: LOCKED_UNTIL_ROUTE_LOCK
+  production_hdf5_open_count: 0
+assertions:
+- id: SPLIT_ROLE_FIREWALL
+  status: PASS
+  evidence: Split roles are closed to four frozen labels; runtime and real panel are outer-train only.
+- id: ROW_KEY_FIREWALL
+  status: PASS
+  evidence: The exact (subject,slot,occurrence_id) key uniquely joins 5905 rows; panel rows=151.
+- id: SHORT_BYPASS_FIREWALL
+  status: PASS
+  evidence: Short ledger rows=44; all are forced L0 with zero windows and no source read.
+- id: DEREFERENCE_SCOPE_FIREWALL
+  status: PASS
+  evidence: Only 107 distinct read-true outer-train panel keys can reach the single dereference call; set equality closes
+    coverage.
+- id: SOURCE_IDENTITY_FIREWALL
+  status: PASS
+  evidence: Dataset root is a module constant; CLI has no dataset override; symlink, escape, file-set, and size guards are
+    present.
+- id: SOURCE_FIELD_SLOT_FIREWALL
+  status: PASS
+  evidence: The reader opens one HDF5 file read-only and follows the same-file hard reference at sentenceData/rawData[slot-1,0]
+    with floating [raw_samples,105] checks.
+- id: NUMERIC_TRANSFORM_FIREWALL
+  status: PASS
+  evidence: Finite checks bracket a no-scale contiguous float32 cast followed by one explicit transpose; no unit or sampling
+    transform is called.
+- id: PER_ROW_PREPROCESSING_FIREWALL
+  status: PASS
+  evidence: Native A slices each valid prefix, computes channel-wise median/MAD/RMS per row, and tokenizes rows independently
+    before padding.
+- id: INFERENCE_ONLY_FIREWALL
+  status: PASS
+  evidence: Frozen runtime constructs eval-mode models under inference_mode and contains no optimizer, loss, backward, update,
+    train, or checkpoint call.
+- id: NO_VALUE_TEXT_OUTCOME_CACHE
+  status: PASS
+  evidence: The runtime reader accesses only rawData and contains no value, token, embedding, prediction, metric, checkpoint,
+    or feature-cache writer.
+- id: FAIL_CLOSED_AND_DETERMINISTIC
+  status: PASS
+  evidence: Inputs and outputs are path-closed; failures use stable prefixes; serialization precedes same-directory temp,
+    flush, fsync, and replace.
+- id: TEST_AND_DOWNSTREAM_LOCK
+  status: PASS
+  evidence: Route remains unlocked, test remains LOCKED_UNTIL_ROUTE_LOCK, 3,390 eligible rows remain unread, and no downstream
+    method or Gate is executed.
+mutation_tests:
+- id: M01_ROLE_BROADEN_CAL
+  status: PASS_REJECTED
+  detecting_assertion: SPLIT_ROLE_FIREWALL
+- id: M02_REMOVE_READ_FLAG_GUARD
+  status: PASS_REJECTED
+  detecting_assertion: DEREFERENCE_SCOPE_FIREWALL
+- id: M03_REMOVE_ALLOWED_KEY_GUARD
+  status: PASS_REJECTED
+  detecting_assertion: DEREFERENCE_SCOPE_FIREWALL
+- id: M04_HDF5_WRITE_MODE
+  status: PASS_REJECTED
+  detecting_assertion: SOURCE_FIELD_SLOT_FIREWALL
+- id: M05_FORBIDDEN_SOURCE_FIELD
+  status: PASS_REJECTED
+  detecting_assertion: SOURCE_FIELD_SLOT_FIREWALL
+- id: M06_WRONG_SLOT
+  status: PASS_REJECTED
+  detecting_assertion: SOURCE_FIELD_SLOT_FIREWALL
+- id: M07_REMOVE_VALID_SLICE
+  status: PASS_REJECTED
+  detecting_assertion: PER_ROW_PREPROCESSING_FIREWALL
+- id: M08_CROSS_ROW_FIT
+  status: PASS_REJECTED
+  detecting_assertion: PER_ROW_PREPROCESSING_FIREWALL
+- id: M09_TRAINING_OR_BACKWARD
+  status: PASS_REJECTED
+  detecting_assertion: INFERENCE_ONLY_FIREWALL
+- id: M10_OUTPUT_CACHE_WRITE
+  status: PASS_REJECTED
+  detecting_assertion: NO_VALUE_TEXT_OUTCOME_CACHE
+- id: M11_DATASET_CLI_OVERRIDE
+  status: PASS_REJECTED
+  detecting_assertion: SOURCE_IDENTITY_FIREWALL
+- id: M12_SHORT_DEREFERENCE
+  status: PASS_REJECTED
+  detecting_assertion: SHORT_BYPASS_FIREWALL
+prohibited:
+- PRODUCTION_HDF5_OPEN
+- NEW_REAL_EEG_VALUE_READ
+- REAL_FRONTEND_VALIDATOR_EXECUTION
+- TEXT_OR_OUTCOME_READ
+- TRAINING_OR_PARAMETER_UPDATE
+- VALUE_OR_FEATURE_CACHE_WRITE
+- FULL_ADMISSION
+- METHOD_LEAKAGE_AUDIT
+- GATE_EXECUTION
+- TEST_UNLOCK
+safety:
+  production_hdf5_opened: false
+  new_real_eeg_values_read: false
+  real_frontend_validator_executed: false
+  text_or_outcome_read: false
+  training_or_parameter_update: false
+  test_status: LOCKED_UNTIL_ROUTE_LOCK
+downstream_boundary:
+  full_outer_train_admission_completed: false
+  remaining_eligible_rows_not_read: 3390
+  method_leakage_audit_completed: false
+  full_method_leakage_pass_claimed: false
+  next_task: S0_A1_ADMISSION

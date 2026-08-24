@@ -303,6 +303,29 @@ SPEC_V23_REVIEW:
     - runs/2026-08-24_014_a1_real_frontend_validation.md
   evidence_scope: SPECIFICATION_AND_BOUNDED_REAL_FRONTEND_SELF_CHECK_NO_OUTCOMES_NO_TRAINING
 
+SPEC_V24_REVIEW:
+  title: Activate the frozen RC-HSG v2.4 no-new-real-value A-path leakage audit policy
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V23_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v24_a_path_leakage_review.md
+  acceptance:
+    - reviewed commit is exactly dc105709563cf9eb216f1c28f82fdf754e7b0683
+    - section 23 freezes a static-code committed-metadata and synthetic-fixture A-path audit
+    - all twelve machine assertions and twelve in-memory mutation probes are mandatory
+    - no production HDF5 real EEG outcome training full admission Gate or test unlock is executed
+  completed_by_run: 2026-08-24_015_a_path_leakage_audit
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v24_a_path_leakage_review.md
+    - runs/2026-08-24_015_a_path_leakage_audit.md
+  evidence_scope: SPECIFICATION_STATIC_CODE_AND_COMMITTED_METADATA_ONLY_NO_NEW_REAL_EEG_VALUES_NO_OUTCOMES
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -818,22 +841,31 @@ S0_JOINT_SPLIT:
 S0_LEAKAGE_AUDIT:
   title: Audit Regime-I data split and A-frontend leakage firewall
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 7
-  owner: CODEX
   prerequisites:
     - S0_A1_FRONTEND
     - S0_JOINT_SPLIT
   produces:
+    - scripts/audit_a_path_leakage.py
+    - tests/test_audit_a_path_leakage.py
     - artifacts/a_path_leakage_assertions.yaml
     - reports/a_path_leakage_audit.md
+    - runs/2026-08-24_015_a_path_leakage_audit.md
   acceptance:
     - source and role allowlists restrict reads to Regime-I train-fit and inner-val rows
     - short rows bypass the frontend and calibration and test arrays are never dereferenced
     - preprocessing has no cross-row normalization fitting or output cache
     - loader and machine assertions fail closed
-  why_ready: The bounded real-frontend self-check passed; the next task is only the early Regime-I data and A-path firewall audit.
+  completed_by_run: 2026-08-24_015_a_path_leakage_audit
+  acceptance_evidence:
+    - scripts/audit_a_path_leakage.py
+    - tests/test_audit_a_path_leakage.py
+    - artifacts/a_path_leakage_assertions.yaml
+    - reports/a_path_leakage_audit.md
+    - runs/2026-08-24_015_a_path_leakage_audit.md
+  evidence_scope: STATIC_CODE_COMMITTED_METADATA_AND_SYNTHETIC_FIXTURE_A_PATH_LEAKAGE_AUDIT_NO_NEW_REAL_EEG_VALUES_NO_OUTCOMES
 
 S0_METHOD_LEAKAGE_AUDIT:
   title: Audit full RC-HSG method and test-time leakage firewall
@@ -891,9 +923,10 @@ S0_A1_FRONTEND:
 S0_A1_ADMISSION:
   title: Admit the frozen native frontend on outer-train real data
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 9
+  owner: CODEX
   prerequisites:
     - S0_A1_FRONTEND
     - S0_JOINT_SPLIT
@@ -904,7 +937,7 @@ S0_A1_ADMISSION:
     - sampling channel order units finite values lengths and masks pass
     - checks read outer-train only
     - failures remain blockers rather than guessed conversions
-  blocked_reason: The bounded frontend panel passed, but the early A-path leakage audit and full outer-train admission remain incomplete; no guessed unit conversion is allowed.
+  why_ready: The bounded frontend panel and early A-path leakage firewall passed; only a separately authorized streaming admission may read the remaining 3,390 eligible outer-train rows.
 
 S0_A3_CONTAMINATION_CHECK:
   title: Audit an optional second backbone for contamination license and tensor compatibility

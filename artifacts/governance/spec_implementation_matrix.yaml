@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_014_a1_real_frontend_validation
-evidence_as_of_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
+updated_by_run: 2026-08-24_015_a_path_leakage_audit
+evidence_as_of_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -81,11 +81,17 @@ items:
     target_task: S0_JOINT_SPLIT
     blocker: null
   leakage:
-    status: ABSENT
-    evidence_paths: []
-    tests_rerun: []
+    status: VALIDATED
+    evidence_paths:
+      - scripts/audit_a_path_leakage.py
+      - tests/test_audit_a_path_leakage.py
+      - artifacts/a_path_leakage_assertions.yaml
+      - reports/a_path_leakage_audit.md
+      - runs/2026-08-24_015_a_path_leakage_audit.md
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_audit_a_path_leakage.py'"
     acceptance_gaps:
-      - early Regime-I data and A-path audit is READY but was not executed by run 014
+      - early Regime-I split data and frozen A-path firewall passed without production HDF5 or new real-value reads
       - full method leakage remains a separate blocked task
     target_task: S0_LEAKAGE_AUDIT
     blocker: prerequisites incomplete
@@ -218,10 +224,12 @@ items:
       - artifacts/backbone_a_contract.yaml
       - tests/test_validate_a1_frontend.py
       - artifacts/a1_frontend_freeze.yaml
+      - tests/test_audit_a_path_leakage.py
+      - artifacts/a_path_leakage_assertions.yaml
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - synthetic interface and bounded real frontend validation pass; no full admission or scientific Gate exists
+      - synthetic interface bounded real frontend validation and early A-path leakage firewall pass; no full admission or scientific Gate exists
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:
@@ -253,7 +261,7 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
-active_spec: guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md
+active_spec: guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md
 active_method: RC-HSG
 active_gates:
   - GATE_R0

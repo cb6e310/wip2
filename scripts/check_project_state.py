@@ -49,6 +49,7 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V24_REVIEW",
     "SPEC_V23_REVIEW",
     "SPEC_V22_REVIEW",
     "SPEC_V21_REVIEW",
@@ -269,6 +270,10 @@ V23_OUTPUT_HASHES = {
     "artifacts/a1_frontend_audit_panel_v1.jsonl": "95db4e18501ae25f559bb6446621b6c062a7f36936ca0f4eec3236dc57ca43ed",
     "artifacts/a1_frontend_freeze.yaml": "817b1be11d3545f1279e87fd40d391b71dd3347d0eed57c174abdfc6bf760d66",
     "reports/a1_frontend_selfcheck.md": "703e999bc9903183dd019df853e92558a81ba8526945e32a24ae926d95af4503",
+}
+V24_OUTPUT_HASHES = {
+    "artifacts/a_path_leakage_assertions.yaml": "eb60565b40991f19856673acc030ec7a7dcab6c520c6af5c1b1c39167f864f70",
+    "reports/a_path_leakage_audit.md": "491986e4caed53623069b26918b9be232aff74416c8e4ef973955a6810b7fd27",
 }
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
@@ -848,6 +853,100 @@ def _check_v23_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         _error(errors, "V23_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
+def _check_v24_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.4":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    expected_statuses = {"DONE": 35, "SKIPPED": 8, "BLOCKED": 27, "READY": 1}
+    if len(tasks) != 71 or status_counts != expected_statuses:
+        _error(errors, "V24_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_A1_ADMISSION"] or tasks.get("S0_A1_ADMISSION", {}).get("owner") != "CODEX":
+        _error(errors, "V24_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("SPEC_V24_REVIEW", {}).get("status") != "DONE" or tasks.get("S0_LEAKAGE_AUDIT", {}).get("status") != "DONE":
+        _error(errors, "V24_COMPLETED_CHAIN_MISMATCH", "SPEC_V24_REVIEW or S0_LEAKAGE_AUDIT")
+    for task_id, expected in V23_DEPENDENCIES.items():
+        actual = tasks.get(task_id, {}).get("prerequisites")
+        if not isinstance(actual, list) or set(actual) != expected or len(actual) != len(expected):
+            _error(errors, "V24_DEPENDENCY_MISMATCH", f"{task_id}: {actual!r}")
+
+    project = state.get("project", {})
+    if (
+        project.get("spec_path") != "guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md"
+        or project.get("baseline_commit") != "dc105709563cf9eb216f1c28f82fdf754e7b0683"
+        or project.get("reviewed_commit") != "dc105709563cf9eb216f1c28f82fdf754e7b0683"
+        or project.get("repository_status") != "RC_HSG_V24_A_PATH_LEAKAGE_PASSED_FULL_ADMISSION_PENDING"
+        or state.get("last_completed_task") != "S0_LEAKAGE_AUDIT"
+        or state.get("recommended_next_task") != "S0_A1_ADMISSION"
+        or state.get("route", {}).get("locked") is not None
+    ):
+        _error(errors, "V24_PROJECT_STATE_MISMATCH", repr(project))
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    b9 = blockers.get("B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
+    if not isinstance(b9, dict) or set(b9.get("blocks", [])) != V23_B9_BLOCKS or "S0_A1_ADMISSION" in b9.get("blocks", []):
+        _error(errors, "V24_B9_RESOLVER_MISMATCH", repr(b9))
+
+    for relative, expected in {**FROZEN_RUN_011_HASHES, **V22_OUTPUT_HASHES, **V23_OUTPUT_HASHES, **V24_OUTPUT_HASHES}.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V24_ARTIFACT_HASH_MISMATCH", relative)
+    for relative, expected in {
+        "artifacts/backbone_a_policy.yaml": "034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425",
+        "src/rc_hsg/backbones/native_spectral_a1.py": "71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9",
+        "scripts/validate_a1_frontend.py": "ecc84a0363629e919409321cdc73327b6e3c7e779e224a18ab55a6b6ac6777cd",
+    }.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V24_ARTIFACT_HASH_MISMATCH", relative)
+    audit_code = root / "scripts/audit_a_path_leakage.py"
+    if not audit_code.is_file() or _sha256(audit_code) != "797618af0113a2f8f357ea8c91f53de7b9375afcbb3860baf437ebc1bfbe5e24":
+        _error(errors, "V24_AUDIT_CODE_HASH_MISMATCH", "scripts/audit_a_path_leakage.py")
+
+    artifact = _load_yaml(root / "artifacts/a_path_leakage_assertions.yaml", errors, "A-path leakage assertions")
+    expected_keys = [
+        "schema_version", "artifact", "spec_version", "baseline_commit", "task",
+        "evidence_scope", "input_artifacts", "audited_components", "frozen_scope",
+        "assertions", "mutation_tests", "prohibited", "safety", "downstream_boundary",
+    ]
+    if isinstance(artifact, dict):
+        assertions = artifact.get("assertions", [])
+        mutations = artifact.get("mutation_tests", [])
+        safety = artifact.get("safety", {})
+        boundary = artifact.get("downstream_boundary", {})
+        if (
+            list(artifact) != expected_keys
+            or artifact.get("artifact") != "RC_HSG_A_PATH_LEAKAGE_ASSERTIONS_V1"
+            or artifact.get("spec_version") != "v2.4"
+            or artifact.get("baseline_commit") != "dc105709563cf9eb216f1c28f82fdf754e7b0683"
+            or artifact.get("task") != "S0_LEAKAGE_AUDIT"
+            or len(assertions) != 12
+            or any(item.get("status") != "PASS" for item in assertions if isinstance(item, dict))
+            or len(mutations) != 12
+            or any(item.get("status") != "PASS_REJECTED" for item in mutations if isinstance(item, dict))
+            or safety != {
+                "production_hdf5_opened": False,
+                "new_real_eeg_values_read": False,
+                "real_frontend_validator_executed": False,
+                "text_or_outcome_read": False,
+                "training_or_parameter_update": False,
+                "test_status": "LOCKED_UNTIL_ROUTE_LOCK",
+            }
+            or boundary != {
+                "full_outer_train_admission_completed": False,
+                "remaining_eligible_rows_not_read": 3390,
+                "method_leakage_audit_completed": False,
+                "full_method_leakage_pass_claimed": False,
+                "next_task": "S0_A1_ADMISSION",
+            }
+        ):
+            _error(errors, "V24_AUDIT_ARTIFACT_MISMATCH", "header, assertions, mutations, safety, or boundary")
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -986,6 +1085,7 @@ def validate(root: Path) -> list[str]:
     _check_v21_contract(root, state, tasks, errors)
     _check_v22_contract(root, state, tasks, errors)
     _check_v23_contract(root, state, tasks, errors)
+    _check_v24_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):

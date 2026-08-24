@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-24"
-updated_by_run: 2026-08-24_014_a1_real_frontend_validation
+updated_by_run: 2026-08-24_015_a_path_leakage_audit
 
 project:
   name: rc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
-  reviewed_commit: 237788090dcb20e533f304f63ae8feb2f545fe0b
-  repository_status: RC_HSG_V23_REAL_FRONTEND_SELFCHECK_PASSED_A_LEAKAGE_PENDING
-  spec_version: v2.3
-  spec_path: guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md
+  baseline_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
+  reviewed_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
+  repository_status: RC_HSG_V24_A_PATH_LEAKAGE_PASSED_FULL_ADMISSION_PENDING
+  spec_version: v2.4
+  spec_path: guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -116,15 +116,15 @@ blockers:
       - S0_FLAT_RC
     resolution: After the early A-path leakage audit passes, execute S0_A1_ADMISSION as a streaming scan of the remaining 3,390 eligible outer-train rows without unit inference, training, or outcome reads.
 
-last_completed_task: S0_A1_FRONTEND
-recommended_next_task: S0_LEAKAGE_AUDIT
-last_run: runs/2026-08-24_014_a1_real_frontend_validation.md
+last_completed_task: S0_LEAKAGE_AUDIT
+recommended_next_task: S0_A1_ADMISSION
+last_run: runs/2026-08-24_015_a_path_leakage_audit.md
 
 do_not_do_yet:
-  - Do not execute the early A-path leakage audit without the next exact instruction; run 014 stops after the bounded frontend self-check.
+  - Do not execute full A1 admission without a new author-frozen exact contract; run 015 stops after the early A-path leakage audit.
   - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
   - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
   - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.
   - Do not implement F, semantic schema, reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
-  - Do not read any remaining eligible, short, calibration, or test EEG values, semantic outcomes, predictions, or historical model metrics.
-  - Do not unlock test identities, run either leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.
+  - Do not read any remaining eligible, short, calibration, or test EEG values, semantic outcomes, predictions, or historical model metrics under run 015 authorization.
+  - Do not unlock test identities, run the method leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.

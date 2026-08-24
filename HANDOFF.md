@@ -1,10 +1,10 @@
 # Current Handoff
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_3_2026-08-24.md` (version `v2.3`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md` (version `v2.4`).
 
 ## Current state
 
-Run 014 completed `SPEC_V23_REVIEW -> S0_A1_FRONTEND`. The early `S0_LEAKAGE_AUDIT` is READY, is the sole recommended next task, and is owned by `CODEX`. Run 014 stops before either leakage audit or full admission.
+Run 015 completed `SPEC_V24_REVIEW -> S0_LEAKAGE_AUDIT`. `S0_A1_ADMISSION` is READY, is the sole recommended next task, and is owned by `CODEX`. Run 015 stops before full admission.
 
 The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/direct-C implementation path remain as historical `SKIPPED` records. Active Gates are Gate R0, Gate R, Gate C, Gate H, and non-blocking Mechanism A; all remain BLOCKED with null outcomes.
 
@@ -16,7 +16,8 @@ The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/dir
 - Input remains 105-channel, 500 Hz, common-average, release-native amplitude with no physical-unit conversion or channel interpolation.
 - Per-trial robust normalization, 500/250 Hann windows, eight frozen spectral bands, 840-dimensional log-relative-bandpower tokens, 256-dimensional projection, and a two-layer Transformer encoder are frozen in `artifacts/backbone_a_policy.yaml`.
 - The exact interface passed a bounded 107-row real-value panel on CPU and CUDA; 44 outer-train short rows were ledgered without dereference.
-- The remaining 3,390 eligible outer-train rows, calibration/test EEG, full admission, leakage audits, F, schema, reference generation, reliability models, and calibration were not executed by this run.
+- The early split/data/A-path firewall passed without opening production HDF5 or reading new real values.
+- The remaining 3,390 eligible outer-train rows, calibration/test EEG, full admission, method leakage audit, F, schema, reference generation, reliability models, and calibration were not executed by this run.
 
 ## Preserved run-011 evidence
 
@@ -28,4 +29,4 @@ The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/dir
 
 ## Required next action
 
-Under a new exact instruction, execute only the early Regime-I data/A-path `S0_LEAKAGE_AUDIT`. Do not begin full admission, the later method leakage audit, training, semantic decoder, schema, reference families, reliability models, calibration, any Gate, or test-value read.
+Under a new author-frozen exact instruction, execute only `S0_A1_ADMISSION`. The run-015 package is not admission authorization. Do not begin the later method leakage audit, training, semantic decoder, schema, reference families, reliability models, calibration, any Gate, or test-value read.
