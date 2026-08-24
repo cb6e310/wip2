@@ -1,0 +1,14 @@
+schema_version: 1
+artifact: RC_HSG_RUN018_PROVENANCE_CORRECTION_V1
+created_by_run: 2026-08-24_019_n2_common_phase_sampler
+historical_run:
+  path: runs/2026-08-24_018_n1_mechanism_sampler.md
+  sha256: 0b3f9ee0662f3429b3ac6fe0b78148e5b61aa2de21d59bec97f8cc634b90d4e7
+  modified: false
+field: package_source_CODEX_NEXT_TASK_sha256
+recorded_sha256: 667b36d04a5e91fd314bf44b1e7ce0a145ed0e9a45286c36c56c8eb8c9d2b0e7
+corrected_sha256: 667b8bc2af414673e09d9d2011446db502fbca305fb26e6c558bd0a762d51ef6
+source_zip_sha256: 934d7bb625b6a5183d251ae0d7b5255053adaebef17a0883394a371f3f5b5c24
+verification_basis: ZIP_CONTENT_AND_PACKAGE_MANIFEST_SHA256
+scientific_state_changed: false
+code_artifact_test_state_changed: false

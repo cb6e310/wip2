@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md` (version `v2.7`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md` (version `v2.8`).
 
 ## Verified location
 
@@ -13,13 +13,13 @@ Active SPEC: `guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md` (version `v2.7`).
 
 ## Source of truth
 
-1. `guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md` (active version `v2.7`)
+1. `guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md` (active version `v2.8`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Sections 20-26 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
+Sections 20-27 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
 task graph, and A policy. Sections 14-19 and run-011 artifacts remain
 authoritative for physical data, identity, grouping, split, population, and
 test-lock facts. Older SPECs and runs remain immutable provenance.
@@ -41,17 +41,17 @@ authorizes repair.
 
 ## Current evidence boundary
 
-Run 018 completed the metadata-only N1 mechanism sampler. It independently rebuilt all
-199 frozen joint mappings over 3,481 evaluable rows in 180 blocks, with exact run-017
-hash/fixed-point parity, 35,529 total fixed points, and 60 unchanged exclusions. Real and
-pseudo-real synthetic evaluations use the same complete select-then-score callback and
-recompute the full L1-L2-L3 path for every source.
+Run 019 completed the synthetic-only N2 common-phase sampler. The transform uses one
+phase increment per positive frequency across all 105 channels, fixes DC/even Nyquist,
+and transforms only each valid unpadded prefix. The analytic grid and 199-replicate replay
+pass the frozen PSD, covariance, mean, cross-spectrum, mask, replay, and safety contract.
 
-`S0_N2_SAMPLER` is the sole READY and recommended task, owned by
-`CHATGPT_OR_AUTHOR`, under a new exact common-phase contract. B_V9 is closed; B_V4
-remains active without blocking this resolver. Test identities remain
-`LOCKED_UNTIL_ROUTE_LOCK`; run 018 read zero EEG/text/outcome/test content and did not
-implement N2, calculate a paper p-value, train, execute any Gate, lock the route, or unlock test.
+`GATE_R0` is the sole READY and recommended task, owned by `CHATGPT_OR_AUTHOR`, but
+requires a new exact real outcome-blind audit contract. B_V9 is closed; B_V4 remains active
+without blocking this resolver. Test identities remain `LOCKED_UNTIL_ROUTE_LOCK`; run 019
+read zero real EEG/text/outcome/test content and did not load A1/frontend, generate a score
+or p-value, train, execute any Gate, lock the route, or unlock test. Synthetic PASS does not
+admit N2 as the primary reference.
 
 ## End-of-session contract
 

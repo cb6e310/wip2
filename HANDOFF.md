@@ -1,12 +1,12 @@
 # Current Handoff
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md` (version `v2.7`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md` (version `v2.8`).
 
 ## Current state
 
-Run 018 completed `SPEC_V27_REVIEW -> S0_N1_SAMPLER`. The metadata-only sampler exactly matches all 199 run-017 mapping hashes and fixed-point counts over 3,481 evaluable rows in 180 blocks, retaining 35,529 fixed points and 60 exclusions. N1 remains mechanism/robustness only and cannot be the primary fallback.
+Run 019 completed `SPEC_V28_REVIEW -> S0_N2_SAMPLER`. The synthetic-only sampler implements the frozen 105-channel common-phase Fourier law, passes the analytic preservation grid and 199-replicate replay, and leaves N2 real-data admissibility pending. The append-only run-018 provenance correction changes no scientific state. N1 remains mechanism/robustness only and N2 is not primary before Gate R0 PASS.
 
-The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/direct-C implementation path remain as historical `SKIPPED` records. Active Gates are Gate R0, Gate R, Gate C, Gate H, and non-blocking Mechanism A; all remain BLOCKED with null outcomes.
+The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/direct-C implementation path remain as historical `SKIPPED` records. Active Gates are Gate R0, Gate R, Gate C, Gate H, and non-blocking Mechanism A; all outcomes remain null. Gate R0 is READY but unexecuted, and all later Gates remain BLOCKED.
 
 ## Frozen A policy
 
@@ -17,7 +17,7 @@ The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/dir
 - Per-trial robust normalization, 500/250 Hann windows, eight frozen spectral bands, 840-dimensional log-relative-bandpower tokens, 256-dimensional projection, and a two-layer Transformer encoder are frozen in `artifacts/backbone_a_policy.yaml`.
 - The exact interface passed a bounded 107-row real-value panel on CPU and CUDA; run 016 reused this evidence without rereading the panel.
 - The remaining 3,390 eligible outer-train rows passed one audited-loader streaming scan on CUDA; cumulative admission covers 3,497 eligible rows and 35,745 windows.
-- All 44 short rows remain forced L0 without dereference; calibration/test EEG, N1/N2, method leakage audit, F, schema, reference generation, reliability models, and calibration were not executed by this run.
+- All 44 short rows remain forced L0 without dereference. Run 019 used only analytic synthetic fixtures; it did not read outer-train, short, calibration, or test EEG or execute the method leakage audit, F, schema, reference generation, reliability models, or calibration.
 
 ## Preserved run-011 evidence
 
@@ -29,4 +29,4 @@ The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/dir
 
 ## Required next action
 
-The sole READY task is `S0_N2_SAMPLER`, owner `CHATGPT_OR_AUTHOR`. Do not execute it without a new exact common-phase contract. Do not begin Gate R0, the later method leakage audit, training, semantic decoder, schema, candidate/reference features, reliability models, calibration, route lock, or test-value read.
+The sole READY task is `GATE_R0`, owner `CHATGPT_OR_AUTHOR`. Do not execute it without a new exact real outcome-blind audit contract. Do not begin the later method leakage audit, training, semantic decoder, schema, candidate/reference features, reliability models, calibration, route lock, or test-value read.

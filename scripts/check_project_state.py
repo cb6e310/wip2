@@ -50,6 +50,7 @@ REQUIRED_TASK_FIELDS = {
 }
 REQUIRED_TASK_IDS = {
     "SPEC_V27_REVIEW",
+    "SPEC_V28_REVIEW",
     "SPEC_V26_REVIEW",
     "SPEC_V25_REVIEW",
     "SPEC_V24_REVIEW",
@@ -356,6 +357,31 @@ V27_OUTPUT_HASHES = {
     "artifacts/nulls/n1_contract.yaml": "4fee63f743936db06eea41164f85f67228785872d3fca2098e657b1dc0383729",
     "artifacts/nulls/n1_permutation_manifest_v1.jsonl": "b7e68368799be446af60dcec029458e4e769f6605c1c56c032b76fb069f38c06",
     "reports/n1_selfcheck.md": "53fdb1a08a8f9cc7363a03ddf600ed221eaee85b94744c4ca000e1099cf2943e",
+}
+V28_FIXED_INPUT_HASHES = {
+    "guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md": "80d613bcb1eb5e3d3948f71f225ffcab5be52c6593fb141fdf410eb0bd753951",
+    "artifacts/spec_review/rc_hsg_v27_n1_mechanism_sampler_review.md": "bd245a03d4244f18381b1008ddbd0504cf7ea28f19407cb254747c20150894eb",
+    "runs/2026-08-24_018_n1_mechanism_sampler.md": "0b3f9ee0662f3429b3ac6fe0b78148e5b61aa2de21d59bec97f8cc634b90d4e7",
+    "src/rc_hsg/references/n1_joint_permutation.py": "888c6965c89c007e7edb4d0bcf513a8cdcaf4201dff6b05a3f7bf75bf7a94ca6",
+    "artifacts/nulls/n1_contract.yaml": "4fee63f743936db06eea41164f85f67228785872d3fca2098e657b1dc0383729",
+    "artifacts/nulls/n1_permutation_manifest_v1.jsonl": "b7e68368799be446af60dcec029458e4e769f6605c1c56c032b76fb069f38c06",
+    "artifacts/a_interface_eligibility_v1.jsonl": "8eded8fb2786747e96b8388d4d91315e39db9f8a9eb25ea69056d219e1e8e1ad",
+    "requirements-trust-align.lock.txt": "72a2a3274ef9516dba95a4f4022cacfba0e02d10445e1618da2a569f59381910",
+    "guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md": "f718fc37875a6dac7c539260de054d9f9c52966905b1912cf193d573a0424f23",
+    "artifacts/spec_review/rc_hsg_v28_n2_common_phase_sampler_review.md": "66edb1aca13e01f87d1a162b86254bbad87ce207ae208474f46a326e53948ea7",
+}
+V28_IMPLEMENTATION_HASHES = {
+    "src/rc_hsg/references/__init__.py": "9e53c4a8acbe2e965eff422a17f29cb5fa0471a9113914da76c13a498882fc6d",
+    "src/rc_hsg/references/n2_common_phase.py": "65fc0c3215a2b289c498e989795db74002642388ca64caa2fea93d7780a5aa7e",
+    "scripts/build_n2_sampler_contract.py": "baebfa04bf2381075786d9375e78a741ded32f157ea21da37885bc4001530252",
+    "tests/test_n2_common_phase.py": "27b2d1e53123f3af1cd4b78a6fc77ae940afa3978baafa57bf8e99a3a7d157fe",
+    "tests/test_build_n2_sampler_contract.py": "3e052367fa95bfd6f3a5a9b5d720c9132dd7f7c55a6b57e9149cfa1c955f376e",
+    "tests/test_n1_joint_permutation.py": "e77782c2fa2d302ac9a1aa31246115b0636e81f16c4e0631bffa2bd2d4028437",
+}
+V28_OUTPUT_HASHES = {
+    "artifacts/governance/run018_provenance_correction.yaml": "1ec0274f6604df1fb2691ff67d4a4f03e1a60fc508a87796e01b5d81d5415e01",
+    "artifacts/nulls/n2_contract.yaml": "c2713dc4fbe989c1680e02e88c336541482bfcb9e828170b3a225d2466d1377d",
+    "reports/n2_selfcheck.md": "042fc06f0627d4b29ead30075bb003800b0305ceb7d67387bc3f3e9d2f15f13c",
 }
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
@@ -1443,7 +1469,6 @@ def _check_v27_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         **V26_FIXED_INPUT_HASHES,
         **V26_OUTPUT_HASHES,
         **V27_FIXED_INPUT_HASHES,
-        **V27_IMPLEMENTATION_HASHES,
         **V27_OUTPUT_HASHES,
     }
     for relative, expected in frozen_hashes.items():
@@ -1593,6 +1618,230 @@ def _check_v27_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         _error(errors, "V27_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
+def _check_v28_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.8":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    expected_statuses = {"DONE": 43, "SKIPPED": 8, "BLOCKED": 23, "READY": 1}
+    if len(tasks) != 75 or status_counts != expected_statuses:
+        _error(errors, "V28_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["GATE_R0"] or tasks.get("GATE_R0", {}).get("owner") != "CHATGPT_OR_AUTHOR":
+        _error(errors, "V28_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("SPEC_V28_REVIEW", {}).get("status") != "DONE" or tasks.get("S0_N2_SAMPLER", {}).get("status") != "DONE":
+        _error(errors, "V28_COMPLETED_CHAIN_MISMATCH", "SPEC_V28_REVIEW or S0_N2_SAMPLER")
+    if tasks.get("SPEC_V28_REVIEW", {}).get("prerequisites") != ["SPEC_V27_REVIEW"]:
+        _error(errors, "V28_SPEC_DEPENDENCY_MISMATCH", repr(tasks.get("SPEC_V28_REVIEW", {}).get("prerequisites")))
+
+    project = state.get("project", {})
+    execution = state.get("execution", {})
+    if (
+        project.get("spec_path") != "guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md"
+        or project.get("baseline_commit") != "06e3e5f9b5c720bbb29074ca1cae1109add5b1b9"
+        or project.get("reviewed_commit") != "06e3e5f9b5c720bbb29074ca1cae1109add5b1b9"
+        or project.get("repository_status") != "RC_HSG_V28_N2_COMMON_PHASE_SAMPLER_IMPLEMENTED_GATE_R0_AUDIT_PENDING"
+        or execution != {"stage": "gate_r0", "status": "READY", "current_gate": "gate_r0"}
+        or state.get("last_completed_task") != "S0_N2_SAMPLER"
+        or state.get("recommended_next_task") != "GATE_R0"
+        or state.get("last_run") != "runs/2026-08-24_019_n2_common_phase_sampler.md"
+        or state.get("route", {}).get("locked") is not None
+    ):
+        _error(errors, "V28_PROJECT_STATE_MISMATCH", repr(project))
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    superseded = {item.get("id"): item for item in state.get("superseded_blockers", []) if isinstance(item, dict)}
+    b4 = blockers.get("B_V4_NULL_CONTRACT_UNVERIFIED")
+    b9 = superseded.get("B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
+    if "B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING" in blockers or not isinstance(b9, dict) or b9.get("closed_by") != "S0_A1_ADMISSION":
+        _error(errors, "V28_B9_CLOSURE_MISMATCH", repr(b9))
+    if (
+        not isinstance(b4, dict)
+        or "GATE_R0" in b4.get("blocks", [])
+        or "S0_ALIGN_UNIT_COST" not in b4.get("blocks", [])
+        or "S0_REFERENCE_FEATURES" not in b4.get("blocks", [])
+        or "MECHANISM_A" not in b4.get("blocks", [])
+    ):
+        _error(errors, "V28_B4_BRANCH_RESOLVER_MISMATCH", repr(b4))
+    gates = state.get("gates", {})
+    expected_gates = {
+        "gate_r0": {"status": "READY", "outcome": None},
+        "gate_r": {"status": "BLOCKED", "outcome": None},
+        "gate_c": {"status": "BLOCKED", "outcome": None},
+        "gate_h": {"status": "BLOCKED", "outcome": None},
+        "mechanism_a": {"status": "BLOCKED", "outcome": None},
+    }
+    if gates != expected_gates:
+        _error(errors, "V28_GATE_STATE_MISMATCH", repr(gates))
+
+    frozen_hashes = {
+        **FROZEN_RUN_011_HASHES,
+        **V26_FIXED_INPUT_HASHES,
+        **V26_OUTPUT_HASHES,
+        **V27_FIXED_INPUT_HASHES,
+        **V27_IMPLEMENTATION_HASHES,
+        **V27_OUTPUT_HASHES,
+        **V28_FIXED_INPUT_HASHES,
+        **V28_IMPLEMENTATION_HASHES,
+        **V28_OUTPUT_HASHES,
+    }
+    for relative, expected in frozen_hashes.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V28_ARTIFACT_HASH_MISMATCH", relative)
+
+    correction = _load_yaml(
+        root / "artifacts/governance/run018_provenance_correction.yaml",
+        errors,
+        "run-018 provenance correction",
+    )
+    if isinstance(correction, dict) and correction != {
+        "schema_version": 1,
+        "artifact": "RC_HSG_RUN018_PROVENANCE_CORRECTION_V1",
+        "created_by_run": "2026-08-24_019_n2_common_phase_sampler",
+        "historical_run": {
+            "path": "runs/2026-08-24_018_n1_mechanism_sampler.md",
+            "sha256": "0b3f9ee0662f3429b3ac6fe0b78148e5b61aa2de21d59bec97f8cc634b90d4e7",
+            "modified": False,
+        },
+        "field": "package_source_CODEX_NEXT_TASK_sha256",
+        "recorded_sha256": "667b36d04a5e91fd314bf44b1e7ce0a145ed0e9a45286c36c56c8eb8c9d2b0e7",
+        "corrected_sha256": "667b8bc2af414673e09d9d2011446db502fbca305fb26e6c558bd0a762d51ef6",
+        "source_zip_sha256": "934d7bb625b6a5183d251ae0d7b5255053adaebef17a0883394a371f3f5b5c24",
+        "verification_basis": "ZIP_CONTENT_AND_PACKAGE_MANIFEST_SHA256",
+        "scientific_state_changed": False,
+        "code_artifact_test_state_changed": False,
+    }:
+        _error(errors, "V28_PROVENANCE_CORRECTION_MISMATCH", "schema or correction values")
+
+    contract = _load_yaml(root / "artifacts/nulls/n2_contract.yaml", errors, "N2 sampler contract")
+    expected_keys = [
+        "schema_version", "artifact", "spec_version", "baseline_commit", "task", "policy_id",
+        "evidence_scope", "input_artifacts", "scientific_basis", "transform_contract",
+        "seed_contract", "input_output_contract", "synthetic_fixtures", "preservation_thresholds",
+        "synthetic_diagnostics", "artifact_diagnostics_schema", "implementation", "prohibited",
+        "safety", "downstream_boundary",
+    ]
+    if isinstance(contract, dict):
+        transform = contract.get("transform_contract", {})
+        seed = contract.get("seed_contract", {})
+        fixtures = contract.get("synthetic_fixtures", {})
+        thresholds = contract.get("preservation_thresholds", {})
+        diagnostics = contract.get("synthetic_diagnostics", {})
+        implementation = contract.get("implementation", {})
+        safety = contract.get("safety", {})
+        boundary = contract.get("downstream_boundary", {})
+        cases = diagnostics.get("cases", [])
+        preservation_labels = (
+            "psd_relative_norm", "covariance_relative_norm", "mean_relative_norm",
+            "cross_spectrum_relative_norm",
+        )
+        parsed_metrics: list[float] = []
+        metric_parse_failed = False
+        try:
+            for case in cases:
+                parsed_metrics.extend(float.fromhex(case["metrics"][label]) for label in preservation_labels)
+        except (KeyError, TypeError, ValueError):
+            metric_parse_failed = True
+        if (
+            list(contract) != expected_keys
+            or contract.get("artifact") != "RC_HSG_N2_MULTIVARIATE_COMMON_PHASE_FOURIER_V1"
+            or contract.get("spec_version") != "v2.8"
+            or contract.get("baseline_commit") != "06e3e5f9b5c720bbb29074ca1cae1109add5b1b9"
+            or contract.get("task") != "S0_N2_SAMPLER"
+            or transform.get("channels") != 105
+            or transform.get("minimum_valid_samples") != 500
+            or transform.get("input_device") != "CPU"
+            or transform.get("input_dtype") != "torch.float32"
+            or transform.get("fft_internal_dtype") != "numpy.float64"
+            or transform.get("output_dtype") != "torch.float32"
+            or transform.get("common_phase_across_channels") is not True
+            or transform.get("dc_fixed") is not True
+            or transform.get("even_nyquist_fixed") is not True
+            or transform.get("valid_unpadded_prefix_only") is not True
+            or transform.get("padding_tail_exact_zero") is not True
+            or seed.get("replicates") != 199
+            or seed.get("replicate_range") != [1, 199]
+            or seed.get("replicate_encoding") != "UINT16_BIG_ENDIAN"
+            or seed.get("generator") != "numpy.random.Generator(PCG64(seed))@2.5.2"
+            or seed.get("global_rng_state_used") is not False
+            or fixtures.get("lengths") != [500, 501, 513, 2048, 27010]
+            or fixtures.get("grid_replicates") != [1, 2, 199]
+            or fixtures.get("all_pair_count") != 11025
+            or any(float.fromhex(value) != 1e-6 for key, value in thresholds.items() if key.endswith("_max"))
+            or diagnostics.get("grid_cases") != 15
+            or diagnostics.get("all_preservation_checks_pass") is not True
+            or not isinstance(cases, list)
+            or len(cases) != 15
+            or [(case.get("valid_samples"), case.get("replicate_id")) for case in cases]
+            != [(length, replicate) for length in (500, 501, 513, 2048, 27010) for replicate in (1, 2, 199)]
+            or len({case.get("phase_seed_sha256") for case in cases}) != 15
+            or metric_parse_failed
+            or len(parsed_metrics) != 60
+            or any(not isinstance(value, float) or value < 0.0 or value > 1e-6 for value in parsed_metrics)
+            or diagnostics.get("replicate_replay") != {
+                "replicates": 199,
+                "unique_seed_hashes": 199,
+                "unique_output_fingerprints": 199,
+                "finite_outputs": 199,
+                "bitwise_replay": True,
+            }
+            or diagnostics.get("padded_fixture") != {
+                "rows": 2,
+                "valid_samples": [513, 501],
+                "prefix_unpadded_bitwise_equal": True,
+                "mask_exact": True,
+                "padding_tail_exact_zero": True,
+                "nonfinite_padding_ignored": True,
+            }
+            or implementation.get("module_sha256") != V28_IMPLEMENTATION_HASHES["src/rc_hsg/references/n2_common_phase.py"]
+            or implementation.get("builder_sha256") != V28_IMPLEMENTATION_HASHES["scripts/build_n2_sampler_contract.py"]
+            or implementation.get("numpy_version") != "2.5.2"
+            or safety != {
+                "synthetic_only": True,
+                "real_outer_train_reads": 0,
+                "calibration_reads": 0,
+                "test_reads": 0,
+                "text_outcome_test_identity_reads": 0,
+                "a1_frontend_encoder_loads": 0,
+                "embedding_reference_score_p_value_generated": 0,
+                "training_or_classifier_runs": 0,
+                "fixture_waveform_fft_phase_seed_integer_persisted": False,
+                "test_status": "LOCKED_UNTIL_ROUTE_LOCK",
+            }
+            or boundary != {
+                "n2_sampler_implemented": True,
+                "n2_primary_admitted": False,
+                "gate_r0_executed": False,
+                "route_locked": False,
+                "next_task": "GATE_R0",
+                "next_owner": "CHATGPT_OR_AUTHOR",
+            }
+        ):
+            _error(errors, "V28_N2_CONTRACT_MISMATCH", "header, transform, seed, diagnostics, safety, or boundary")
+
+    forbidden_fields = (
+        b"waveform_values", b"fft_values", b"phase_angles", b"seed_integer:",
+        b"eeg_values", b"embedding_values", b"reference_scores", b"outcome_values",
+        b"stimulus_text", b"dataset_root",
+    )
+    for relative in V28_OUTPUT_HASHES:
+        path = root / relative
+        try:
+            payload = path.read_bytes().lower()
+        except OSError:
+            continue
+        if len(payload) > 500_000 or any(field in payload for field in forbidden_fields):
+            _error(errors, "V28_PERSISTENCE_FIREWALL_MISMATCH", relative)
+
+    split = _load_yaml(root / "artifacts/split_manifest.yaml", errors, "split manifest")
+    if isinstance(split, dict) and split.get("assertions", {}).get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK":
+        _error(errors, "V28_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -1720,7 +1969,7 @@ def validate(root: Path) -> list[str]:
             ).strip():
                 _error(errors, "BLOCKED_REASON_MISSING", task_id)
             optional_native_a_deferral = (
-                state.get("project", {}).get("spec_version") in {"v2.5", "v2.6", "v2.7"}
+                state.get("project", {}).get("spec_version") in {"v2.5", "v2.6", "v2.7", "v2.8"}
                 and task_id == "S0_A3_CONTAMINATION_CHECK"
                 and task.get("critical_path") is False
             )
@@ -1740,6 +1989,7 @@ def validate(root: Path) -> list[str]:
     _check_v25_contract(root, state, tasks, errors)
     _check_v26_contract(root, state, tasks, errors)
     _check_v27_contract(root, state, tasks, errors)
+    _check_v28_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):

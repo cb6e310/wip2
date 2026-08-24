@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-24"
-updated_by_run: 2026-08-24_018_n1_mechanism_sampler
+updated_by_run: 2026-08-24_019_n2_common_phase_sampler
 
 project:
   name: rc_hsg_eeg_text
@@ -9,17 +9,17 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 082ed4f72f1b8bbc18096a5f0caea2075b2783c4
-  reviewed_commit: 082ed4f72f1b8bbc18096a5f0caea2075b2783c4
-  repository_status: RC_HSG_V27_N1_MECHANISM_SAMPLER_IMPLEMENTED_N2_PENDING
-  spec_version: v2.7
-  spec_path: guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md
+  baseline_commit: 06e3e5f9b5c720bbb29074ca1cae1109add5b1b9
+  reviewed_commit: 06e3e5f9b5c720bbb29074ca1cae1109add5b1b9
+  repository_status: RC_HSG_V28_N2_COMMON_PHASE_SAMPLER_IMPLEMENTED_GATE_R0_AUDIT_PENDING
+  spec_version: v2.8
+  spec_path: guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
-  stage: stage_0
+  stage: gate_r0
   status: READY
-  current_gate: null
+  current_gate: gate_r0
 
 route:
   primary: RC-HSG
@@ -32,7 +32,7 @@ route:
   locked_by_run: null
 
 gates:
-  gate_r0: {status: BLOCKED, outcome: null}
+  gate_r0: {status: READY, outcome: null}
   gate_r: {status: BLOCKED, outcome: null}
   gate_c: {status: BLOCKED, outcome: null}
   gate_h: {status: BLOCKED, outcome: null}
@@ -74,12 +74,12 @@ blockers:
       - S0_FLAT_RC
     resolution: Freeze the RC-HSG typed schema, evaluator, projection, constrained renderer, and shared absolute-score candidate firewall without test text or outcomes.
   - id: B_V4_NULL_CONTRACT_UNVERIFIED
-    reason: The N1 mechanism-only index sampler is implemented, but run-017 population coverage degradation permanently excludes N1 as primary; N2 common-phase construction, admissibility tolerances, and outcome-blind Gate R0 remain unimplemented under B_V4.
+    reason: The N1 mechanism-only sampler and N2 synthetic common-phase sampler are implemented, but N1 remains ineligible as primary and N2 real outcome-blind admissibility has not been decided by Gate R0.
     blocks:
-      - GATE_R0
+      - S0_ALIGN_UNIT_COST
       - S0_REFERENCE_FEATURES
       - MECHANISM_A
-    resolution: Freeze and implement the exact N2 common-phase contract, then run outcome-blind Gate R0 before building reference features; N1 remains mechanism/robustness only.
+    resolution: Freeze and execute the outcome-blind real-data Gate R0 audit before building reference features; N1 remains mechanism/robustness only and N2 is not primary until Gate R0 PASS.
   - id: B_V5_CALIBRATION_UNFROZEN
     reason: The two-stage 34-group cal-select then 34-group cal-cert route is frozen, but no finite-sample feasibility review, multiplicity-valid UCB, or finite policy family is frozen.
     blocks:
@@ -101,15 +101,15 @@ blockers:
       - S0_FLAT_RC
       - S0_PMI_BASELINE
     resolution: Freeze train-only candidate construction, absolute-score content selection, deterministic parent paths, and a common candidate hash before reliability fitting.
-last_completed_task: S0_N1_SAMPLER
-recommended_next_task: S0_N2_SAMPLER
-last_run: runs/2026-08-24_018_n1_mechanism_sampler.md
+last_completed_task: S0_N2_SAMPLER
+recommended_next_task: GATE_R0
+last_run: runs/2026-08-24_019_n2_common_phase_sampler.md
 
 do_not_do_yet:
-  - Run 018 is complete; do not implement S0_N2_SAMPLER until a new exact ChatGPT/author-frozen contract explicitly authorizes it.
+  - Run 019 is complete; do not execute GATE_R0 until a new exact ChatGPT/author-frozen real outcome-blind audit contract explicitly authorizes it.
   - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
   - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
   - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.
   - Do not implement F, semantic schema, reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
-  - Do not reread eligible, short, calibration, or test EEG values; run 018 used committed metadata and synthetic test values only.
+  - Do not read outer-train, short, calibration, or test EEG values; run 019 used deterministic analytic synthetic fixtures only.
   - Do not unlock test identities, run the method leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.

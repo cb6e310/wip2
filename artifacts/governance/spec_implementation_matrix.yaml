@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_018_n1_mechanism_sampler
-evidence_as_of_commit: 082ed4f72f1b8bbc18096a5f0caea2075b2783c4
+updated_by_run: 2026-08-24_019_n2_common_phase_sampler
+evidence_as_of_commit: 06e3e5f9b5c720bbb29074ca1cae1109add5b1b9
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -173,13 +173,24 @@ items:
     target_task: S0_N1_SAMPLER
     blocker: null
   n2:
-    status: BLOCKED
-    evidence_paths: []
-    tests_rerun: []
+    status: VALIDATED
+    evidence_paths:
+      - src/rc_hsg/references/n2_common_phase.py
+      - scripts/build_n2_sampler_contract.py
+      - tests/test_n2_common_phase.py
+      - tests/test_build_n2_sampler_contract.py
+      - artifacts/governance/run018_provenance_correction.yaml
+      - artifacts/nulls/n2_contract.yaml
+      - reports/n2_selfcheck.md
+      - runs/2026-08-24_019_n2_common_phase_sampler.md
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_n2_common_phase.py'"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_build_n2_sampler_contract.py'"
     acceptance_gaps:
-      - no multivariate common-phase reference implementation or Gate R0 diagnostics exist
+      - synthetic common-phase preservation passes, but real outcome-blind Gate R0 admissibility remains unexecuted
+      - amplitude and endpoint diagnostics have no synthetic cutoff and N2 is not yet admitted as primary
     target_task: S0_N2_SAMPLER
-    blocker: null
+    blocker: B_V4_NULL_CONTRACT_UNVERIFIED
   calibration:
     status: BLOCKED
     evidence_paths: []
@@ -253,10 +264,13 @@ items:
       - artifacts/a_path_leakage_assertions.yaml
       - tests/test_admit_a1_outer_train.py
       - artifacts/a1_outer_train_admission_freeze.yaml
+      - tests/test_n2_common_phase.py
+      - tests/test_build_n2_sampler_contract.py
+      - artifacts/nulls/n2_contract.yaml
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - synthetic interface bounded real frontend early A-path leakage and full outer-train admission pass; no scientific Gate exists
+      - synthetic interface bounded real frontend early A-path leakage full outer-train admission and synthetic N2 sampler pass; Gate R0 remains unexecuted
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:
@@ -288,7 +302,7 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
-active_spec: guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md
+active_spec: guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md
 active_method: RC-HSG
 active_gates:
   - GATE_R0

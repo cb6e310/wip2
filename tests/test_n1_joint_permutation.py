@@ -223,6 +223,8 @@ class N1JointPermutationTests(unittest.TestCase):
             {
                 "N1JointPermutationSampler", "N1PermutationBatch", "N1PermutationPair",
                 "N1SamplerContractError", "N1SelectionAwareEvaluation",
+                "N2BatchSurrogate", "N2CommonPhaseContractError", "N2CommonPhaseSampler",
+                "N2TrialSurrogate",
             },
         )
         self.assertFalse(any("p_value" in name or "candidate" in name for name in dir(self.sampler)))

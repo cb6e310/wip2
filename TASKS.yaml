@@ -395,6 +395,29 @@ SPEC_V27_REVIEW:
     - runs/2026-08-24_018_n1_mechanism_sampler.md
   evidence_scope: SPECIFICATION_AND_METADATA_ONLY_N1_MECHANISM_SAMPLER_CONTRACT_NO_EEG_NO_OUTCOMES_NO_PVALUES
 
+SPEC_V28_REVIEW:
+  title: Activate the frozen RC-HSG v2.8 synthetic-only N2 common-phase sampler contract
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V27_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v28_n2_common_phase_sampler_review.md
+  acceptance:
+    - reviewed commit is exactly 06e3e5f9b5c720bbb29074ca1cae1109add5b1b9
+    - section 27 freezes the exact CPU float64-internal common-phase transform and synthetic diagnostics
+    - run-018 provenance correction is append-only and leaves scientific state unchanged
+    - no real EEG text outcome test identity score p-value training or Gate is executed
+  completed_by_run: 2026-08-24_019_n2_common_phase_sampler
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v28_n2_common_phase_sampler_review.md
+    - runs/2026-08-24_019_n2_common_phase_sampler.md
+  evidence_scope: SPECIFICATION_AND_SYNTHETIC_ONLY_N2_COMMON_PHASE_CONTRACT_NO_REAL_EEG_NO_OUTCOMES_NO_GATE
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -1105,21 +1128,38 @@ S0_N1_SAMPLER:
 S0_N2_SAMPLER:
   title: Implement and diagnose multivariate Fourier N2 surrogates
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 12
   owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_A1_ADMISSION
   produces:
+    - src/rc_hsg/references/__init__.py
+    - src/rc_hsg/references/n2_common_phase.py
+    - scripts/build_n2_sampler_contract.py
+    - tests/test_n2_common_phase.py
+    - tests/test_build_n2_sampler_contract.py
+    - artifacts/governance/run018_provenance_correction.yaml
     - artifacts/nulls/n2_contract.yaml
     - reports/n2_selfcheck.md
+    - runs/2026-08-24_019_n2_common_phase_sampler.md
   acceptance:
     - common phase increments preserve conjugate symmetry on unpadded data
     - PSD cross-spectrum covariance amplitude endpoint and mask diagnostics are recorded
     - independent per-channel phase is rejected as primary
     - surrogate generation is deterministic by trial and seed
-  why_ready: N1 mechanism-only index sampling now has exact run-017 parity; N2 remains the frozen primary reference family and requires a new exact ChatGPT/author contract before implementation.
+  completed_by_run: 2026-08-24_019_n2_common_phase_sampler
+  acceptance_evidence:
+    - src/rc_hsg/references/n2_common_phase.py
+    - scripts/build_n2_sampler_contract.py
+    - tests/test_n2_common_phase.py
+    - tests/test_build_n2_sampler_contract.py
+    - artifacts/governance/run018_provenance_correction.yaml
+    - artifacts/nulls/n2_contract.yaml
+    - reports/n2_selfcheck.md
+    - runs/2026-08-24_019_n2_common_phase_sampler.md
+  evidence_scope: OUTCOME_BLIND_SYNTHETIC_ONLY_N2_COMMON_PHASE_SAMPLER_CONTRACT_NO_REAL_EEG_NO_TEXT_NO_OUTCOMES_NO_GATE
 
 GATE_A1:
   title: Decide structural N1 and empirical N2 null validity
@@ -1391,9 +1431,10 @@ S0_NC_HSG_CORE:
 GATE_R0:
   title: Decide outcome-blind N1 and N2 reference integrity and admissibility
   stage: gate_r0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 20
+  owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_LEAKAGE_AUDIT
     - S0_A1_ADMISSION
@@ -1407,7 +1448,7 @@ GATE_R0:
     - N2 text-free nuisance PSD cross-spectrum covariance amplitude endpoint mask and coverage checks are decided independently
     - each failed reference family is removed and all-family failure routes to ordinary hierarchical selective generation
     - no semantic outcome test value or Gate R C H result is read
-  blocked_reason: N1 mechanism-only index sampling is implemented, but N2 common-phase construction and Gate R0 admissibility remain incomplete under B_V4; route and test remain unlocked/locked respectively.
+  why_ready: Both frozen reference samplers are implemented, but Gate R0 may proceed only under a new exact ChatGPT/author-frozen real outcome-blind audit contract; this run does not authorize its execution.
 
 S0_REFERENCE_FEATURES:
   title: Build frozen RC-HSG absolute and reference-relative feature tables
@@ -1632,7 +1673,7 @@ S0_ALIGN_UNIT_COST:
     - training inference N1 reuse and N2 generation costs are measured separately
     - no held-out result is read and no scientific threshold changes
     - batch and cache plan is frozen for the main experiment
-  blocked_reason: Real frontend and null samplers are incomplete.
+  blocked_reason: Both samplers are implemented, but Gate R0 reference admissibility is pending and no real unit-cost run is authorized.
 
 GATE_B:
   title: Decide hierarchical value over direct-C and rule out PMI
