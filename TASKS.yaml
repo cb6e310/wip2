@@ -372,6 +372,29 @@ SPEC_V26_REVIEW:
     - runs/2026-08-24_017_n1_block_feasibility.md
   evidence_scope: SPECIFICATION_AND_OUTCOME_BLIND_N1_BLOCK_FEASIBILITY_CONTRACT_NO_OUTCOMES_NO_SAMPLER
 
+SPEC_V27_REVIEW:
+  title: Activate the frozen RC-HSG v2.7 N1 mechanism-only index sampler contract
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V26_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v27_n1_mechanism_sampler_review.md
+  acceptance:
+    - reviewed commit is exactly 082ed4f72f1b8bbc18096a5f0caea2075b2783c4
+    - section 26 freezes the metadata-only N1 mechanism sampler and exact run-017 parity law
+    - selection-aware real and pseudo-real observations share one complete callback boundary
+    - no EEG text outcome p-value N2 Gate route lock or test unlock is executed
+  completed_by_run: 2026-08-24_018_n1_mechanism_sampler
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v27_n1_mechanism_sampler_review.md
+    - runs/2026-08-24_018_n1_mechanism_sampler.md
+  evidence_scope: SPECIFICATION_AND_METADATA_ONLY_N1_MECHANISM_SAMPLER_CONTRACT_NO_EEG_NO_OUTCOMES_NO_PVALUES
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -1046,28 +1069,46 @@ S0_N1_BLOCK_FEASIBILITY:
 S0_N1_SAMPLER:
   title: Implement N1 replicate-level joint block permutations
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 11
   owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_N1_BLOCK_FEASIBILITY
   produces:
+    - src/rc_hsg/references/__init__.py
+    - src/rc_hsg/references/n1_joint_permutation.py
+    - scripts/build_n1_sampler_contract.py
+    - tests/test_n1_joint_permutation.py
+    - tests/test_build_n1_sampler_contract.py
     - artifacts/nulls/n1_contract.yaml
+    - artifacts/nulls/n1_permutation_manifest_v1.jsonl
     - reports/n1_selfcheck.md
+    - runs/2026-08-24_018_n1_mechanism_sampler.md
   acceptance:
     - each replicate is a within-block bijection across the evaluation split
     - fixed points singleton exclusions scope hashes and permutation IDs are ledgered
     - K equals 199 joint permutations and rebuilds are deterministic
     - selection-aware pseudo-real statistic tests pass
-  why_ready: Run 017 returned DEGRADED_COVERAGE with structural PASS; N1 may continue only as a mechanism and robustness family under a new exact ChatGPT/author-frozen sampler contract and may not become the primary fallback.
+  completed_by_run: 2026-08-24_018_n1_mechanism_sampler
+  acceptance_evidence:
+    - src/rc_hsg/references/n1_joint_permutation.py
+    - scripts/build_n1_sampler_contract.py
+    - tests/test_n1_joint_permutation.py
+    - tests/test_build_n1_sampler_contract.py
+    - artifacts/nulls/n1_contract.yaml
+    - artifacts/nulls/n1_permutation_manifest_v1.jsonl
+    - reports/n1_selfcheck.md
+    - runs/2026-08-24_018_n1_mechanism_sampler.md
+  evidence_scope: OUTCOME_BLIND_N1_MECHANISM_ONLY_INDEX_SAMPLER_FROM_FROZEN_RUN017_ASSIGNMENT_NO_EEG_READ_NO_REFERENCE_SCORE_NO_PVALUES
 
 S0_N2_SAMPLER:
   title: Implement and diagnose multivariate Fourier N2 surrogates
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 12
+  owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_A1_ADMISSION
   produces:
@@ -1078,7 +1119,7 @@ S0_N2_SAMPLER:
     - PSD cross-spectrum covariance amplitude endpoint and mask diagnostics are recorded
     - independent per-channel phase is rejected as primary
     - surrogate generation is deterministic by trial and seed
-  blocked_reason: B_V4 N2 common-phase construction and admissibility tolerances require a new ChatGPT/author-frozen contract; real outer-train A1 admission is complete.
+  why_ready: N1 mechanism-only index sampling now has exact run-017 parity; N2 remains the frozen primary reference family and requires a new exact ChatGPT/author contract before implementation.
 
 GATE_A1:
   title: Decide structural N1 and empirical N2 null validity
@@ -1366,7 +1407,7 @@ GATE_R0:
     - N2 text-free nuisance PSD cross-spectrum covariance amplitude endpoint mask and coverage checks are decided independently
     - each failed reference family is removed and all-family failure routes to ordinary hierarchical selective generation
     - no semantic outcome test value or Gate R C H result is read
-  blocked_reason: N1/N2 reference families remain incomplete under B_V4; early A-path leakage and full outer-train A1 admission are complete, and B_V9 is closed.
+  blocked_reason: N1 mechanism-only index sampling is implemented, but N2 common-phase construction and Gate R0 admissibility remain incomplete under B_V4; route and test remain unlocked/locked respectively.
 
 S0_REFERENCE_FEATURES:
   title: Build frozen RC-HSG absolute and reference-relative feature tables

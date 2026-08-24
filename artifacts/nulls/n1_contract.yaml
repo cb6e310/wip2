@@ -1,0 +1,113 @@
+schema_version: 1
+artifact: RC_HSG_N1_JOINT_PERMUTATION_SAMPLER_V1
+spec_version: v2.7
+baseline_commit: 082ed4f72f1b8bbc18096a5f0caea2075b2783c4
+task: S0_N1_SAMPLER
+policy_id: RC_HSG_N1_JOINT_PERMUTATION_SAMPLER_V1
+evidence_scope: OUTCOME_BLIND_N1_MECHANISM_ONLY_INDEX_SAMPLER_FROM_FROZEN_RUN017_ASSIGNMENT_NO_EEG_READ_NO_REFERENCE_SCORE_NO_PVALUES
+input_artifacts:
+  spec_v26:
+    path: guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md
+    sha256: 174f0ee08870cc045a75336d3fc7138c97a99e78e5adfb109aed74b5c5144aaa
+  review_v26:
+    path: artifacts/spec_review/rc_hsg_v26_n1_block_feasibility_review.md
+    sha256: b44e0a97c57d8e51e3e8365c56781c88b37328acc28d21f40f070e876d421e87
+  assignment:
+    path: artifacts/nulls/n1_block_assignment_v1.jsonl
+    sha256: d0acc5e5fe78bc36a69cb04b6f605983c675e49a764538ae1665f86a28acee04
+  feasibility:
+    path: artifacts/nulls/n1_block_feasibility.yaml
+    sha256: 90a6178100f507299e12223d15291699aad84e4b58bb52e29843dbf99ee6f771
+  feasibility_report:
+    path: reports/n1_block_feasibility.md
+    sha256: 5bf77b8282d0938d59104b5e4e615c30c3b4fbdc089dab2ccc1bbd019da14098
+  feasibility_code:
+    path: scripts/audit_n1_block_feasibility.py
+    sha256: beb4c739c05a225b5fe41e796a6d7a7c0fa60239d6b14dab51f28ba6d83d75ad
+  run017:
+    path: runs/2026-08-24_017_n1_block_feasibility.md
+    sha256: bf61b04a19f7586d44aec7d6f5b29b38666cce90225964c8f8af250766370eab
+  split:
+    path: artifacts/split_regimeI.json
+    sha256: e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab
+  admission_ledger:
+    path: artifacts/a1_outer_train_admission_v1.jsonl
+    sha256: b3c1b4e11855ef4c51c5bd0c2c0009f8a24e390c511d97118c48082fc7febfd5
+  spec_v27:
+    path: guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md
+    sha256: 80d613bcb1eb5e3d3948f71f225ffcab5be52c6593fb141fdf410eb0bd753951
+  review_v27:
+    path: artifacts/spec_review/rc_hsg_v27_n1_mechanism_sampler_review.md
+    sha256: bd245a03d4244f18381b1008ddbd0504cf7ea28f19407cb254747c20150894eb
+assignment_scope:
+  outer_train_rows: 3541
+  evaluable_rows: 3481
+  evaluable_blocks: 180
+  excluded_rows: 60
+  exclusion_counts:
+    short_forced_l0: 44
+    power_edge_unavailable: 4
+    singleton: 12
+permutation_contract:
+  replicates: 199
+  algorithm: SHA256_HASH_SORT_WITHIN_BLOCK_BIJECTION
+  replicate_range:
+  - 1
+  - 199
+  fixed_points_retained: true
+  adjacent_block_borrowing: false
+  cross_scope_mapping: false
+  rng_used: false
+  python_hash_used: false
+parity:
+  replicates: 199
+  exact_hash_matches: 199
+  exact_fixed_point_matches: 199
+  unique_joint_mapping_hashes: 199
+  fixed_points_total: 35529
+  fixed_points_min: 145
+  fixed_points_max: 214
+  bijection_violations: 0
+  cross_block_violations: 0
+selection_aware_boundary:
+  value_key_scope: EXACT_3481_EVALUABLE_ROWS
+  canonical_callback_calls_per_observation: 3481
+  same_select_then_score_callback: true
+  candidate_selection_recomputed: true
+  parent_consistent_path_recomputed: true
+  score_recomputed: true
+  candidate_specific_shortcut: false
+  paper_p_value_computed: false
+implementation:
+  module_path: src/rc_hsg/references/n1_joint_permutation.py
+  module_sha256: 888c6965c89c007e7edb4d0bcf513a8cdcaf4201dff6b05a3f7bf75bf7a94ca6
+  builder_path: scripts/build_n1_sampler_contract.py
+  builder_sha256: 6b65480881bb1e8988bd1c63c2aa50780f9279e3e0378fa25aed691d5cd0706b
+  feasibility_script_imported: false
+  frontend_or_a1_imported: false
+outputs:
+- artifacts/nulls/n1_contract.yaml
+- artifacts/nulls/n1_permutation_manifest_v1.jsonl
+- reports/n1_selfcheck.md
+safety:
+  metadata_only: true
+  production_eeg_reads: 0
+  short_array_reads: 0
+  calibration_array_reads: 0
+  test_array_reads: 0
+  text_or_outcome_reads: 0
+  frontend_or_tokenizer_loads: 0
+  proxy_token_embedding_waveform_reads: 0
+  mapping_relations_persisted: false
+  semantic_candidate_or_reference_score_generated: false
+  donor_value_generated: false
+  paper_p_value_computed: false
+  test_status: LOCKED_UNTIL_ROUTE_LOCK
+downstream_boundary:
+  n1_mechanism_sampler_implemented: true
+  n1_primary_admitted: false
+  n2_sampler_implemented: false
+  gate_r0_executed: false
+  route_locked: false
+  next_task: S0_N2_SAMPLER
+  next_owner: CHATGPT_OR_AUTHOR

@@ -49,6 +49,7 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V27_REVIEW",
     "SPEC_V26_REVIEW",
     "SPEC_V25_REVIEW",
     "SPEC_V24_REVIEW",
@@ -331,6 +332,31 @@ V26_OUTPUT_HASHES = {
 }
 V26_FEASIBILITY_CODE_HASH = "beb4c739c05a225b5fe41e796a6d7a7c0fa60239d6b14dab51f28ba6d83d75ad"
 V26_FEASIBILITY_TEST_HASH = "e5aba6f3218c2faf44c8196e80d6d34774a91e0e5a910144c1bf18f24615c743"
+V27_FIXED_INPUT_HASHES = {
+    "guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md": "174f0ee08870cc045a75336d3fc7138c97a99e78e5adfb109aed74b5c5144aaa",
+    "artifacts/spec_review/rc_hsg_v26_n1_block_feasibility_review.md": "b44e0a97c57d8e51e3e8365c56781c88b37328acc28d21f40f070e876d421e87",
+    "artifacts/nulls/n1_block_assignment_v1.jsonl": "d0acc5e5fe78bc36a69cb04b6f605983c675e49a764538ae1665f86a28acee04",
+    "artifacts/nulls/n1_block_feasibility.yaml": "90a6178100f507299e12223d15291699aad84e4b58bb52e29843dbf99ee6f771",
+    "reports/n1_block_feasibility.md": "5bf77b8282d0938d59104b5e4e615c30c3b4fbdc089dab2ccc1bbd019da14098",
+    "scripts/audit_n1_block_feasibility.py": "beb4c739c05a225b5fe41e796a6d7a7c0fa60239d6b14dab51f28ba6d83d75ad",
+    "runs/2026-08-24_017_n1_block_feasibility.md": "bf61b04a19f7586d44aec7d6f5b29b38666cce90225964c8f8af250766370eab",
+    "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
+    "artifacts/a1_outer_train_admission_v1.jsonl": "b3c1b4e11855ef4c51c5bd0c2c0009f8a24e390c511d97118c48082fc7febfd5",
+    "guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md": "80d613bcb1eb5e3d3948f71f225ffcab5be52c6593fb141fdf410eb0bd753951",
+    "artifacts/spec_review/rc_hsg_v27_n1_mechanism_sampler_review.md": "bd245a03d4244f18381b1008ddbd0504cf7ea28f19407cb254747c20150894eb",
+}
+V27_IMPLEMENTATION_HASHES = {
+    "src/rc_hsg/references/__init__.py": "fc18441cc3803ea12e6638abc60e929319fb14f31c6605e5232e5dfdbf4190d9",
+    "src/rc_hsg/references/n1_joint_permutation.py": "888c6965c89c007e7edb4d0bcf513a8cdcaf4201dff6b05a3f7bf75bf7a94ca6",
+    "scripts/build_n1_sampler_contract.py": "6b65480881bb1e8988bd1c63c2aa50780f9279e3e0378fa25aed691d5cd0706b",
+    "tests/test_n1_joint_permutation.py": "c0b65d1263dc8e887c4b90b850b3708c6bd1d68244b5887705b5c290fb5633eb",
+    "tests/test_build_n1_sampler_contract.py": "9ade824954aa897d29dfbbe045b3d47bceb0109ff4947b5db51a680996f45e4b",
+}
+V27_OUTPUT_HASHES = {
+    "artifacts/nulls/n1_contract.yaml": "4fee63f743936db06eea41164f85f67228785872d3fca2098e657b1dc0383729",
+    "artifacts/nulls/n1_permutation_manifest_v1.jsonl": "b7e68368799be446af60dcec029458e4e769f6605c1c56c032b76fb069f38c06",
+    "reports/n1_selfcheck.md": "53fdb1a08a8f9cc7363a03ddf600ed221eaee85b94744c4ca000e1099cf2943e",
+}
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
     "artifacts/split_regimeII.json": "9643dd5abe953e863e7535989f2f65d0f013a1c775c167e49f7d107545016393",
@@ -1366,6 +1392,207 @@ def _check_v26_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         _error(errors, "V26_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
+def _check_v27_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.7":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    expected_statuses = {"DONE": 41, "SKIPPED": 8, "BLOCKED": 24, "READY": 1}
+    if len(tasks) != 74 or status_counts != expected_statuses:
+        _error(errors, "V27_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_N2_SAMPLER"] or tasks.get("S0_N2_SAMPLER", {}).get("owner") != "CHATGPT_OR_AUTHOR":
+        _error(errors, "V27_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("SPEC_V27_REVIEW", {}).get("status") != "DONE" or tasks.get("S0_N1_SAMPLER", {}).get("status") != "DONE":
+        _error(errors, "V27_COMPLETED_CHAIN_MISMATCH", "SPEC_V27_REVIEW or S0_N1_SAMPLER")
+    if tasks.get("SPEC_V27_REVIEW", {}).get("prerequisites") != ["SPEC_V26_REVIEW"]:
+        _error(errors, "V27_SPEC_DEPENDENCY_MISMATCH", repr(tasks.get("SPEC_V27_REVIEW", {}).get("prerequisites")))
+
+    project = state.get("project", {})
+    if (
+        project.get("spec_path") != "guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md"
+        or project.get("baseline_commit") != "082ed4f72f1b8bbc18096a5f0caea2075b2783c4"
+        or project.get("reviewed_commit") != "082ed4f72f1b8bbc18096a5f0caea2075b2783c4"
+        or project.get("repository_status") != "RC_HSG_V27_N1_MECHANISM_SAMPLER_IMPLEMENTED_N2_PENDING"
+        or state.get("last_completed_task") != "S0_N1_SAMPLER"
+        or state.get("recommended_next_task") != "S0_N2_SAMPLER"
+        or state.get("last_run") != "runs/2026-08-24_018_n1_mechanism_sampler.md"
+        or state.get("route", {}).get("locked") is not None
+    ):
+        _error(errors, "V27_PROJECT_STATE_MISMATCH", repr(project))
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    superseded = {item.get("id"): item for item in state.get("superseded_blockers", []) if isinstance(item, dict)}
+    b4 = blockers.get("B_V4_NULL_CONTRACT_UNVERIFIED")
+    b9 = superseded.get("B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
+    if "B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING" in blockers or not isinstance(b9, dict) or b9.get("closed_by") != "S0_A1_ADMISSION":
+        _error(errors, "V27_B9_CLOSURE_MISMATCH", repr(b9))
+    if not isinstance(b4, dict) or "S0_N2_SAMPLER" in b4.get("blocks", []) or "GATE_R0" not in b4.get("blocks", []):
+        _error(errors, "V27_B4_BRANCH_RESOLVER_MISMATCH", repr(b4))
+    if any(
+        not isinstance(gate, dict) or gate.get("status") != "BLOCKED" or gate.get("outcome") is not None
+        for gate in state.get("gates", {}).values()
+    ):
+        _error(errors, "V27_GATE_STATE_MISMATCH", repr(state.get("gates")))
+
+    frozen_hashes = {
+        **FROZEN_RUN_011_HASHES,
+        **V26_FIXED_INPUT_HASHES,
+        **V26_OUTPUT_HASHES,
+        **V27_FIXED_INPUT_HASHES,
+        **V27_IMPLEMENTATION_HASHES,
+        **V27_OUTPUT_HASHES,
+    }
+    for relative, expected in frozen_hashes.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V27_ARTIFACT_HASH_MISMATCH", relative)
+
+    contract = _load_yaml(root / "artifacts/nulls/n1_contract.yaml", errors, "N1 sampler contract")
+    expected_keys = [
+        "schema_version", "artifact", "spec_version", "baseline_commit", "task", "policy_id",
+        "evidence_scope", "input_artifacts", "assignment_scope", "permutation_contract", "parity",
+        "selection_aware_boundary", "implementation", "outputs", "safety", "downstream_boundary",
+    ]
+    if isinstance(contract, dict):
+        scope = contract.get("assignment_scope", {})
+        permutation = contract.get("permutation_contract", {})
+        parity = contract.get("parity", {})
+        selection = contract.get("selection_aware_boundary", {})
+        implementation = contract.get("implementation", {})
+        safety = contract.get("safety", {})
+        boundary = contract.get("downstream_boundary", {})
+        if (
+            list(contract) != expected_keys
+            or contract.get("artifact") != "RC_HSG_N1_JOINT_PERMUTATION_SAMPLER_V1"
+            or contract.get("spec_version") != "v2.7"
+            or contract.get("baseline_commit") != "082ed4f72f1b8bbc18096a5f0caea2075b2783c4"
+            or contract.get("task") != "S0_N1_SAMPLER"
+            or scope != {
+                "outer_train_rows": 3541,
+                "evaluable_rows": 3481,
+                "evaluable_blocks": 180,
+                "excluded_rows": 60,
+                "exclusion_counts": {"short_forced_l0": 44, "power_edge_unavailable": 4, "singleton": 12},
+            }
+            or permutation != {
+                "replicates": 199,
+                "algorithm": "SHA256_HASH_SORT_WITHIN_BLOCK_BIJECTION",
+                "replicate_range": [1, 199],
+                "fixed_points_retained": True,
+                "adjacent_block_borrowing": False,
+                "cross_scope_mapping": False,
+                "rng_used": False,
+                "python_hash_used": False,
+            }
+            or parity != {
+                "replicates": 199,
+                "exact_hash_matches": 199,
+                "exact_fixed_point_matches": 199,
+                "unique_joint_mapping_hashes": 199,
+                "fixed_points_total": 35529,
+                "fixed_points_min": 145,
+                "fixed_points_max": 214,
+                "bijection_violations": 0,
+                "cross_block_violations": 0,
+            }
+            or selection != {
+                "value_key_scope": "EXACT_3481_EVALUABLE_ROWS",
+                "canonical_callback_calls_per_observation": 3481,
+                "same_select_then_score_callback": True,
+                "candidate_selection_recomputed": True,
+                "parent_consistent_path_recomputed": True,
+                "score_recomputed": True,
+                "candidate_specific_shortcut": False,
+                "paper_p_value_computed": False,
+            }
+            or implementation.get("module_sha256") != V27_IMPLEMENTATION_HASHES["src/rc_hsg/references/n1_joint_permutation.py"]
+            or implementation.get("builder_sha256") != V27_IMPLEMENTATION_HASHES["scripts/build_n1_sampler_contract.py"]
+            or implementation.get("feasibility_script_imported") is not False
+            or implementation.get("frontend_or_a1_imported") is not False
+            or safety != {
+                "metadata_only": True,
+                "production_eeg_reads": 0,
+                "short_array_reads": 0,
+                "calibration_array_reads": 0,
+                "test_array_reads": 0,
+                "text_or_outcome_reads": 0,
+                "frontend_or_tokenizer_loads": 0,
+                "proxy_token_embedding_waveform_reads": 0,
+                "mapping_relations_persisted": False,
+                "semantic_candidate_or_reference_score_generated": False,
+                "donor_value_generated": False,
+                "paper_p_value_computed": False,
+                "test_status": "LOCKED_UNTIL_ROUTE_LOCK",
+            }
+            or boundary != {
+                "n1_mechanism_sampler_implemented": True,
+                "n1_primary_admitted": False,
+                "n2_sampler_implemented": False,
+                "gate_r0_executed": False,
+                "route_locked": False,
+                "next_task": "S0_N2_SAMPLER",
+                "next_owner": "CHATGPT_OR_AUTHOR",
+            }
+        ):
+            _error(errors, "V27_N1_CONTRACT_MISMATCH", "schema, scope, permutation, parity, selection, safety, or boundary")
+
+    manifest_path = root / "artifacts/nulls/n1_permutation_manifest_v1.jsonl"
+    manifest: list[dict[str, Any]] = []
+    try:
+        for line_number, line in enumerate(manifest_path.read_text(encoding="utf-8").splitlines(), start=1):
+            item = json.loads(line)
+            if not isinstance(item, dict):
+                raise ValueError(f"line {line_number} is not an object")
+            manifest.append(item)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
+        _error(errors, "V27_MANIFEST_INVALID", str(exc))
+        manifest = []
+    manifest_fields = [
+        "replicate_id", "policy_id", "evaluable_rows", "evaluable_blocks",
+        "fixed_points", "fixed_point_rate", "joint_mapping_sha256",
+    ]
+    if manifest:
+        fixed_points = [item.get("fixed_points") for item in manifest]
+        hashes = [item.get("joint_mapping_sha256") for item in manifest]
+        if (
+            len(manifest) != 199
+            or any(list(item) != manifest_fields for item in manifest)
+            or [item.get("replicate_id") for item in manifest] != list(range(1, 200))
+            or any(item.get("policy_id") != "RC_HSG_N1_JOINT_PERMUTATION_SAMPLER_V1" for item in manifest)
+            or any(item.get("evaluable_rows") != 3481 or item.get("evaluable_blocks") != 180 for item in manifest)
+            or any(not isinstance(value, int) for value in fixed_points)
+            or sum(fixed_points) != 35529
+            or min(fixed_points) != 145
+            or max(fixed_points) != 214
+            or len(set(hashes)) != 199
+            or any(not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None for value in hashes)
+            or any(item.get("fixed_point_rate") != f"{item['fixed_points'] / 3481:.12f}" for item in manifest)
+        ):
+            _error(errors, "V27_MANIFEST_MISMATCH", "schema, IDs, scope, fixed points, rates, or hashes")
+
+    forbidden_fields = (
+        b"recipient_row_key", b"donor_row_key", b"eeg_value", b"token_value",
+        b"embedding_value", b"proxy_value", b"waveform_value", b'"donor":',
+        b'"recipient":', b"stimulus_text", b"outcome_value",
+    )
+    for relative in V27_OUTPUT_HASHES:
+        path = root / relative
+        try:
+            payload = path.read_bytes().lower()
+        except OSError:
+            continue
+        if len(payload) > 500_000 or any(field in payload for field in forbidden_fields):
+            _error(errors, "V27_PERSISTENCE_FIREWALL_MISMATCH", relative)
+
+    split = _load_yaml(root / "artifacts/split_manifest.yaml", errors, "split manifest")
+    if isinstance(split, dict) and split.get("assertions", {}).get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK":
+        _error(errors, "V27_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -1493,7 +1720,7 @@ def validate(root: Path) -> list[str]:
             ).strip():
                 _error(errors, "BLOCKED_REASON_MISSING", task_id)
             optional_native_a_deferral = (
-                state.get("project", {}).get("spec_version") in {"v2.5", "v2.6"}
+                state.get("project", {}).get("spec_version") in {"v2.5", "v2.6", "v2.7"}
                 and task_id == "S0_A3_CONTAMINATION_CHECK"
                 and task.get("critical_path") is False
             )
@@ -1512,6 +1739,7 @@ def validate(root: Path) -> list[str]:
     _check_v24_contract(root, state, tasks, errors)
     _check_v25_contract(root, state, tasks, errors)
     _check_v26_contract(root, state, tasks, errors)
+    _check_v27_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):

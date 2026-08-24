@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md` (version `v2.6`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md` (version `v2.7`).
 
 ## Verified location
 
@@ -13,13 +13,13 @@ Active SPEC: `guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md` (version `v2.6`).
 
 ## Source of truth
 
-1. `guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md` (active version `v2.6`)
+1. `guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md` (active version `v2.7`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Sections 20-25 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
+Sections 20-26 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
 task graph, and A policy. Sections 14-19 and run-011 artifacts remain
 authoritative for physical data, identity, grouping, split, population, and
 test-lock facts. Older SPECs and runs remain immutable provenance.
@@ -41,18 +41,17 @@ authorizes repair.
 
 ## Current evidence boundary
 
-Run 017 completed the outcome-blind outer-train N1 block-feasibility audit. Exactly
-3,497 eligible arrays were read once on CPU through the audited loader and exact A1
-spectral tokenizer; 44 short arrays and all calibration/test arrays remained unread.
-Structural checks passed, 199/199 joint mapping hashes were unique, and the minimum
-subject-role population coverage was 0.777777777778. The frozen decision is
-`DEGRADED_COVERAGE`, so N1 is ineligible as the primary fallback.
+Run 018 completed the metadata-only N1 mechanism sampler. It independently rebuilt all
+199 frozen joint mappings over 3,481 evaluable rows in 180 blocks, with exact run-017
+hash/fixed-point parity, 35,529 total fixed points, and 60 unchanged exclusions. Real and
+pseudo-real synthetic evaluations use the same complete select-then-score callback and
+recompute the full L1-L2-L3 path for every source.
 
-`S0_N1_SAMPLER` is the sole READY and recommended task, owned by
-`CHATGPT_OR_AUTHOR`, only for mechanism/robustness under a new exact contract. B_V9
-is closed; B_V4 remains active without blocking this resolver. Test identities remain
-`LOCKED_UNTIL_ROUTE_LOCK`; run 017 did not implement a sampler, train, run the method
-leakage audit, execute any Gate, lock the route, or unlock test.
+`S0_N2_SAMPLER` is the sole READY and recommended task, owned by
+`CHATGPT_OR_AUTHOR`, under a new exact common-phase contract. B_V9 is closed; B_V4
+remains active without blocking this resolver. Test identities remain
+`LOCKED_UNTIL_ROUTE_LOCK`; run 018 read zero EEG/text/outcome/test content and did not
+implement N2, calculate a paper p-value, train, execute any Gate, lock the route, or unlock test.
 
 ## End-of-session contract
 

@@ -1,10 +1,10 @@
 # Current Handoff
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md` (version `v2.6`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_7_2026-08-24.md` (version `v2.7`).
 
 ## Current state
 
-Run 017 completed `SPEC_V26_REVIEW -> S0_N1_BLOCK_FEASIBILITY`. The exact audit returned `DEGRADED_COVERAGE`: structural status PASS, minimum subject-role population coverage 0.777777777778, and 199/199 unique joint mapping hashes. N1 cannot be the primary fallback; a mechanism/robustness-only sampler remains unauthorized pending a new exact contract.
+Run 018 completed `SPEC_V27_REVIEW -> S0_N1_SAMPLER`. The metadata-only sampler exactly matches all 199 run-017 mapping hashes and fixed-point counts over 3,481 evaluable rows in 180 blocks, retaining 35,529 fixed points and 60 exclusions. N1 remains mechanism/robustness only and cannot be the primary fallback.
 
 The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/direct-C implementation path remain as historical `SKIPPED` records. Active Gates are Gate R0, Gate R, Gate C, Gate H, and non-blocking Mechanism A; all remain BLOCKED with null outcomes.
 
@@ -29,4 +29,4 @@ The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/dir
 
 ## Required next action
 
-The sole READY task is `S0_N1_SAMPLER`, owner `CHATGPT_OR_AUTHOR`. Do not execute it without a new exact contract. Do not begin N2 sampling, the later method leakage audit, training, semantic decoder, schema, reference families, reliability models, calibration, any Gate, route lock, or test-value read.
+The sole READY task is `S0_N2_SAMPLER`, owner `CHATGPT_OR_AUTHOR`. Do not execute it without a new exact common-phase contract. Do not begin Gate R0, the later method leakage audit, training, semantic decoder, schema, candidate/reference features, reliability models, calibration, route lock, or test-value read.
