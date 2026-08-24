@@ -99,10 +99,14 @@ class ProjectMemoryTests(unittest.TestCase):
             *CHECKER.V24_OUTPUT_HASHES,
             *CHECKER.V25_FIXED_INPUT_HASHES,
             *CHECKER.V25_OUTPUT_HASHES,
+            *CHECKER.V26_FIXED_INPUT_HASHES,
+            *CHECKER.V26_OUTPUT_HASHES,
             "src/rc_hsg/backbones/native_spectral_a1.py",
             "scripts/validate_a1_frontend.py",
             "scripts/audit_a_path_leakage.py",
             "scripts/admit_a1_outer_train.py",
+            "scripts/audit_n1_block_feasibility.py",
+            "tests/test_audit_n1_block_feasibility.py",
             "tests/test_admit_a1_outer_train.py",
             "tests/test_validate_a1_frontend.py",
         ):
@@ -110,11 +114,6 @@ class ProjectMemoryTests(unittest.TestCase):
             target = self.root / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
-        active_spec = self.root / self.state["project"]["spec_path"]
-        active_spec.write_text(
-            f"# fixture {self.state['project']['spec_version']}\n",
-            encoding="utf-8",
-        )
         entry = (
             f"Active SPEC: `{self.state['project']['spec_path']}` "
             f"(version `{self.state['project']['spec_version']}`).\n"
@@ -208,7 +207,7 @@ class ProjectMemoryTests(unittest.TestCase):
         self._assert_code(self._errors(), "DONE_PREREQUISITE_NOT_DONE")
 
     def test_ready_named_by_blocker_fails(self) -> None:
-        self.state["blockers"][0]["blocks"].append("S0_N1_BLOCK_FEASIBILITY")
+        self.state["blockers"][0]["blocks"].append("S0_N1_SAMPLER")
         self._assert_code(self._errors(), "READY_BLOCKED")
 
     def test_blocked_without_reason_fails(self) -> None:
@@ -275,17 +274,17 @@ class ProjectMemoryTests(unittest.TestCase):
         self.state["route"]["locked_by_run"] = "fixture"
         self._assert_code(self._errors(), "MULTIPLE_ROUTES_LOCKED")
 
-    def test_v25_current_spec_passes(self) -> None:
+    def test_v26_current_spec_passes(self) -> None:
         self.assertEqual(self._errors(), [])
 
-    def test_v25_task_counts_and_ready_set(self) -> None:
-        self.assertEqual(len(self.tasks), 72)
+    def test_v26_task_counts_and_ready_set(self) -> None:
+        self.assertEqual(len(self.tasks), 73)
         self.assertEqual(
-            sum(task["status"] == "DONE" for task in self.tasks.values()), 37
+            sum(task["status"] == "DONE" for task in self.tasks.values()), 39
         )
         self.assertEqual(
             [task_id for task_id, task in self.tasks.items() if task["status"] == "READY"],
-            ["S0_N1_BLOCK_FEASIBILITY"],
+            ["S0_N1_SAMPLER"],
         )
 
     def test_v21_superseded_tasks_are_locked(self) -> None:
@@ -295,7 +294,7 @@ class ProjectMemoryTests(unittest.TestCase):
             self.assertFalse(task["critical_path"])
             self.assertEqual(task["skip_reason"], "SUPERSEDED_BY_RC_HSG_V21")
 
-    def test_v25_dependency_rewrite_is_exact(self) -> None:
+    def test_v26_dependency_rewrite_is_exact(self) -> None:
         for task_id, expected in CHECKER.V23_DEPENDENCIES.items():
             self.assertEqual(set(self.tasks[task_id]["prerequisites"]), expected)
 
@@ -308,58 +307,79 @@ class ProjectMemoryTests(unittest.TestCase):
             )
         )
 
-    def test_v25_a_policy_tamper_fails(self) -> None:
+    def test_v26_a_policy_tamper_fails(self) -> None:
         policy_path = self.root / "artifacts/backbone_a_policy.yaml"
         policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
         policy["selected"]["sampling_hz"] = 200
         policy_path.write_text(
             yaml.safe_dump(policy, sort_keys=False), encoding="utf-8"
         )
-        self._assert_code(CHECKER.validate(self.root), "V25_ARTIFACT_HASH_MISMATCH")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
 
-    def test_v25_frozen_split_tamper_fails(self) -> None:
+    def test_v26_frozen_split_tamper_fails(self) -> None:
         path = self.root / "artifacts/split_manifest.yaml"
         path.write_text(
             path.read_text(encoding="utf-8") + "# tamper\n", encoding="utf-8"
         )
-        self._assert_code(CHECKER.validate(self.root), "V25_ARTIFACT_HASH_MISMATCH")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
 
-    def test_v25_contract_tamper_fails(self) -> None:
+    def test_v26_contract_tamper_fails(self) -> None:
         path = self.root / "artifacts/backbone_a_contract.yaml"
         path.write_bytes(path.read_bytes() + b"\n# tamper\n")
-        self._assert_code(CHECKER.validate(self.root), "V25_ARTIFACT_HASH_MISMATCH")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
 
-    def test_v25_b9_is_closed_and_b4_does_not_block_resolver(self) -> None:
+    def test_v26_b9_is_closed_and_b4_does_not_block_resolver(self) -> None:
         b9 = next(item for item in self.state["superseded_blockers"] if item["id"] == "B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
         b4 = next(item for item in self.state["blockers"] if item["id"] == "B_V4_NULL_CONTRACT_UNVERIFIED")
         self.assertEqual(b9["closed_by"], "S0_A1_ADMISSION")
-        self.assertNotIn("S0_N1_BLOCK_FEASIBILITY", b4["blocks"])
+        self.assertNotIn("S0_N1_SAMPLER", b4["blocks"])
+        self.assertIn("S0_N2_SAMPLER", b4["blocks"])
 
-    def test_v25_frontend_artifact_tamper_fails(self) -> None:
-        path = self.root / "artifacts/a1_frontend_freeze.yaml"
+    def test_v26_feasibility_artifact_tamper_fails(self) -> None:
+        path = self.root / "artifacts/nulls/n1_block_feasibility.yaml"
+        artifact = yaml.safe_load(path.read_text(encoding="utf-8"))
+        artifact["decision"]["decision"] = "PASS"
+        path.write_text(yaml.safe_dump(artifact, sort_keys=False), encoding="utf-8")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
+
+    def test_v26_ledger_tamper_fails(self) -> None:
+        path = self.root / "artifacts/nulls/n1_block_assignment_v1.jsonl"
+        path.write_bytes(path.read_bytes() + b"\n")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
+
+    def test_v26_branch_owner_tamper_fails(self) -> None:
+        self.tasks["S0_N1_SAMPLER"]["owner"] = "CODEX"
+        self._assert_code(self._errors(), "V26_READY_SET_MISMATCH")
+
+    def test_v26_branch_status_tamper_fails(self) -> None:
+        self.tasks["S0_N1_SAMPLER"]["status"] = "BLOCKED"
+        self.tasks["S0_N1_SAMPLER"]["blocked_reason"] = "fixture"
+        self._assert_code(self._errors(), "V26_TASK_STATE_MISMATCH")
+
+    def test_v26_frontend_validator_tamper_fails(self) -> None:
+        path = self.root / "scripts/validate_a1_frontend.py"
         path.write_bytes(path.read_bytes() + b"\n# tamper\n")
-        self._assert_code(CHECKER.validate(self.root), "V25_ARTIFACT_HASH_MISMATCH")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
 
-    def test_v25_leakage_artifact_tamper_fails(self) -> None:
+    def test_v26_leakage_artifact_tamper_fails(self) -> None:
         path = self.root / "artifacts/a_path_leakage_assertions.yaml"
         path.write_bytes(path.read_bytes() + b"\n# tamper\n")
-        self._assert_code(CHECKER.validate(self.root), "V25_ARTIFACT_HASH_MISMATCH")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
 
-    def test_v25_admission_ledger_tamper_fails(self) -> None:
+    def test_v26_admission_ledger_tamper_fails(self) -> None:
         path = self.root / "artifacts/a1_outer_train_admission_v1.jsonl"
         path.write_bytes(path.read_bytes() + b"\n")
-        self._assert_code(CHECKER.validate(self.root), "V25_ARTIFACT_HASH_MISMATCH")
+        self._assert_code(CHECKER.validate(self.root), "V26_ARTIFACT_HASH_MISMATCH")
 
-    def test_v25_admission_freeze_tamper_fails(self) -> None:
+    def test_v26_admission_freeze_tamper_fails(self) -> None:
         path = self.root / "artifacts/a1_outer_train_admission_freeze.yaml"
         freeze = yaml.safe_load(path.read_text(encoding="utf-8"))
         freeze["safety"]["run014_panel_arrays_reread"] = 1
         path.write_text(yaml.safe_dump(freeze, sort_keys=False), encoding="utf-8")
         errors = CHECKER.validate(self.root)
-        self._assert_code(errors, "V25_ARTIFACT_HASH_MISMATCH")
-        self._assert_code(errors, "V25_ADMISSION_FREEZE_MISMATCH")
+        self._assert_code(errors, "V26_ARTIFACT_HASH_MISMATCH")
 
-    def test_v25_b9_active_again_fails(self) -> None:
+    def test_v26_b9_active_again_fails(self) -> None:
         b9 = next(item for item in self.state["superseded_blockers"] if item["id"] == "B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
         self.state["blockers"].append({
             "id": b9["id"],
@@ -367,7 +387,7 @@ class ProjectMemoryTests(unittest.TestCase):
             "blocks": ["S0_N1_BLOCK_FEASIBILITY"],
             "resolution": "fixture",
         })
-        self._assert_code(self._errors(), "V25_B9_CLOSURE_MISMATCH")
+        self._assert_code(self._errors(), "V26_B9_CLOSURE_MISMATCH")
 
     def test_spec_filename_mismatch_fails(self) -> None:
         self.state["project"]["spec_path"] = "guide/NC_HSG_Paper_Spec_v1_2_fixture.md"
@@ -440,9 +460,9 @@ class ProjectMemoryTests(unittest.TestCase):
         self._save()
         self._assert_code(CHECKER.validate(self.root), "NEXT_TASK_STALE")
 
-    def test_n1_feasibility_requires_author_owner(self) -> None:
-        self.tasks["S0_N1_BLOCK_FEASIBILITY"]["owner"] = "CODEX"
-        self._assert_code(self._errors(), "V25_READY_SET_MISMATCH")
+    def test_n1_sampler_requires_author_owner(self) -> None:
+        self.tasks["S0_N1_SAMPLER"]["owner"] = "CODEX"
+        self._assert_code(self._errors(), "V26_READY_SET_MISMATCH")
 
     def test_discovery_is_first_after_hardening(self) -> None:
         task = self.tasks["S0_INPUT_DISCOVERY_AUDIT"]

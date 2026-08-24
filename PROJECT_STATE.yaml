@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-24"
-updated_by_run: 2026-08-24_016_a1_full_outer_train_admission
+updated_by_run: 2026-08-24_017_n1_block_feasibility
 
 project:
   name: rc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
-  reviewed_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
-  repository_status: RC_HSG_V25_A1_FULL_OUTER_TRAIN_ADMITTED_N1_FEASIBILITY_PENDING
-  spec_version: v2.5
-  spec_path: guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md
+  baseline_commit: 1c432a02f50cacda99359f630f14cfbfdfb439a1
+  reviewed_commit: 1c432a02f50cacda99359f630f14cfbfdfb439a1
+  repository_status: RC_HSG_V26_N1_BLOCK_FEASIBILITY_DEGRADED_N1_SAMPLER_PENDING
+  spec_version: v2.6
+  spec_path: guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -74,14 +74,13 @@ blockers:
       - S0_FLAT_RC
     resolution: Freeze the RC-HSG typed schema, evaluator, projection, constrained renderer, and shared absolute-score candidate firewall without test text or outcomes.
   - id: B_V4_NULL_CONTRACT_UNVERIFIED
-    reason: RC-HSG N1 block feasibility and N2 common-phase reference implementation, admissibility tolerances, coverage, and shared-frontend boundary remain unverified.
+    reason: N1 outer-train block feasibility is DEGRADED_COVERAGE and cannot support the primary fallback; the exact mechanism-only N1 sampler contract and N2 common-phase reference remain unimplemented under B_V4.
     blocks:
-      - S0_N1_SAMPLER
       - S0_N2_SAMPLER
       - GATE_R0
       - S0_REFERENCE_FEATURES
       - MECHANISM_A
-    resolution: After A admission, implement the frozen N1 and N2 families and run outcome-blind Gate R0 before building reference features.
+    resolution: Under a new author-frozen contract, implement N1 only for mechanism and robustness, then implement N2 and run outcome-blind Gate R0 before building reference features.
   - id: B_V5_CALIBRATION_UNFROZEN
     reason: The two-stage 34-group cal-select then 34-group cal-cert route is frozen, but no finite-sample feasibility review, multiplicity-valid UCB, or finite policy family is frozen.
     blocks:
@@ -103,15 +102,15 @@ blockers:
       - S0_FLAT_RC
       - S0_PMI_BASELINE
     resolution: Freeze train-only candidate construction, absolute-score content selection, deterministic parent paths, and a common candidate hash before reliability fitting.
-last_completed_task: S0_A1_ADMISSION
-recommended_next_task: S0_N1_BLOCK_FEASIBILITY
-last_run: runs/2026-08-24_016_a1_full_outer_train_admission.md
+last_completed_task: S0_N1_BLOCK_FEASIBILITY
+recommended_next_task: S0_N1_SAMPLER
+last_run: runs/2026-08-24_017_n1_block_feasibility.md
 
 do_not_do_yet:
-  - Do not execute N1 block feasibility without a new ChatGPT/author-frozen exact contract; run 016 stops after full outer-train admission.
+  - Run 017 is complete; do not implement S0_N1_SAMPLER until a new exact ChatGPT/author-frozen contract explicitly authorizes it.
   - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
   - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
   - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.
   - Do not implement F, semantic schema, reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
-  - Do not reread admitted panel or remaining rows, or read short, calibration, or test EEG values, semantic outcomes, predictions, or historical model metrics under run 016 authorization.
+  - Do not rerun the run-017 production scan or reread eligible, short, calibration, or test EEG values under this authorization.
   - Do not unlock test identities, run the method leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.

@@ -1,0 +1,2028 @@
+schema_version: 1
+artifact: RC_HSG_N1_BLOCK_FEASIBILITY_V1
+spec_version: v2.6
+baseline_commit: 1c432a02f50cacda99359f630f14cfbfdfb439a1
+task: S0_N1_BLOCK_FEASIBILITY
+policy_id: RC_HSG_N1_BLOCK_FEASIBILITY_V1
+evidence_scope: OUTCOME_BLIND_OUTER_TRAIN_N1_BLOCK_FEASIBILITY_SHARED_A1_SPECTRAL_PROXY_NO_TEXT_NO_OUTCOMES_NO_SAMPLER
+input_artifacts:
+  spec_v25:
+    path: guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md
+    sha256: b225a1528a05d2c0b83b31114347cd045ccc5b9a746df1ae6f06241d976b55ae
+  a_policy:
+    path: artifacts/backbone_a_policy.yaml
+    sha256: 034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425
+  a_contract:
+    path: artifacts/backbone_a_contract.yaml
+    sha256: 4c9ccddf4d5c208870422c7e5ceee65ee184d812fce662bb885998b0dad65cac
+  eligibility:
+    path: artifacts/a_interface_eligibility_v1.jsonl
+    sha256: 8eded8fb2786747e96b8388d4d91315e39db9f8a9eb25ea69056d219e1e8e1ad
+  a_code:
+    path: src/rc_hsg/backbones/native_spectral_a1.py
+    sha256: 71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9
+  analysis_view:
+    path: artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    sha256: 0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff
+  split_regime_i:
+    path: artifacts/split_regimeI.json
+    sha256: e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab
+  targeted_manifest_v3:
+    path: artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml
+    sha256: 50806a60937b28ae36207509c44d606af6f6b6b1be2a69c06081672f0931bfaf
+  osf_file_metadata:
+    path: artifacts/admission/zuco2_osf_file_metadata.yaml
+    sha256: 85a8c89eeb7a523c06fb7f38aa1c371e042413087e66dcc338c16833bd8bb721
+  requirements_lock:
+    path: requirements-trust-align.lock.txt
+    sha256: 72a2a3274ef9516dba95a4f4022cacfba0e02d10445e1618da2a569f59381910
+  frontend_validator:
+    path: scripts/validate_a1_frontend.py
+    sha256: ecc84a0363629e919409321cdc73327b6e3c7e779e224a18ab55a6b6ac6777cd
+  admission_ledger:
+    path: artifacts/a1_outer_train_admission_v1.jsonl
+    sha256: b3c1b4e11855ef4c51c5bd0c2c0009f8a24e390c511d97118c48082fc7febfd5
+  admission_freeze:
+    path: artifacts/a1_outer_train_admission_freeze.yaml
+    sha256: e973fbbe841a47f027cbf0f8a8ad65e66d106d675e8ed838dd0daf4a08dcab12
+  admission_report:
+    path: reports/a1_admission.md
+    sha256: c2dc97d886d31fdc93e82778981fdf3a2dc1fd382c850d4035fdba3487513eac
+  run016:
+    path: runs/2026-08-24_016_a1_full_outer_train_admission.md
+    sha256: 42a0030551fbff4a9c8dd256d786987f620147712556034d2edb6108f5af96dc
+  a_path_assertions:
+    path: artifacts/a_path_leakage_assertions.yaml
+    sha256: eb60565b40991f19856673acc030ec7a7dcab6c520c6af5c1b1c39167f864f70
+  spec_v26:
+    path: guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md
+    sha256: 174f0ee08870cc045a75336d3fc7138c97a99e78e5adfb109aed74b5c5144aaa
+  feasibility_code:
+    path: scripts/audit_n1_block_feasibility.py
+    sha256: beb4c739c05a225b5fe41e796a6d7a7c0fa60239d6b14dab51f28ba6d83d75ad
+authorized_scope:
+  roles:
+  - train_fit
+  - inner_val
+  session: 1
+  task: NR
+  eligible_arrays: 3497
+  short_no_read: 44
+  calibration_arrays_read: 0
+  test_arrays_read: 0
+power_proxy_contract:
+  policy_id: RC_HSG_N1_A1_LOG_RELATIVE_BANDPOWER_MEDIAN_V1
+  device: CPU_ONLY
+  reader: AUDITED_VALIDATE_A1_FRONTEND__READ_RAW_ONLY
+  tokenizer: NativeSpectralA1(20260824).eval()._spectral_tokens_ONLY
+  shape: WINDOWS_BY_840_FLOAT32_FINITE
+  median: TWO_MIDDLE_KTHVALUE_MATH_FSUM_DIV_2
+  row_proxy_persisted: false
+  full_encoder_executed: false
+length_bin_contract:
+  source: FROZEN_WINDOW_COUNT
+  bins:
+    W01_04:
+    - 1
+    - 4
+    W05_16:
+    - 5
+    - 16
+    W17_PLUS:
+    - 17
+    - null
+power_bin_contract:
+  edge_key:
+  - subject
+  - session
+  - length_bin
+  fit_role: train_fit
+  minimum_train_rows: 4
+  low_rule: proxy<=edge
+  high_rule: proxy>edge
+  borrowing: false
+  edge_serialization: float.hex
+block_contract:
+  scientific_key:
+  - subject
+  - session
+  - length_bin
+  - power_bin
+  permutation_key:
+  - role
+  - subject
+  - session
+  - length_bin
+  - power_bin
+  source_experimental_block_in_key: false
+  minimum_evaluable_size: 2
+  fixed_points_allowed: true
+  adjacent_borrowing: false
+permutation_probe_contract:
+  policy_id: RC_HSG_N1_JOINT_PERMUTATION_PROBE_V1
+  replicates: 199
+  algorithm: SHA256_HASH_SORT_WITHIN_BLOCK_BIJECTION
+  index_only: true
+  donor_eeg_read: false
+  donor_mapping_persisted: false
+acceptance_thresholds:
+  coverage_denominator: ALL_OUTER_TRAIN_ROWS_BY_SUBJECT_ROLE
+  minimum_subject_role_population_coverage: 0.9
+  unique_joint_mapping_hashes: 199
+acceptance_counts:
+  outer_train_rows: 3541
+  eligible_rows_read: 3497
+  short_rows_no_read: 44
+  full_windows: 35745
+  subjects: 18
+  source_files: 18
+  source_dtype_counts:
+    float64: 3497
+power_edges:
+- power_edge_cell_id: n1pc_v1_dafa929954fe245fa3b0be372ad89b6908933706c0f5fafa352d6bf7bb512b55
+  subject: YAC
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 20
+  edge_float64_hex: -0x1.43d2c50000000p+1
+  train_low_rows: 10
+  train_high_rows: 10
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_2d26bb7ef16c5f98feb1390d75ad0fecf4c094a19df3fc2c9c7040423f006565
+  subject: YAC
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 87
+  edge_float64_hex: -0x1.45d1b30000000p+1
+  train_low_rows: 44
+  train_high_rows: 43
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_b188a5d47c7847634d02c90045f0c286491181cef00b2463e6fd6d4769fee7fe
+  subject: YAC
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 11
+  edge_float64_hex: -0x1.653b980000000p+1
+  train_low_rows: 6
+  train_high_rows: 5
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_1bb3d1eafc164fcbee8b2d3e3a7cd9150a6be8dd59c16d9c56d2d92a0d556cab
+  subject: YAG
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 15
+  edge_float64_hex: -0x1.594fc00000000p+1
+  train_low_rows: 8
+  train_high_rows: 7
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_0c06e741c17adf36a57d061a9f1a5269e8a1e640a1f2980672dd75d951fe48a0
+  subject: YAG
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 108
+  edge_float64_hex: -0x1.6091118000000p+1
+  train_low_rows: 54
+  train_high_rows: 54
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_83a8fa1d9c5251ba986dd5acbc542c2267476d3dc590e6bcc9527346ba53dd62
+  subject: YAG
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 44
+  edge_float64_hex: -0x1.6469378000000p+1
+  train_low_rows: 22
+  train_high_rows: 22
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_3228e1838e3b7a37e1694237853ea6f6cc35119e3650cf314f3983dcc39a1264
+  subject: YAK
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 31
+  edge_float64_hex: -0x1.5915910000000p+1
+  train_low_rows: 16
+  train_high_rows: 15
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_ae3e21d05ab018944da02a415d74699b55b18d68b27a8d41602b9920c934504b
+  subject: YAK
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 87
+  edge_float64_hex: -0x1.64152b0000000p+1
+  train_low_rows: 44
+  train_high_rows: 43
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_77982dac02425d542edc805a5808c62218e6ccf7200f791a5e5b25152eb42eef
+  subject: YAK
+  session: 1
+  length_bin: W17_PLUS
+  status: INSUFFICIENT_TRAIN_CELL
+  train_rows: 1
+  edge_float64_hex: null
+  train_low_rows: 0
+  train_high_rows: 0
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_4fb812156324a365acc59fa52e7b959c5a559c9bb079a2cbc94abc21577e0f3d
+  subject: YDG
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 37
+  edge_float64_hex: -0x1.3934b50000000p+1
+  train_low_rows: 19
+  train_high_rows: 18
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_8f5731577b2c0c151dc5ec945e07bb500d1c464190fc2bef9436fe5d9aa57d94
+  subject: YDG
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 119
+  edge_float64_hex: -0x1.3910cb0000000p+1
+  train_low_rows: 60
+  train_high_rows: 59
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_cddc4be6f13d8da279231f39c5f901487d91d8464957480e41c1a381dc1bcdd9
+  subject: YDG
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 11
+  edge_float64_hex: -0x1.3bb39f0000000p+1
+  train_low_rows: 6
+  train_high_rows: 5
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_febc9c4fa794ba574a9b817320febf60301b0b00fc6d860aa229e6669e33b54a
+  subject: YDR
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 71
+  edge_float64_hex: -0x1.50d9860000000p+1
+  train_low_rows: 36
+  train_high_rows: 35
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_ca8740251671a49e4aad49128f775e87890382d65cbf96c66d020a6bdf8fd5c5
+  subject: YDR
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 74
+  edge_float64_hex: -0x1.4bab5d8000000p+1
+  train_low_rows: 37
+  train_high_rows: 37
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_cdb22a44a766195cd4aae65e24ba8f6df5e8e3f79c8fdfe6c77cbdf6ae37103e
+  subject: YDR
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 14
+  edge_float64_hex: -0x1.5089460000000p+1
+  train_low_rows: 7
+  train_high_rows: 7
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_f7194ee0bff7e261eda5c1c3d1a3f72a981ae8cb98f26898988a685c3c314609
+  subject: YFR
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 17
+  edge_float64_hex: -0x1.620ce20000000p+1
+  train_low_rows: 9
+  train_high_rows: 8
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_9cdcfd1eb48a1c3ed99c6e726c04a0f15291b129152a75e8db16d541440d2f4b
+  subject: YFR
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 74
+  edge_float64_hex: -0x1.56103e8000000p+1
+  train_low_rows: 37
+  train_high_rows: 37
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_f50569c5f223c7771f3ef9be71eded00ac3bb0bf880aeee817df0b4306c910f7
+  subject: YFR
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 26
+  edge_float64_hex: -0x1.59d02a0000000p+1
+  train_low_rows: 13
+  train_high_rows: 13
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_7f307ab2339100aecdf3c2fb8983a4579ec1204cdfe57e050464358c6d0ba6da
+  subject: YFS
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 68
+  edge_float64_hex: -0x1.4b3ddf8000000p+1
+  train_low_rows: 34
+  train_high_rows: 34
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_f83e18f4d40466d0b731a0cdd53cc11ba6540d0145635acce4255c8cbc5969ef
+  subject: YFS
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 84
+  edge_float64_hex: -0x1.4aa5e80000000p+1
+  train_low_rows: 42
+  train_high_rows: 42
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_205f88a2fe6d243edea37c31866e422f29bac68a64758849c17251476bc44ea2
+  subject: YFS
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 8
+  edge_float64_hex: -0x1.47930b0000000p+1
+  train_low_rows: 4
+  train_high_rows: 4
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_d372a0c56b6fb1dc594af27b1c39f5f042d74fd9156d677c86ee49760da3bcb8
+  subject: YHS
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 91
+  edge_float64_hex: -0x1.4f1ede0000000p+1
+  train_low_rows: 46
+  train_high_rows: 45
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_2772e8748cc0405b08bcc8339ef841553c8a4aed4432f5e43e25d3b78b94ab50
+  subject: YHS
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 72
+  edge_float64_hex: -0x1.5053ee0000000p+1
+  train_low_rows: 36
+  train_high_rows: 36
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_05368d010e55e60328b274d0ad9aab92c560b61bda1ae3fafc42493d8564f0f8
+  subject: YHS
+  session: 1
+  length_bin: W17_PLUS
+  status: INSUFFICIENT_TRAIN_CELL
+  train_rows: 2
+  edge_float64_hex: null
+  train_low_rows: 0
+  train_high_rows: 0
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_545fc8842097da92c55d66e207931c7791431582129b706f2bd296a5872d3698
+  subject: YIS
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 19
+  edge_float64_hex: -0x1.3909d30000000p+1
+  train_low_rows: 10
+  train_high_rows: 9
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_b0195b674496c822991b3209abdb10154dc15fd0dd4513119cd91729a3878243
+  subject: YIS
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 127
+  edge_float64_hex: -0x1.3941040000000p+1
+  train_low_rows: 64
+  train_high_rows: 63
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_6448ab80828c6b69e10fd7e0697b01a282869fa5e8ab6507bea3fb61c670109d
+  subject: YIS
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 21
+  edge_float64_hex: -0x1.38b2660000000p+1
+  train_low_rows: 11
+  train_high_rows: 10
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_3a62bfa872b71c0bf4d4a1b24d175effdd320cd87ab6d242acdc7e0b52910b03
+  subject: YLS
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 33
+  edge_float64_hex: -0x1.3a9ce10000000p+1
+  train_low_rows: 17
+  train_high_rows: 16
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_b6251b3bfb79364e03efbffe371179d8f9ae067ca0ac80f8f6275f7952a123d0
+  subject: YLS
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 110
+  edge_float64_hex: -0x1.3f2f290000000p+1
+  train_low_rows: 55
+  train_high_rows: 55
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_fa299f63025e8e2ed10c36a00c46357da6ed708a20688b2e8441928d43b88895
+  subject: YLS
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 22
+  edge_float64_hex: -0x1.3f191b8000000p+1
+  train_low_rows: 11
+  train_high_rows: 11
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_0e61784df4780a18d33e74f0ac8e3020973ad6ee8bc174070cdd09f0cfc45b1f
+  subject: YMD
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 15
+  edge_float64_hex: -0x1.7c776a0000000p+1
+  train_low_rows: 8
+  train_high_rows: 7
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_c4cec6def1a98a85d09a80669a54fe23b1a34459cb75b3cdf13b097937797f4c
+  subject: YMD
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 105
+  edge_float64_hex: -0x1.7ee1a20000000p+1
+  train_low_rows: 53
+  train_high_rows: 52
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_56f3f89060798a36577d2016ace711d2a7c2f98dc2e0f600cb35d9852fe9d0a1
+  subject: YMD
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 44
+  edge_float64_hex: -0x1.7d718a0000000p+1
+  train_low_rows: 22
+  train_high_rows: 22
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_882e352e9f2cfa57437dc7010265229fe0f566a10ba8e47b599feaa291d695e0
+  subject: YMS
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 14
+  edge_float64_hex: -0x1.5d315a0000000p+1
+  train_low_rows: 7
+  train_high_rows: 7
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_a7186eb5148f01adaef0cefd9797d31d354955c48eb1df761c911ca756c15d74
+  subject: YMS
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 97
+  edge_float64_hex: -0x1.6f8c730000000p+1
+  train_low_rows: 49
+  train_high_rows: 48
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_79bd24733e066cf820de802e81bcd8b42b08cc416c195488bbfe5a44d5670010
+  subject: YMS
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 55
+  edge_float64_hex: -0x1.7746050000000p+1
+  train_low_rows: 28
+  train_high_rows: 27
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_a84550c0b9671f4394f56b41d42c5d637f8a5fb24d1eca2cf01ac8c94c9e0f30
+  subject: YRH
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 37
+  edge_float64_hex: -0x1.4566d30000000p+1
+  train_low_rows: 19
+  train_high_rows: 18
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_041f59da27c3223005bde15ff9d1eb8bc92773ccb44257b88b8205ae7d636a92
+  subject: YRH
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 93
+  edge_float64_hex: -0x1.42342c0000000p+1
+  train_low_rows: 47
+  train_high_rows: 46
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_5dcfbbde091bb0a003e20ba3aaf5bbdfbf50839914981495304c3b1aa498e093
+  subject: YRH
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 12
+  edge_float64_hex: -0x1.be96b68000000p+1
+  train_low_rows: 6
+  train_high_rows: 6
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_a182bf8299588855d30fe419b5c75e34fccefc7179ab2ec0564f2eb5ba609315
+  subject: YRK
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 12
+  edge_float64_hex: -0x1.56d0b20000000p+1
+  train_low_rows: 6
+  train_high_rows: 6
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_33f291c9391d1df65ca855044ecb25fa682e1a88fa6b4f3500048c7774be81c1
+  subject: YRK
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 110
+  edge_float64_hex: -0x1.5c9b518000000p+1
+  train_low_rows: 55
+  train_high_rows: 55
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_5232885013da73d43c5c945b0a48cf64b75b3872d3e7d75ecef3f40f275aa19a
+  subject: YRK
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 41
+  edge_float64_hex: -0x1.6235040000000p+1
+  train_low_rows: 21
+  train_high_rows: 20
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_93ee28dc3bfa7f10a957fe2ac6ca3580dab09524587a84ba0a21b46529ec7268
+  subject: YRP
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 15
+  edge_float64_hex: -0x1.4ce44d0000000p+1
+  train_low_rows: 8
+  train_high_rows: 7
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_943917b9f8d58bb76df9ab1f9e9524c4ab663e32e961785b4ba0e771245ddf2e
+  subject: YRP
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 105
+  edge_float64_hex: -0x1.50bddc0000000p+1
+  train_low_rows: 53
+  train_high_rows: 52
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_31cd41ecbb1df3f940f51603b478a2103a998d59f928a25a8aa3ff7a05efb91c
+  subject: YRP
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 44
+  edge_float64_hex: -0x1.50364c0000000p+1
+  train_low_rows: 22
+  train_high_rows: 22
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_cbdfc9d87400a848fca5a145d2ee6ed6ded9d01537f872b5776e8d84f5b16581
+  subject: YSD
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 31
+  edge_float64_hex: -0x1.3b2fca0000000p+1
+  train_low_rows: 16
+  train_high_rows: 15
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_a996c558a410ca2b8e758f17ade928e1aa0f2d21df60d2ad13a9ff7488e0b516
+  subject: YSD
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 121
+  edge_float64_hex: -0x1.4755b90000000p+1
+  train_low_rows: 61
+  train_high_rows: 60
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_1b2dacc7aa6a3119e2d113d6ed9068ec181509cde69db1f149f1e9afa99ad919
+  subject: YSD
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 15
+  edge_float64_hex: -0x1.59cef90000000p+1
+  train_low_rows: 8
+  train_high_rows: 7
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_162f6c116177a0d8a53304aceae055a144ab3abc23d59dcb59e3bbe6ce06ccff
+  subject: YSL
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 6
+  edge_float64_hex: -0x1.669ee90000000p+1
+  train_low_rows: 3
+  train_high_rows: 3
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_f31ee4a97ab059ed95ea299bafada3d0a603f89a51709a730d465bd2502e3ca0
+  subject: YSL
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 130
+  edge_float64_hex: -0x1.680bfa0000000p+1
+  train_low_rows: 65
+  train_high_rows: 65
+  train_tie_rows: 0
+- power_edge_cell_id: n1pc_v1_4e2ab8e848f45af03e8449142748e9cddc19cbfd3cb28b852af6c5d2a0b51910
+  subject: YSL
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 29
+  edge_float64_hex: -0x1.684b1b0000000p+1
+  train_low_rows: 15
+  train_high_rows: 14
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_85c9eff776532414025ca6a4e4e0bb5f8595352d9e2ddb54eb6723e398ff4c31
+  subject: YTL
+  session: 1
+  length_bin: W01_04
+  status: PASS
+  train_rows: 5
+  edge_float64_hex: -0x1.4ddcfd0000000p+1
+  train_low_rows: 3
+  train_high_rows: 2
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_e1e1abc8593ad23c29b09de3d2eb848e0bd1232da5115e545d0900608e76881b
+  subject: YTL
+  session: 1
+  length_bin: W05_16
+  status: PASS
+  train_rows: 111
+  edge_float64_hex: -0x1.4e49af0000000p+1
+  train_low_rows: 56
+  train_high_rows: 55
+  train_tie_rows: 1
+- power_edge_cell_id: n1pc_v1_993ba2e87dde8c5752587646ad84d1350a843c17f770c82ebfa41aa043e461c2
+  subject: YTL
+  session: 1
+  length_bin: W17_PLUS
+  status: PASS
+  train_rows: 46
+  edge_float64_hex: -0x1.50f0ea0000000p+1
+  train_low_rows: 23
+  train_high_rows: 23
+  train_tie_rows: 0
+coverage:
+  overall:
+    population_rows: 3541
+    eligible_rows: 3497
+    evaluable_rows: 3481
+    eligible_conditional_coverage: 0.9954246496997426
+    population_coverage: 0.9830556340016945
+  by_role:
+  - role: inner_val
+    population_rows: 709
+    eligible_rows: 700
+    evaluable_rows: 687
+    eligible_conditional_coverage: 0.9814285714285714
+    population_coverage: 0.9689703808180536
+  - role: train_fit
+    population_rows: 2832
+    eligible_rows: 2797
+    evaluable_rows: 2794
+    eligible_conditional_coverage: 0.9989274222381123
+    population_coverage: 0.9865819209039548
+  by_subject_role:
+  - subject: YAC
+    role: inner_val
+    population_rows: 30
+    eligible_rows: 30
+    evaluable_rows: 29
+    eligible_conditional_coverage: 0.9666666666666667
+    population_coverage: 0.9666666666666667
+  - subject: YAC
+    role: train_fit
+    population_rows: 118
+    eligible_rows: 118
+    evaluable_rows: 118
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YAG
+    role: inner_val
+    population_rows: 42
+    eligible_rows: 42
+    evaluable_rows: 41
+    eligible_conditional_coverage: 0.9761904761904762
+    population_coverage: 0.9761904761904762
+  - subject: YAG
+    role: train_fit
+    population_rows: 167
+    eligible_rows: 167
+    evaluable_rows: 167
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YAK
+    role: inner_val
+    population_rows: 36
+    eligible_rows: 29
+    evaluable_rows: 28
+    eligible_conditional_coverage: 0.9655172413793104
+    population_coverage: 0.7777777777777778
+  - subject: YAK
+    role: train_fit
+    population_rows: 143
+    eligible_rows: 119
+    evaluable_rows: 118
+    eligible_conditional_coverage: 0.9915966386554622
+    population_coverage: 0.8251748251748252
+  - subject: YDG
+    role: inner_val
+    population_rows: 42
+    eligible_rows: 42
+    evaluable_rows: 41
+    eligible_conditional_coverage: 0.9761904761904762
+    population_coverage: 0.9761904761904762
+  - subject: YDG
+    role: train_fit
+    population_rows: 167
+    eligible_rows: 167
+    evaluable_rows: 167
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YDR
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 40
+    evaluable_rows: 39
+    eligible_conditional_coverage: 0.975
+    population_coverage: 0.9512195121951219
+  - subject: YDR
+    role: train_fit
+    population_rows: 166
+    eligible_rows: 159
+    evaluable_rows: 159
+    eligible_conditional_coverage: 1.0
+    population_coverage: 0.9578313253012049
+  - subject: YFR
+    role: inner_val
+    population_rows: 29
+    eligible_rows: 29
+    evaluable_rows: 29
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YFR
+    role: train_fit
+    population_rows: 117
+    eligible_rows: 117
+    evaluable_rows: 117
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YFS
+    role: inner_val
+    population_rows: 40
+    eligible_rows: 39
+    evaluable_rows: 38
+    eligible_conditional_coverage: 0.9743589743589743
+    population_coverage: 0.95
+  - subject: YFS
+    role: train_fit
+    population_rows: 161
+    eligible_rows: 160
+    evaluable_rows: 160
+    eligible_conditional_coverage: 1.0
+    population_coverage: 0.9937888198757764
+  - subject: YHS
+    role: inner_val
+    population_rows: 42
+    eligible_rows: 42
+    evaluable_rows: 42
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YHS
+    role: train_fit
+    population_rows: 167
+    eligible_rows: 165
+    evaluable_rows: 163
+    eligible_conditional_coverage: 0.9878787878787879
+    population_coverage: 0.9760479041916168
+  - subject: YIS
+    role: inner_val
+    population_rows: 42
+    eligible_rows: 42
+    evaluable_rows: 42
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YIS
+    role: train_fit
+    population_rows: 167
+    eligible_rows: 167
+    evaluable_rows: 167
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YLS
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 41
+    evaluable_rows: 40
+    eligible_conditional_coverage: 0.975609756097561
+    population_coverage: 0.975609756097561
+  - subject: YLS
+    role: train_fit
+    population_rows: 165
+    eligible_rows: 165
+    evaluable_rows: 165
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YMD
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 41
+    evaluable_rows: 41
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YMD
+    role: train_fit
+    population_rows: 164
+    eligible_rows: 164
+    evaluable_rows: 164
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YMS
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 41
+    evaluable_rows: 40
+    eligible_conditional_coverage: 0.975609756097561
+    population_coverage: 0.975609756097561
+  - subject: YMS
+    role: train_fit
+    population_rows: 166
+    eligible_rows: 166
+    evaluable_rows: 166
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YRH
+    role: inner_val
+    population_rows: 36
+    eligible_rows: 36
+    evaluable_rows: 35
+    eligible_conditional_coverage: 0.9722222222222222
+    population_coverage: 0.9722222222222222
+  - subject: YRH
+    role: train_fit
+    population_rows: 142
+    eligible_rows: 142
+    evaluable_rows: 142
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YRK
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 41
+    evaluable_rows: 40
+    eligible_conditional_coverage: 0.975609756097561
+    population_coverage: 0.975609756097561
+  - subject: YRK
+    role: train_fit
+    population_rows: 163
+    eligible_rows: 163
+    evaluable_rows: 163
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YRP
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 41
+    evaluable_rows: 40
+    eligible_conditional_coverage: 0.975609756097561
+    population_coverage: 0.975609756097561
+  - subject: YRP
+    role: train_fit
+    population_rows: 165
+    eligible_rows: 164
+    evaluable_rows: 164
+    eligible_conditional_coverage: 1.0
+    population_coverage: 0.9939393939393939
+  - subject: YSD
+    role: inner_val
+    population_rows: 42
+    eligible_rows: 42
+    evaluable_rows: 41
+    eligible_conditional_coverage: 0.9761904761904762
+    population_coverage: 0.9761904761904762
+  - subject: YSD
+    role: train_fit
+    population_rows: 167
+    eligible_rows: 167
+    evaluable_rows: 167
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YSL
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 41
+    evaluable_rows: 40
+    eligible_conditional_coverage: 0.975609756097561
+    population_coverage: 0.975609756097561
+  - subject: YSL
+    role: train_fit
+    population_rows: 165
+    eligible_rows: 165
+    evaluable_rows: 165
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YTL
+    role: inner_val
+    population_rows: 41
+    eligible_rows: 41
+    evaluable_rows: 41
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  - subject: YTL
+    role: train_fit
+    population_rows: 162
+    eligible_rows: 162
+    evaluable_rows: 162
+    eligible_conditional_coverage: 1.0
+    population_coverage: 1.0
+  by_length_power:
+  - length_bin: W01_04
+    power_bin: P_HIGH
+    rows: 319
+    evaluable_rows: 316
+  - length_bin: W01_04
+    power_bin: P_LOW
+    rows: 345
+    evaluable_rows: 343
+  - length_bin: W05_16
+    power_bin: P_HIGH
+    rows: 1166
+    evaluable_rows: 1166
+  - length_bin: W05_16
+    power_bin: P_LOW
+    rows: 1160
+    evaluable_rows: 1160
+  - length_bin: W17_PLUS
+    power_bin: P_HIGH
+    rows: 247
+    evaluable_rows: 243
+  - length_bin: W17_PLUS
+    power_bin: P_LOW
+    rows: 256
+    evaluable_rows: 253
+  exclusion_reason_counts:
+    N1_NOT_EVALUABLE_POWER_EDGE_UNAVAILABLE: 4
+    N1_NOT_EVALUABLE_SHORT_FORCED_L0: 44
+    N1_NOT_EVALUABLE_SINGLETON: 12
+  minimum_subject_role_population_coverage: 0.7777777777777778
+block_size_distribution:
+  blocks: 192
+  evaluable_blocks: 180
+  singleton_blocks: 12
+  singleton_rows: 12
+  size_counts:
+    '1': 12
+    '2': 10
+    '3': 14
+    '4': 9
+    '5': 5
+    '6': 11
+    '7': 10
+    '8': 6
+    '9': 6
+    '10': 8
+    '11': 4
+    '12': 3
+    '13': 6
+    '14': 7
+    '15': 4
+    '16': 8
+    '17': 5
+    '18': 4
+    '19': 4
+    '20': 1
+    '21': 1
+    '22': 7
+    '23': 3
+    '27': 1
+    '28': 1
+    '34': 2
+    '35': 1
+    '36': 3
+    '37': 4
+    '42': 2
+    '43': 2
+    '44': 2
+    '45': 1
+    '46': 2
+    '47': 1
+    '48': 1
+    '49': 1
+    '52': 2
+    '53': 2
+    '54': 2
+    '55': 5
+    '56': 1
+    '59': 1
+    '60': 2
+    '61': 1
+    '63': 1
+    '64': 1
+    '65': 2
+  minimum: 1
+  median: 12.0
+  maximum: 65
+permutation_probe:
+  replicates:
+  - replicate_id: 1
+    joint_mapping_sha256: e7763a5f67654cbcaa82691a658c2bc7a2b71c0e964224c91ebad465c7536776
+    evaluable_rows: 3481
+    fixed_points: 165
+  - replicate_id: 2
+    joint_mapping_sha256: f727249740e8f8c0afedc7e69f476838bf91a1f9b175697320834c9d942b9746
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 3
+    joint_mapping_sha256: 4ef39df6a1111e9fde8315e7971797d9d2c80a36251dfa314ad85d2c25839355
+    evaluable_rows: 3481
+    fixed_points: 165
+  - replicate_id: 4
+    joint_mapping_sha256: f31571f388d6bcdb535a008bcbf788a94b551a7490c804d89d0e091fe6d8ae5e
+    evaluable_rows: 3481
+    fixed_points: 156
+  - replicate_id: 5
+    joint_mapping_sha256: 71931bf9253f29dfdc055ea744e7259a55368a26c4893b3ef147b3225cd84a47
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 6
+    joint_mapping_sha256: 9cd30f4d1b63c20c2a0737f98b7ce5e21e28db509d47350e23044fa901281def
+    evaluable_rows: 3481
+    fixed_points: 198
+  - replicate_id: 7
+    joint_mapping_sha256: 28380eeca31fa9434b18afba1ab56f40d54a25acedb40ae2826fffd40584a226
+    evaluable_rows: 3481
+    fixed_points: 168
+  - replicate_id: 8
+    joint_mapping_sha256: 4d1b12ccdcdd0685d5705679dc456896b6d7bba7137d23d99e25a30afd13bb8e
+    evaluable_rows: 3481
+    fixed_points: 166
+  - replicate_id: 9
+    joint_mapping_sha256: c4bbb22b44298d83c8aa6d5407dd9e55b40ecd89e02952bea82f61d04df087d7
+    evaluable_rows: 3481
+    fixed_points: 200
+  - replicate_id: 10
+    joint_mapping_sha256: 0cf7a567f646bd6c79750df14e386c09463c3447c9636a5a26a97f016907e0e5
+    evaluable_rows: 3481
+    fixed_points: 175
+  - replicate_id: 11
+    joint_mapping_sha256: 588d4c45338050528f19f66a6ca07ba0cfa01550819456dd8a467f572e3627c5
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 12
+    joint_mapping_sha256: 886c1f958b5c152ad461ad104c632f70527e3dbddc837d0bc87c38546a0c26b7
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 13
+    joint_mapping_sha256: f3f6f9bf8cda3edac452fcde1d7622392773ab78aa9b98cbc3f73928e4344678
+    evaluable_rows: 3481
+    fixed_points: 145
+  - replicate_id: 14
+    joint_mapping_sha256: 932f6f2d53ba137d70523573d164b48c60fea36b767d35049c55e3d17f5a2216
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 15
+    joint_mapping_sha256: 5f2f5b4f7bd64988b1d8ec97cf86d0bf160aad765cbe36ac37e84d2a3328e7aa
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 16
+    joint_mapping_sha256: c7b3def3fe6cafc18a57b09242cc3738b3c3532d437fb94a439e311456d990df
+    evaluable_rows: 3481
+    fixed_points: 210
+  - replicate_id: 17
+    joint_mapping_sha256: a0e519e9d74a6e1bc809b9b3c38577c6cd2dc8d26187a665c3ccd7bd4ee32c01
+    evaluable_rows: 3481
+    fixed_points: 186
+  - replicate_id: 18
+    joint_mapping_sha256: cdb4618db4de20c404c6bc2b0b395845a79c724a3bf24b4016f7cb181bac28d9
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 19
+    joint_mapping_sha256: 0735037ecb00bdeb7c1e3aec204a4460f6f8353dda614bc3ad033f1d9227abec
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 20
+    joint_mapping_sha256: c9d41b9ab53508fbe2086c1a995cf5e1f9c3741d69c82baea893810f1531e0fc
+    evaluable_rows: 3481
+    fixed_points: 201
+  - replicate_id: 21
+    joint_mapping_sha256: 957d9cf62ba0e6d4be9e63d59053a2e901aefc83159d7085e9463b8414af1775
+    evaluable_rows: 3481
+    fixed_points: 173
+  - replicate_id: 22
+    joint_mapping_sha256: 78fe69461da55eef1551ad1fe27c9fa2e5d3c303497c9a2e9e5012e90561b8f6
+    evaluable_rows: 3481
+    fixed_points: 161
+  - replicate_id: 23
+    joint_mapping_sha256: d931aeb3d62eb91d5affbea407fbe32c86fbf187ed42e3666952bcd6a438a962
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 24
+    joint_mapping_sha256: e39993af2244adb895c02bc397c217f57d21b5ed2f90b89decbf238ffe3b463c
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 25
+    joint_mapping_sha256: 2ab010e868c7622fa1f31c66ad476ab40de6095bf1cb4aedb02de832f8dbc57b
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 26
+    joint_mapping_sha256: 67512a11296897e0c1c54dd90617a7f0e41760a8da752d9b71b655146e601db9
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 27
+    joint_mapping_sha256: be7ddab60eecd27acf9c25c7728a6ab45495aad0a44d7236b561e1d8cc1e3629
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 28
+    joint_mapping_sha256: 54522c2851cac1a27fef7e4e7b24504fa284700731741fed7e00fb2a5b6e5cbe
+    evaluable_rows: 3481
+    fixed_points: 214
+  - replicate_id: 29
+    joint_mapping_sha256: 28f94842f9aa007bf9b54c39ee1658f983de7611320c98cb49267957dc7e2829
+    evaluable_rows: 3481
+    fixed_points: 211
+  - replicate_id: 30
+    joint_mapping_sha256: 203c33c700670c58beda1f0d90373bd5e61b5c4e048da0da8ed66d8db1b3bd52
+    evaluable_rows: 3481
+    fixed_points: 171
+  - replicate_id: 31
+    joint_mapping_sha256: f579c7f58cf687c40648ea72d848bfa707aef5c7278b02e4488506f1fa8e7367
+    evaluable_rows: 3481
+    fixed_points: 197
+  - replicate_id: 32
+    joint_mapping_sha256: eb6335ca5322e4a92791cb1a344eefc08f3cc238513387df38c974506392f427
+    evaluable_rows: 3481
+    fixed_points: 164
+  - replicate_id: 33
+    joint_mapping_sha256: 49c233cc8a71bfac0265e082c236407e80a4b526143e0d95b84d6d1abb9ff414
+    evaluable_rows: 3481
+    fixed_points: 200
+  - replicate_id: 34
+    joint_mapping_sha256: 71618e198de51f8662d8a2656a43780fb44764eefd1aa65951e62e1c1e73ee41
+    evaluable_rows: 3481
+    fixed_points: 172
+  - replicate_id: 35
+    joint_mapping_sha256: aa448edd3b3cd6bd86a917032e5e8347b9510cc9c65051fd73528b859446bec2
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 36
+    joint_mapping_sha256: 102badb151220ddbf636418f27936d99d770ce9557dbb78cacddb3e704c74a1e
+    evaluable_rows: 3481
+    fixed_points: 159
+  - replicate_id: 37
+    joint_mapping_sha256: 7ad7a962f8b1b30039a38c82ec028e0a4bfd7cc76618a7f4f99f8dcbfb063411
+    evaluable_rows: 3481
+    fixed_points: 189
+  - replicate_id: 38
+    joint_mapping_sha256: a7251fcdfbb0eb62c9e316446e1bdbc5a48daf1b583247139a166c31b34d2ec6
+    evaluable_rows: 3481
+    fixed_points: 177
+  - replicate_id: 39
+    joint_mapping_sha256: 4e9e322a78ccb4e18b7cccf38b4e6d80a18f95a9a499def9d129e550d0a343ff
+    evaluable_rows: 3481
+    fixed_points: 191
+  - replicate_id: 40
+    joint_mapping_sha256: 5869b9f0c2bf815b8db397b0a27ce445afe24e43c599de2f8f75b19faf21800c
+    evaluable_rows: 3481
+    fixed_points: 182
+  - replicate_id: 41
+    joint_mapping_sha256: d95435622c8d25e2d78e564a29a22a16da9fbbc644f8391d654091cbbf34f1ad
+    evaluable_rows: 3481
+    fixed_points: 177
+  - replicate_id: 42
+    joint_mapping_sha256: 53b4e2ac9d24405d7bd9f2469351569fe6004897d99173772b63d347bd59b7ec
+    evaluable_rows: 3481
+    fixed_points: 175
+  - replicate_id: 43
+    joint_mapping_sha256: 0bf3d52aa6cf5c0992df55b6f753f968629a01d5c11b75a39ed3a68999511e72
+    evaluable_rows: 3481
+    fixed_points: 195
+  - replicate_id: 44
+    joint_mapping_sha256: e947b9f0e35dee69fb56a8aa02d89b7bae3d51a39e609d4c7fa29c978bff8827
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 45
+    joint_mapping_sha256: a19c2abf8075ff4b69b817798be455f2b71e868a912a9fee573f72a773e8a3de
+    evaluable_rows: 3481
+    fixed_points: 186
+  - replicate_id: 46
+    joint_mapping_sha256: 005b48e9c26a296ab64821ef8f34f708d115c7237412deeff53e1e03f5cb8b0e
+    evaluable_rows: 3481
+    fixed_points: 194
+  - replicate_id: 47
+    joint_mapping_sha256: bc072196751cb43e4b4a46d03b189c79110ed61a0e3e03689a44f82c4ea0283a
+    evaluable_rows: 3481
+    fixed_points: 198
+  - replicate_id: 48
+    joint_mapping_sha256: d00a191c4e9bb4bb73e78390aeac9f3b0e14db6e4afd555b28d56ff8f8914fee
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 49
+    joint_mapping_sha256: 388de587bffe4b1b9ddd3a5b1cd671b39b78cf23c5cc06874904a9dcf6024c30
+    evaluable_rows: 3481
+    fixed_points: 155
+  - replicate_id: 50
+    joint_mapping_sha256: b9008fbd184d2e0b6905365592680f83dd6395dbaf61939932635feac272ab0d
+    evaluable_rows: 3481
+    fixed_points: 190
+  - replicate_id: 51
+    joint_mapping_sha256: c5c20d805648afca0b750dc5831a8952524e35d74bc98f8ab544cce683fe0631
+    evaluable_rows: 3481
+    fixed_points: 155
+  - replicate_id: 52
+    joint_mapping_sha256: 85de21c58e08e812f396f856564903901089b4b6f4c09e71027431824d801341
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 53
+    joint_mapping_sha256: 3c32eec9350e26312c9f8b25f44bc4f396ac5e6483488641094a8ef9b4970f59
+    evaluable_rows: 3481
+    fixed_points: 172
+  - replicate_id: 54
+    joint_mapping_sha256: 1f61db95ffb4a8166cd22235cc06e0a84f908ca3f5b01f26c4781eb6ae258297
+    evaluable_rows: 3481
+    fixed_points: 164
+  - replicate_id: 55
+    joint_mapping_sha256: f85ddf148e8fc594238fc051e4c1b759613933bf04af903d3fe9c7662307e20e
+    evaluable_rows: 3481
+    fixed_points: 187
+  - replicate_id: 56
+    joint_mapping_sha256: 3b9f984fc81a7595a041c917f6467d6e2d1629debcf2d1a453bf7eded90cdb6c
+    evaluable_rows: 3481
+    fixed_points: 176
+  - replicate_id: 57
+    joint_mapping_sha256: 715838ef3f3eddbf2ef48c742eeaa831f4b7fd0d08a497990ec8ce8e5d5578ee
+    evaluable_rows: 3481
+    fixed_points: 193
+  - replicate_id: 58
+    joint_mapping_sha256: 4ab9eb657190c6acec1b65265a547815a6e6bd003b3ab4d6ef3f164867048de1
+    evaluable_rows: 3481
+    fixed_points: 173
+  - replicate_id: 59
+    joint_mapping_sha256: 13ee25430f217eb059360dca76e866f0a1edf27cdfc33e38a7b7ed660140d0d3
+    evaluable_rows: 3481
+    fixed_points: 187
+  - replicate_id: 60
+    joint_mapping_sha256: 957c463ebb6e6a99752f491a6a674ea6fb2afab74b8dc833d7f4af7037ae2462
+    evaluable_rows: 3481
+    fixed_points: 174
+  - replicate_id: 61
+    joint_mapping_sha256: 48c5ca2135412aaa4a3e663088efd63d597c124e50ad3cfc7c3dae3af4b79884
+    evaluable_rows: 3481
+    fixed_points: 198
+  - replicate_id: 62
+    joint_mapping_sha256: c81970f8ac14412388673a5ac7fac39553ddf260910eed6aba0e61603c594033
+    evaluable_rows: 3481
+    fixed_points: 182
+  - replicate_id: 63
+    joint_mapping_sha256: 5bf7f16867d1739d1a419f5fd665565af41fc5bd0b46404d769306c21c3d8f7c
+    evaluable_rows: 3481
+    fixed_points: 173
+  - replicate_id: 64
+    joint_mapping_sha256: c0c77631c1ec6c2c4b7f674e932a5844499fd25584f630bcc2450e896acc5700
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 65
+    joint_mapping_sha256: 58093e513200e4c4e7a31358b963c0a686dbbd641e116e0637cefd38ebc77d0a
+    evaluable_rows: 3481
+    fixed_points: 148
+  - replicate_id: 66
+    joint_mapping_sha256: c7dc5929a0d1eb3b2adb18ccb2329e143a321638a71911425fee65fc11e4b6b8
+    evaluable_rows: 3481
+    fixed_points: 193
+  - replicate_id: 67
+    joint_mapping_sha256: 2a2be5c60da9a46ff46d0caf55785bddb6eb5c7eb7f2c15844452a733109c983
+    evaluable_rows: 3481
+    fixed_points: 189
+  - replicate_id: 68
+    joint_mapping_sha256: 9ec1a386c934412b3e7aae55598f928ca9965b978ae6ae29117ceca7a25563fb
+    evaluable_rows: 3481
+    fixed_points: 169
+  - replicate_id: 69
+    joint_mapping_sha256: 3054dd1cc230b06bb14a02b41330ba191406d3a4a6019aa5549d1c2fd68395b5
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 70
+    joint_mapping_sha256: 39d55b4f9bbe9e53fc7ddc9774142ab78cc66ba30c97d899522f1099a72c155f
+    evaluable_rows: 3481
+    fixed_points: 159
+  - replicate_id: 71
+    joint_mapping_sha256: eaceb9589b0268827841ff6b2118b2d94425e87395f2add71a719e04bde5bdae
+    evaluable_rows: 3481
+    fixed_points: 174
+  - replicate_id: 72
+    joint_mapping_sha256: 6a03bc21d6fcc7f383c47dc1c379f4334fc5566d2d5e9ec9bc7111f78169c3c3
+    evaluable_rows: 3481
+    fixed_points: 195
+  - replicate_id: 73
+    joint_mapping_sha256: e93236efd3756f2be465c40b27c77840a6815cccd07ef4ca3ade9e8ceb873025
+    evaluable_rows: 3481
+    fixed_points: 187
+  - replicate_id: 74
+    joint_mapping_sha256: befdc723303c80fede69f7942c97dcba1a0ef63f839b2684f212d53c1f3f2b5b
+    evaluable_rows: 3481
+    fixed_points: 186
+  - replicate_id: 75
+    joint_mapping_sha256: 4e11b14ec464ced064bcf99f8366d6da37fc9b4a586bf735a62ab76f3fac1c3d
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 76
+    joint_mapping_sha256: 5c3abbdce618e937c6bb4a50e640f33f50aff1025964be6c7b0fba687486cdaf
+    evaluable_rows: 3481
+    fixed_points: 195
+  - replicate_id: 77
+    joint_mapping_sha256: d026b4a0680b6577957fc519e87f2e91e5d7924246425993dfebbee04b1f5616
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 78
+    joint_mapping_sha256: 62287f6254e638c7a67603074a62f14779826d953c632987301af5b00cd54246
+    evaluable_rows: 3481
+    fixed_points: 172
+  - replicate_id: 79
+    joint_mapping_sha256: afb2592e99ab54b3f03f039295d829022786f61be0027bf1bd3b110eea9921db
+    evaluable_rows: 3481
+    fixed_points: 168
+  - replicate_id: 80
+    joint_mapping_sha256: 435eba045d28731949dbdb1eb6435f3a53434b8938828131d2242774d186bbde
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 81
+    joint_mapping_sha256: 5b5334a9e553a27b6a66a60ffc403e5f547ee3fec1dbfa8230a27f44e78ec6be
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 82
+    joint_mapping_sha256: 2952b4a1b167e0a11d3a44293af2f2a1bae45abcdbc0fd66f95a900bc5231150
+    evaluable_rows: 3481
+    fixed_points: 181
+  - replicate_id: 83
+    joint_mapping_sha256: 59110927528ba856818e0d89a9307d057149c042a454f30fabf07a46f8534212
+    evaluable_rows: 3481
+    fixed_points: 167
+  - replicate_id: 84
+    joint_mapping_sha256: d813476bf1bcec7430b82e5d1f569145fab8a83d27f21b7ddd790928cb204231
+    evaluable_rows: 3481
+    fixed_points: 194
+  - replicate_id: 85
+    joint_mapping_sha256: dab1d88ac502726fc7a0f00f4630e7f61bba6536854d6f9a25c7c3ed836d54f3
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 86
+    joint_mapping_sha256: a62076099e70128239a211b3f68a001b709be7cb393eb493721e4aa99d67c79f
+    evaluable_rows: 3481
+    fixed_points: 186
+  - replicate_id: 87
+    joint_mapping_sha256: 4cec92045c814f9e048c7ad382e1ebad14bc4e95a2c5ab619f1690fba5c09c9e
+    evaluable_rows: 3481
+    fixed_points: 199
+  - replicate_id: 88
+    joint_mapping_sha256: 8a494d1a2c30e1517a43522e56b2a0432752b789f70e9a23e890f44bfc845107
+    evaluable_rows: 3481
+    fixed_points: 157
+  - replicate_id: 89
+    joint_mapping_sha256: 01356d073c4c1c3ed52f39f47237353ecc313b1ebcfc60f5910b6e52103fa048
+    evaluable_rows: 3481
+    fixed_points: 201
+  - replicate_id: 90
+    joint_mapping_sha256: fb62541da92715f09f104eee219e228986cad43f29c7955522d717ecaa331c98
+    evaluable_rows: 3481
+    fixed_points: 164
+  - replicate_id: 91
+    joint_mapping_sha256: f5163d6a72082435f585b303240aac5bcbf997c56d4c89505f5104a2b35aa780
+    evaluable_rows: 3481
+    fixed_points: 176
+  - replicate_id: 92
+    joint_mapping_sha256: 600ed30516345f5ea0fe934caaf15e9c3705eed01425083c9fb5b8ff4dd815e0
+    evaluable_rows: 3481
+    fixed_points: 200
+  - replicate_id: 93
+    joint_mapping_sha256: aaafd575619dd9c2bf1c0c99597213ab171500f6d7708c40d55bb85fb32c8077
+    evaluable_rows: 3481
+    fixed_points: 185
+  - replicate_id: 94
+    joint_mapping_sha256: b9470a3ec3ba2d85d70becdcef5e3af2f97ebb3d186258add416fc6f78695850
+    evaluable_rows: 3481
+    fixed_points: 149
+  - replicate_id: 95
+    joint_mapping_sha256: 5336a3f7d226d641a585bcb662901011865f287a0b1bb900756e5df3f5f80344
+    evaluable_rows: 3481
+    fixed_points: 185
+  - replicate_id: 96
+    joint_mapping_sha256: 45f52b382abf9a7bd884483efbebb6c311d5416c6bb84cd41df94beae08ee7d7
+    evaluable_rows: 3481
+    fixed_points: 172
+  - replicate_id: 97
+    joint_mapping_sha256: d732a9e2cffc086125c2716d894ca59b1ffa55e3da29a322fed5c20ad08a033a
+    evaluable_rows: 3481
+    fixed_points: 167
+  - replicate_id: 98
+    joint_mapping_sha256: 6c4d947d951a30f48c3eaac7bad0a94dae8a3894faaaad3b5ab75c491dbfeeaa
+    evaluable_rows: 3481
+    fixed_points: 186
+  - replicate_id: 99
+    joint_mapping_sha256: 714bcf1eea7bcdf4ea3fd3a893b40e46074d6bf0a8fdeaa864324e29ee5957e2
+    evaluable_rows: 3481
+    fixed_points: 171
+  - replicate_id: 100
+    joint_mapping_sha256: 11060e22822626a6e8440f56c781dcb8c100d44970d86d64553bb89bd86ff38c
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 101
+    joint_mapping_sha256: 55da285b2a25465ddc1bc0ae5f0b1a96944af48f5208f1132d8cea5f7b84c331
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 102
+    joint_mapping_sha256: 0fc342c139ff29e8a90939cb371af08865bc38fff720e21ca6ca1053eb3c40ca
+    evaluable_rows: 3481
+    fixed_points: 194
+  - replicate_id: 103
+    joint_mapping_sha256: 835436772dcec55613576526f1ae1dbe76cedf7b33578f81f07e142fa5346cf7
+    evaluable_rows: 3481
+    fixed_points: 198
+  - replicate_id: 104
+    joint_mapping_sha256: d62fa788dc65de795172262dcb28ce68d0cfb78cfa52f91d3f10fe05365ce224
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 105
+    joint_mapping_sha256: cdb6ed71ff1423f545251c5b271bc940d7766a1040f24e1add63c7f01ac42992
+    evaluable_rows: 3481
+    fixed_points: 171
+  - replicate_id: 106
+    joint_mapping_sha256: 932eb854774fffb8fb20718b6badbfdb9ca6d58d2761d4ac0913d2ce682c893e
+    evaluable_rows: 3481
+    fixed_points: 200
+  - replicate_id: 107
+    joint_mapping_sha256: b7dfb544e411aea88b0c95f2e09acc281652654770692a2f51e3a75b52594310
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 108
+    joint_mapping_sha256: 911d06b563e57b5a854f84f57bb550c1ef91174a5347be8f21e5c551ed43a1a7
+    evaluable_rows: 3481
+    fixed_points: 148
+  - replicate_id: 109
+    joint_mapping_sha256: 06633bcecbcabc55cc3357d815e27cf4d8ab75378455bcc8fde44412e6a86191
+    evaluable_rows: 3481
+    fixed_points: 187
+  - replicate_id: 110
+    joint_mapping_sha256: f8b01a65eb9f281db046a05b1c9de2c354d124252d8a152bd2b29f0f4398fdf3
+    evaluable_rows: 3481
+    fixed_points: 165
+  - replicate_id: 111
+    joint_mapping_sha256: eba5825487e2faa4d222974fc323c2a3ef4e553f858614821cf2a8c0553a4ec3
+    evaluable_rows: 3481
+    fixed_points: 179
+  - replicate_id: 112
+    joint_mapping_sha256: c6fe9dbca48ff6e8431cd1b3c9cfe9ddd0fd1d99428c6051c09de84dd6fdbff3
+    evaluable_rows: 3481
+    fixed_points: 174
+  - replicate_id: 113
+    joint_mapping_sha256: 4b9441d4f89a7a09323f28e9c7a5080a016922f349ecd538f48c8497ab3cb0ed
+    evaluable_rows: 3481
+    fixed_points: 181
+  - replicate_id: 114
+    joint_mapping_sha256: c99936f26f07c05d6a60f7781b31e1ebb1a29d2b97bd1a3b88c066e718f9de37
+    evaluable_rows: 3481
+    fixed_points: 176
+  - replicate_id: 115
+    joint_mapping_sha256: 86fbf0d0ac52829ed26c88ccfe5a6340d13e76f1d4ae0f3de9c54526d473a49f
+    evaluable_rows: 3481
+    fixed_points: 155
+  - replicate_id: 116
+    joint_mapping_sha256: aecec074683ba09d7fccf962548f33beff209c675f48f88e651225a3cd773669
+    evaluable_rows: 3481
+    fixed_points: 171
+  - replicate_id: 117
+    joint_mapping_sha256: b39f83fec055e33fef5189508760e4855a24761b00e7a3d41dd0fac21d53e4be
+    evaluable_rows: 3481
+    fixed_points: 161
+  - replicate_id: 118
+    joint_mapping_sha256: 26cfc897c0c0aa3e84df12d50d8abf5324ca4abbbb0972cb634540fde3659a9b
+    evaluable_rows: 3481
+    fixed_points: 173
+  - replicate_id: 119
+    joint_mapping_sha256: 6a9567f952ead849a7195f11d0dcb884699a996dc33869158604bb79a2a2d7e3
+    evaluable_rows: 3481
+    fixed_points: 189
+  - replicate_id: 120
+    joint_mapping_sha256: c891ea1031566341998d077ad6879fd57c652dc056808c685ffbaadfd6d28fbf
+    evaluable_rows: 3481
+    fixed_points: 165
+  - replicate_id: 121
+    joint_mapping_sha256: ed5e7c5f70272030491f15477aaf73f14cfe4cf7b823c1163afe2a6266e18371
+    evaluable_rows: 3481
+    fixed_points: 187
+  - replicate_id: 122
+    joint_mapping_sha256: cfdb42f6d34758a09ee4adabf24379ef093e9a53fdb04e1bbc849d7579526997
+    evaluable_rows: 3481
+    fixed_points: 204
+  - replicate_id: 123
+    joint_mapping_sha256: a904c345f6c56048ac071ac2decfc5c2dbbcb032cdc2bb674fdf446840c8483d
+    evaluable_rows: 3481
+    fixed_points: 195
+  - replicate_id: 124
+    joint_mapping_sha256: 90b0d30af749e78b943b5db5d22b9938cec4551215bf97e4fd895b895a6d7d4b
+    evaluable_rows: 3481
+    fixed_points: 190
+  - replicate_id: 125
+    joint_mapping_sha256: f47b27b9e4c95009ec9731d48be3c56b1e5c47a74e454f18fa815081912b7cc5
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 126
+    joint_mapping_sha256: 1a8f72ee1ed4c35abe34bd7e0e9478cdce5971e2e9e32a3d87a02eeb63499e51
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 127
+    joint_mapping_sha256: 2a1b3964953d93370b860ddebdacf29925235ee44efbc11eb8e652be01c3dc20
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 128
+    joint_mapping_sha256: db425d0a61027d32f532c04c101eddd3eb99e364744a2487ccccd074401976e4
+    evaluable_rows: 3481
+    fixed_points: 175
+  - replicate_id: 129
+    joint_mapping_sha256: a33ca948ae4bd30542914eca000a80d103e7e6b89b90eef281cc7b8db6ff08b4
+    evaluable_rows: 3481
+    fixed_points: 203
+  - replicate_id: 130
+    joint_mapping_sha256: 9105e5f5fd57a651cddc412eec80b77482dc87009c9c26b49a604909baaff10e
+    evaluable_rows: 3481
+    fixed_points: 161
+  - replicate_id: 131
+    joint_mapping_sha256: fca6d4d4e16b5b2ddf98dff7bfcc38b52e6f57f629bbb00284b497f85bb2904b
+    evaluable_rows: 3481
+    fixed_points: 175
+  - replicate_id: 132
+    joint_mapping_sha256: 00c372ea8a3f8dd59f046098b417b662c64b9051e01da1dab28d1723b3cb3364
+    evaluable_rows: 3481
+    fixed_points: 177
+  - replicate_id: 133
+    joint_mapping_sha256: 974bc1faff45906e40e8a02b8499d82ec32f91e3220d94b589ea9dd05ea9ce7a
+    evaluable_rows: 3481
+    fixed_points: 165
+  - replicate_id: 134
+    joint_mapping_sha256: d2cd90241bff6be9bca165450a11be9b6189497d1cf38779f3c9441847740965
+    evaluable_rows: 3481
+    fixed_points: 177
+  - replicate_id: 135
+    joint_mapping_sha256: 2801c2b29fa012e54aa5237ed7714827a9a7c4f03044c80cb340b2c728db28a0
+    evaluable_rows: 3481
+    fixed_points: 164
+  - replicate_id: 136
+    joint_mapping_sha256: 91f9462af26b0a011ad765391d55302d83695b22f416928c83f40654aecbfc08
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 137
+    joint_mapping_sha256: b0b24d9d61634ada6b96b29d4077770e22b98789cab51b7bc2b715e8f2b653c2
+    evaluable_rows: 3481
+    fixed_points: 172
+  - replicate_id: 138
+    joint_mapping_sha256: 3d4de4ff1c4692462fd2756e8df2a57f99086480ffef289b2e449a68e9b480e7
+    evaluable_rows: 3481
+    fixed_points: 154
+  - replicate_id: 139
+    joint_mapping_sha256: 95640cb1be4b503ad13316db77a7a7525aa1145289fabb0d399db946acbfb961
+    evaluable_rows: 3481
+    fixed_points: 175
+  - replicate_id: 140
+    joint_mapping_sha256: 0ce14924f4198aec91326bc62c96c2a603d11bd239fefdca2d10aab6c7d91268
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 141
+    joint_mapping_sha256: 5b3c7e696d7e6b54fd40e1b610fb8ad8454f5d95292ee7aff193caf498419e8a
+    evaluable_rows: 3481
+    fixed_points: 207
+  - replicate_id: 142
+    joint_mapping_sha256: 31f493426042b73cfbd215947b3f6e5fef2adaa33d883a0e1aef6d7c5edb4fcf
+    evaluable_rows: 3481
+    fixed_points: 177
+  - replicate_id: 143
+    joint_mapping_sha256: 2efb0521eead7d3e8c23d7429d8f2c1a1c4ce47a555931e0e24ea35440623af4
+    evaluable_rows: 3481
+    fixed_points: 169
+  - replicate_id: 144
+    joint_mapping_sha256: 0ac69bd04c6b7e8203729bb656da6a15a5a1ff6021da0889b30e5b1a715abb9a
+    evaluable_rows: 3481
+    fixed_points: 171
+  - replicate_id: 145
+    joint_mapping_sha256: bfb7014ab8558d096b41abe1ab6a9e7f173e9e1a544406641bcc1682995f6b2f
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 146
+    joint_mapping_sha256: 3e848d46bdc6fffb5b0a00aa13576c1d2df6b0f3f53db235725c4cca775c5ddc
+    evaluable_rows: 3481
+    fixed_points: 162
+  - replicate_id: 147
+    joint_mapping_sha256: 67cdf5463dc9376f2b7258468e7cd4af2d548dbf0554b3e03b3f7d02f6fb9c76
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 148
+    joint_mapping_sha256: eba362a3715dfe6b0ef77e8a71a09ad26da19f5e866eeaa542f16338333047d8
+    evaluable_rows: 3481
+    fixed_points: 160
+  - replicate_id: 149
+    joint_mapping_sha256: afa05598e05d927da6ad219d8db284132000dc04e4d119f9d2c1740b3c1e60f6
+    evaluable_rows: 3481
+    fixed_points: 174
+  - replicate_id: 150
+    joint_mapping_sha256: be015bf032161c75b9fbe9d1c2deafaa3349755eae29ddbb6606cefceab16e44
+    evaluable_rows: 3481
+    fixed_points: 165
+  - replicate_id: 151
+    joint_mapping_sha256: dba992cdb8e155bfd958402d7bb520a2a2881d91f043a7db356d73fe510c8597
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 152
+    joint_mapping_sha256: 895cb79e286a833e50ec545cc3670cfc3d11fc7e99c495543ac86dc300e0202c
+    evaluable_rows: 3481
+    fixed_points: 169
+  - replicate_id: 153
+    joint_mapping_sha256: 3c6640fa0c9bd4979ba835101407d01969b54dec5d9ae26959eb01bb834bbc91
+    evaluable_rows: 3481
+    fixed_points: 172
+  - replicate_id: 154
+    joint_mapping_sha256: 536bfc116fbd2a234c79d8ea0970509bd349a375a39ff5c5effb63a0bc4ffb47
+    evaluable_rows: 3481
+    fixed_points: 169
+  - replicate_id: 155
+    joint_mapping_sha256: 997de40d65884a2f26fbba7144195b24c24829bc922b4cf6357d7d0dfa21fcf7
+    evaluable_rows: 3481
+    fixed_points: 163
+  - replicate_id: 156
+    joint_mapping_sha256: 45c203464c49ca2db3bdbacfa0446baf11b6db710317352c460a0e08709530da
+    evaluable_rows: 3481
+    fixed_points: 189
+  - replicate_id: 157
+    joint_mapping_sha256: 60bfd89e7bdeb486c5f90a0f3e1b0be2308e1a44dba82c8a89ed086213e0fa4f
+    evaluable_rows: 3481
+    fixed_points: 190
+  - replicate_id: 158
+    joint_mapping_sha256: 508c41f0e5ddf1ffb023e0d64dc95bce750b1022732e9e5c46fbe60416742461
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 159
+    joint_mapping_sha256: 5b18740fe898c8f666cf029e4be9b1aa2bc40a4c790aae899a9343f07f93c228
+    evaluable_rows: 3481
+    fixed_points: 171
+  - replicate_id: 160
+    joint_mapping_sha256: 707bb8fbb1d09c460f0ccc7a83b33fc12f39331f005212375006753c998ad9f3
+    evaluable_rows: 3481
+    fixed_points: 176
+  - replicate_id: 161
+    joint_mapping_sha256: e74199b4f5a9d5d7adb04e4f8df14544e67f1c61e51bd81693e27696162f95e5
+    evaluable_rows: 3481
+    fixed_points: 161
+  - replicate_id: 162
+    joint_mapping_sha256: 955c07aaed054a181b1d995aaf85dca6667425f4a51bf4c1ef3fcd7323832eb1
+    evaluable_rows: 3481
+    fixed_points: 176
+  - replicate_id: 163
+    joint_mapping_sha256: 2706bbf96368e884155bd9b1107eca13b481e91bf165cb9da798c099960004c3
+    evaluable_rows: 3481
+    fixed_points: 189
+  - replicate_id: 164
+    joint_mapping_sha256: 091db2e38edc2ef95a4aa47e652c907a811ca55ca3d07f912248c45dea30a0e5
+    evaluable_rows: 3481
+    fixed_points: 176
+  - replicate_id: 165
+    joint_mapping_sha256: 900d6d21acb65b01f809c1bf6191cd4a08f4ffb621056b3158f8669a93051296
+    evaluable_rows: 3481
+    fixed_points: 159
+  - replicate_id: 166
+    joint_mapping_sha256: b5915b0b9bd86257355ae96f7b05482827c836acf8a38be5eec4281b38319321
+    evaluable_rows: 3481
+    fixed_points: 192
+  - replicate_id: 167
+    joint_mapping_sha256: 1cf3850b4a294e3c45fa3fa0e7c9c3f983fdd0e79815a457402b022a3683f378
+    evaluable_rows: 3481
+    fixed_points: 198
+  - replicate_id: 168
+    joint_mapping_sha256: 0194d86e46fc0e4dd61b14706aedd251af1195bde6c6e888147b5d73431ebf71
+    evaluable_rows: 3481
+    fixed_points: 177
+  - replicate_id: 169
+    joint_mapping_sha256: b760230bbc1ef1207532e3a513e755a8a9b193e1715796a384b953961075e268
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 170
+    joint_mapping_sha256: d5bbdca23c2c81b7379e4cec43c1eccf6bc9aee1240d0a32ef3c499c47863dbf
+    evaluable_rows: 3481
+    fixed_points: 155
+  - replicate_id: 171
+    joint_mapping_sha256: 2fdeea92f628a7cdb75f4298ba85775e8db6adc02ed7ec91f768513ddd88c387
+    evaluable_rows: 3481
+    fixed_points: 154
+  - replicate_id: 172
+    joint_mapping_sha256: cc9121fc2ffecc28d941a5a605e9f3ba58a1afbf33df304fd41c870cac268163
+    evaluable_rows: 3481
+    fixed_points: 178
+  - replicate_id: 173
+    joint_mapping_sha256: fa4b8c5f9f8a8c3a80f7b9c99328d7534e3c013f9c81714eb6efb93e3ee1df7c
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 174
+    joint_mapping_sha256: 995fc308bfe799f5ecc09f2d35ad7ecc90708117708dfc47491502ecf836a5a7
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 175
+    joint_mapping_sha256: f84cab6f5bd5a16fa3ea93c690780ac6c46b38d8c28e2e2a14c040c4d0beb895
+    evaluable_rows: 3481
+    fixed_points: 145
+  - replicate_id: 176
+    joint_mapping_sha256: 745dec6e4d0d1ce77a618c2249972645b59db34e6305cc18c7b4475bc699ee95
+    evaluable_rows: 3481
+    fixed_points: 172
+  - replicate_id: 177
+    joint_mapping_sha256: adbe9602e6bb5a4059bbf6a2aa477b502e3c0852043c5f591570b2c920e76f47
+    evaluable_rows: 3481
+    fixed_points: 166
+  - replicate_id: 178
+    joint_mapping_sha256: c2fd5533fcda7c498e6e95e668e6e3096936a60ce06ae4f764e50562e6fc35ea
+    evaluable_rows: 3481
+    fixed_points: 194
+  - replicate_id: 179
+    joint_mapping_sha256: b254ed8fddc40b746fdf90d893aaf034362c113d8069e3ac393cb5639d544684
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 180
+    joint_mapping_sha256: 3bae149338e1a00353e590fe1758d3e503b9628e26fa62f9e45731a3f5f7e03c
+    evaluable_rows: 3481
+    fixed_points: 184
+  - replicate_id: 181
+    joint_mapping_sha256: 6da5e576a63dbd3790e78954a2917a3222043ba17b8be74e092fab489a3ca6d4
+    evaluable_rows: 3481
+    fixed_points: 194
+  - replicate_id: 182
+    joint_mapping_sha256: 1d10c84bea1f22cd7fb615bb57ab412fb33c21051bdaa268f76985bb722f3e3a
+    evaluable_rows: 3481
+    fixed_points: 159
+  - replicate_id: 183
+    joint_mapping_sha256: 8917b88f319dc146e1561718dba78e74dfa4b14d3093233c233f7c69e85a6a68
+    evaluable_rows: 3481
+    fixed_points: 163
+  - replicate_id: 184
+    joint_mapping_sha256: a710479ccd26742626e55dbd9486a251cf99fe97385f08f42089cd6dd966717c
+    evaluable_rows: 3481
+    fixed_points: 180
+  - replicate_id: 185
+    joint_mapping_sha256: 7c836a753039522c1e3484ef7b0c09b2b7bf4c5413e4b859e1892bb36309edb6
+    evaluable_rows: 3481
+    fixed_points: 195
+  - replicate_id: 186
+    joint_mapping_sha256: a161cf0eb647d5f488ff3373dd64eccbb396b59dd134076d4dffe61ee6916b1d
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 187
+    joint_mapping_sha256: efdd12d990b8471b482d3eacc8a8b4a24282bb61105ded5477572499fe3bdb51
+    evaluable_rows: 3481
+    fixed_points: 195
+  - replicate_id: 188
+    joint_mapping_sha256: bc725e62dec2ceaa4732afa0bddf8f74981ade7467bd11b5acd8e9502e0a5331
+    evaluable_rows: 3481
+    fixed_points: 194
+  - replicate_id: 189
+    joint_mapping_sha256: 362d8b7474304cb347c0852f9c068733e7a0cba84ab7b9b095bc87c707c911e6
+    evaluable_rows: 3481
+    fixed_points: 196
+  - replicate_id: 190
+    joint_mapping_sha256: 58fb28e8b8ceed3d0d21735991776033f8ee907a010e22ff0af8081f97099968
+    evaluable_rows: 3481
+    fixed_points: 192
+  - replicate_id: 191
+    joint_mapping_sha256: f1b0b53c5ae143a4736e3254a90b9aae3d93a96d6bb496662b65b02cbf5cbdc3
+    evaluable_rows: 3481
+    fixed_points: 191
+  - replicate_id: 192
+    joint_mapping_sha256: 2a417eb83d01a7b196201b585d95b0e8ffa23a996d8d66c9a946ea208c41295d
+    evaluable_rows: 3481
+    fixed_points: 188
+  - replicate_id: 193
+    joint_mapping_sha256: a94e5943dad8e5e921f8b0b60572176c936a1e04eff565f184c4f70091d37084
+    evaluable_rows: 3481
+    fixed_points: 171
+  - replicate_id: 194
+    joint_mapping_sha256: 0f931bea7bb5be07d2c8eb742c92a0cb3fc8a7ea8e149c93187f1f6451f01992
+    evaluable_rows: 3481
+    fixed_points: 190
+  - replicate_id: 195
+    joint_mapping_sha256: 47f7a4531420989463c85a2eb841c2454efebfc2b18aacec7c264b5afd1056f2
+    evaluable_rows: 3481
+    fixed_points: 176
+  - replicate_id: 196
+    joint_mapping_sha256: 1729dde1f070c8bfb79d358068d36ef8544101338ad85cf7e5bf02610f8683fb
+    evaluable_rows: 3481
+    fixed_points: 188
+  - replicate_id: 197
+    joint_mapping_sha256: 4d5faa25e9a85d5061cd521634ee20941b363dacda7793fcf4e7989d7d49fd87
+    evaluable_rows: 3481
+    fixed_points: 183
+  - replicate_id: 198
+    joint_mapping_sha256: 76aa7cae3966f4ef1d993db03b03033b22db6f72946d13d33b257a69ca3885f9
+    evaluable_rows: 3481
+    fixed_points: 170
+  - replicate_id: 199
+    joint_mapping_sha256: a92a3250eb3dc1521f2b92761c9aef0042e22ffe917104d6b2b448bd12c0b901
+    evaluable_rows: 3481
+    fixed_points: 173
+  joint_mapping_unique_count: 199
+  joint_mapping_unique_rate: 1.0
+  fixed_points_total: 35529
+  fixed_point_rate: 0.05128919518592676
+  fixed_points_by_role:
+  - role: inner_val
+    fixed_points: 15154
+    assignments: 136713
+    rate: 0.11084534755290279
+  - role: train_fit
+    fixed_points: 20375
+    assignments: 556006
+    rate: 0.036645288000489204
+  fixed_points_by_subject:
+  - subject: YAC
+    fixed_points: 2087
+    assignments: 29253
+    rate: 0.07134311010836496
+  - subject: YAG
+    fixed_points: 2097
+    assignments: 41392
+    rate: 0.05066196366447623
+  - subject: YAK
+    fixed_points: 1609
+    assignments: 29054
+    rate: 0.05537963791560543
+  - subject: YDG
+    fixed_points: 1932
+    assignments: 41392
+    rate: 0.046675686122922305
+  - subject: YDR
+    fixed_points: 1973
+    assignments: 39402
+    rate: 0.05007360032485661
+  - subject: YFR
+    fixed_points: 2115
+    assignments: 29054
+    rate: 0.07279548427066841
+  - subject: YFS
+    fixed_points: 1970
+    assignments: 39402
+    rate: 0.049997462057763564
+  - subject: YHS
+    fixed_points: 1543
+    assignments: 40795
+    rate: 0.0378232626547371
+  - subject: YIS
+    fixed_points: 2154
+    assignments: 41591
+    rate: 0.05179005073212955
+  - subject: YLS
+    fixed_points: 2246
+    assignments: 40795
+    rate: 0.05505576663806839
+  - subject: YMD
+    fixed_points: 1784
+    assignments: 40795
+    rate: 0.0437308493687952
+  - subject: YMS
+    fixed_points: 2178
+    assignments: 40994
+    rate: 0.05312972630140996
+  - subject: YRH
+    fixed_points: 1937
+    assignments: 35223
+    rate: 0.054992476506827925
+  - subject: YRK
+    fixed_points: 1933
+    assignments: 40397
+    rate: 0.04785008787781271
+  - subject: YRP
+    fixed_points: 1937
+    assignments: 40596
+    rate: 0.04771406049857129
+  - subject: YSD
+    fixed_points: 2017
+    assignments: 41392
+    rate: 0.048729223038268266
+  - subject: YSL
+    fixed_points: 1939
+    assignments: 40795
+    rate: 0.04753033459982841
+  - subject: YTL
+    fixed_points: 2078
+    assignments: 40397
+    rate: 0.05143946332648464
+  distinct_donor_count_distribution:
+    '2': 20
+    '3': 42
+    '4': 36
+    '5': 25
+    '6': 66
+    '7': 70
+    '8': 48
+    '9': 54
+    '10': 80
+    '11': 44
+    '12': 36
+    '13': 78
+    '14': 98
+    '15': 60
+    '16': 128
+    '17': 85
+    '18': 72
+    '19': 76
+    '20': 20
+    '21': 22
+    '22': 153
+    '23': 69
+    '26': 1
+    '27': 28
+    '28': 26
+    '33': 6
+    '34': 68
+    '35': 43
+    '36': 116
+    '37': 126
+    '40': 2
+    '41': 19
+    '42': 99
+    '43': 88
+    '44': 91
+    '45': 57
+    '46': 78
+    '47': 50
+    '48': 38
+    '49': 29
+    '50': 36
+    '51': 90
+    '52': 122
+    '53': 144
+    '54': 138
+    '55': 114
+    '56': 34
+    '57': 62
+    '58': 73
+    '59': 71
+    '60': 70
+    '61': 51
+    '62': 63
+    '63': 38
+    '64': 23
+    '65': 5
+  bijection_violations: 0
+  cross_block_violations: 0
+decision:
+  structural_status: PASS
+  decision: DEGRADED_COVERAGE
+  evidence_label: N1_OUTER_TRAIN_BLOCK_FEASIBILITY_DEGRADED_COVERAGE
+  primary_fallback_status: INELIGIBLE_DUE_TO_OUTER_TRAIN_COVERAGE_BELOW_0_90
+  next_task: S0_N1_SAMPLER
+implementation:
+  path: scripts/audit_n1_block_feasibility.py
+  sha256: beb4c739c05a225b5fe41e796a6d7a7c0fa60239d6b14dab51f28ba6d83d75ad
+  direct_hdf5_import: false
+  alternate_reader: false
+  alternate_spectral_transform: false
+prohibited:
+- SHORT_CAL_TEST_DEREFERENCE
+- FULL_ENCODER
+- ROW_PROXY_TOKEN_EMBEDDING_PERSISTENCE
+- DONOR_EEG_OR_MAPPING
+- TEXT_OR_OUTCOME_READ
+- VALUE_CACHE
+- TRAINING_OR_UPDATE
+- N1_N2_SAMPLER
+- GATE_EXECUTION
+- TEST_UNLOCK
+safety:
+  production_scan_attempts: 1
+  eligible_arrays_read: 3497
+  short_arrays_read: 0
+  calibration_arrays_read: 0
+  test_arrays_read: 0
+  cpu_tokenizer_only: true
+  full_encoder_executed: false
+  row_proxy_persisted: false
+  donor_eeg_read: false
+  donor_map_persisted: false
+  text_or_outcome_read: false
+  training_or_parameter_update: false
+  test_status: LOCKED_UNTIL_ROUTE_LOCK
+downstream_boundary:
+  n1_block_feasibility_completed: true
+  n1_sampler_implemented: false
+  n2_sampler_implemented: false
+  gate_r0_executed: false
+  route_locked: false
+  next_task: S0_N1_SAMPLER

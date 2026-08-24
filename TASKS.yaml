@@ -349,6 +349,29 @@ SPEC_V25_REVIEW:
     - runs/2026-08-24_016_a1_full_outer_train_admission.md
   evidence_scope: SPECIFICATION_AND_FROZEN_FULL_OUTER_TRAIN_ADMISSION_CONTRACT_NO_OUTCOMES_NO_TRAINING
 
+SPEC_V26_REVIEW:
+  title: Activate the frozen RC-HSG v2.6 outcome-blind N1 block-feasibility contract
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V25_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v26_n1_block_feasibility_review.md
+  acceptance:
+    - reviewed commit is exactly 1c432a02f50cacda99359f630f14cfbfdfb439a1
+    - section 25 freezes the A1 spectral-token power proxy edges blocks coverage and index-only probe
+    - the branch decision and next task are mechanical and outcome blind
+    - no short calibration test outcome full encoder sampler Gate or test unlock is executed
+  completed_by_run: 2026-08-24_017_n1_block_feasibility
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v26_n1_block_feasibility_review.md
+    - runs/2026-08-24_017_n1_block_feasibility.md
+  evidence_scope: SPECIFICATION_AND_OUTCOME_BLIND_N1_BLOCK_FEASIBILITY_CONTRACT_NO_OUTCOMES_NO_SAMPLER
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -991,7 +1014,7 @@ S0_A3_CONTAMINATION_CHECK:
 S0_N1_BLOCK_FEASIBILITY:
   title: Freeze outcome-blind N1 block feasibility before sampler implementation
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 10
   owner: CHATGPT_OR_AUTHOR
@@ -999,20 +1022,34 @@ S0_N1_BLOCK_FEASIBILITY:
     - S0_A1_ADMISSION
     - S0_JOINT_SPLIT
   produces:
+    - scripts/audit_n1_block_feasibility.py
+    - tests/test_audit_n1_block_feasibility.py
+    - artifacts/nulls/n1_block_assignment_v1.jsonl
     - artifacts/nulls/n1_block_feasibility.yaml
+    - reports/n1_block_feasibility.md
+    - runs/2026-08-24_017_n1_block_feasibility.md
   acceptance:
     - EEG-observable length bins and train-frozen power bins are used
     - block-size singleton coverage unique-permutation and fixed-point distributions are reported
     - no adjacent-block borrowing or outcome-driven merging occurs
     - feasibility decision is frozen before semantic results
-  why_ready: Full outer-train A1 admission passed, but length and train-frozen power bins, permutation feasibility, tolerances, and failure routes require a new author-frozen contract before execution.
+  completed_by_run: 2026-08-24_017_n1_block_feasibility
+  acceptance_evidence:
+    - scripts/audit_n1_block_feasibility.py
+    - tests/test_audit_n1_block_feasibility.py
+    - artifacts/nulls/n1_block_assignment_v1.jsonl
+    - artifacts/nulls/n1_block_feasibility.yaml
+    - reports/n1_block_feasibility.md
+    - runs/2026-08-24_017_n1_block_feasibility.md
+  evidence_scope: OUTCOME_BLIND_OUTER_TRAIN_N1_BLOCK_FEASIBILITY_SHARED_A1_SPECTRAL_PROXY_NO_TEXT_NO_OUTCOMES_NO_SAMPLER
 
 S0_N1_SAMPLER:
   title: Implement N1 replicate-level joint block permutations
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 11
+  owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_N1_BLOCK_FEASIBILITY
   produces:
@@ -1023,7 +1060,7 @@ S0_N1_SAMPLER:
     - fixed points singleton exclusions scope hashes and permutation IDs are ledgered
     - K equals 199 joint permutations and rebuilds are deterministic
     - selection-aware pseudo-real statistic tests pass
-  blocked_reason: N1 block feasibility has not been frozen.
+  why_ready: Run 017 returned DEGRADED_COVERAGE with structural PASS; N1 may continue only as a mechanism and robustness family under a new exact ChatGPT/author-frozen sampler contract and may not become the primary fallback.
 
 S0_N2_SAMPLER:
   title: Implement and diagnose multivariate Fourier N2 surrogates
@@ -1041,7 +1078,7 @@ S0_N2_SAMPLER:
     - PSD cross-spectrum covariance amplitude endpoint and mask diagnostics are recorded
     - independent per-channel phase is rejected as primary
     - surrogate generation is deterministic by trial and seed
-  blocked_reason: Real frontend is not admitted and V4 tolerances are not frozen.
+  blocked_reason: B_V4 N2 common-phase construction and admissibility tolerances require a new ChatGPT/author-frozen contract; real outer-train A1 admission is complete.
 
 GATE_A1:
   title: Decide structural N1 and empirical N2 null validity
@@ -1329,7 +1366,7 @@ GATE_R0:
     - N2 text-free nuisance PSD cross-spectrum covariance amplitude endpoint mask and coverage checks are decided independently
     - each failed reference family is removed and all-family failure routes to ordinary hierarchical selective generation
     - no semantic outcome test value or Gate R C H result is read
-  blocked_reason: Full frontend admission, early leakage, and both frozen reference families are incomplete; B_V4 and B_V9 remain active.
+  blocked_reason: N1/N2 reference families remain incomplete under B_V4; early A-path leakage and full outer-train A1 admission are complete, and B_V9 is closed.
 
 S0_REFERENCE_FEATURES:
   title: Build frozen RC-HSG absolute and reference-relative feature tables

@@ -49,6 +49,7 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V26_REVIEW",
     "SPEC_V25_REVIEW",
     "SPEC_V24_REVIEW",
     "SPEC_V23_REVIEW",
@@ -303,6 +304,33 @@ V25_OUTPUT_HASHES = {
     "reports/a1_admission.md": "c2dc97d886d31fdc93e82778981fdf3a2dc1fd382c850d4035fdba3487513eac",
 }
 V25_ADMISSION_CODE_HASH = "6ce68ad66e8fdc51224d3723054ca01b0b13b558d9d6e81932e6e3b6636a8795"
+V26_FIXED_INPUT_HASHES = {
+    "guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md": "b225a1528a05d2c0b83b31114347cd045ccc5b9a746df1ae6f06241d976b55ae",
+    "artifacts/backbone_a_policy.yaml": "034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425",
+    "artifacts/backbone_a_contract.yaml": "4c9ccddf4d5c208870422c7e5ceee65ee184d812fce662bb885998b0dad65cac",
+    "artifacts/a_interface_eligibility_v1.jsonl": "8eded8fb2786747e96b8388d4d91315e39db9f8a9eb25ea69056d219e1e8e1ad",
+    "src/rc_hsg/backbones/native_spectral_a1.py": "71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9",
+    "artifacts/admission/zuco2_nr_analysis_view_v1.jsonl": "0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff",
+    "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
+    "artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml": "50806a60937b28ae36207509c44d606af6f6b6b1be2a69c06081672f0931bfaf",
+    "artifacts/admission/zuco2_osf_file_metadata.yaml": "85a8c89eeb7a523c06fb7f38aa1c371e042413087e66dcc338c16833bd8bb721",
+    "requirements-trust-align.lock.txt": "72a2a3274ef9516dba95a4f4022cacfba0e02d10445e1618da2a569f59381910",
+    "scripts/validate_a1_frontend.py": "ecc84a0363629e919409321cdc73327b6e3c7e779e224a18ab55a6b6ac6777cd",
+    "artifacts/a1_outer_train_admission_v1.jsonl": "b3c1b4e11855ef4c51c5bd0c2c0009f8a24e390c511d97118c48082fc7febfd5",
+    "artifacts/a1_outer_train_admission_freeze.yaml": "e973fbbe841a47f027cbf0f8a8ad65e66d106d675e8ed838dd0daf4a08dcab12",
+    "reports/a1_admission.md": "c2dc97d886d31fdc93e82778981fdf3a2dc1fd382c850d4035fdba3487513eac",
+    "runs/2026-08-24_016_a1_full_outer_train_admission.md": "42a0030551fbff4a9c8dd256d786987f620147712556034d2edb6108f5af96dc",
+    "artifacts/a_path_leakage_assertions.yaml": "eb60565b40991f19856673acc030ec7a7dcab6c520c6af5c1b1c39167f864f70",
+    "guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md": "174f0ee08870cc045a75336d3fc7138c97a99e78e5adfb109aed74b5c5144aaa",
+    "artifacts/spec_review/rc_hsg_v26_n1_block_feasibility_review.md": "b44e0a97c57d8e51e3e8365c56781c88b37328acc28d21f40f070e876d421e87",
+}
+V26_OUTPUT_HASHES = {
+    "artifacts/nulls/n1_block_assignment_v1.jsonl": "d0acc5e5fe78bc36a69cb04b6f605983c675e49a764538ae1665f86a28acee04",
+    "artifacts/nulls/n1_block_feasibility.yaml": "90a6178100f507299e12223d15291699aad84e4b58bb52e29843dbf99ee6f771",
+    "reports/n1_block_feasibility.md": "5bf77b8282d0938d59104b5e4e615c30c3b4fbdc089dab2ccc1bbd019da14098",
+}
+V26_FEASIBILITY_CODE_HASH = "beb4c739c05a225b5fe41e796a6d7a7c0fa60239d6b14dab51f28ba6d83d75ad"
+V26_FEASIBILITY_TEST_HASH = "e5aba6f3218c2faf44c8196e80d6d34774a91e0e5a910144c1bf18f24615c743"
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
     "artifacts/split_regimeII.json": "9643dd5abe953e863e7535989f2f65d0f013a1c775c167e49f7d107545016393",
@@ -1157,6 +1185,187 @@ def _check_v25_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         _error(errors, "V25_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
+def _check_v26_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.6":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    expected_statuses = {"DONE": 39, "SKIPPED": 8, "BLOCKED": 25, "READY": 1}
+    if len(tasks) != 73 or status_counts != expected_statuses:
+        _error(errors, "V26_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_N1_SAMPLER"] or tasks.get("S0_N1_SAMPLER", {}).get("owner") != "CHATGPT_OR_AUTHOR":
+        _error(errors, "V26_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("SPEC_V26_REVIEW", {}).get("status") != "DONE" or tasks.get("S0_N1_BLOCK_FEASIBILITY", {}).get("status") != "DONE":
+        _error(errors, "V26_COMPLETED_CHAIN_MISMATCH", "SPEC_V26_REVIEW or S0_N1_BLOCK_FEASIBILITY")
+    if tasks.get("SPEC_V26_REVIEW", {}).get("prerequisites") != ["SPEC_V25_REVIEW"]:
+        _error(errors, "V26_SPEC_DEPENDENCY_MISMATCH", repr(tasks.get("SPEC_V26_REVIEW", {}).get("prerequisites")))
+
+    project = state.get("project", {})
+    if (
+        project.get("spec_path") != "guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md"
+        or project.get("baseline_commit") != "1c432a02f50cacda99359f630f14cfbfdfb439a1"
+        or project.get("reviewed_commit") != "1c432a02f50cacda99359f630f14cfbfdfb439a1"
+        or project.get("repository_status") != "RC_HSG_V26_N1_BLOCK_FEASIBILITY_DEGRADED_N1_SAMPLER_PENDING"
+        or state.get("last_completed_task") != "S0_N1_BLOCK_FEASIBILITY"
+        or state.get("recommended_next_task") != "S0_N1_SAMPLER"
+        or state.get("last_run") != "runs/2026-08-24_017_n1_block_feasibility.md"
+        or state.get("route", {}).get("locked") is not None
+    ):
+        _error(errors, "V26_PROJECT_STATE_MISMATCH", repr(project))
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    superseded = {item.get("id"): item for item in state.get("superseded_blockers", []) if isinstance(item, dict)}
+    b4 = blockers.get("B_V4_NULL_CONTRACT_UNVERIFIED")
+    b9 = superseded.get("B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
+    if "B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING" in blockers or not isinstance(b9, dict) or b9.get("closed_by") != "S0_A1_ADMISSION":
+        _error(errors, "V26_B9_CLOSURE_MISMATCH", repr(b9))
+    if not isinstance(b4, dict) or "S0_N1_SAMPLER" in b4.get("blocks", []) or "S0_N2_SAMPLER" not in b4.get("blocks", []):
+        _error(errors, "V26_B4_BRANCH_RESOLVER_MISMATCH", repr(b4))
+
+    for relative, expected in {**FROZEN_RUN_011_HASHES, **V26_FIXED_INPUT_HASHES, **V26_OUTPUT_HASHES}.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V26_ARTIFACT_HASH_MISMATCH", relative)
+    for relative, expected, code in (
+        ("scripts/audit_n1_block_feasibility.py", V26_FEASIBILITY_CODE_HASH, "V26_FEASIBILITY_CODE_HASH_MISMATCH"),
+        ("tests/test_audit_n1_block_feasibility.py", V26_FEASIBILITY_TEST_HASH, "V26_FEASIBILITY_TEST_HASH_MISMATCH"),
+    ):
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, code, relative)
+
+    artifact = _load_yaml(root / "artifacts/nulls/n1_block_feasibility.yaml", errors, "N1 block feasibility")
+    expected_keys = [
+        "schema_version", "artifact", "spec_version", "baseline_commit", "task", "policy_id",
+        "evidence_scope", "input_artifacts", "authorized_scope", "power_proxy_contract",
+        "length_bin_contract", "power_bin_contract", "block_contract", "permutation_probe_contract",
+        "acceptance_thresholds", "acceptance_counts", "power_edges", "coverage",
+        "block_size_distribution", "permutation_probe", "decision", "implementation",
+        "prohibited", "safety", "downstream_boundary",
+    ]
+    if isinstance(artifact, dict):
+        counts = artifact.get("acceptance_counts", {})
+        coverage = artifact.get("coverage", {})
+        blocks = artifact.get("block_size_distribution", {})
+        probe = artifact.get("permutation_probe", {})
+        decision = artifact.get("decision", {})
+        safety = artifact.get("safety", {})
+        boundary = artifact.get("downstream_boundary", {})
+        replicates = probe.get("replicates", [])
+        if (
+            list(artifact) != expected_keys
+            or artifact.get("artifact") != "RC_HSG_N1_BLOCK_FEASIBILITY_V1"
+            or artifact.get("spec_version") != "v2.6"
+            or artifact.get("baseline_commit") != "1c432a02f50cacda99359f630f14cfbfdfb439a1"
+            or artifact.get("task") != "S0_N1_BLOCK_FEASIBILITY"
+            or counts != {
+                "outer_train_rows": 3541,
+                "eligible_rows_read": 3497,
+                "short_rows_no_read": 44,
+                "full_windows": 35745,
+                "subjects": 18,
+                "source_files": 18,
+                "source_dtype_counts": {"float64": 3497},
+            }
+            or coverage.get("minimum_subject_role_population_coverage") != 0.7777777777777778
+            or coverage.get("exclusion_reason_counts") != {
+                "N1_NOT_EVALUABLE_POWER_EDGE_UNAVAILABLE": 4,
+                "N1_NOT_EVALUABLE_SHORT_FORCED_L0": 44,
+                "N1_NOT_EVALUABLE_SINGLETON": 12,
+            }
+            or blocks.get("blocks") != 192
+            or blocks.get("evaluable_blocks") != 180
+            or blocks.get("singleton_blocks") != 12
+            or len(replicates) != 199
+            or probe.get("joint_mapping_unique_count") != 199
+            or len({item.get("joint_mapping_sha256") for item in replicates if isinstance(item, dict)}) != 199
+            or probe.get("bijection_violations") != 0
+            or probe.get("cross_block_violations") != 0
+            or decision != {
+                "structural_status": "PASS",
+                "decision": "DEGRADED_COVERAGE",
+                "evidence_label": "N1_OUTER_TRAIN_BLOCK_FEASIBILITY_DEGRADED_COVERAGE",
+                "primary_fallback_status": "INELIGIBLE_DUE_TO_OUTER_TRAIN_COVERAGE_BELOW_0_90",
+                "next_task": "S0_N1_SAMPLER",
+            }
+            or safety != {
+                "production_scan_attempts": 1,
+                "eligible_arrays_read": 3497,
+                "short_arrays_read": 0,
+                "calibration_arrays_read": 0,
+                "test_arrays_read": 0,
+                "cpu_tokenizer_only": True,
+                "full_encoder_executed": False,
+                "row_proxy_persisted": False,
+                "donor_eeg_read": False,
+                "donor_map_persisted": False,
+                "text_or_outcome_read": False,
+                "training_or_parameter_update": False,
+                "test_status": "LOCKED_UNTIL_ROUTE_LOCK",
+            }
+            or boundary != {
+                "n1_block_feasibility_completed": True,
+                "n1_sampler_implemented": False,
+                "n2_sampler_implemented": False,
+                "gate_r0_executed": False,
+                "route_locked": False,
+                "next_task": "S0_N1_SAMPLER",
+            }
+        ):
+            _error(errors, "V26_FEASIBILITY_ARTIFACT_MISMATCH", "header, counts, coverage, blocks, probe, decision, safety, or boundary")
+
+    ledger_path = root / "artifacts/nulls/n1_block_assignment_v1.jsonl"
+    ledger: list[dict[str, Any]] = []
+    try:
+        for line_number, line in enumerate(ledger_path.read_text(encoding="utf-8").splitlines(), start=1):
+            item = json.loads(line)
+            if not isinstance(item, dict):
+                raise ValueError(f"line {line_number} is not an object")
+            ledger.append(item)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
+        _error(errors, "V26_LEDGER_INVALID", str(exc))
+        ledger = []
+    ledger_fields = [
+        "subject", "session", "slot", "occurrence_id", "role", "raw_samples", "window_count",
+        "a_interface_status", "action", "length_bin", "power_bin", "power_edge_cell_id",
+        "power_edge_status", "block_id", "block_size", "n1_evaluable", "n1_status",
+        "source_file", "source_field", "source_dataset_read_run017",
+    ]
+    if ledger:
+        keys = [(item.get("subject"), item.get("slot"), item.get("occurrence_id")) for item in ledger]
+        statuses = {
+            label: sum(item.get("n1_status") == label for item in ledger)
+            for label in (
+                "N1_EVALUABLE", "N1_NOT_EVALUABLE_SHORT_FORCED_L0",
+                "N1_NOT_EVALUABLE_SINGLETON", "N1_NOT_EVALUABLE_POWER_EDGE_UNAVAILABLE",
+            )
+        }
+        if (
+            len(ledger) != 3541
+            or any(list(item) != ledger_fields for item in ledger)
+            or keys != sorted(keys)
+            or len(set(keys)) != 3541
+            or statuses != {
+                "N1_EVALUABLE": 3481,
+                "N1_NOT_EVALUABLE_SHORT_FORCED_L0": 44,
+                "N1_NOT_EVALUABLE_SINGLETON": 12,
+                "N1_NOT_EVALUABLE_POWER_EDGE_UNAVAILABLE": 4,
+            }
+            or sum(item.get("source_dataset_read_run017") is True for item in ledger) != 3497
+            or any(item.get("source_dataset_read_run017") is True for item in ledger if item.get("a_interface_status") == "SHORT_FORCED_L0")
+            or any(item.get("role") not in {"train_fit", "inner_val"} or item.get("source_field") != "rawData" for item in ledger)
+        ):
+            _error(errors, "V26_LEDGER_MISMATCH", "schema, order, counts, reads, roles, or source field")
+
+    split = _load_yaml(root / "artifacts/split_manifest.yaml", errors, "split manifest")
+    if isinstance(split, dict) and split.get("assertions", {}).get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK":
+        _error(errors, "V26_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -1283,12 +1492,12 @@ def validate(root: Path) -> list[str]:
                 "blocked_reason", ""
             ).strip():
                 _error(errors, "BLOCKED_REASON_MISSING", task_id)
-            optional_v25_deferral = (
-                state.get("project", {}).get("spec_version") == "v2.5"
+            optional_native_a_deferral = (
+                state.get("project", {}).get("spec_version") in {"v2.5", "v2.6"}
                 and task_id == "S0_A3_CONTAMINATION_CHECK"
                 and task.get("critical_path") is False
             )
-            if prerequisites_done and task_id not in blocked_ids and not optional_v25_deferral:
+            if prerequisites_done and task_id not in blocked_ids and not optional_native_a_deferral:
                 _error(
                     errors,
                     "BLOCKED_WITHOUT_CAUSE",
@@ -1302,6 +1511,7 @@ def validate(root: Path) -> list[str]:
     _check_v23_contract(root, state, tasks, errors)
     _check_v24_contract(root, state, tasks, errors)
     _check_v25_contract(root, state, tasks, errors)
+    _check_v26_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):

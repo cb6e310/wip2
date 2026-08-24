@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_016_a1_full_outer_train_admission
-evidence_as_of_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
+updated_by_run: 2026-08-24_017_n1_block_feasibility
+evidence_as_of_commit: 1c432a02f50cacda99359f630f14cfbfdfb439a1
 audit_mode: read_only_physical_evidence_before_scientific_work
 
 repository:

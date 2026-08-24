@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_016_a1_full_outer_train_admission
-evidence_as_of_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
+updated_by_run: 2026-08-24_017_n1_block_feasibility
+evidence_as_of_commit: 1c432a02f50cacda99359f630f14cfbfdfb439a1
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -147,13 +147,21 @@ items:
     target_task: S0_H_DEFINITION
     blocker: B_V6_SELECTION_FIREWALL_UNFROZEN
   n1:
-    status: BLOCKED
-    evidence_paths: []
-    tests_rerun: []
+    status: VALIDATED
+    evidence_paths:
+      - scripts/audit_n1_block_feasibility.py
+      - tests/test_audit_n1_block_feasibility.py
+      - artifacts/nulls/n1_block_assignment_v1.jsonl
+      - artifacts/nulls/n1_block_feasibility.yaml
+      - reports/n1_block_feasibility.md
+      - runs/2026-08-24_017_n1_block_feasibility.md
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_audit_n1_block_feasibility.py'"
     acceptance_gaps:
-      - no block feasibility ledger or joint permutation reference implementation exists
-    target_task: S0_N1_BLOCK_FEASIBILITY
-    blocker: B_V4_NULL_CONTRACT_UNVERIFIED
+      - outer-train block feasibility is DEGRADED_COVERAGE at minimum subject-role population coverage 0.777777777778
+      - N1 is ineligible as the primary fallback and no production sampler exists
+    target_task: S0_N1_SAMPLER
+    blocker: null
   n2:
     status: BLOCKED
     evidence_paths: []
@@ -270,7 +278,7 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
-active_spec: guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md
+active_spec: guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md
 active_method: RC-HSG
 active_gates:
   - GATE_R0

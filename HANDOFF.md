@@ -1,10 +1,10 @@
 # Current Handoff
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md` (version `v2.5`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_6_2026-08-24.md` (version `v2.6`).
 
 ## Current state
 
-Run 016 completed `SPEC_V25_REVIEW -> S0_A1_ADMISSION`. `S0_N1_BLOCK_FEASIBILITY` is READY, is the sole recommended next task, and is owned by `CHATGPT_OR_AUTHOR`. Run 016 stops before N1 feasibility.
+Run 017 completed `SPEC_V26_REVIEW -> S0_N1_BLOCK_FEASIBILITY`. The exact audit returned `DEGRADED_COVERAGE`: structural status PASS, minimum subject-role population coverage 0.777777777778, and 199/199 unique joint mapping hashes. N1 cannot be the primary fallback; a mechanism/robustness-only sampler remains unauthorized pending a new exact contract.
 
 The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/direct-C implementation path remain as historical `SKIPPED` records. Active Gates are Gate R0, Gate R, Gate C, Gate H, and non-blocking Mechanism A; all remain BLOCKED with null outcomes.
 
@@ -29,4 +29,4 @@ The active method is RC-HSG. Old Gate A1/A/B tasks and the superseded NC-HSG/dir
 
 ## Required next action
 
-Under a new ChatGPT/author-frozen exact instruction, execute only `S0_N1_BLOCK_FEASIBILITY`. The run-016 package is not N1-feasibility authorization. Do not begin N1/N2 sampling, power binning, the later method leakage audit, training, semantic decoder, schema, reference families, reliability models, calibration, any Gate, or test-value read.
+The sole READY task is `S0_N1_SAMPLER`, owner `CHATGPT_OR_AUTHOR`. Do not execute it without a new exact contract. Do not begin N2 sampling, the later method leakage audit, training, semantic decoder, schema, reference families, reliability models, calibration, any Gate, route lock, or test-value read.
