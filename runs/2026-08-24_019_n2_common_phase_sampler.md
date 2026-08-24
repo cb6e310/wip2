@@ -78,6 +78,6 @@ Using `/home/song/projects/trust_generative/.venv/bin/python` in a clean tempora
 - `S0_N2_SAMPLER=DONE`; sole READY/recommended task is `GATE_R0`, owner `CHATGPT_OR_AUTHOR`.
 - B_V4 remains active. Every Gate outcome remains null; `GATE_R0` is READY and all later Gates remain BLOCKED.
 - Route remains unlocked. Test remains `LOCKED_UNTIL_ROUTE_LOCK`.
-- Repository status: `RC_HSG_V28_N2_COMMON_PHASE_SAMPLER_IMPLEMENTED_GATE_R0_PENDING`.
+- Repository status: `RC_HSG_V28_N2_COMMON_PHASE_SAMPLER_IMPLEMENTED_GATE_R0_AUDIT_PENDING`.
 
 Run 019 stops before Gate R0, schema/candidate/reference work, training, calibration, or test work.
