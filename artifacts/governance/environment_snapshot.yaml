@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_015_a_path_leakage_audit
-evidence_as_of_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
+updated_by_run: 2026-08-24_016_a1_full_outer_train_admission
+evidence_as_of_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
 
 host:
   hostname: songxingyuan

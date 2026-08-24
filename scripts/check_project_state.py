@@ -49,6 +49,7 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V25_REVIEW",
     "SPEC_V24_REVIEW",
     "SPEC_V23_REVIEW",
     "SPEC_V22_REVIEW",
@@ -275,6 +276,33 @@ V24_OUTPUT_HASHES = {
     "artifacts/a_path_leakage_assertions.yaml": "eb60565b40991f19856673acc030ec7a7dcab6c520c6af5c1b1c39167f864f70",
     "reports/a_path_leakage_audit.md": "491986e4caed53623069b26918b9be232aff74416c8e4ef973955a6810b7fd27",
 }
+V25_FIXED_INPUT_HASHES = {
+    "guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md": "5878fa84db5abb380c71e6257a4a7c30e0587ab8d505ba0d9446c110d47426b5",
+    "artifacts/backbone_a_policy.yaml": "034a523119f12f648266d94e0499179882fbe181584d10c1af17a3502a797425",
+    "artifacts/backbone_a_contract.yaml": "4c9ccddf4d5c208870422c7e5ceee65ee184d812fce662bb885998b0dad65cac",
+    "artifacts/a_interface_eligibility_v1.jsonl": "8eded8fb2786747e96b8388d4d91315e39db9f8a9eb25ea69056d219e1e8e1ad",
+    "src/rc_hsg/backbones/native_spectral_a1.py": "71ae12d65cc0acc6fd5870434e141ee7d849eb8befa718a84fb99cb86ed533d9",
+    "artifacts/admission/zuco2_nr_analysis_view_v1.jsonl": "0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff",
+    "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
+    "artifacts/data_card.yaml": "d9331bfe34937c264b7b8c667a2b831569c4440120e1d445011aeaf419c30f84",
+    "artifacts/admission/zuco2_nr_targeted_manifest_v3.yaml": "50806a60937b28ae36207509c44d606af6f6b6b1be2a69c06081672f0931bfaf",
+    "artifacts/admission/zuco2_osf_file_metadata.yaml": "85a8c89eeb7a523c06fb7f38aa1c371e042413087e66dcc338c16833bd8bb721",
+    "requirements-trust-align.lock.txt": "72a2a3274ef9516dba95a4f4022cacfba0e02d10445e1618da2a569f59381910",
+    "scripts/validate_a1_frontend.py": "ecc84a0363629e919409321cdc73327b6e3c7e779e224a18ab55a6b6ac6777cd",
+    "artifacts/a1_frontend_audit_panel_v1.jsonl": "95db4e18501ae25f559bb6446621b6c062a7f36936ca0f4eec3236dc57ca43ed",
+    "artifacts/a1_frontend_freeze.yaml": "817b1be11d3545f1279e87fd40d391b71dd3347d0eed57c174abdfc6bf760d66",
+    "reports/a1_frontend_selfcheck.md": "703e999bc9903183dd019df853e92558a81ba8526945e32a24ae926d95af4503",
+    "scripts/audit_a_path_leakage.py": "797618af0113a2f8f357ea8c91f53de7b9375afcbb3860baf437ebc1bfbe5e24",
+    "artifacts/a_path_leakage_assertions.yaml": "eb60565b40991f19856673acc030ec7a7dcab6c520c6af5c1b1c39167f864f70",
+    "reports/a_path_leakage_audit.md": "491986e4caed53623069b26918b9be232aff74416c8e4ef973955a6810b7fd27",
+    "runs/2026-08-24_015_a_path_leakage_audit.md": "52ff87aad5c260d6bb3ef34367839cbb6f1251ff6f4f1282075db9d4af1b22f6",
+}
+V25_OUTPUT_HASHES = {
+    "artifacts/a1_outer_train_admission_v1.jsonl": "b3c1b4e11855ef4c51c5bd0c2c0009f8a24e390c511d97118c48082fc7febfd5",
+    "artifacts/a1_outer_train_admission_freeze.yaml": "e973fbbe841a47f027cbf0f8a8ad65e66d106d675e8ed838dd0daf4a08dcab12",
+    "reports/a1_admission.md": "c2dc97d886d31fdc93e82778981fdf3a2dc1fd382c850d4035fdba3487513eac",
+}
+V25_ADMISSION_CODE_HASH = "6ce68ad66e8fdc51224d3723054ca01b0b13b558d9d6e81932e6e3b6636a8795"
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
     "artifacts/split_regimeII.json": "9643dd5abe953e863e7535989f2f65d0f013a1c775c167e49f7d107545016393",
@@ -947,6 +975,188 @@ def _check_v24_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
             _error(errors, "V24_AUDIT_ARTIFACT_MISMATCH", "header, assertions, mutations, safety, or boundary")
 
 
+def _check_v25_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.5":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    expected_statuses = {"DONE": 37, "SKIPPED": 8, "BLOCKED": 26, "READY": 1}
+    if len(tasks) != 72 or status_counts != expected_statuses:
+        _error(errors, "V25_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_N1_BLOCK_FEASIBILITY"] or tasks.get("S0_N1_BLOCK_FEASIBILITY", {}).get("owner") != "CHATGPT_OR_AUTHOR":
+        _error(errors, "V25_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("SPEC_V25_REVIEW", {}).get("status") != "DONE" or tasks.get("S0_A1_ADMISSION", {}).get("status") != "DONE":
+        _error(errors, "V25_COMPLETED_CHAIN_MISMATCH", "SPEC_V25_REVIEW or S0_A1_ADMISSION")
+    if tasks.get("SPEC_V25_REVIEW", {}).get("prerequisites") != ["SPEC_V24_REVIEW"]:
+        _error(errors, "V25_SPEC_DEPENDENCY_MISMATCH", repr(tasks.get("SPEC_V25_REVIEW", {}).get("prerequisites")))
+
+    project = state.get("project", {})
+    if (
+        project.get("spec_path") != "guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md"
+        or project.get("baseline_commit") != "07c37b3bb77c3cf396116078b64687dcebb9ee03"
+        or project.get("reviewed_commit") != "07c37b3bb77c3cf396116078b64687dcebb9ee03"
+        or project.get("repository_status") != "RC_HSG_V25_A1_FULL_OUTER_TRAIN_ADMITTED_N1_FEASIBILITY_PENDING"
+        or state.get("last_completed_task") != "S0_A1_ADMISSION"
+        or state.get("recommended_next_task") != "S0_N1_BLOCK_FEASIBILITY"
+        or state.get("last_run") != "runs/2026-08-24_016_a1_full_outer_train_admission.md"
+        or state.get("route", {}).get("locked") is not None
+    ):
+        _error(errors, "V25_PROJECT_STATE_MISMATCH", repr(project))
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    superseded = {item.get("id"): item for item in state.get("superseded_blockers", []) if isinstance(item, dict)}
+    b4 = blockers.get("B_V4_NULL_CONTRACT_UNVERIFIED")
+    b9 = superseded.get("B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING")
+    if "B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING" in blockers or not isinstance(b9, dict) or b9.get("closed_by") != "S0_A1_ADMISSION":
+        _error(errors, "V25_B9_CLOSURE_MISMATCH", repr(b9))
+    if not isinstance(b4, dict) or "S0_N1_BLOCK_FEASIBILITY" in b4.get("blocks", []):
+        _error(errors, "V25_B4_RESOLVER_MISMATCH", repr(b4))
+
+    immutable_hashes = {
+        **FROZEN_RUN_011_HASHES,
+        **V22_OUTPUT_HASHES,
+        **V23_OUTPUT_HASHES,
+        **V24_OUTPUT_HASHES,
+        **V25_FIXED_INPUT_HASHES,
+        **V25_OUTPUT_HASHES,
+    }
+    for relative, expected in immutable_hashes.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V25_ARTIFACT_HASH_MISMATCH", relative)
+    admission_code = root / "scripts/admit_a1_outer_train.py"
+    if not admission_code.is_file() or _sha256(admission_code) != V25_ADMISSION_CODE_HASH:
+        _error(errors, "V25_ADMISSION_CODE_HASH_MISMATCH", "scripts/admit_a1_outer_train.py")
+
+    freeze = _load_yaml(root / "artifacts/a1_outer_train_admission_freeze.yaml", errors, "A1 admission freeze")
+    expected_keys = [
+        "schema_version", "artifact", "spec_version", "baseline_commit", "task", "policy_id",
+        "evidence_scope", "input_artifacts", "population_contract", "reuse_contract",
+        "loader_contract", "execution_contract", "acceptance_counts", "check_results",
+        "implementation", "prohibited", "safety", "blocker_resolution", "downstream_boundary",
+    ]
+    if isinstance(freeze, dict):
+        counts = freeze.get("acceptance_counts", {})
+        execution = freeze.get("execution_contract", {})
+        reuse = freeze.get("reuse_contract", {})
+        safety = freeze.get("safety", {})
+        boundary = freeze.get("downstream_boundary", {})
+        implementation = freeze.get("implementation", {})
+        checks = freeze.get("check_results", {})
+        expected_safety = {
+            "production_scan_attempts": 1,
+            "run014_panel_arrays_reread": 0,
+            "run016_remaining_distinct_arrays_read": 3390,
+            "short_arrays_read": 0,
+            "calibration_arrays_read": 0,
+            "test_arrays_read": 0,
+            "text_or_outcome_read": False,
+            "training_or_parameter_update": False,
+            "representation_or_value_cache_written": False,
+            "test_status": "LOCKED_UNTIL_ROUTE_LOCK",
+        }
+        expected_boundary = {
+            "full_outer_train_admission_completed": True,
+            "n1_block_feasibility_completed": False,
+            "n1_sampler_implemented": False,
+            "n2_sampler_implemented": False,
+            "method_leakage_audit_completed": False,
+            "route_locked": False,
+            "next_task": "S0_N1_BLOCK_FEASIBILITY",
+        }
+        exact_counts = {
+            "outer_train_rows": 3541,
+            "eligible_cumulative": 3497,
+            "short_no_read": 44,
+            "full_windows_cumulative": 35745,
+            "run014_panel_reused": 107,
+            "run014_panel_windows": 1452,
+            "run016_remaining_distinct_arrays_read": 3390,
+            "run016_windows": 34293,
+            "subjects": 18,
+            "source_files": 18,
+            "minimum_eligible_samples": 513,
+            "maximum_eligible_samples": 18436,
+            "maximum_windows": 72,
+        }
+        if (
+            list(freeze) != expected_keys
+            or freeze.get("schema_version") != 1
+            or freeze.get("artifact") != "RC_HSG_A1_FULL_OUTER_TRAIN_ADMISSION_V1"
+            or freeze.get("spec_version") != "v2.5"
+            or freeze.get("baseline_commit") != "07c37b3bb77c3cf396116078b64687dcebb9ee03"
+            or freeze.get("task") != "S0_A1_ADMISSION"
+            or freeze.get("policy_id") != "RC_HSG_NATIVE_SPECTRAL_A1_V1"
+            or freeze.get("evidence_scope") != "FULL_REGIME_I_OUTER_TRAIN_A1_FRONTEND_ADMISSION_REUSING_RUN014_PANEL_NO_OUTCOMES_NO_TRAINING"
+            or any(counts.get(key) != value for key, value in exact_counts.items())
+            or counts.get("run016_role_rows") != {"inner_val": 648, "train_fit": 2742}
+            or counts.get("run016_role_windows") != {"inner_val": 5882, "train_fit": 28411}
+            or counts.get("run016_source_dtype_counts") != {"float64": 3390}
+            or reuse.get("eligible_rows") != 107
+            or reuse.get("windows") != 1452
+            or reuse.get("panel_reread") is not False
+            or execution.get("production_scan_attempts") != 1
+            or execution.get("scan_order") != ["window_count", "raw_samples", "subject", "slot", "occurrence_id"]
+            or execution.get("maximum_batch_rows") != 4
+            or execution.get("device_policy_status") != "CUDA_0_SELECTED"
+            or safety != expected_safety
+            or boundary != expected_boundary
+            or implementation.get("admission_sha256") != V25_ADMISSION_CODE_HASH
+            or set(checks.values()) != {"PASS"}
+        ):
+            _error(errors, "V25_ADMISSION_FREEZE_MISMATCH", "header, counts, execution, safety, checks, or boundary")
+
+    ledger_path = root / "artifacts/a1_outer_train_admission_v1.jsonl"
+    ledger: list[dict[str, Any]] = []
+    try:
+        for line_number, line in enumerate(ledger_path.read_text(encoding="utf-8").splitlines(), start=1):
+            item = json.loads(line)
+            if not isinstance(item, dict):
+                raise ValueError(f"line {line_number} is not an object")
+            ledger.append(item)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
+        _error(errors, "V25_ADMISSION_LEDGER_INVALID", str(exc))
+        ledger = []
+    ledger_fields = [
+        "subject", "slot", "occurrence_id", "role", "raw_samples", "window_count",
+        "a_interface_status", "action", "evidence_source", "source_file", "source_field",
+        "source_dataset_read_run016", "source_dataset_read_cumulative", "source_dtype",
+        "source_shape_status", "input_finite_status", "frontend_status", "observed_window_count",
+        "window_mask_status", "output_finite_status",
+    ]
+    if ledger:
+        keys = [(item.get("subject"), item.get("slot"), item.get("occurrence_id")) for item in ledger]
+        classes = {
+            label: sum(item.get("evidence_source") == label for item in ledger)
+            for label in ("RUN014_BOUNDED_PANEL_REUSED", "RUN016_STREAMING_FRONTEND_PASS", "SHORT_FORCED_L0_NO_READ")
+        }
+        run016 = [item for item in ledger if item.get("evidence_source") == "RUN016_STREAMING_FRONTEND_PASS"]
+        short = [item for item in ledger if item.get("evidence_source") == "SHORT_FORCED_L0_NO_READ"]
+        panel = [item for item in ledger if item.get("evidence_source") == "RUN014_BOUNDED_PANEL_REUSED"]
+        if (
+            len(ledger) != 3541
+            or any(list(item) != ledger_fields for item in ledger)
+            or keys != sorted(keys)
+            or len(set(keys)) != 3541
+            or classes != {"RUN014_BOUNDED_PANEL_REUSED": 107, "RUN016_STREAMING_FRONTEND_PASS": 3390, "SHORT_FORCED_L0_NO_READ": 44}
+            or sum(item.get("window_count", -1) for item in ledger) != 35745
+            or sum(item.get("window_count", -1) for item in run016) != 34293
+            or any(item.get("source_dataset_read_run016") is not True or item.get("source_dataset_read_cumulative") is not True for item in run016)
+            or any(item.get("source_dataset_read_run016") is not False or item.get("source_dataset_read_cumulative") is not True or item.get("source_dtype") != "float64" for item in panel)
+            or any(item.get("source_dataset_read_run016") is not False or item.get("source_dataset_read_cumulative") is not False or item.get("source_dtype") != "NOT_READ" or item.get("observed_window_count") != 0 for item in short)
+            or any(item.get("role") not in {"train_fit", "inner_val"} or item.get("source_field") != "rawData" for item in ledger)
+        ):
+            _error(errors, "V25_ADMISSION_LEDGER_MISMATCH", "schema, order, classes, counts, reads, roles, or source field")
+
+    split = _load_yaml(root / "artifacts/split_manifest.yaml", errors, "split manifest")
+    if isinstance(split, dict) and split.get("assertions", {}).get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK":
+        _error(errors, "V25_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -1073,7 +1283,12 @@ def validate(root: Path) -> list[str]:
                 "blocked_reason", ""
             ).strip():
                 _error(errors, "BLOCKED_REASON_MISSING", task_id)
-            if prerequisites_done and task_id not in blocked_ids:
+            optional_v25_deferral = (
+                state.get("project", {}).get("spec_version") == "v2.5"
+                and task_id == "S0_A3_CONTAMINATION_CHECK"
+                and task.get("critical_path") is False
+            )
+            if prerequisites_done and task_id not in blocked_ids and not optional_v25_deferral:
                 _error(
                     errors,
                     "BLOCKED_WITHOUT_CAUSE",
@@ -1086,6 +1301,7 @@ def validate(root: Path) -> list[str]:
     _check_v22_contract(root, state, tasks, errors)
     _check_v23_contract(root, state, tasks, errors)
     _check_v24_contract(root, state, tasks, errors)
+    _check_v25_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):

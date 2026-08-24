@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md` (version `v2.4`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md` (version `v2.5`).
 
 ## Verified location
 
@@ -13,20 +13,20 @@ Active SPEC: `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md` (version `v2.4`).
 
 ## Source of truth
 
-1. `guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md` (active version `v2.4`)
+1. `guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md` (active version `v2.5`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Sections 20-23 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
+Sections 20-24 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
 task graph, and A policy. Sections 14-19 and run-011 artifacts remain
 authoritative for physical data, identity, grouping, split, population, and
 test-lock facts. Older SPECs and runs remain immutable provenance.
 
 ## Recovery sequence
 
-Read the five sources above, `artifacts/backbone_a_policy.yaml`, `artifacts/backbone_a_contract.yaml`, runs 014-015, and
+Read the five sources above, `artifacts/backbone_a_policy.yaml`, `artifacts/backbone_a_contract.yaml`, runs 014-016, and
 the committed split/population manifests, then run:
 
 ```bash
@@ -41,18 +41,17 @@ authorizes repair.
 
 ## Current evidence boundary
 
-Run 014 validated the frozen clean-room spectral interface on a bounded
-107-row outer-train panel and ledgered all 44 outer-train short rows as no-read.
-CPU and conditional CUDA checks passed. The remaining 3,390 eligible
-outer-train rows are unread, so this is not full admission or a performance
-conclusion.
+Run 016 completed full outer-train A1 admission. It reused the 107-row run-014
+panel evidence without rereading it and scanned the remaining 3,390 eligible
+rows once through the audited loader and frozen frontend. The cumulative ledger
+covers 3,497 eligible rows and 35,745 windows; all 44 short rows remain no-read
+forced L0. This is input/frontend admission, not representation quality or a
+performance conclusion.
 
-The early A-path leakage firewall passed through static code, committed metadata,
-synthetic fixtures, and twelve in-memory mutation probes without opening production
-HDF5 or reading new real values. `S0_A1_ADMISSION` is the sole READY and recommended
-task, owned by `CODEX`; B_V9 remains active but does not block this resolver. Test
-identities remain `LOCKED_UNTIL_ROUTE_LOCK`, and run 015 did not execute admission,
-the later method leakage audit, training, any Gate, or test unlock.
+`S0_N1_BLOCK_FEASIBILITY` is the sole READY and recommended task, owned by
+`CHATGPT_OR_AUTHOR`. B_V9 is closed; B_V4 remains active without blocking this
+resolver. Test identities remain `LOCKED_UNTIL_ROUTE_LOCK`; run 016 did not
+execute power binning, N1/N2, training, method leakage audit, any Gate, or test unlock.
 
 ## End-of-session contract
 

@@ -326,6 +326,29 @@ SPEC_V24_REVIEW:
     - runs/2026-08-24_015_a_path_leakage_audit.md
   evidence_scope: SPECIFICATION_STATIC_CODE_AND_COMMITTED_METADATA_ONLY_NO_NEW_REAL_EEG_VALUES_NO_OUTCOMES
 
+SPEC_V25_REVIEW:
+  title: Activate the frozen RC-HSG v2.5 full outer-train A1 admission contract
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V24_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v25_a1_admission_review.md
+  acceptance:
+    - reviewed commit is exactly 07c37b3bb77c3cf396116078b64687dcebb9ee03
+    - section 24 freezes exact audited-loader reuse and a single remaining-row streaming scan
+    - run-014 panel evidence is reused without rereading and short calibration and test arrays remain unread
+    - no training power summary N1 Gate method leakage audit or test unlock is executed
+  completed_by_run: 2026-08-24_016_a1_full_outer_train_admission
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v25_a1_admission_review.md
+    - runs/2026-08-24_016_a1_full_outer_train_admission.md
+  evidence_scope: SPECIFICATION_AND_FROZEN_FULL_OUTER_TRAIN_ADMISSION_CONTRACT_NO_OUTCOMES_NO_TRAINING
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -923,21 +946,30 @@ S0_A1_FRONTEND:
 S0_A1_ADMISSION:
   title: Admit the frozen native frontend on outer-train real data
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 9
-  owner: CODEX
   prerequisites:
     - S0_A1_FRONTEND
     - S0_JOINT_SPLIT
     - S0_LEAKAGE_AUDIT
   produces:
+    - artifacts/a1_outer_train_admission_v1.jsonl
+    - artifacts/a1_outer_train_admission_freeze.yaml
     - reports/a1_admission.md
   acceptance:
     - sampling channel order units finite values lengths and masks pass
     - checks read outer-train only
     - failures remain blockers rather than guessed conversions
-  why_ready: The bounded frontend panel and early A-path leakage firewall passed; only a separately authorized streaming admission may read the remaining 3,390 eligible outer-train rows.
+  completed_by_run: 2026-08-24_016_a1_full_outer_train_admission
+  acceptance_evidence:
+    - scripts/admit_a1_outer_train.py
+    - tests/test_admit_a1_outer_train.py
+    - artifacts/a1_outer_train_admission_v1.jsonl
+    - artifacts/a1_outer_train_admission_freeze.yaml
+    - reports/a1_admission.md
+    - runs/2026-08-24_016_a1_full_outer_train_admission.md
+  evidence_scope: FULL_REGIME_I_OUTER_TRAIN_A1_FRONTEND_ADMISSION_REUSING_RUN014_PANEL_NO_OUTCOMES_NO_TRAINING
 
 S0_A3_CONTAMINATION_CHECK:
   title: Audit an optional second backbone for contamination license and tensor compatibility
@@ -959,9 +991,10 @@ S0_A3_CONTAMINATION_CHECK:
 S0_N1_BLOCK_FEASIBILITY:
   title: Freeze outcome-blind N1 block feasibility before sampler implementation
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 10
+  owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_A1_ADMISSION
     - S0_JOINT_SPLIT
@@ -972,7 +1005,7 @@ S0_N1_BLOCK_FEASIBILITY:
     - block-size singleton coverage unique-permutation and fixed-point distributions are reported
     - no adjacent-block borrowing or outcome-driven merging occurs
     - feasibility decision is frozen before semantic results
-  blocked_reason: Real frontend and splits are not admitted; V4 is open.
+  why_ready: Full outer-train A1 admission passed, but length and train-frozen power bins, permutation feasibility, tolerances, and failure routes require a new author-frozen contract before execution.
 
 S0_N1_SAMPLER:
   title: Implement N1 replicate-level joint block permutations

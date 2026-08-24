@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-24"
-updated_by_run: 2026-08-24_015_a_path_leakage_audit
+updated_by_run: 2026-08-24_016_a1_full_outer_train_admission
 
 project:
   name: rc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
-  reviewed_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
-  repository_status: RC_HSG_V24_A_PATH_LEAKAGE_PASSED_FULL_ADMISSION_PENDING
-  spec_version: v2.4
-  spec_path: guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md
+  baseline_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
+  reviewed_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
+  repository_status: RC_HSG_V25_A1_FULL_OUTER_TRAIN_ADMITTED_N1_FEASIBILITY_PENDING
+  spec_version: v2.5
+  spec_path: guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -56,6 +56,9 @@ superseded_blockers:
   - id: B_V8_A_REAL_FRONTEND_UNVALIDATED
     closed_by: S0_A1_FRONTEND
     retained_limitation: The bounded 107-row real frontend panel passed, but this is not full outer-train admission.
+  - id: B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING
+    closed_by: S0_A1_ADMISSION
+    retained_limitation: Admission covers outer-train only; short rows remain forced L0, physical units remain unresolved, calibration and test arrays remain unread, and no performance evidence was produced.
 
 blockers:
   - id: B_V3_SCHEMA_UNFROZEN
@@ -73,7 +76,6 @@ blockers:
   - id: B_V4_NULL_CONTRACT_UNVERIFIED
     reason: RC-HSG N1 block feasibility and N2 common-phase reference implementation, admissibility tolerances, coverage, and shared-frontend boundary remain unverified.
     blocks:
-      - S0_N1_BLOCK_FEASIBILITY
       - S0_N1_SAMPLER
       - S0_N2_SAMPLER
       - GATE_R0
@@ -101,30 +103,15 @@ blockers:
       - S0_FLAT_RC
       - S0_PMI_BASELINE
     resolution: Freeze train-only candidate construction, absolute-score content selection, deterministic parent paths, and a common candidate hash before reliability fitting.
-  - id: B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING
-    reason: The bounded 107-row real frontend panel passed, but the remaining 3,390 eligible outer-train rows have not been read or admitted.
-    blocks:
-      - S0_A3_CONTAMINATION_CHECK
-      - S0_N1_BLOCK_FEASIBILITY
-      - S0_N1_SAMPLER
-      - S0_N2_SAMPLER
-      - GATE_R0
-      - S0_REFERENCE_FEATURES
-      - S0_RELIABILITY_MODELS
-      - S0_ABSOLUTE_HSG
-      - S0_RC_HSG_CORE
-      - S0_FLAT_RC
-    resolution: After the early A-path leakage audit passes, execute S0_A1_ADMISSION as a streaming scan of the remaining 3,390 eligible outer-train rows without unit inference, training, or outcome reads.
-
-last_completed_task: S0_LEAKAGE_AUDIT
-recommended_next_task: S0_A1_ADMISSION
-last_run: runs/2026-08-24_015_a_path_leakage_audit.md
+last_completed_task: S0_A1_ADMISSION
+recommended_next_task: S0_N1_BLOCK_FEASIBILITY
+last_run: runs/2026-08-24_016_a1_full_outer_train_admission.md
 
 do_not_do_yet:
-  - Do not execute full A1 admission without a new author-frozen exact contract; run 015 stops after the early A-path leakage audit.
+  - Do not execute N1 block feasibility without a new ChatGPT/author-frozen exact contract; run 016 stops after full outer-train admission.
   - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
   - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
   - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.
   - Do not implement F, semantic schema, reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
-  - Do not read any remaining eligible, short, calibration, or test EEG values, semantic outcomes, predictions, or historical model metrics under run 015 authorization.
+  - Do not reread admitted panel or remaining rows, or read short, calibration, or test EEG values, semantic outcomes, predictions, or historical model metrics under run 016 authorization.
   - Do not unlock test identities, run the method leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.

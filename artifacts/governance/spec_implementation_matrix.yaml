@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_015_a_path_leakage_audit
-evidence_as_of_commit: dc105709563cf9eb216f1c28f82fdf754e7b0683
+updated_by_run: 2026-08-24_016_a1_full_outer_train_admission
+evidence_as_of_commit: 07c37b3bb77c3cf396116078b64687dcebb9ee03
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -112,17 +112,24 @@ items:
       - artifacts/a1_frontend_audit_panel_v1.jsonl
       - artifacts/a1_frontend_freeze.yaml
       - reports/a1_frontend_selfcheck.md
+      - scripts/admit_a1_outer_train.py
+      - tests/test_admit_a1_outer_train.py
+      - artifacts/a1_outer_train_admission_v1.jsonl
+      - artifacts/a1_outer_train_admission_freeze.yaml
+      - reports/a1_admission.md
+      - runs/2026-08-24_016_a1_full_outer_train_admission.md
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_native_spectral_a1.py'"
       - ".venv/bin/python -m unittest discover -s tests -p 'test_build_a_interface_contract.py'"
       - ".venv/bin/python -m unittest discover -s tests -p 'test_validate_a1_frontend.py'"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_admit_a1_outer_train.py'"
     acceptance_gaps:
       - exact clean-room interface and metadata-only short-row overlay are implemented and synthetic-tested
       - bounded 107-row real frontend traversal and CPU/CUDA self-check pass
-      - full admission remains pending for 3390 eligible outer-train rows
+      - full outer-train admission covers all 3497 eligible rows and retains 44 short rows as forced L0 no-read
       - release-native amplitude remains physically unresolved and conversion remains prohibited
-    target_task: S0_A1_ADMISSION
-    blocker: B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING
+    target_task: S0_N1_BLOCK_FEASIBILITY
+    blocker: null
   semantic_schema_and_evaluator:
     status: BLOCKED
     evidence_paths: []
@@ -226,10 +233,12 @@ items:
       - artifacts/a1_frontend_freeze.yaml
       - tests/test_audit_a_path_leakage.py
       - artifacts/a_path_leakage_assertions.yaml
+      - tests/test_admit_a1_outer_train.py
+      - artifacts/a1_outer_train_admission_freeze.yaml
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - synthetic interface bounded real frontend validation and early A-path leakage firewall pass; no full admission or scientific Gate exists
+      - synthetic interface bounded real frontend early A-path leakage and full outer-train admission pass; no scientific Gate exists
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:
@@ -261,7 +270,7 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
-active_spec: guide/RC_HSG_Paper_Spec_v2_4_2026-08-24.md
+active_spec: guide/RC_HSG_Paper_Spec_v2_5_2026-08-24.md
 active_method: RC-HSG
 active_gates:
   - GATE_R0
