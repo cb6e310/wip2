@@ -188,6 +188,29 @@ SPEC_V18_REVIEW:
     - runs/2026-08-22_009_stimulus_similarity_diagnostic.md
   evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
 
+SPEC_V19_REVIEW:
+  title: Activate the frozen NC-HSG stimulus identity and grouping policy
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V18_REVIEW
+  produces:
+    - guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md
+    - artifacts/spec_review/nc_hsg_v19_post_push_review.md
+  acceptance:
+    - reviewed commit is exactly 1252d0a24b6d4785e7f550464586c95f54f3cfa3
+    - the outcome-blind NC_HSG_STIMULUS_GROUP_POLICY_V1 thresholds and exact group identity contract are frozen
+    - run 010 executes the frozen policy without threshold research text review or split construction
+    - older SPECs reviews runs and diagnostic artifacts remain immutable provenance
+  completed_by_run: 2026-08-23_010_stimulus_identity_grouping
+  acceptance_evidence:
+    - guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md
+    - artifacts/spec_review/nc_hsg_v19_post_push_review.md
+    - runs/2026-08-23_010_stimulus_identity_grouping.md
+  evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
+
 S0_STIMULUS_SOURCE_BINDING:
   title: Bind frozen ZuCo 2.0 NR material sources to committed stimulus identities
   stage: stage_0
@@ -242,20 +265,26 @@ S0_STIMULUS_SIMILARITY_DIAGNOSTIC:
 S0_STIMULUS_GROUP_POLICY_REVIEW:
   title: Freeze the final near-duplicate threshold and grouping policy
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 4
   owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_STIMULUS_SIMILARITY_DIAGNOSTIC
   produces:
-    - future SPEC threshold and grouping decision
+    - guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md
+    - artifacts/spec_review/nc_hsg_v19_post_push_review.md
   acceptance:
     - diagnostic distributions candidates intersections and component risks are reviewed
     - a final outcome-blind grouping policy is explicitly selected or rejected
     - high embedding similarity is not treated as verified paraphrase without review
-    - the decision is versioned before stimulus groups or splits are built
-  why_ready: The source binding and all-pair diagnostic are complete, but Codex is not authorized to select a final threshold from the observed corpus distribution.
+    - the decision is versioned before stimulus groups are built and no split is constructed in run 010
+  completed_by_run: 2026-08-23_010_stimulus_identity_grouping
+  acceptance_evidence:
+    - guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md
+    - artifacts/spec_review/nc_hsg_v19_post_push_review.md
+    - runs/2026-08-23_010_stimulus_identity_grouping.md
+  evidence_scope: OUTCOME_BLIND_FROZEN_STIMULUS_GROUP_POLICY_NO_TEXT_REVIEW
 
 S0_ACTIVE_SPEC_GUARD:
   title: Guard every active SPEC entry point against state drift
@@ -588,25 +617,38 @@ S0_A_INTERFACE:
 S0_STIMULUS_ID:
   title: Normalize stimulus identity and freeze near-duplicate groups
   stage: stage_0
-  status: BLOCKED
+  status: DONE
   critical_path: true
   priority: 5
   prerequisites:
     - S0_DATA_CARD
     - S0_STIMULUS_GROUP_POLICY_REVIEW
   produces:
+    - scripts/build_stimulus_identity.py
+    - tests/test_build_stimulus_identity.py
     - artifacts/stimulus_identity.yaml
     - artifacts/stimulus_groups.json
+    - reports/stimulus_identity.md
+    - runs/2026-08-23_010_stimulus_identity_grouping.md
   acceptance:
-    - exact normalized document paragraph and stimulus keys are recorded
+    - normalized exact stimulus IDs and occurrence keys are recorded while unavailable document and paragraph IDs remain explicitly null
     - edit-distance and frozen-embedding thresholds are outcome-blind and versioned
-    - exact duplicates paraphrases and unjoinable records are ledgered
-  blocked_reason: The outcome-blind similarity diagnostic is complete, but the final threshold and near-duplicate grouping policy have not been frozen by ChatGPT or the author. Exact occurrences remain distinct and no formal groups may be created before S0_STIMULUS_GROUP_POLICY_REVIEW is DONE.
+    - exact duplicates unverified near duplicates and unjoinable records are ledgered without stimulus text
+    - 349 occurrences map exactly once to 342 deterministic groups with no group larger than two occurrences
+    - two independent production builds are byte-identical and no split artifact is created
+  completed_by_run: 2026-08-23_010_stimulus_identity_grouping
+  acceptance_evidence:
+    - artifacts/stimulus_identity.yaml
+    - artifacts/stimulus_groups.json
+    - reports/stimulus_identity.md
+    - tests/test_build_stimulus_identity.py
+    - runs/2026-08-23_010_stimulus_identity_grouping.md
+  evidence_scope: OUTCOME_BLIND_TEXT_SAFE_STIMULUS_IDENTITY_GROUPING_NO_SPLIT
 
 S0_JOINT_SPLIT:
   title: Build Regime I stimulus-disjoint and Regime II subject-stimulus manifests
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 6
   prerequisites:
@@ -621,7 +663,7 @@ S0_JOINT_SPLIT:
     - Regime II holds out subject and stimulus without overlap
     - train cal test and inner-val identities are disjoint as specified
     - deterministic rebuilds are byte-identical and hashes are frozen
-  blocked_reason: The data card is complete, but formal stimulus identity and near-duplicate groups must be frozen before split construction.
+  why_ready: All 349 occurrences are covered by 342 frozen deterministic stimulus groups. Run 010 intentionally stops before split construction; execute only after the next exact ChatGPT or author split instruction.
 
 S0_LEAKAGE_AUDIT:
   title: Audit split preprocessing candidate and test-time leakage

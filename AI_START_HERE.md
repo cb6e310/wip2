@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md` (version `v1.8`).
+Active SPEC: `guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md` (version `v1.9`).
 
 ## Verified location
 
@@ -13,13 +13,13 @@ Active SPEC: `guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md` (version `v1.8`).
 
 ## Source of truth
 
-1. `guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md` (active version `v1.8`)
+1. `guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md` (active version `v1.9`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Older SPECs, runs 001-008, and schema-v1/v2/v3 admission artifacts are provenance only. Never import state, claims, routes, metrics, or DONE decisions from `trust_align` or example archives.
+Older SPECs, runs 001-009, and schema-v1/v2/v3 admission artifacts are provenance only. Never import state, claims, routes, metrics, or DONE decisions from `trust_align` or example archives.
 
 ## Recovery sequence
 
@@ -34,9 +34,9 @@ Before changing files, record HEAD, branch, origin, and dirty state. If entry po
 
 ## Current evidence boundary
 
-Run 009 completed `SPEC_V18_REVIEW`, `S0_STIMULUS_SOURCE_BINDING`, and `S0_STIMULUS_SIMILARITY_DIAGNOSTIC`. Seven frozen material CSVs bind 370 rows, exclude 21 practice rows, and reproduce 349 task slots, 344 exact identities, and five exact duplicate groups. All 58,996 unordered identity pairs have text-free edit, token-Jaccard, and frozen all-MiniLM-L6-v2 cosine diagnostics. Document and paragraph metadata remain unavailable.
+Run 010 completed `SPEC_V19_REVIEW`, `S0_STIMULUS_GROUP_POLICY_REVIEW`, and `S0_STIMULUS_ID`. The frozen `NC_HSG_STIMULUS_GROUP_POLICY_V1` applies only the committed six-decimal candidate scores. It records two inter-identity edges, nine unjoined broad candidates, and 342 deterministic groups covering all 349 occurrences exactly once. Group kinds are 335 `SINGLETON`, five `EXACT_DUPLICATE_OCCURRENCES`, and two `NEAR_DUPLICATE_LEAKAGE_RISK`; no group exceeds two occurrences. Stimulus text was not emitted or reviewed, so every candidate and group remains explicitly not paraphrase-verified. Document and paragraph metadata remain unavailable.
 
-Physical unit remains `UNRESOLVED_RELEASE_NATIVE_AMPLITUDE`; no unit inference is authorized. `S0_STIMULUS_GROUP_POLICY_REVIEW` is the sole READY and recommended task, owned by ChatGPT or the author. `S0_STIMULUS_ID` is BLOCKED. Do not select a threshold, emit groups, construct a split, or treat the diagnostic as paraphrase verification, backbone, training, or Gate admission.
+Physical unit remains `UNRESOLVED_RELEASE_NATIVE_AMPLITUDE`; no unit inference is authorized. `S0_JOINT_SPLIT` is the sole READY and recommended task, but run 010 intentionally stops before constructing a split. Wait for the next exact ChatGPT or author split instruction. Do not alter grouping thresholds, infer paraphrases, select a backbone, train, or run any Gate.
 
 ## End-of-session contract
 

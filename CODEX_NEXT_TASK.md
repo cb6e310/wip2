@@ -1,15 +1,21 @@
-# Waiting for stimulus grouping policy review
+# Codex Next Task
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md` (version `v1.8`).
+## Current state
 
-Run 009 completed the bounded source binding and all-pair similarity diagnostic. The sole READY and recommended task is:
+Run 010 completed the frozen NC-HSG v1.9 stimulus identity/grouping chain. `S0_JOINT_SPLIT` is READY and is the sole recommended next task.
 
-```text
-S0_STIMULUS_GROUP_POLICY_REVIEW
-owner: CHATGPT_OR_AUTHOR
-status: READY
-```
+## Required next instruction
 
-Review the committed score distributions, broad-prefilter candidates, trigger intersections, top opaque pairs, and component-risk summaries. Freeze a versioned final threshold and grouping policy, or explicitly reject grouping, before authorizing implementation.
+Wait for the next exact ChatGPT or author directive before executing `S0_JOINT_SPLIT`. That directive must define the authorized split implementation and evidence contract. Do not infer missing split details from the current repository.
 
-Codex must stop here. Do not infer paraphrases from high similarity, select a threshold from the observed distribution, emit `near_duplicate_group_id`, merge exact occurrences, construct a split, read EEG or outcomes, select backbone A, train, or run a Gate. `S0_STIMULUS_ID` and `S0_JOINT_SPLIT` remain BLOCKED.
+## Frozen inputs to the next task
+
+- 349 occurrences are preserved and map exactly once.
+- 342 deterministic stimulus groups are frozen.
+- Group kinds are 335 `SINGLETON`, five `EXACT_DUPLICATE_OCCURRENCES`, and two `NEAR_DUPLICATE_LEAKAGE_RISK`.
+- The largest exact-ID component and largest occurrence group are both size two.
+- Paraphrase verification and document/paragraph metadata remain unavailable.
+
+## Hard stop
+
+Until the next exact instruction arrives, do not create `split_regimeI.json`, `split_regimeII.json`, or `split_manifest.yaml`. Do not alter grouping thresholds, reread source material, infer paraphrases or EEG units, select backbone A, implement later-stage methods, train, or run a Gate.
