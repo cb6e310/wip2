@@ -1,23 +1,33 @@
-# NC-HSG v1.8 iteration-7 active handoff
+# RC-HSG v2.1 active project handoff
 
-Baseline: `wip2@b72ed5ab9720b7a922f7d1c6d8681cb646c344ab`  
-Activated: 2026-08-22
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md` (version `v2.1`).
+
+Baseline reviewed: `wip2@3b97fdc966b9b56d72287df619a80f6145d71189`  
+Activated: 2026-08-24
 
 ## Purpose
 
-SPEC v1.8 authorizes a bounded, outcome-blind binding of seven frozen ZuCo 2.0 NR material CSVs and a text-free all-pair similarity diagnostic. Run 009 binds 349 post-practice slots to 344 exact identities and scores all 58,996 unordered identity pairs without selecting a final threshold or grouping policy.
+Run 012 activates the author-frozen RC-HSG scientific redesign, migrates the
+task/state machine, and materializes `RC_HSG_NATIVE_SPECTRAL_A1_V1`. It does
+not implement the frontend or any later scientific component.
 
-The active repository does not contain material CSV copies, stimulus text, tokens, embedding vectors, or model weights. Document and paragraph metadata remain unavailable. No EEG, event, TSR, outcome, historical result, checkpoint, backbone selection, split, training, or Gate is part of this work.
+Run-011 data, stimulus identity/grouping, deterministic split, subject-macro
+population, bootstrap, and test-lock artifacts remain immutable. RC-HSG v2.1
+section 20 supersedes only the older NC-HSG scientific interpretation and
+downstream Gate/task architecture.
 
 ## Active files
 
-- `guide/NC_HSG_Paper_Spec_v1_8_2026-08-22.md`: active scientific and governance contract.
-- `artifacts/spec_review/nc_hsg_v18_post_push_review.md`: independent baseline review.
-- `artifacts/stimulus_source_binding_v1.yaml`: opaque source-to-identity binding.
-- `artifacts/stimulus_similarity_diagnostic_v1.yaml`: text-free score and component-risk summaries.
-- `artifacts/stimulus_similarity_candidates_v1.jsonl`: broad diagnostic OR-prefilter ledger.
-- `runs/2026-08-22_009_stimulus_similarity_diagnostic.md`: immutable execution record.
+- `guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md`: active scientific and governance contract.
+- `artifacts/spec_review/rc_hsg_v21_scientific_redesign_review.md`: accepted baseline/redesign review.
+- `artifacts/backbone_a_policy.yaml`: author-frozen native spectral A policy.
+- `runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md`: immutable activation record.
+- `CODEX_NEXT_TASK.md`: sole next-task boundary.
 
 ## Stop state
 
-`S0_STIMULUS_GROUP_POLICY_REVIEW` is the sole READY recommendation and is owned by ChatGPT or the author. Codex must not choose a final threshold, create near-duplicate groups, or construct a split until that policy review is versioned.
+`S0_A_INTERFACE` is the sole READY recommendation and is owned by `CODEX`.
+The A policy is selected but the frontend is not implemented. Test remains
+locked. Do not read EEG/outcomes, copy or download external model code/weights,
+train, run the full leakage audit, execute any Gate, or continue beyond this
+stop without a new exact instruction.

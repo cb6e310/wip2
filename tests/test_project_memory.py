@@ -91,6 +91,14 @@ class ProjectMemoryTests(unittest.TestCase):
             target = self.root / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(yaml.safe_dump(source, sort_keys=False), encoding="utf-8")
+        for relative in (
+            "artifacts/backbone_a_policy.yaml",
+            *CHECKER.FROZEN_RUN_011_HASHES,
+        ):
+            source = PROJECT_ROOT / relative
+            target = self.root / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
         active_spec = self.root / self.state["project"]["spec_path"]
         active_spec.write_text(
             f"# fixture {self.state['project']['spec_version']}\n",
@@ -100,7 +108,7 @@ class ProjectMemoryTests(unittest.TestCase):
             f"Active SPEC: `{self.state['project']['spec_path']}` "
             f"(version `{self.state['project']['spec_version']}`).\n"
         )
-        for name in ("AGENTS.md", "AI_START_HERE.md", "HANDOFF.md"):
+        for name in ("AGENTS.md", "AI_START_HERE.md", "HANDOFF.md", "PACKAGE_README.md"):
             (self.root / name).write_text(entry, encoding="utf-8")
 
     def _save(self) -> None:
@@ -131,6 +139,12 @@ class ProjectMemoryTests(unittest.TestCase):
     def test_ai_start_wrong_version_fails(self) -> None:
         path = self.state["project"]["spec_path"]
         (self.root / "AI_START_HERE.md").write_text(f"{path} version v1.2\n", encoding="utf-8")
+        self._assert_code(self._errors(), "ENTRYPOINT_SPEC_MISMATCH")
+
+    def test_package_readme_wrong_spec_fails(self) -> None:
+        (self.root / "PACKAGE_README.md").write_text(
+            "Active SPEC: `guide/old.md` (version `v1.8`).\n", encoding="utf-8"
+        )
         self._assert_code(self._errors(), "ENTRYPOINT_SPEC_MISMATCH")
 
     def test_missing_agents_fails(self) -> None:
@@ -183,12 +197,11 @@ class ProjectMemoryTests(unittest.TestCase):
         self._assert_code(self._errors(), "DONE_PREREQUISITE_NOT_DONE")
 
     def test_ready_named_by_blocker_fails(self) -> None:
-        self.tasks["S0_A_INTERFACE"]["status"] = "READY"
-        self.tasks["S0_A_INTERFACE"].pop("blocked_reason", None)
+        self.state["blockers"][0]["blocks"].append("S0_A_INTERFACE")
         self._assert_code(self._errors(), "READY_BLOCKED")
 
     def test_blocked_without_reason_fails(self) -> None:
-        self.tasks["S0_A_INTERFACE"].pop("blocked_reason", None)
+        self.tasks["S0_A1_FRONTEND"].pop("blocked_reason", None)
         self._assert_code(self._errors(), "BLOCKED_REASON_MISSING")
 
     def test_recommendation_must_be_ready(self) -> None:
@@ -213,20 +226,30 @@ class ProjectMemoryTests(unittest.TestCase):
         self.state["recommended_next_task"] = "ZZ_SECOND"
         self._assert_code(self._errors(), "RECOMMENDATION_MISMATCH")
 
-    def test_gate_a1_order_fails(self) -> None:
-        self._complete_for_order_test("GATE_A1")
-        self.state["gates"]["gate_a1"].update(status="DONE", outcome="PASS")
-        self._assert_code(self._errors(), "GATE_A1_ORDER")
+    def test_gate_r0_order_fails(self) -> None:
+        self._complete_for_order_test("GATE_R0")
+        self.state["gates"]["gate_r0"].update(status="DONE", outcome="PASS")
+        self._assert_code(self._errors(), "GATE_R0_ORDER")
 
-    def test_gate_a_order_fails(self) -> None:
-        self._complete_for_order_test("GATE_A")
-        self.state["gates"]["gate_a"].update(status="DONE", outcome="PASS")
-        self._assert_code(self._errors(), "GATE_A_ORDER")
+    def test_gate_r_order_fails(self) -> None:
+        self._complete_for_order_test("GATE_R")
+        self.state["gates"]["gate_r"].update(status="DONE", outcome="PASS")
+        self._assert_code(self._errors(), "GATE_R_ORDER")
 
-    def test_gate_b_order_fails(self) -> None:
-        self._complete_for_order_test("GATE_B")
-        self.state["gates"]["gate_b"].update(status="DONE", outcome="PASS")
-        self._assert_code(self._errors(), "GATE_B_ORDER")
+    def test_gate_c_order_fails(self) -> None:
+        self._complete_for_order_test("GATE_C")
+        self.state["gates"]["gate_c"].update(status="DONE", outcome="PASS")
+        self._assert_code(self._errors(), "GATE_C_ORDER")
+
+    def test_gate_h_order_fails(self) -> None:
+        self._complete_for_order_test("GATE_H")
+        self.state["gates"]["gate_h"].update(status="DONE", outcome="PASS")
+        self._assert_code(self._errors(), "GATE_H_ORDER")
+
+    def test_mechanism_a_order_fails(self) -> None:
+        self._complete_for_order_test("MECHANISM_A")
+        self.state["gates"]["mechanism_a"].update(status="DONE", outcome="PASS")
+        self._assert_code(self._errors(), "MECHANISM_A_ORDER")
 
     def test_route_lock_order_fails(self) -> None:
         self._complete_for_order_test("ROUTE_LOCK")
@@ -237,12 +260,62 @@ class ProjectMemoryTests(unittest.TestCase):
         self._assert_code(self._errors(), "MAIN_EXPERIMENT_ORDER")
 
     def test_dual_route_lock_fails(self) -> None:
-        self.state["route"]["locked"] = ["FULL_NC_HSG", "TOPIC_LEVEL"]
+        self.state["route"]["locked"] = ["RC_HSG", "FLAT_RC"]
         self.state["route"]["locked_by_run"] = "fixture"
         self._assert_code(self._errors(), "MULTIPLE_ROUTES_LOCKED")
 
-    def test_v13_generic_spec_passes(self) -> None:
+    def test_v21_current_spec_passes(self) -> None:
         self.assertEqual(self._errors(), [])
+
+    def test_v21_task_counts_and_ready_set(self) -> None:
+        self.assertEqual(len(self.tasks), 67)
+        self.assertEqual(
+            sum(task["status"] == "DONE" for task in self.tasks.values()), 29
+        )
+        self.assertEqual(
+            [task_id for task_id, task in self.tasks.items() if task["status"] == "READY"],
+            ["S0_A_INTERFACE"],
+        )
+
+    def test_v21_superseded_tasks_are_locked(self) -> None:
+        for task_id in CHECKER.V21_SUPERSEDED_TASKS:
+            task = self.tasks[task_id]
+            self.assertEqual(task["status"], "SKIPPED")
+            self.assertFalse(task["critical_path"])
+            self.assertEqual(task["skip_reason"], "SUPERSEDED_BY_RC_HSG_V21")
+
+    def test_v21_dependency_rewrite_is_exact(self) -> None:
+        for task_id, expected in CHECKER.V21_DEPENDENCIES.items():
+            self.assertEqual(set(self.tasks[task_id]["prerequisites"]), expected)
+
+    def test_v21_active_gate_set_is_exact(self) -> None:
+        self.assertEqual(set(self.state["gates"]), set(CHECKER.V21_ACTIVE_GATES))
+        self.assertTrue(
+            all(
+                item["status"] == "BLOCKED" and item["outcome"] is None
+                for item in self.state["gates"].values()
+            )
+        )
+
+    def test_v21_a_policy_tamper_fails(self) -> None:
+        policy_path = self.root / "artifacts/backbone_a_policy.yaml"
+        policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+        policy["selected"]["sampling_hz"] = 200
+        policy_path.write_text(
+            yaml.safe_dump(policy, sort_keys=False), encoding="utf-8"
+        )
+        self._assert_code(
+            CHECKER.validate(self.root), "V21_A_POLICY_SELECTED_MISMATCH"
+        )
+
+    def test_v21_frozen_split_tamper_fails(self) -> None:
+        path = self.root / "artifacts/split_manifest.yaml"
+        path.write_text(
+            path.read_text(encoding="utf-8") + "# tamper\n", encoding="utf-8"
+        )
+        self._assert_code(
+            CHECKER.validate(self.root), "V21_FROZEN_ARTIFACT_HASH_MISMATCH"
+        )
 
     def test_spec_filename_mismatch_fails(self) -> None:
         self.state["project"]["spec_path"] = "guide/NC_HSG_Paper_Spec_v1_2_fixture.md"
@@ -262,12 +335,12 @@ class ProjectMemoryTests(unittest.TestCase):
 
     def test_route_lock_run_must_exist(self) -> None:
         self._complete_for_order_test("ROUTE_LOCK")
-        self.state["route"]["locked"] = "FULL_NC_HSG"
+        self.state["route"]["locked"] = "RC_HSG"
         self.state["route"]["locked_by_run"] = "missing_lock_run"
         self._assert_code(self._errors(), "ROUTE_LOCK_RUN_MISSING")
 
     def test_route_cannot_be_premature(self) -> None:
-        self.state["route"]["locked"] = "FULL_NC_HSG"
+        self.state["route"]["locked"] = "RC_HSG"
         self._assert_code(self._errors(), "ROUTE_LOCK_PREMATURE")
 
     def test_done_acceptance_evidence_required(self) -> None:
@@ -315,9 +388,9 @@ class ProjectMemoryTests(unittest.TestCase):
         self._save()
         self._assert_code(CHECKER.validate(self.root), "NEXT_TASK_STALE")
 
-    def test_a_policy_review_requires_frozen_owner(self) -> None:
-        self.tasks["S0_A_POLICY_REVIEW"]["owner"] = "CODEX"
-        self._assert_code(self._errors(), "OWNER_ONLY_TASK_OWNER_MISMATCH")
+    def test_a_interface_requires_codex_owner(self) -> None:
+        self.tasks["S0_A_INTERFACE"]["owner"] = "CHATGPT_OR_AUTHOR"
+        self._assert_code(self._errors(), "A_INTERFACE_OWNER_MISMATCH")
 
     def test_discovery_is_first_after_hardening(self) -> None:
         task = self.tasks["S0_INPUT_DISCOVERY_AUDIT"]

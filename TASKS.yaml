@@ -234,6 +234,55 @@ SPEC_V20_REVIEW:
     - runs/2026-08-23_011_joint_split_population_freeze.md
   evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
 
+SPEC_V21_REVIEW:
+  title: Activate the author-frozen RC-HSG v2.1 scientific redesign
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V20_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v21_scientific_redesign_review.md
+  acceptance:
+    - reviewed commit is exactly 3b97fdc966b9b56d72287df619a80f6145d71189
+    - section 20 supersedes the old NC-HSG scientific interpretation without rewriting run-011 physical evidence
+    - author-frozen reference feature reliability Gate calibration and backbone decisions are activated without outcome reads
+    - older SPECs reviews runs and split artifacts remain immutable provenance
+  completed_by_run: 2026-08-24_012_rc_hsg_scientific_redesign_freeze
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v21_scientific_redesign_review.md
+    - runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md
+  evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_EEG_OUTCOME_OR_MODEL_EVIDENCE
+
+S0_SCIENTIFIC_REDESIGN_FREEZE:
+  title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 1
+  prerequisites:
+    - SPEC_V21_REVIEW
+  produces:
+    - PROJECT_STATE.yaml
+    - TASKS.yaml
+    - artifacts/governance/spec_implementation_matrix.yaml
+    - runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md
+  acceptance:
+    - RC-HSG reliability alignment replaces NC-HSG evidence attribution as the active scientific route
+    - Gate R0 Gate R Gate C Gate H and Mechanism A are the only active Gate architecture
+    - all historical task IDs remain and superseded tasks are explicitly SKIPPED
+    - task graph has exactly 67 tasks 29 DONE and one READY without unlocking test
+  completed_by_run: 2026-08-24_012_rc_hsg_scientific_redesign_freeze
+  acceptance_evidence:
+    - PROJECT_STATE.yaml
+    - TASKS.yaml
+    - artifacts/governance/spec_implementation_matrix.yaml
+    - runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md
+  evidence_scope: OUTCOME_BLIND_SCIENTIFIC_GOVERNANCE_MIGRATION_ONLY
+
 S0_STIMULUS_SOURCE_BINDING:
   title: Bind frozen ZuCo 2.0 NR material sources to committed stimulus identities
   stage: stage_0
@@ -620,23 +669,25 @@ S0_DATA_CARD:
   evidence_scope: OUTCOME_BLIND_DATA_DOCUMENTATION_FROM_COMMITTED_SCHEMA_V3_ARTIFACTS
 
 S0_A_INTERFACE:
-  title: Freeze exactly one controlled primary backbone A and its tensor contract
+  title: Implement and freeze the RC_HSG_NATIVE_SPECTRAL_A1_V1 tensor interface
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 4
+  owner: CODEX
   prerequisites:
     - S0_REPOSITORY_AUDIT
     - S0_DATA_CARD
     - S0_A_POLICY_REVIEW
+    - S0_JOINT_SPLIT
   produces:
     - artifacts/backbone_a_contract.yaml
   acceptance:
-    - checkpoint or implementation identity hash and license are recorded
-    - input window sampling channels units mask output dimension and score interface are frozen
-    - freeze versus PEFT scope and trainable parameter count are explicit
-    - all comparison rows can share the same A and score API
-  blocked_reason: The split and population contracts are frozen, but the owner-only A policy review is pending. Release-native amplitude remains unit-unbound for unit-sensitive candidates; physical-interface, license, checkpoint-locality, channel-map, adapter, and common-score gaps keep B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT active.
+    - implementation exactly matches RC_HSG_NATIVE_SPECTRAL_A1_V1 without external source code checkpoint or weight download
+    - 105-channel 500-Hz release-native input robust transform window bands projection encoder masks and outputs match the frozen policy
+    - segments shorter than 500 valid samples fail admission without silent padding
+    - real N1 N2 and all methods share the same frontend path with deterministic project-owned initialization
+  why_ready: The author-frozen native spectral policy is materialized and run 011 split population and test lock remain intact. This task is implementation-only and may not select another backbone or read outcomes.
 
 S0_STIMULUS_ID:
   title: Normalize stimulus identity and freeze near-duplicate groups
@@ -719,10 +770,10 @@ S0_LEAKAGE_AUDIT:
     - normalization feature selection schema candidates and null bins fit on legal training data only
     - teacher forcing gold prefixes test retrieval and calibration representation learning are rejected
     - machine assertions fail closed
-  blocked_reason: The split contract is frozen, but the owner-only A policy review and backbone interface remain incomplete. Full leakage audit execution is outside run 011.
+  blocked_reason: The split and native A policy are frozen, but S0_A_INTERFACE and its admission path are not implemented; B_V7 remains active and the full audit is outside run 012.
 
 S0_A1_FRONTEND:
-  title: Implement or admit the primary real-EEG frontend and tensor self-check
+  title: Validate the frozen native A frontend and tensor self-check
   stage: stage_0
   status: BLOCKED
   critical_path: true
@@ -738,10 +789,10 @@ S0_A1_FRONTEND:
     - fold-local fitting is enforced
     - deterministic finite tensors match the frozen A contract
     - synthetic success is not mislabeled real-data admission
-  blocked_reason: The data card is complete, but release-native amplitude remains unit-unbound for unit-sensitive frontends and no scientific frontend/backbone has been selected or implemented; B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT are active.
+  blocked_reason: RC_HSG_NATIVE_SPECTRAL_A1_V1 is selected but S0_A_INTERFACE is not implemented; B_V7 remains active and physical-unit conversion stays prohibited.
 
 S0_A1_ADMISSION:
-  title: Admit the primary frontend on outer-train real data
+  title: Admit the frozen native frontend on outer-train real data
   stage: stage_0
   status: BLOCKED
   critical_path: true
@@ -756,7 +807,7 @@ S0_A1_ADMISSION:
     - sampling channel order units finite values lengths and masks pass
     - checks read outer-train only
     - failures remain blockers rather than guessed conversions
-  blocked_reason: Unit-sensitive admission, frontend, split, and leakage prerequisites remain unresolved; B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT are active.
+  blocked_reason: The native frontend tensor checks and leakage prerequisites are incomplete; B_V7 remains active and no guessed unit conversion is allowed.
 
 S0_A3_CONTAMINATION_CHECK:
   title: Audit an optional second backbone for contamination license and tensor compatibility
@@ -773,7 +824,7 @@ S0_A3_CONTAMINATION_CHECK:
     - pretraining overlap checkpoint license channels preprocessing and output are recorded
     - failure removes the optional backbone without substituting a third model
     - no Gate depends on this optional task
-  blocked_reason: The dataset card is complete, but no optional backbone is selected and its checkpoint identity, license, pretraining overlap, and tensor contract are not frozen; B_V2_BACKBONE_NOT_PRESENT remains active.
+  blocked_reason: LaBraM and NeuroLM are optional descriptive robustness only after the primary method and route freeze; no optional code or weight may enter while B_V7 remains active.
 
 S0_N1_BLOCK_FEASIBILITY:
   title: Freeze outcome-blind N1 block feasibility before sampler implementation
@@ -832,8 +883,8 @@ S0_N2_SAMPLER:
 GATE_A1:
   title: Decide structural N1 and empirical N2 null validity
   stage: gate_a1
-  status: BLOCKED
-  critical_path: true
+  status: SKIPPED
+  critical_path: false
   priority: 13
   prerequisites:
     - S0_LEAKAGE_AUDIT
@@ -848,28 +899,31 @@ GATE_A1:
     - outcome is PASS FAIL or DEGRADED with fixed claim consequences
     - no semantic model free LLM or held-out test result is used
   blocked_reason: Leakage and both primary null families are incomplete.
+  skip_reason: SUPERSEDED_BY_RC_HSG_V21
 
 S0_SEMANTIC_ITEM:
-  title: Freeze L1-L3 typed semantic units projections evaluator and L4 renderer
+  title: Freeze RC-HSG L1-L3 typed reliability targets projections evaluator and L4 renderer
   stage: stage_0
   status: BLOCKED
   critical_path: true
   priority: 14
   prerequisites:
-    - GATE_A1
+    - S0_A_INTERFACE
     - S0_DATA_CARD
+    - S0_JOINT_SPLIT
+    - S0_LEAKAGE_AUDIT
   produces:
     - artifacts/semantic_schema.yaml
     - artifacts/semantic_matcher.yaml
   acceptance:
-    - L1 topic L2 concept or entity-event and L3 proposition units are versioned
+    - L1 topic L2 concept or entity-event and L3 proposition units define cumulative typed unsupported-fraction reliability targets
     - typed union risk units and deterministic P2 P3 projections are executable
     - L4 contributes no semantic-depth unit and rejects new entities numbers relations polarity and modifiers
     - schema and matcher are fit without test text
-  blocked_reason: Gate A1 has not permitted semantic work and V3 is open.
+  blocked_reason: A interface leakage audit and RC-HSG typed semantic reliability schema are not frozen; B_V3_SCHEMA_UNFROZEN remains active.
 
 S0_H_DEFINITION:
-  title: Freeze legal candidate context and selection firewall
+  title: Freeze RC-HSG shared absolute-score candidate context and selection firewall
   stage: stage_0
   status: BLOCKED
   critical_path: true
@@ -882,9 +936,9 @@ S0_H_DEFINITION:
   acceptance:
     - candidate libraries use outer-train schema and legal non-EEG context only
     - test gold test sentence retrieval current test EEG and calibration label frequencies are forbidden
-    - parent-consistent paths tie deterministically
+    - parent-consistent paths tie deterministically and candidate content is selected only by absolute score
     - every candidate library ordering and selection statistic is hashed
-  blocked_reason: Semantic schema and splits are not frozen; V6 is open.
+  blocked_reason: RC-HSG semantic schema and shared candidate firewall are not frozen; B_V3 and B_V6 remain active.
 
 S0_SCHEMA_AUDIT:
   title: Run blinded human and machine audit of semantic identifiability
@@ -901,8 +955,8 @@ S0_SCHEMA_AUDIT:
     - truth-side and prediction-side parent consistency are measured
     - two blinded annotators and Cohen kappa are reported where required
     - matcher errors and unidentifiable units are ledgered
-    - failure blocks Gate A rather than changing thresholds
-  blocked_reason: Schema and selection contracts are incomplete.
+    - failure blocks downstream RC-HSG reliability fitting and Gate R or Gate H rather than changing thresholds
+  blocked_reason: RC-HSG schema and shared candidate firewall are incomplete; no old Gate is a prerequisite.
 
 S0_GATE_A_POPULATION_E5:
   title: Freeze Gate A subject-macro population and cluster inference contract
@@ -934,26 +988,32 @@ S0_GATE_A_POPULATION_E5:
 S0_A_POLICY_REVIEW:
   title: Select or reject exactly one primary backbone A policy
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 18
   owner: CHATGPT_OR_AUTHOR
   prerequisites:
+    - S0_SCIENTIFIC_REDESIGN_FREEZE
     - S0_GATE_A_POPULATION_E5
   produces:
-    - future SPEC backbone A selection or rejection decision
+    - artifacts/backbone_a_policy.yaml
   acceptance:
-    - exactly one A is selected or all candidates are explicitly rejected
-    - license and release-native amplitude compatibility are reviewed
-    - channel interface checkpoint locality reproducibility and adaptation cost are reviewed
-    - the owner decision is versioned before S0_A_INTERFACE implementation
-  why_ready: The deterministic split and subject-macro population are frozen. Backbone selection is owner-only and run 011 stops without selecting downloading or implementing A.
+    - RC_HSG_NATIVE_SPECTRAL_A1_V1 is selected by the author as the sole primary A policy
+    - three ledger candidates are explicitly rejected as primary for their frozen license unit channel filter checkpoint or adapter gaps
+    - no external source code checkpoint weight download guessed unit or channel interpolation is permitted
+    - exact interface shared-path short-segment and optional-robustness boundaries are versioned before implementation
+  completed_by_run: 2026-08-24_012_rc_hsg_scientific_redesign_freeze
+  acceptance_evidence:
+    - artifacts/backbone_a_policy.yaml
+    - guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md
+    - runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md
+  evidence_scope: OUTCOME_BLIND_AUTHOR_BACKBONE_POLICY_NO_IMPLEMENTATION_OR_PERFORMANCE_EVIDENCE
 
 STAGE1_PROBES:
   title: Run no-free-LLM structured real versus N1 and N2 pilot
   stage: stage_1
-  status: BLOCKED
-  critical_path: true
+  status: SKIPPED
+  critical_path: false
   priority: 18
   prerequisites:
     - GATE_A1
@@ -970,12 +1030,13 @@ STAGE1_PROBES:
     - no free LLM teacher forcing test retrieval or representation fitting on calibration occurs
     - per trial subject seed split candidate and null hashes are present
   blocked_reason: Gate A1 schema selection population and leakage prerequisites are incomplete.
+  skip_reason: SUPERSEDED_BY_RC_HSG_V21
 
 SHAM_VALIDATION:
   title: Validate null score sanity before Gate A
   stage: stage_1
-  status: BLOCKED
-  critical_path: true
+  status: SKIPPED
+  critical_path: false
   priority: 19
   prerequisites:
     - STAGE1_PROBES
@@ -986,12 +1047,13 @@ SHAM_VALIDATION:
     - N1 and N2 depth and W distributions are reported separately
     - candidate-selection symmetry and parent consistency assertions pass
   blocked_reason: No valid structured pilot scores exist.
+  skip_reason: SUPERSEDED_BY_RC_HSG_V21
 
 GATE_A:
   title: Decide reproducible real-versus-null semantic increment
   stage: gate_a
-  status: BLOCKED
-  critical_path: true
+  status: SKIPPED
+  critical_path: false
   priority: 20
   prerequisites:
     - STAGE1_PROBES
@@ -1006,30 +1068,32 @@ GATE_A:
     - only-L1 and full-fail outcomes trigger the frozen downgrade routes
     - no main-test metric is used to change the decision
   blocked_reason: Stage 1 and sham validation do not exist.
+  skip_reason: SUPERSEDED_BY_RC_HSG_V21
 
 S0_CALIBRATION_CONTRACT:
-  title: Freeze multiplicity-valid policy selection and risk certification
+  title: Freeze the two-stage RC-HSG policy selection and risk-certification contract
   stage: stage_2
   status: BLOCKED
   critical_path: true
   priority: 21
   prerequisites:
-    - GATE_A
+    - S0_CALIBRATION_FEASIBILITY_REVIEW
+    - S0_RELIABILITY_MODELS
     - S0_GATE_A_POPULATION_E5
   produces:
     - artifacts/calibration_contract.yaml
   acceptance:
-    - exactly one of cal-select plus cal-cert or simultaneous LTT is selected
+    - the frozen 34-group cal-select then independent 34-group cal-cert route is used
     - bounded loss policy grid size delta and subject-macro unit are explicit
     - pointwise UCB after same-data policy search is rejected
     - insufficient subject count forces empirical-risk wording
-  blocked_reason: Gate A has not established the route and V5 is open.
+  blocked_reason: The feasibility review and frozen RC-HSG reliability policies are incomplete; B_V5 remains active.
 
 S0_DIRECT_C:
   title: Implement the strongest flat direct-C control
   stage: stage_2
-  status: BLOCKED
-  critical_path: true
+  status: SKIPPED
+  critical_path: false
   priority: 22
   prerequisites:
     - GATE_A
@@ -1041,29 +1105,33 @@ S0_DIRECT_C:
     - one global W gate controls output or rejection
     - no parent pass levelwise fallback or hierarchical policy remains
   blocked_reason: Gate A and calibration are incomplete.
+  skip_reason: SUPERSEDED_BY_RC_HSG_V21
 
 S0_PMI_BASELINE:
-  title: Implement LM-prior correction and lambda interpolation baseline
+  title: Implement the compute-fair RC-HSG LM-prior correction baseline
   stage: stage_2
   status: BLOCKED
   critical_path: true
   priority: 23
   prerequisites:
-    - GATE_A
+    - S0_A_INTERFACE
+    - S0_H_DEFINITION
+    - S0_RELIABILITY_MODELS
     - S0_CALIBRATION_CONTRACT
   produces:
     - reports/pmi_baseline_selfcheck.md
   acceptance:
-    - LM log probability uses the same frozen candidates and no EEG
-    - lambda grid is frozen before test and charged to the same search budget
-    - outputs support partial-regression and Comparison 1
-  blocked_reason: Gate A and calibration are incomplete.
+    - PMI shares RC-HSG A F candidates hierarchy evaluator and calibration budget
+    - only frozen LM-prior correction features replace reference-relative EEG features
+    - policy grid and compute budget are frozen before test
+    - outputs support the confirmatory matched-reference necessity comparison
+  blocked_reason: Shared RC-HSG candidates reliability policies and calibration budget are incomplete.
 
 S0_NC_HSG_CORE:
   title: Implement NC-HSG score matrix hierarchy and calibrated policy
   stage: stage_2
-  status: BLOCKED
-  critical_path: true
+  status: SKIPPED
+  critical_path: false
   priority: 24
   prerequisites:
     - GATE_A
@@ -1077,6 +1145,223 @@ S0_NC_HSG_CORE:
     - semantic depth is L0-L3 and L4 renderer cannot alter D
     - N1 donor embeddings and frozen N2 scores are cached outside training
   blocked_reason: Gate A calibration and selection contracts are incomplete.
+  skip_reason: SUPERSEDED_BY_RC_HSG_V21
+
+GATE_R0:
+  title: Decide outcome-blind N1 and N2 reference integrity and admissibility
+  stage: gate_r0
+  status: BLOCKED
+  critical_path: true
+  priority: 20
+  prerequisites:
+    - S0_LEAKAGE_AUDIT
+    - S0_A1_ADMISSION
+    - S0_N1_SAMPLER
+    - S0_N2_SAMPLER
+  produces:
+    - artifacts/gates/gate_r0.yaml
+    - reports/gate_r0.md
+  acceptance:
+    - N1 structural bijection scope coverage fixed-point and determinism checks are decided independently
+    - N2 text-free nuisance PSD cross-spectrum covariance amplitude endpoint mask and coverage checks are decided independently
+    - each failed reference family is removed and all-family failure routes to ordinary hierarchical selective generation
+    - no semantic outcome test value or Gate R C H result is read
+  blocked_reason: A admission leakage and both frozen reference families are incomplete; B_V4 and B_V7 remain active.
+
+S0_REFERENCE_FEATURES:
+  title: Build frozen RC-HSG absolute and reference-relative feature tables
+  stage: stage_1
+  status: BLOCKED
+  critical_path: true
+  priority: 21
+  prerequisites:
+    - GATE_R0
+    - S0_SEMANTIC_ITEM
+    - S0_H_DEFINITION
+    - S0_SCHEMA_AUDIT
+    - S0_GATE_A_POPULATION_E5
+  produces:
+    - artifacts/reference_feature_contract.yaml
+    - reports/reference_feature_selfcheck.md
+  acceptance:
+    - features are exactly s delta robust-z empirical upper rank MAD and frozen structural parent features
+    - primary spread is MAD and K equals 199 for the pre-registered primary reference family
+    - candidate content is shared and selected only by absolute score while references affect routing only
+    - standardization is fit on train-fit only and no prohibited identity amplitude outcome or text feature enters
+  blocked_reason: Gate R0 schema candidate firewall and shared frontend path are incomplete.
+
+S0_RELIABILITY_MODELS:
+  title: Fit and freeze the per-level low-capacity RC-HSG reliability models
+  stage: stage_2
+  status: BLOCKED
+  critical_path: true
+  priority: 22
+  prerequisites:
+    - S0_REFERENCE_FEATURES
+    - S0_SEMANTIC_ITEM
+    - S0_H_DEFINITION
+  produces:
+    - artifacts/reliability_model_contract.yaml
+    - reports/reliability_model_selfcheck.md
+  acceptance:
+    - each level uses the frozen L2-regularized binomial-logistic GLM and cumulative typed unsupported target
+    - lambda grid is 0.01 0.1 1 10 100 with deterministic inner-val subject-macro deviance selection and larger-lambda tie break
+    - intercept solver iteration tolerance feature order standardizer versions and hashes are frozen before calibration or test
+    - no deep MLP free LLM calibration representation learning or test-time fitting is used
+  blocked_reason: RC-HSG reference features typed targets and candidate firewall are incomplete.
+
+S0_CALIBRATION_FEASIBILITY_REVIEW:
+  title: Review finite-sample RC-HSG risk-certification feasibility outcome-blind
+  stage: stage_2
+  status: BLOCKED
+  critical_path: true
+  priority: 23
+  prerequisites:
+    - S0_SCIENTIFIC_REDESIGN_FREEZE
+    - S0_GATE_A_POPULATION_E5
+    - S0_JOINT_SPLIT
+  produces:
+    - artifacts/calibration_feasibility_review.yaml
+  acceptance:
+    - the primary target remains fixed-subject future-stimulus expectation rather than subject-population expectation
+    - every candidate UCB records assumptions independent unit finite family size and zero-loss lower feasibility
+    - 580 rows or 34 groups are not relabeled as iid trials to evade the 18-subject limitation
+    - infeasibility locks empirical risk-aware wording before any calibration or test outcome
+  blocked_reason: B_V5 requires an explicit author-approved finite-sample feasibility review before calibration implementation.
+
+S0_ABSOLUTE_HSG:
+  title: Implement the shared-candidate Absolute-HSG reliability baseline
+  stage: stage_3
+  status: BLOCKED
+  critical_path: true
+  priority: 24
+  prerequisites:
+    - S0_RELIABILITY_MODELS
+    - S0_CALIBRATION_CONTRACT
+  produces:
+    - reports/absolute_hsg_selfcheck.md
+  acceptance:
+    - candidate content A F schema split training evaluator seeds and calibration rows match RC-HSG
+    - routing features are restricted to absolute score and frozen structural features
+    - policy-grid and compute budgets match the RC-HSG comparison
+    - no reference-relative feature enters the primary baseline
+  blocked_reason: Shared candidates reliability models and calibration contract are incomplete.
+
+S0_RC_HSG_CORE:
+  title: Implement the frozen RC-HSG hierarchical reliability controller
+  stage: stage_3
+  status: BLOCKED
+  critical_path: true
+  priority: 25
+  prerequisites:
+    - S0_RELIABILITY_MODELS
+    - S0_CALIBRATION_CONTRACT
+    - S0_H_DEFINITION
+  produces:
+    - reports/rc_hsg_core_selfcheck.md
+  acceptance:
+    - the controller uses the full frozen reference feature vector only for routing
+    - candidate content is selected by shared absolute score and follows deterministic parent-consistent paths
+    - deepest permitted L1-L3 fallback and L0 abstention are exact while L4 adds no semantic depth
+    - all A F candidate schema calibration and compute contracts are shared with primary baselines
+  blocked_reason: RC-HSG reliability models calibration contract and candidate hierarchy are incomplete.
+
+S0_FLAT_RC:
+  title: Implement the compute-fair flat reference-calibrated control
+  stage: stage_3
+  status: BLOCKED
+  critical_path: true
+  priority: 26
+  prerequisites:
+    - S0_RELIABILITY_MODELS
+    - S0_CALIBRATION_CONTRACT
+    - S0_H_DEFINITION
+  produces:
+    - reports/flat_rc_selfcheck.md
+  acceptance:
+    - Flat-RC shares the complete reference features candidates A F model and calibration budgets with RC-HSG
+    - only one global accept-reject or fixed-depth decision remains
+    - parent-pass and levelwise fallback are absent
+    - implementation is frozen before test and Gate H
+  blocked_reason: RC-HSG reliability models calibration contract and shared candidates are incomplete.
+
+GATE_R:
+  title: Decide incremental reference utility over Absolute-HSG
+  stage: gate_r
+  status: BLOCKED
+  critical_path: true
+  priority: 28
+  prerequisites:
+    - ROUTE_LOCK
+    - S0_ABSOLUTE_HSG
+    - S0_RC_HSG_CORE
+  produces:
+    - artifacts/gates/gate_r.yaml
+    - reports/gate_r.md
+  acceptance:
+    - Delta specificity meets 0.10 with paired subject-bootstrap lower confidence bound above zero and Holm-adjusted one-sided p below 0.05
+    - both methods keep empirical test semantic risk at or below 0.10
+    - paired Delta miss-rate 95 percent upper bound is at or below 0.05
+    - failures trigger the frozen reference-claim contraction without threshold repair
+  blocked_reason: Pre-test route lock and both frozen primary methods are incomplete.
+
+GATE_C:
+  title: Decide finite-sample risk-certification wording
+  stage: gate_c
+  status: BLOCKED
+  critical_path: true
+  priority: 29
+  prerequisites:
+    - ROUTE_LOCK
+    - S0_RC_HSG_CORE
+    - S0_CALIBRATION_CONTRACT
+  produces:
+    - artifacts/gates/gate_c.yaml
+    - reports/gate_c.md
+  acceptance:
+    - cal-select and cal-cert remain independent and no feature model or policy changes on cal-cert
+    - multiplicity-valid UCB is at or below 0.10 and test empirical risk is at or below 0.10 for PASS
+    - failure removes risk-controlled wording without invalidating empirical Gate R or Gate H claims
+  blocked_reason: Pre-test route lock reliability policy and certification contract are incomplete.
+
+GATE_H:
+  title: Decide hierarchy utility over Flat-RC
+  stage: gate_h
+  status: BLOCKED
+  critical_path: true
+  priority: 30
+  prerequisites:
+    - ROUTE_LOCK
+    - S0_RC_HSG_CORE
+    - S0_FLAT_RC
+  produces:
+    - artifacts/gates/gate_h.yaml
+    - reports/gate_h.md
+  acceptance:
+    - Delta specificity is positive with paired subject-bootstrap lower bound above zero and Holm-adjusted one-sided p below 0.05
+    - both methods remain within risk and paired Delta miss-rate 95 percent upper bound is at or below 0.05
+    - failure removes Hierarchical from the title route and preserves Flat-RC
+  blocked_reason: Pre-test route lock RC-HSG and Flat-RC are incomplete.
+
+MECHANISM_A:
+  title: Report non-blocking real-versus-reference semantic separation
+  stage: mechanism
+  status: BLOCKED
+  critical_path: false
+  priority: 31
+  prerequisites:
+    - ROUTE_LOCK
+    - GATE_R0
+    - S0_REFERENCE_FEATURES
+    - S0_GATE_A_POPULATION_E5
+  produces:
+    - artifacts/gates/mechanism_a.yaml
+    - reports/mechanism_a.md
+  acceptance:
+    - L1-L3 signed margins subject confidence intervals Cliff delta direction fractions depth gap and trend are fully reported
+    - failure removes EEG attribution and evidence-increment language only
+    - Mechanism A cannot block Gate R Gate C or Gate H
+  blocked_reason: The pre-test route reference features and reference admissibility evidence are incomplete.
 
 S0_ANMA_ORIG:
   title: Preserve required legacy task name as not applicable to NC-HSG
@@ -1111,8 +1396,8 @@ S0_ALIGN_UNIT_COST:
 GATE_B:
   title: Decide hierarchical value over direct-C and rule out PMI
   stage: gate_b
-  status: BLOCKED
-  critical_path: true
+  status: SKIPPED
+  critical_path: false
   priority: 26
   prerequisites:
     - S0_NC_HSG_CORE
@@ -1127,24 +1412,29 @@ GATE_B:
     - NC-HSG versus PMI preserves the brain-evidence route or triggers the frozen downgrade
     - compute-matched EB-HSG is included before attributing gains to W
   blocked_reason: NC-HSG and its strongest controls are not implemented.
+  skip_reason: SUPERSEDED_BY_RC_HSG_V21
 
 ROUTE_LOCK:
-  title: Lock exactly one claim route after Gate A and Gate B
+  title: Lock the pre-test RC-HSG method and claim route
   stage: route_lock
   status: BLOCKED
   critical_path: true
   priority: 27
   prerequisites:
-    - GATE_A
-    - GATE_B
+    - S0_ABSOLUTE_HSG
+    - S0_RC_HSG_CORE
+    - S0_FLAT_RC
+    - S0_PMI_BASELINE
     - S0_CALIBRATION_CONTRACT
+    - S0_LEAKAGE_AUDIT
+    - S0_ALIGN_UNIT_COST
   produces:
     - artifacts/route_lock.yaml
   acceptance:
-    - exactly one of full NC-HSG topic-level flat null-gated prior-correction or negative-audit route is selected
-    - decision follows frozen Gate outcomes without threshold changes
-    - config metric split candidates null seeds and calibration are hashed before test unlock
-  blocked_reason: Gate decisions and calibration are unavailable.
+    - RC-HSG methods claims features policies split candidates references seeds and calibration are hashed before any test-value read
+    - reference-family and failure routes follow the frozen pre-test contracts without result-driven switching
+    - test unlock occurs at most once after every prerequisite is frozen
+  blocked_reason: RC-HSG method implementations calibration leakage and compute contracts are unavailable.
 
 MAIN_EXPERIMENT:
   title: Run and freeze the primary-dataset main experiment
@@ -1154,16 +1444,20 @@ MAIN_EXPERIMENT:
   priority: 28
   prerequisites:
     - ROUTE_LOCK
+    - GATE_R
+    - GATE_C
+    - GATE_H
+    - MECHANISM_A
     - S0_LEAKAGE_AUDIT
     - S0_ALIGN_UNIT_COST
   produces:
     - artifacts/main_experiment_manifest.yaml
   acceptance:
-    - five seeds and all frozen primary baselines run on identical test indices
+    - five seeds and all frozen RC-HSG primary baselines run on identical test indices
     - subject-macro Specificity at Risk and actual risk are reported together
     - three confirmatory comparisons use Holm correction
     - invalid missing and risk-violating cells remain explicit
-  blocked_reason: Route lock and protocol prerequisites are incomplete.
+  blocked_reason: Pre-test route lock and RC-HSG Gates and mechanism diagnostic are incomplete.
 
 ABLATIONS:
   title: Run the frozen three-seed attribution ablations

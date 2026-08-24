@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-22_009_stimulus_similarity_diagnostic
-evidence_as_of_commit: b72ed5ab9720b7a922f7d1c6d8681cb646c344ab
+updated_by_run: 2026-08-24_012_rc_hsg_scientific_redesign_freeze
+evidence_as_of_commit: 3b97fdc966b9b56d72287df619a80f6145d71189
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -42,7 +42,7 @@ items:
     target_task: S0_DATA_CARD
     blocker: null
   stimulus_identity:
-    status: IMPLEMENTED_UNVALIDATED
+    status: VALIDATED
     evidence_paths:
       - artifacts/admission/zuco2_nr_stimulus_manifest.jsonl
       - artifacts/admission/zuco2_nr_targeted_manifest.yaml
@@ -55,20 +55,31 @@ items:
       - artifacts/stimulus_similarity_diagnostic_v1.yaml
       - artifacts/stimulus_similarity_candidates_v1.jsonl
       - reports/stimulus_similarity_diagnostic_v1.md
+      - scripts/build_stimulus_identity.py
+      - artifacts/stimulus_identity.yaml
+      - artifacts/stimulus_groups.json
+      - reports/stimulus_identity.md
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_build_stimulus_similarity_diagnostic.py'"
     acceptance_gaps:
-      - exact source binding and all-pair similarity diagnostics are validated, but final threshold and grouping policy require ChatGPT or author review
+      - frozen grouping policy is validated at 342 groups and remains immutable run-010 evidence
     target_task: S0_STIMULUS_ID
     blocker: S0_STIMULUS_GROUP_POLICY_REVIEW
   split:
-    status: BLOCKED
-    evidence_paths: []
-    tests_rerun: []
+    status: VALIDATED
+    evidence_paths:
+      - scripts/build_joint_split.py
+      - artifacts/split_regimeI.json
+      - artifacts/split_regimeII.json
+      - artifacts/split_manifest.yaml
+      - artifacts/gate_a_population.yaml
+      - reports/joint_split_population.md
+    tests_rerun:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_build_joint_split.py'"
     acceptance_gaps:
-      - no split implementation exists and grouping policy plus S0_STIMULUS_ID must finish first
+      - test identities remain LOCKED_UNTIL_ROUTE_LOCK and no test value has been read
     target_task: S0_JOINT_SPLIT
-    blocker: prerequisites incomplete
+    blocker: null
   leakage:
     status: ABSENT
     evidence_paths: []
@@ -84,22 +95,23 @@ items:
       - artifacts/governance/trust_align_dependency_sync.yaml
       - artifacts/admission/backbone_source_candidates.yaml
       - artifacts/admission/zuco_neurolm_compatibility.yaml
+      - artifacts/backbone_a_policy.yaml
     tests_rerun:
       - exact sorted pip freeze comparison
       - pip check
       - torch CUDA and key scientific package import smoke
     acceptance_gaps:
-      - candidate source and checkpoint metadata exist but no single primary A is selected
-      - exact physical channel compatibility adapter and common score interface remain unverified
-      - release-native amplitude is unit-unbound for unit-sensitive candidates
+      - RC_HSG_NATIVE_SPECTRAL_A1_V1 is author-selected without external code checkpoint or weight download
+      - the native spectral tensor masking initialization and outer-train-only admission interface is not implemented
+      - release-native amplitude remains physically unresolved and conversion remains prohibited
     target_task: S0_A_INTERFACE
-    blocker: B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT
+    blocker: B_V7_A_INTERFACE_UNIMPLEMENTED
   semantic_schema_and_evaluator:
     status: BLOCKED
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no typed units projections matcher or renderer exists
+      - no RC-HSG cumulative typed reliability targets projections matcher or renderer exists
     target_task: S0_SEMANTIC_ITEM
     blocker: B_V3_SCHEMA_UNFROZEN
   candidate_firewall:
@@ -107,7 +119,7 @@ items:
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no candidate source ordering hash or symmetric selection statistic exists
+      - no shared absolute-score candidate content ordering parent path or firewall hash exists
     target_task: S0_H_DEFINITION
     blocker: B_V6_SELECTION_FIREWALL_UNFROZEN
   n1:
@@ -115,7 +127,7 @@ items:
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no block feasibility ledger or joint permutation implementation exists
+      - no block feasibility ledger or joint permutation reference implementation exists
     target_task: S0_N1_BLOCK_FEASIBILITY
     blocker: B_V4_NULL_CONTRACT_UNVERIFIED
   n2:
@@ -123,7 +135,7 @@ items:
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no multivariate Fourier surrogate implementation or diagnostics exist
+      - no multivariate common-phase reference implementation or Gate R0 diagnostics exist
     target_task: S0_N2_SAMPLER
     blocker: B_V4_NULL_CONTRACT_UNVERIFIED
   calibration:
@@ -131,16 +143,24 @@ items:
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
-      - no multiplicity-valid selection and certification route is frozen
-    target_task: S0_CALIBRATION_CONTRACT
+      - two-stage 34-group cal-select then 34-group cal-cert isolation is frozen but feasibility theorem UCB and finite policy family remain blocked
+    target_task: S0_CALIBRATION_FEASIBILITY_REVIEW
     blocker: B_V5_CALIBRATION_UNFROZEN
   nc_hsg:
+    status: NOT_APPLICABLE
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - superseded by RC-HSG v2.1
+    target_task: S0_NC_HSG_CORE
+    blocker: SUPERSEDED_BY_RC_HSG_V21
+  rc_hsg:
     status: ABSENT
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
       - no scientific implementation exists
-    target_task: S0_NC_HSG_CORE
+    target_task: S0_RC_HSG_CORE
     blocker: prerequisites incomplete
   eb_hsg:
     status: ABSENT
@@ -148,15 +168,23 @@ items:
     tests_rerun: []
     acceptance_gaps:
       - no scientific implementation exists
-    target_task: GATE_B
+    target_task: S0_ABSOLUTE_HSG
     blocker: prerequisites incomplete
   direct_c:
+    status: NOT_APPLICABLE
+    evidence_paths: []
+    tests_rerun: []
+    acceptance_gaps:
+      - superseded by Flat-RC under RC-HSG v2.1
+    target_task: S0_DIRECT_C
+    blocker: SUPERSEDED_BY_RC_HSG_V21
+  flat_rc:
     status: ABSENT
     evidence_paths: []
     tests_rerun: []
     acceptance_gaps:
       - no scientific implementation exists
-    target_task: S0_DIRECT_C
+    target_task: S0_FLAT_RC
     blocker: prerequisites incomplete
   pmi:
     status: ABSENT
@@ -173,10 +201,11 @@ items:
       - tests/test_build_stimulus_similarity_diagnostic.py
       - scripts/check_project_state.py
       - scripts/project_status.py
+      - artifacts/backbone_a_policy.yaml
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - governance and stimulus diagnostic validation only; no scientific model test exists
+      - governance A-policy and frozen-artifact validation only; no scientific model test exists
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:
@@ -208,5 +237,14 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
+active_spec: guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md
+active_method: RC-HSG
+active_gates:
+  - GATE_R0
+  - GATE_R
+  - GATE_C
+  - GATE_H
+  - MECHANISM_A
+test_status: LOCKED_UNTIL_ROUTE_LOCK
 held_out_content_read: false
 scientific_implementation_changed: false

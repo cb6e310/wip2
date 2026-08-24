@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the NC-HSG file-based project memory system.
+"""Validate the RC-HSG file-based project memory system.
 
 The validator deliberately fails closed: a task cannot claim readiness or
 completion without its declared prerequisites, evidence, run record, and gate
@@ -9,6 +9,7 @@ ordering.  Scientific unknowns remain blockers rather than inferred facts.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -32,11 +33,11 @@ ALLOWED_STATUSES = {
 }
 ALLOWED_GATE_OUTCOMES = {None, "PASS", "FAIL", "DEGRADED", "TOPIC_ONLY"}
 ALLOWED_LOCKED_ROUTES = {
-    "FULL_NC_HSG",
-    "TOPIC_LEVEL",
-    "FLAT_NULL_GATED",
-    "PRIOR_CORRECTION",
-    "NEGATIVE_AUDIT",
+    "RC_HSG",
+    "ORDINARY_HIERARCHICAL_SELECTIVE_GENERATION",
+    "FLAT_RC",
+    "RELIABILITY_REFERENCE_STUDY",
+    "EMPIRICAL_RISK_AWARE",
 }
 REQUIRED_TASK_FIELDS = {
     "title",
@@ -47,6 +48,8 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V21_REVIEW",
+    "S0_SCIENTIFIC_REDESIGN_FREEZE",
     "SPEC_V20_REVIEW",
     "SPEC_V19_REVIEW",
     "SPEC_V18_REVIEW",
@@ -96,6 +99,100 @@ REQUIRED_TASK_IDS = {
     "GATE_B",
     "ROUTE_LOCK",
     "MAIN_EXPERIMENT",
+    "GATE_R0",
+    "S0_REFERENCE_FEATURES",
+    "S0_RELIABILITY_MODELS",
+    "S0_CALIBRATION_FEASIBILITY_REVIEW",
+    "S0_ABSOLUTE_HSG",
+    "S0_RC_HSG_CORE",
+    "S0_FLAT_RC",
+    "GATE_R",
+    "GATE_C",
+    "GATE_H",
+    "MECHANISM_A",
+}
+V21_ACTIVE_GATES = {
+    "gate_r0": "GATE_R0",
+    "gate_r": "GATE_R",
+    "gate_c": "GATE_C",
+    "gate_h": "GATE_H",
+    "mechanism_a": "MECHANISM_A",
+}
+V21_SUPERSEDED_TASKS = {
+    "GATE_A1",
+    "GATE_A",
+    "GATE_B",
+    "S0_NC_HSG_CORE",
+    "S0_DIRECT_C",
+    "STAGE1_PROBES",
+    "SHAM_VALIDATION",
+}
+V21_DEPENDENCIES = {
+    "S0_A_INTERFACE": {
+        "S0_REPOSITORY_AUDIT",
+        "S0_DATA_CARD",
+        "S0_A_POLICY_REVIEW",
+        "S0_JOINT_SPLIT",
+    },
+    "S0_SEMANTIC_ITEM": {
+        "S0_A_INTERFACE",
+        "S0_DATA_CARD",
+        "S0_JOINT_SPLIT",
+        "S0_LEAKAGE_AUDIT",
+    },
+    "S0_H_DEFINITION": {"S0_SEMANTIC_ITEM", "S0_JOINT_SPLIT"},
+    "S0_SCHEMA_AUDIT": {"S0_SEMANTIC_ITEM", "S0_H_DEFINITION"},
+    "GATE_R0": {
+        "S0_LEAKAGE_AUDIT",
+        "S0_A1_ADMISSION",
+        "S0_N1_SAMPLER",
+        "S0_N2_SAMPLER",
+    },
+    "S0_CALIBRATION_CONTRACT": {
+        "S0_CALIBRATION_FEASIBILITY_REVIEW",
+        "S0_RELIABILITY_MODELS",
+        "S0_GATE_A_POPULATION_E5",
+    },
+    "S0_PMI_BASELINE": {
+        "S0_A_INTERFACE",
+        "S0_H_DEFINITION",
+        "S0_RELIABILITY_MODELS",
+        "S0_CALIBRATION_CONTRACT",
+    },
+    "ROUTE_LOCK": {
+        "S0_ABSOLUTE_HSG",
+        "S0_RC_HSG_CORE",
+        "S0_FLAT_RC",
+        "S0_PMI_BASELINE",
+        "S0_CALIBRATION_CONTRACT",
+        "S0_LEAKAGE_AUDIT",
+        "S0_ALIGN_UNIT_COST",
+    },
+    "GATE_R": {"ROUTE_LOCK", "S0_ABSOLUTE_HSG", "S0_RC_HSG_CORE"},
+    "GATE_C": {"ROUTE_LOCK", "S0_RC_HSG_CORE", "S0_CALIBRATION_CONTRACT"},
+    "GATE_H": {"ROUTE_LOCK", "S0_RC_HSG_CORE", "S0_FLAT_RC"},
+    "MECHANISM_A": {
+        "ROUTE_LOCK",
+        "GATE_R0",
+        "S0_REFERENCE_FEATURES",
+        "S0_GATE_A_POPULATION_E5",
+    },
+    "MAIN_EXPERIMENT": {
+        "ROUTE_LOCK",
+        "GATE_R",
+        "GATE_C",
+        "GATE_H",
+        "MECHANISM_A",
+        "S0_LEAKAGE_AUDIT",
+        "S0_ALIGN_UNIT_COST",
+    },
+}
+FROZEN_RUN_011_HASHES = {
+    "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
+    "artifacts/split_regimeII.json": "9643dd5abe953e863e7535989f2f65d0f013a1c775c167e49f7d107545016393",
+    "artifacts/split_manifest.yaml": "56ccf23881c4e5dee2f3f00704a8af4847636d116783a9da8c2526fdb5c2549f",
+    "artifacts/gate_a_population.yaml": "279e3edf1c41971b6967f74657ec531533977d90ea4dc3d48a5efd63dd295d60",
+    "reports/joint_split_population.md": "13755eac6198352b9c4dd6605f95a31b6e859db395bb5e6539a715427f742d09",
 }
 SNAPSHOT_PATHS = (
     "artifacts/governance/repository_inventory.yaml",
@@ -153,7 +250,7 @@ def _check_active_spec_entrypoints(root: Path, project: dict[str, Any], errors: 
     """Fail closed when any live recovery entry point names another SPEC."""
     expected_path = project.get("spec_path")
     expected_version = project.get("spec_version")
-    for relative in ("AGENTS.md", "AI_START_HERE.md", "HANDOFF.md"):
+    for relative in ("AGENTS.md", "AI_START_HERE.md", "HANDOFF.md", "PACKAGE_README.md"):
         path = root / relative
         try:
             content = path.read_text(encoding="utf-8")
@@ -279,70 +376,178 @@ def _require_done(
 
 
 def _check_gate_order(tasks: dict[str, Any], errors: list[str]) -> None:
-    if tasks.get("GATE_A1", {}).get("status") == "DONE":
+    if tasks.get("GATE_R0", {}).get("status") == "DONE":
         _require_done(
             tasks,
-            ("S0_LEAKAGE_AUDIT", "S0_N1_SAMPLER", "S0_N2_SAMPLER"),
+            ("S0_LEAKAGE_AUDIT", "S0_A1_ADMISSION", "S0_N1_SAMPLER", "S0_N2_SAMPLER"),
             errors,
-            "GATE_A1_ORDER",
-        )
-
-    if tasks.get("GATE_A1", {}).get("status") != "DONE":
-        forbidden_done = [
-            task_id
-            for task_id in ("S0_SEMANTIC_ITEM", "STAGE1_PROBES", "SHAM_VALIDATION")
-            if tasks.get(task_id, {}).get("status") == "DONE"
-        ]
-        if forbidden_done:
-            _error(
-                errors,
-                "SEMANTIC_BEFORE_GATE_A1",
-                "DONE before GATE_A1: " + ", ".join(forbidden_done),
-            )
-
-    if tasks.get("GATE_A", {}).get("status") == "DONE":
-        _require_done(
-            tasks,
-            (
-                "GATE_A1",
-                "STAGE1_PROBES",
-                "SHAM_VALIDATION",
-                "S0_SCHEMA_AUDIT",
-                "S0_GATE_A_POPULATION_E5",
-            ),
-            errors,
-            "GATE_A_ORDER",
-        )
-
-    if tasks.get("GATE_B", {}).get("status") == "DONE":
-        _require_done(
-            tasks,
-            (
-                "GATE_A",
-                "S0_NC_HSG_CORE",
-                "S0_DIRECT_C",
-                "S0_PMI_BASELINE",
-                "S0_ALIGN_UNIT_COST",
-            ),
-            errors,
-            "GATE_B_ORDER",
+            "GATE_R0_ORDER",
         )
 
     if tasks.get("ROUTE_LOCK", {}).get("status") == "DONE":
         _require_done(
             tasks,
-            ("GATE_A", "GATE_B", "S0_CALIBRATION_CONTRACT"),
+            (
+                "S0_ABSOLUTE_HSG",
+                "S0_RC_HSG_CORE",
+                "S0_FLAT_RC",
+                "S0_PMI_BASELINE",
+                "S0_CALIBRATION_CONTRACT",
+                "S0_LEAKAGE_AUDIT",
+                "S0_ALIGN_UNIT_COST",
+            ),
             errors,
             "ROUTE_LOCK_ORDER",
+        )
+
+    if tasks.get("GATE_R", {}).get("status") == "DONE":
+        _require_done(
+            tasks,
+            ("ROUTE_LOCK", "S0_ABSOLUTE_HSG", "S0_RC_HSG_CORE"),
+            errors,
+            "GATE_R_ORDER",
+        )
+
+    if tasks.get("GATE_C", {}).get("status") == "DONE":
+        _require_done(
+            tasks,
+            ("ROUTE_LOCK", "S0_RC_HSG_CORE", "S0_CALIBRATION_CONTRACT"),
+            errors,
+            "GATE_C_ORDER",
+        )
+
+    if tasks.get("GATE_H", {}).get("status") == "DONE":
+        _require_done(
+            tasks,
+            ("ROUTE_LOCK", "S0_RC_HSG_CORE", "S0_FLAT_RC"),
+            errors,
+            "GATE_H_ORDER",
+        )
+
+    if tasks.get("MECHANISM_A", {}).get("status") == "DONE":
+        _require_done(
+            tasks,
+            ("ROUTE_LOCK", "GATE_R0", "S0_REFERENCE_FEATURES", "S0_GATE_A_POPULATION_E5"),
+            errors,
+            "MECHANISM_A_ORDER",
         )
 
     if tasks.get("MAIN_EXPERIMENT", {}).get("status") == "DONE":
         _require_done(
             tasks,
-            ("ROUTE_LOCK", "S0_LEAKAGE_AUDIT", "S0_ALIGN_UNIT_COST"),
+            (
+                "ROUTE_LOCK",
+                "GATE_R",
+                "GATE_C",
+                "GATE_H",
+                "MECHANISM_A",
+                "S0_LEAKAGE_AUDIT",
+                "S0_ALIGN_UNIT_COST",
+            ),
             errors,
             "MAIN_EXPERIMENT_ORDER",
         )
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _check_v21_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    project = state.get("project", {})
+    if project.get("spec_version") != "v2.1":
+        return
+
+    if len(tasks) != 67:
+        _error(errors, "V21_TASK_COUNT_MISMATCH", f"expected 67, got {len(tasks)}")
+    done = sum(isinstance(task, dict) and task.get("status") == "DONE" for task in tasks.values())
+    if done != 29:
+        _error(errors, "V21_DONE_COUNT_MISMATCH", f"expected 29, got {done}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_A_INTERFACE"]:
+        _error(errors, "V21_READY_SET_MISMATCH", repr(ready))
+    if tasks.get("S0_A_INTERFACE", {}).get("owner") != "CODEX":
+        _error(errors, "V21_A_INTERFACE_OWNER_MISMATCH", repr(tasks.get("S0_A_INTERFACE", {}).get("owner")))
+
+    for task_id in V21_SUPERSEDED_TASKS:
+        task = tasks.get(task_id, {})
+        if task.get("status") != "SKIPPED" or task.get("critical_path") is not False or task.get("skip_reason") != "SUPERSEDED_BY_RC_HSG_V21":
+            _error(errors, "V21_SUPERSEDED_TASK_MISMATCH", task_id)
+
+    for task_id, expected in V21_DEPENDENCIES.items():
+        actual = tasks.get(task_id, {}).get("prerequisites")
+        if not isinstance(actual, list) or set(actual) != expected or len(actual) != len(expected):
+            _error(errors, "V21_DEPENDENCY_MISMATCH", f"{task_id}: {actual!r}")
+
+    gates = state.get("gates")
+    if not isinstance(gates, dict) or set(gates) != set(V21_ACTIVE_GATES):
+        _error(errors, "V21_ACTIVE_GATE_SET_MISMATCH", repr(sorted(gates) if isinstance(gates, dict) else gates))
+
+    policy = _load_yaml(root / "artifacts/backbone_a_policy.yaml", errors, "backbone A policy")
+    if isinstance(policy, dict):
+        expected_selected = {
+            "implementation": "PROJECT_NATIVE_CLEAN_ROOM",
+            "external_source_code_copied": False,
+            "pretrained_checkpoint": None,
+            "weight_download_required": False,
+            "input_channels": 105,
+            "sampling_hz": 500,
+            "input_unit": "RELEASE_NATIVE_AMPLITUDE_UNRESOLVED",
+            "physical_unit_conversion": "NONE",
+            "channel_interpolation": False,
+            "processed_reference": "common-average",
+            "per_trial_transform": {
+                "center": "channel_median",
+                "scale": "max(1.4826_times_MAD,centered_RMS,1e-6)",
+                "clip": [-20.0, 20.0],
+            },
+            "window_samples": 500,
+            "hop_samples": 250,
+            "window_function": "HANN",
+            "bands_hz": [[1, 4], [4, 8], [8, 10], [10, 13], [13, 20], [20, 30], [30, 45], [55, 75]],
+            "feature": "LOG_RELATIVE_BANDPOWER",
+            "feature_epsilon": 1.0e-12,
+            "token_input_dim": 840,
+            "projection_dim": 256,
+            "temporal_encoder_layers": 2,
+            "attention_heads": 4,
+            "feedforward_dim": 512,
+            "dropout": 0.10,
+            "position": "SINUSOIDAL",
+            "output_contract": {"window_embeddings": "L_BY_256", "mask": "L", "pooled_embedding": 256},
+            "initialization": "DETERMINISTIC_PROJECT_OWNED_RANDOM_INIT_PER_FROZEN_MAIN_SEED",
+            "trainability": "TRAIN_FROM_SCRATCH_ALL_METHODS_SHARED",
+            "peft": False,
+            "test_fitted_scaling": False,
+        }
+        if policy.get("schema_version") != 1 or policy.get("artifact") != "RC_HSG_BACKBONE_A_POLICY_V1" or policy.get("policy_id") != "RC_HSG_NATIVE_SPECTRAL_A1_V1" or policy.get("decision_basis") != "OUTCOME_BLIND_AUTHOR_POLICY":
+            _error(errors, "V21_A_POLICY_IDENTITY_MISMATCH", "schema/artifact/policy/decision basis")
+        if policy.get("selected") != expected_selected:
+            _error(errors, "V21_A_POLICY_SELECTED_MISMATCH", "selected interface differs from frozen policy")
+        expected_rejections = {
+            "TRUST_ALIGN_A1_SPECTRAL": "REJECT_PRIMARY_EXTERNAL_SOURCE_LICENSE_NOT_FOUND_NO_CODE_COPY",
+            "TRUST_ALIGN_LABRAM_A3": "REJECT_PRIMARY_UNIT_CHANNEL_FILTER_CHECKPOINT_INTERFACE_UNRESOLVED",
+            "OFFICIAL_NEUROLM_B_VQ": "REJECT_PRIMARY_MICROVOLT_CHANNEL_ADAPTER_AND_UNDOWNLOADED_WEIGHT_GAPS",
+        }
+        ledger = policy.get("candidate_ledger", {})
+        actual_rejections = {key: value.get("primary_decision") for key, value in ledger.items()} if isinstance(ledger, dict) else {}
+        if actual_rejections != expected_rejections:
+            _error(errors, "V21_A_POLICY_REJECTION_MISMATCH", repr(actual_rejections))
+
+    for relative, expected in FROZEN_RUN_011_HASHES.items():
+        path = root / relative
+        if not path.is_file():
+            _error(errors, "V21_FROZEN_ARTIFACT_MISSING", relative)
+        elif _sha256(path) != expected:
+            _error(errors, "V21_FROZEN_ARTIFACT_HASH_MISMATCH", relative)
+
+    split = _load_yaml(root / "artifacts/split_manifest.yaml", errors, "split manifest")
+    if isinstance(split, dict) and split.get("assertions", {}).get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK":
+        _error(errors, "V21_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
 def validate(root: Path) -> list[str]:
@@ -423,8 +628,8 @@ def validate(root: Path) -> list[str]:
                 _error(errors, "READY_PREREQUISITE_NOT_DONE", task_id)
             if task_id in blocked_ids:
                 _error(errors, "READY_BLOCKED", task_id)
-            if task_id == "S0_A_POLICY_REVIEW" and task.get("owner") != "CHATGPT_OR_AUTHOR":
-                _error(errors, "OWNER_ONLY_TASK_OWNER_MISMATCH", task_id)
+            if task_id == "S0_A_INTERFACE" and task.get("owner") != "CODEX":
+                _error(errors, "A_INTERFACE_OWNER_MISMATCH", task_id)
         elif status == "DONE":
             if not prerequisites_done:
                 _error(errors, "DONE_PREREQUISITE_NOT_DONE", task_id)
@@ -480,6 +685,7 @@ def validate(root: Path) -> list[str]:
 
     _check_cycles(tasks, errors)
     _check_gate_order(tasks, errors)
+    _check_v21_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):
@@ -530,7 +736,7 @@ def validate(root: Path) -> list[str]:
     if not isinstance(gates, dict):
         _error(errors, "GATES_SECTION_INVALID", "gates must be a mapping")
         gates = {}
-    for key, task_id in (("gate_a1", "GATE_A1"), ("gate_a", "GATE_A"), ("gate_b", "GATE_B")):
+    for key, task_id in V21_ACTIVE_GATES.items():
         gate = gates.get(key, {})
         if not isinstance(gate, dict):
             _error(errors, "GATE_INVALID", key)

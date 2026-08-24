@@ -1,19 +1,19 @@
 schema_version: 2
-updated_at: "2026-08-23"
-updated_by_run: 2026-08-23_011_joint_split_population_freeze
+updated_at: "2026-08-24"
+updated_by_run: 2026-08-24_012_rc_hsg_scientific_redesign_freeze
 
 project:
-  name: nc_hsg_eeg_text
+  name: rc_hsg_eeg_text
   server: song@10.244.144.87
   server_root: /home/song/projects/trust_generative
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: e852e7de24c31410387ad46d75fb44a5cac9e850
-  reviewed_commit: e852e7de24c31410387ad46d75fb44a5cac9e850
-  repository_status: SPEC_V20_ACTIVE_JOINT_SPLIT_AND_POPULATION_COMPLETE
-  spec_version: v2.0
-  spec_path: guide/NC_HSG_Paper_Spec_v2_0_2026-08-23.md
+  baseline_commit: 3b97fdc966b9b56d72287df619a80f6145d71189
+  reviewed_commit: 3b97fdc966b9b56d72287df619a80f6145d71189
+  repository_status: RC_HSG_V21_ACTIVE_SCIENTIFIC_REDESIGN_A_POLICY_FROZEN
+  spec_version: v2.1
+  spec_path: guide/RC_HSG_Paper_Spec_v2_1_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -22,83 +22,106 @@ execution:
   current_gate: null
 
 route:
-  primary: NC-HSG
+  primary: RC-HSG
   backup:
-    - TOPIC-LEVEL-EVIDENCE-ABSTENTION
-    - NEGATIVE-RESULT-AUDIT
+    - ORDINARY_HIERARCHICAL_SELECTIVE_GENERATION
+    - FLAT_RC
+    - RELIABILITY_REFERENCE_STUDY
+    - EMPIRICAL_RISK_AWARE
   locked: null
   locked_by_run: null
 
 gates:
-  gate_a1:
-    status: BLOCKED
-    outcome: null
-  gate_a:
-    status: BLOCKED
-    outcome: null
-  gate_b:
-    status: BLOCKED
-    outcome: null
+  gate_r0: {status: BLOCKED, outcome: null}
+  gate_r: {status: BLOCKED, outcome: null}
+  gate_c: {status: BLOCKED, outcome: null}
+  gate_h: {status: BLOCKED, outcome: null}
+  mechanism_a: {status: BLOCKED, outcome: null}
+
+legacy_superseded_gates:
+  gate_a1: {task: GATE_A1, status: SKIPPED, outcome: null, reason: SUPERSEDED_BY_RC_HSG_V21}
+  gate_a: {task: GATE_A, status: SKIPPED, outcome: null, reason: SUPERSEDED_BY_RC_HSG_V21}
+  gate_b: {task: GATE_B, status: SKIPPED, outcome: null, reason: SUPERSEDED_BY_RC_HSG_V21}
+
+superseded_blockers:
+  - id: B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A
+    closed_by: RC_HSG_NATIVE_SPECTRAL_A1_V1
+    retained_limitation: RELEASE_NATIVE_AMPLITUDE_UNRESOLVED; physical-unit conversion and microvolt inference remain prohibited.
+  - id: B_V2_BACKBONE_NOT_PRESENT
+    closed_by: RC_HSG_NATIVE_SPECTRAL_A1_V1
+    retained_limitation: The selected clean-room frontend policy is frozen but its interface and implementation remain incomplete.
 
 blockers:
-  - id: B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A
-    reason: The 5,905-row analysis view is admitted and the 377-row exclusion union is fully ledgered, but the physical unit remains UNRESOLVED_RELEASE_NATIVE_AMPLITUDE. Unit inference was not performed, so unit-sensitive frontend conversion and candidate admission remain prohibited until S0_A_INTERFACE.
-    blocks:
-      - S0_A_INTERFACE
-      - S0_A1_FRONTEND
-      - S0_A1_ADMISSION
-    resolution: Freeze a primary A interface that either safely accepts release-native amplitude with train-only scale handling or obtains direct authoritative unit evidence; do not infer microvolts.
-  - id: B_V2_BACKBONE_NOT_PRESENT
-    reason: Candidate evidence now exists for trust_align A1, trust_align LaBraM, and official NeuroLM-B plus VQ, but no single primary A has been selected and each candidate retains license, physical-interface, checkpoint-locality, channel-map, or common-score acceptance gaps.
-    blocks:
-      - S0_A_INTERFACE
-      - S0_A1_FRONTEND
-      - S0_A1_ADMISSION
-      - S0_ALIGN_UNIT_COST
-      - S0_A3_CONTAMINATION_CHECK
-    resolution: After data metadata is admissible, have the author or next outcome-blind review select exactly one A from artifacts/admission/backbone_source_candidates.yaml and freeze its adapter and score contract before training.
   - id: B_V3_SCHEMA_UNFROZEN
-    reason: L1-L3 typed semantic units, projections, evaluator, L4 renderer, and blinded audit protocol are not implemented or frozen.
+    reason: RC-HSG L1-L3 typed semantic units, projections, evaluator, L4 renderer, and blinded audit protocol are not implemented or frozen.
     blocks:
       - S0_SEMANTIC_ITEM
+      - S0_H_DEFINITION
       - S0_SCHEMA_AUDIT
-      - STAGE1_PROBES
-    resolution: Freeze and audit the schema only after Gate A1 permits semantic work.
+      - S0_REFERENCE_FEATURES
+      - S0_RELIABILITY_MODELS
+      - S0_ABSOLUTE_HSG
+      - S0_RC_HSG_CORE
+      - S0_FLAT_RC
+    resolution: Freeze the RC-HSG typed schema, evaluator, projection, constrained renderer, and shared absolute-score candidate firewall without test text or outcomes.
   - id: B_V4_NULL_CONTRACT_UNVERIFIED
-    reason: N1 block feasibility and joint permutations, N2 multivariate phase implementation, tolerances, and exchangeability boundary have no implementation or real outer-train evidence.
+    reason: RC-HSG N1 block feasibility and N2 common-phase reference implementation, admissibility tolerances, coverage, and shared-frontend boundary remain unverified.
     blocks:
       - S0_N1_BLOCK_FEASIBILITY
       - S0_N1_SAMPLER
       - S0_N2_SAMPLER
-      - GATE_A1
-    resolution: Finish data, split, leakage, and real frontend admission before null implementation and Gate A1.
+      - GATE_R0
+      - S0_REFERENCE_FEATURES
+      - MECHANISM_A
+    resolution: After A admission, implement the frozen N1 and N2 families and run outcome-blind Gate R0 before building reference features.
   - id: B_V5_CALIBRATION_UNFROZEN
-    reason: The project has not selected cal-select plus cal-cert versus simultaneous LTT; no bound, policy grid, calibration size, or clustering implementation exists.
+    reason: The two-stage 34-group cal-select then 34-group cal-cert route is frozen, but no finite-sample feasibility review, multiplicity-valid UCB, or finite policy family is frozen.
     blocks:
+      - S0_CALIBRATION_FEASIBILITY_REVIEW
       - S0_CALIBRATION_CONTRACT
-      - S0_NC_HSG_CORE
-      - GATE_B
-    resolution: Freeze one multiplicity-valid calibration route after Gate A and before NC-HSG policy implementation.
+      - S0_RC_HSG_CORE
+      - S0_FLAT_RC
+      - GATE_C
+    resolution: Complete the outcome-blind fixed-subject feasibility review, then freeze the theorem, independent unit, family size, and zero-loss feasibility before any calibration outcome.
   - id: B_V6_SELECTION_FIREWALL_UNFROZEN
-    reason: Candidate sources, parent-consistent paths, hashes, and symmetric pseudo-real selection statistics are not implemented or validated.
+    reason: RC-HSG shared absolute-score candidate sources, parent-consistent paths, hashes, and pre-test candidate firewall are not implemented or validated.
     blocks:
       - S0_H_DEFINITION
-      - STAGE1_PROBES
-      - GATE_A
-    resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
+      - S0_SCHEMA_AUDIT
+      - S0_REFERENCE_FEATURES
+      - S0_RELIABILITY_MODELS
+      - S0_ABSOLUTE_HSG
+      - S0_RC_HSG_CORE
+      - S0_FLAT_RC
+      - S0_PMI_BASELINE
+    resolution: Freeze train-only candidate construction, absolute-score content selection, deterministic parent paths, and a common candidate hash before reliability fitting.
+  - id: B_V7_A_INTERFACE_UNIMPLEMENTED
+    reason: The author selected RC_HSG_NATIVE_SPECTRAL_A1_V1, but its frontend tensor, masking, deterministic initialization, and outer-train-only admission checks are not implemented or validated.
+    blocks:
+      - S0_A1_FRONTEND
+      - S0_A1_ADMISSION
+      - S0_A3_CONTAMINATION_CHECK
+      - S0_LEAKAGE_AUDIT
+      - S0_N1_BLOCK_FEASIBILITY
+      - S0_N1_SAMPLER
+      - S0_N2_SAMPLER
+      - GATE_R0
+      - S0_REFERENCE_FEATURES
+      - S0_RELIABILITY_MODELS
+      - S0_ABSOLUTE_HSG
+      - S0_RC_HSG_CORE
+      - S0_FLAT_RC
+    resolution: Implement and validate only the frozen S0_A_INTERFACE contract in the next authorized run; do not switch backbone or infer units.
 
-last_completed_task: S0_GATE_A_POPULATION_E5
-recommended_next_task: S0_A_POLICY_REVIEW
-last_run: runs/2026-08-23_011_joint_split_population_freeze.md
+last_completed_task: S0_A_POLICY_REVIEW
+recommended_next_task: S0_A_INTERFACE
+last_run: runs/2026-08-24_012_rc_hsg_scientific_redesign_freeze.md
 
 do_not_do_yet:
-  - Do not infer unresolved EEG unit, repair YTL event semantics by guess, or infer checkpoint contents or scientific admission from candidate discovery or another pipeline.
-  - Do not include the 377 excluded rows in the frozen analysis view or treat analysis-view PASS as full-release, model, training, or Gate admission.
-  - Do not import scientific state, DONE tasks, blockers, commits, or evidence from the trust_align reference project or other example archives.
-  - Do not implement N1, N2, schema, NC-HSG, direct-C, PMI, or free LLM generation until their prerequisites and blockers are resolved.
-  - Do not read held-out metrics, unlock test data, train models, or run Gate A1, Gate A, Gate B, or a main experiment.
-  - Do not change alpha_0, K, the primary metric, split discipline, Gate thresholds, or failure routes to fit available files.
-  - Do not alter the frozen NC_HSG_STIMULUS_GROUP_POLICY_V1 thresholds, infer paraphrase verification, or rebuild similarity scores.
-  - Do not change the frozen joint split capacities domains integer objective assignments or calibration reserves.
-  - Do not select download or implement backbone A until ChatGPT or the author completes S0_A_POLICY_REVIEW.
-  - Do not unlock test identities read test values run the full leakage audit train or execute any Gate.
+  - Do not implement S0_A_INTERFACE without the next exact instruction; the A policy is selected but the frontend is not implemented.
+  - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
+  - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
+  - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.
+  - Do not implement F, semantic schema, reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
+  - Do not read real EEG values, semantic outcomes, calibration/test results, predictions, or historical model metrics.
+  - Do not unlock test identities, run the full leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.

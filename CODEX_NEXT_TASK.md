@@ -1,21 +1,34 @@
-# Codex Next Task
+# Codex Next Task - S0_A_INTERFACE
 
 ## Current state
 
-Run 011 completed the frozen NC-HSG v2.0 joint split and subject-macro population chain. `S0_A_POLICY_REVIEW` is READY, is the sole recommended task, and is owned by `CHATGPT_OR_AUTHOR`.
+Run 012 activated RC-HSG v2.1 and materialized the author-frozen
+`RC_HSG_NATIVE_SPECTRAL_A1_V1` policy. `S0_A_INTERFACE` is the sole READY and
+recommended task, owned by `CODEX`.
 
 ## Required next instruction
 
-Wait for an exact ChatGPT or author directive that selects exactly one primary backbone A or rejects all current candidates. The decision must address license, release-native amplitude compatibility, channel and tensor interface, checkpoint locality, reproducibility, and adaptation cost before `S0_A_INTERFACE` can proceed.
+Wait for an exact execution directive for `S0_A_INTERFACE`. That future run may
+implement and freeze only the project-native spectral frontend tensor,
+masking, deterministic initialization, and outer-train-only admission contract
+specified by active SPEC section 20.10 and `artifacts/backbone_a_policy.yaml`.
 
-## Frozen inputs to the review
+## Frozen boundary
 
-- Regime I group capacities are 164 train-fit, 41 inner-val, 68 calibration, and 69 locked test.
-- Calibration reserves are 34 select and 34 certification groups; no calibration theorem has been selected.
-- Regime II has 18 LOSO folds that reuse frozen group roles and prohibit held-out-subject adaptation.
-- Gate-A population uses equal-weight subject macro aggregation and the frozen paired subject-bootstrap contract.
-- EEG amplitude remains `UNRESOLVED_RELEASE_NATIVE_AMPLITUDE`.
+- Input: finite 105 x T release-native EEG at 500 Hz in the frozen channel
+  order and common-average processed reference.
+- No physical-unit conversion, microvolt inference, channel interpolation,
+  external source-code copy, pretrained checkpoint, or weight download.
+- Segments shorter than 500 valid samples fail admission; silent padding is
+  prohibited.
+- N1, N2, real, and all comparison methods must eventually share one frontend
+  path.
 
 ## Hard stop
 
-Codex must not select, download, or implement backbone A. Do not change the split, unlock or read test values, execute the full leakage audit, infer physical units, implement N1/N2/schema/NC-HSG, train, or run any Gate.
+Do not implement `S0_A_INTERFACE` without the next exact directive. Do not
+implement F, semantic schema, candidate selection, reference generation,
+reliability models, GLMs, calibration, or later methods. Do not read real EEG
+values, semantic outcomes, calibration/test results, predictions, or historical
+model metrics. Do not run the full leakage audit, train, execute any Gate, or
+unlock test.

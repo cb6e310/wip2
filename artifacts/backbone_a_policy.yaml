@@ -1,0 +1,87 @@
+schema_version: 1
+artifact: RC_HSG_BACKBONE_A_POLICY_V1
+policy_id: RC_HSG_NATIVE_SPECTRAL_A1_V1
+decision_basis: OUTCOME_BLIND_AUTHOR_POLICY
+selected:
+  implementation: PROJECT_NATIVE_CLEAN_ROOM
+  external_source_code_copied: false
+  pretrained_checkpoint: null
+  weight_download_required: false
+  input_channels: 105
+  sampling_hz: 500
+  input_unit: RELEASE_NATIVE_AMPLITUDE_UNRESOLVED
+  physical_unit_conversion: NONE
+  channel_interpolation: false
+  processed_reference: common-average
+  per_trial_transform:
+    center: channel_median
+    scale: max(1.4826_times_MAD,centered_RMS,1e-6)
+    clip: [-20.0, 20.0]
+  window_samples: 500
+  hop_samples: 250
+  window_function: HANN
+  bands_hz:
+    - [1, 4]
+    - [4, 8]
+    - [8, 10]
+    - [10, 13]
+    - [13, 20]
+    - [20, 30]
+    - [30, 45]
+    - [55, 75]
+  feature: LOG_RELATIVE_BANDPOWER
+  feature_epsilon: 1.0e-12
+  token_input_dim: 840
+  projection_dim: 256
+  temporal_encoder_layers: 2
+  attention_heads: 4
+  feedforward_dim: 512
+  dropout: 0.10
+  position: SINUSOIDAL
+  output_contract:
+    window_embeddings: L_BY_256
+    mask: L
+    pooled_embedding: 256
+  initialization: DETERMINISTIC_PROJECT_OWNED_RANDOM_INIT_PER_FROZEN_MAIN_SEED
+  trainability: TRAIN_FROM_SCRATCH_ALL_METHODS_SHARED
+  peft: false
+  test_fitted_scaling: false
+candidate_ledger:
+  TRUST_ALIGN_A1_SPECTRAL:
+    primary_decision: REJECT_PRIMARY_EXTERNAL_SOURCE_LICENSE_NOT_FOUND_NO_CODE_COPY
+  TRUST_ALIGN_LABRAM_A3:
+    primary_decision: REJECT_PRIMARY_UNIT_CHANNEL_FILTER_CHECKPOINT_INTERFACE_UNRESOLVED
+  OFFICIAL_NEUROLM_B_VQ:
+    primary_decision: REJECT_PRIMARY_MICROVOLT_CHANNEL_ADAPTER_AND_UNDOWNLOADED_WEIGHT_GAPS
+robustness_boundary:
+  optional_descriptive_only:
+    - TRUST_ALIGN_LABRAM_A3
+    - OFFICIAL_NEUROLM_B_VQ
+  allowed_after_primary_method_and_route_freeze_only: true
+  may_replace_primary: false
+  silent_backbone_switch: false
+admission_contract:
+  valid_sample_mask_required: true
+  minimum_valid_segment_samples: 500
+  short_or_invalid_segment_action: FAIL_ADMISSION
+  silent_padding: false
+  shared_frontend_paths:
+    - REAL
+    - N1
+    - N2
+    - ALL_METHODS
+scope_boundary:
+  semantic_decoder_f_selected: false
+  frontend_implemented: false
+  performance_conclusion: false
+  eeg_values_read: false
+  outcome_values_read: false
+  external_code_or_weights_imported: false
+prohibited:
+  - SUBJECT_OR_SESSION_ID_FEATURE
+  - GUESSED_PHYSICAL_UNIT
+  - CHANNEL_INTERPOLATION
+  - TEST_FITTED_SCALE
+  - TEACHER_FORCING
+  - TEST_TEXT_RETRIEVAL
+  - SILENT_BACKBONE_SWITCH
