@@ -211,6 +211,29 @@ SPEC_V19_REVIEW:
     - runs/2026-08-23_010_stimulus_identity_grouping.md
   evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
 
+SPEC_V20_REVIEW:
+  title: Activate the frozen joint split and subject-macro population contract
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V19_REVIEW
+  produces:
+    - guide/NC_HSG_Paper_Spec_v2_0_2026-08-23.md
+    - artifacts/spec_review/nc_hsg_v20_post_push_review.md
+  acceptance:
+    - reviewed commit is exactly e852e7de24c31410387ad46d75fb44a5cac9e850
+    - deterministic joint split capacities domains integer objective and fixed assertions are frozen before implementation
+    - subject-macro aggregation and paired subject-bootstrap contracts are outcome-blind and versioned
+    - run 011 stops before backbone selection full leakage audit training or Gate execution
+  completed_by_run: 2026-08-23_011_joint_split_population_freeze
+  acceptance_evidence:
+    - guide/NC_HSG_Paper_Spec_v2_0_2026-08-23.md
+    - artifacts/spec_review/nc_hsg_v20_post_push_review.md
+    - runs/2026-08-23_011_joint_split_population_freeze.md
+  evidence_scope: SPECIFICATION_AND_GOVERNANCE_ONLY_NO_OUTCOME_EVIDENCE
+
 S0_STIMULUS_SOURCE_BINDING:
   title: Bind frozen ZuCo 2.0 NR material sources to committed stimulus identities
   stage: stage_0
@@ -605,6 +628,7 @@ S0_A_INTERFACE:
   prerequisites:
     - S0_REPOSITORY_AUDIT
     - S0_DATA_CARD
+    - S0_A_POLICY_REVIEW
   produces:
     - artifacts/backbone_a_contract.yaml
   acceptance:
@@ -612,7 +636,7 @@ S0_A_INTERFACE:
     - input window sampling channels units mask output dimension and score interface are frozen
     - freeze versus PEFT scope and trainable parameter count are explicit
     - all comparison rows can share the same A and score API
-  blocked_reason: The data card is complete, but release-native amplitude remains unit-unbound for unit-sensitive candidates and no primary A is selected; physical-interface, license, checkpoint-locality, channel-map, adapter, and common-score gaps keep B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT active.
+  blocked_reason: The split and population contracts are frozen, but the owner-only A policy review is pending. Release-native amplitude remains unit-unbound for unit-sensitive candidates; physical-interface, license, checkpoint-locality, channel-map, adapter, and common-score gaps keep B_V1_UNIT_UNBOUND_FOR_UNIT_SENSITIVE_A and B_V2_BACKBONE_NOT_PRESENT active.
 
 S0_STIMULUS_ID:
   title: Normalize stimulus identity and freeze near-duplicate groups
@@ -648,22 +672,35 @@ S0_STIMULUS_ID:
 S0_JOINT_SPLIT:
   title: Build Regime I stimulus-disjoint and Regime II subject-stimulus manifests
   stage: stage_0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 6
   prerequisites:
+    - SPEC_V20_REVIEW
     - S0_DATA_CARD
     - S0_STIMULUS_ID
   produces:
+    - scripts/build_joint_split.py
+    - tests/test_build_joint_split.py
     - artifacts/split_regimeI.json
     - artifacts/split_regimeII.json
     - artifacts/split_manifest.yaml
+    - reports/joint_split_population.md
+    - runs/2026-08-23_011_joint_split_population_freeze.md
   acceptance:
     - Regime I uses frozen 60 20 20 stimulus groups
     - Regime II holds out subject and stimulus without overlap
     - train cal test and inner-val identities are disjoint as specified
-    - deterministic rebuilds are byte-identical and hashes are frozen
-  why_ready: All 349 occurrences are covered by 342 frozen deterministic stimulus groups. Run 010 intentionally stops before split construction; execute only after the next exact ChatGPT or author split instruction.
+    - deterministic integer balancing reproduces 25 primary and 6 calibration-reserve swaps with both frozen ledger hashes
+    - two repository-external production rebuilds are byte-identical and test identities remain locked
+  completed_by_run: 2026-08-23_011_joint_split_population_freeze
+  acceptance_evidence:
+    - artifacts/split_regimeI.json
+    - artifacts/split_regimeII.json
+    - artifacts/split_manifest.yaml
+    - tests/test_build_joint_split.py
+    - runs/2026-08-23_011_joint_split_population_freeze.md
+  evidence_scope: OUTCOME_BLIND_DETERMINISTIC_GROUP_AND_SUBJECT_SPLIT_NO_TEST_VALUES
 
 S0_LEAKAGE_AUDIT:
   title: Audit split preprocessing candidate and test-time leakage
@@ -682,7 +719,7 @@ S0_LEAKAGE_AUDIT:
     - normalization feature selection schema candidates and null bins fit on legal training data only
     - teacher forcing gold prefixes test retrieval and calibration representation learning are rejected
     - machine assertions fail closed
-  blocked_reason: Backbone and split contracts are not frozen.
+  blocked_reason: The split contract is frozen, but the owner-only A policy review and backbone interface remain incomplete. Full leakage audit execution is outside run 011.
 
 S0_A1_FRONTEND:
   title: Implement or admit the primary real-EEG frontend and tensor self-check
@@ -870,18 +907,47 @@ S0_SCHEMA_AUDIT:
 S0_GATE_A_POPULATION_E5:
   title: Freeze Gate A subject-macro population and cluster inference contract
   stage: stage_0
-  status: BLOCKED
+  status: DONE
   critical_path: true
   priority: 17
   prerequisites:
     - S0_JOINT_SPLIT
   produces:
     - artifacts/gate_a_population.yaml
+    - reports/joint_split_population.md
+    - runs/2026-08-23_011_joint_split_population_freeze.md
   acceptance:
     - trial aggregation seed aggregation and subject clustering order are explicit
     - no zero-fill or trial-level iid inference is allowed
     - subject coverage and exclusion rules are outcome-blind
-  blocked_reason: Split manifests and subject coverage are unknown.
+    - 18-subject equal-weight macro and 18-fold descriptive populations are frozen
+    - paired subject-bootstrap index bytes reproduce the frozen SHA256 without computing a statistic or Gate
+  completed_by_run: 2026-08-23_011_joint_split_population_freeze
+  acceptance_evidence:
+    - artifacts/gate_a_population.yaml
+    - artifacts/split_regimeI.json
+    - artifacts/split_regimeII.json
+    - tests/test_build_joint_split.py
+    - runs/2026-08-23_011_joint_split_population_freeze.md
+  evidence_scope: OUTCOME_BLIND_SUBJECT_MACRO_POPULATION_AND_BOOTSTRAP_CONTRACT_NO_GATE
+
+S0_A_POLICY_REVIEW:
+  title: Select or reject exactly one primary backbone A policy
+  stage: stage_0
+  status: READY
+  critical_path: true
+  priority: 18
+  owner: CHATGPT_OR_AUTHOR
+  prerequisites:
+    - S0_GATE_A_POPULATION_E5
+  produces:
+    - future SPEC backbone A selection or rejection decision
+  acceptance:
+    - exactly one A is selected or all candidates are explicitly rejected
+    - license and release-native amplitude compatibility are reviewed
+    - channel interface checkpoint locality reproducibility and adaptation cost are reviewed
+    - the owner decision is versioned before S0_A_INTERFACE implementation
+  why_ready: The deterministic split and subject-macro population are frozen. Backbone selection is owner-only and run 011 stops without selecting downloading or implementing A.
 
 STAGE1_PROBES:
   title: Run no-free-LLM structured real versus N1 and N2 pilot

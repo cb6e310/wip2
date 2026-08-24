@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md` (version `v1.9`).
+Active SPEC: `guide/NC_HSG_Paper_Spec_v2_0_2026-08-23.md` (version `v2.0`).
 
 ## Verified location
 
@@ -13,13 +13,13 @@ Active SPEC: `guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md` (version `v1.9`).
 
 ## Source of truth
 
-1. `guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md` (active version `v1.9`)
+1. `guide/NC_HSG_Paper_Spec_v2_0_2026-08-23.md` (active version `v2.0`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Older SPECs, runs 001-009, and schema-v1/v2/v3 admission artifacts are provenance only. Never import state, claims, routes, metrics, or DONE decisions from `trust_align` or example archives.
+Older SPECs, runs 001-010, and schema-v1/v2/v3 admission artifacts are provenance only. Never import state, claims, routes, metrics, or DONE decisions from `trust_align` or example archives.
 
 ## Recovery sequence
 
@@ -34,9 +34,9 @@ Before changing files, record HEAD, branch, origin, and dirty state. If entry po
 
 ## Current evidence boundary
 
-Run 010 completed `SPEC_V19_REVIEW`, `S0_STIMULUS_GROUP_POLICY_REVIEW`, and `S0_STIMULUS_ID`. The frozen `NC_HSG_STIMULUS_GROUP_POLICY_V1` applies only the committed six-decimal candidate scores. It records two inter-identity edges, nine unjoined broad candidates, and 342 deterministic groups covering all 349 occurrences exactly once. Group kinds are 335 `SINGLETON`, five `EXACT_DUPLICATE_OCCURRENCES`, and two `NEAR_DUPLICATE_LEAKAGE_RISK`; no group exceeds two occurrences. Stimulus text was not emitted or reviewed, so every candidate and group remains explicitly not paraphrase-verified. Document and paragraph metadata remain unavailable.
+Run 011 completed `SPEC_V20_REVIEW`, `S0_JOINT_SPLIT`, and `S0_GATE_A_POPULATION_E5`. The fixed integer algorithm assigns all 342 stimulus groups to 164 train-fit, 41 inner-val, 68 calibration, and 69 locked-test groups after exactly 25 swaps. Calibration has two frozen 34-group reserves after six swaps. Regime I covers all 5,905 admitted rows once; Regime II contains 18 LOSO folds that reuse the frozen group roles and prohibit held-out-subject adaptation. The population contract freezes equal-weight subject macro aggregation and the 10,000 x 18 paired subject-bootstrap index hash without computing any scientific statistic.
 
-Physical unit remains `UNRESOLVED_RELEASE_NATIVE_AMPLITUDE`; no unit inference is authorized. `S0_JOINT_SPLIT` is the sole READY and recommended task, but run 010 intentionally stops before constructing a split. Wait for the next exact ChatGPT or author split instruction. Do not alter grouping thresholds, infer paraphrases, select a backbone, train, or run any Gate.
+Physical unit remains `UNRESOLVED_RELEASE_NATIVE_AMPLITUDE`; no unit inference is authorized. `S0_A_POLICY_REVIEW` is the sole READY and recommended task and is owned by `CHATGPT_OR_AUTHOR`. Run 011 stops before selecting, downloading, or implementing backbone A. Test identities remain `LOCKED_UNTIL_ROUTE_LOCK`; do not read test values, execute the full leakage audit, train, or run any Gate.
 
 ## End-of-session contract
 

@@ -1,0 +1,133 @@
+schema_version: 1
+artifact: NC_HSG_GATE_A_POPULATION_V1
+policy_id: NC_HSG_GATE_A_POPULATION_V1
+regime_i_confirmatory_population:
+  subjects:
+  - YAC
+  - YAG
+  - YAK
+  - YDG
+  - YDR
+  - YFR
+  - YFS
+  - YHS
+  - YIS
+  - YLS
+  - YMD
+  - YMS
+  - YRH
+  - YRK
+  - YRP
+  - YSD
+  - YSL
+  - YTL
+  cluster_unit: subject
+  weighting: EQUAL_WEIGHT_SUBJECT_MACRO
+  test_rows_by_subject:
+    YAC: 50
+    YAG: 71
+    YAK: 60
+    YDG: 71
+    YDR: 70
+    YFR: 49
+    YFS: 68
+    YHS: 71
+    YIS: 71
+    YLS: 69
+    YMD: 69
+    YMS: 70
+    YRH: 60
+    YRK: 68
+    YRP: 69
+    YSD: 70
+    YSL: 69
+    YTL: 68
+  test_status: LOCKED_UNTIL_ROUTE_LOCK
+regime_ii_descriptive_population:
+  fold_ids:
+  - loso_YAC
+  - loso_YAG
+  - loso_YAK
+  - loso_YDG
+  - loso_YDR
+  - loso_YFR
+  - loso_YFS
+  - loso_YHS
+  - loso_YIS
+  - loso_YLS
+  - loso_YMD
+  - loso_YMS
+  - loso_YRH
+  - loso_YRK
+  - loso_YRP
+  - loso_YSD
+  - loso_YSL
+  - loso_YTL
+  held_out_subjects:
+  - YAC
+  - YAG
+  - YAK
+  - YDG
+  - YDR
+  - YFR
+  - YFS
+  - YHS
+  - YIS
+  - YLS
+  - YMD
+  - YMS
+  - YRH
+  - YRK
+  - YRP
+  - YSD
+  - YSL
+  - YTL
+  weighting: EQUAL_WEIGHT_HELDOUT_FOLD_MACRO
+  interpretation: EMPIRICAL_EXTERNAL_VALIDITY_ONLY
+aggregation_contract:
+  order:
+  - trial_to_subject_on_fixed_common_rows
+  - average_five_seeds_within_subject
+  - equal_weight_mean_across_18_subjects
+  paired_indices:
+  - row
+  - subject
+  - seed
+  independent_cluster_allowlist:
+  - subject
+  missing_frozen_subject_action: CONFIRMATORY_GATE_NOT_EVALUABLE
+  zero_fill: false
+  silent_subject_deletion: false
+paired_subject_bootstrap:
+  replicates: 10000
+  draws_per_replicate: 18
+  subject_order:
+  - YAC
+  - YAG
+  - YAK
+  - YDG
+  - YDR
+  - YFR
+  - YFS
+  - YHS
+  - YIS
+  - YLS
+  - YMD
+  - YMS
+  - YRH
+  - YRK
+  - YRP
+  - YSD
+  - YSL
+  - YTL
+  domain_hex: 4e435f4853475f474154455f415f504f50554c4154494f4e5f5631005355424a4543545f424f4f54535452415000
+  counter_encoding: uint32_be(replicate)+uint16_be(draw)+uint16_be(retry)
+  rejection_limit: 18446744073709551600
+  index_encoding: 180000 uint8 bytes in replicate/draw order
+  index_bytes_sha256: e77ca92b29c414a17c1e66edf4075edd470c007dfe2019487c36758f5f99c86d
+  total_retries: 0
+  binary_indices_committed: false
+  confidence_interval: paired equal-tailed 2.5/97.5 percent subject bootstrap
+execution_state:
+  scientific_statistics_computed: false
+  gate_executed: false

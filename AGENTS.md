@@ -1,6 +1,6 @@
 # NC-HSG Project Instructions
 
-Active SPEC: `guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md` (version `v1.9`).
+Active SPEC: `guide/NC_HSG_Paper_Spec_v2_0_2026-08-23.md` (version `v2.0`).
 
 Before doing any work in this repository, read `AI_START_HERE.md` and follow
 its recovery sequence. Project state must be recovered

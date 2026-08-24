@@ -1,0 +1,182 @@
+schema_version: 1
+artifact: NC_HSG_JOINT_SPLIT_MANIFEST_V1
+policy_id: NC_HSG_JOINT_SPLIT_POLICY_V1
+population_policy_id: NC_HSG_GATE_A_POPULATION_V1
+inputs:
+  stimulus_identity:
+    path: artifacts/stimulus_identity.yaml
+    sha256: f6b94449d58c0e26d7da972968943f0eca0fa2bfc16cf2495ce8c41da80a69ea
+  stimulus_groups:
+    path: artifacts/stimulus_groups.json
+    sha256: 4408e57defbdc7ac5bd503c35489d68941d231d56009550a2bb17d0973b1fded
+  analysis_view:
+    path: artifacts/admission/zuco2_nr_analysis_view_v1.jsonl
+    sha256: 0751259f9f9455cba72bd7d027ffa1423e790e631ac0f5174c38da65d7cd12ff
+  analysis_summary:
+    path: artifacts/admission/zuco2_nr_analysis_view_v1.yaml
+    sha256: 5e387ef3dc9e930e3ca3e4b6ccb6a009a3cc719281f1ac183cfbf56ac7b66181
+  data_card:
+    path: artifacts/data_card.yaml
+    sha256: d9331bfe34937c264b7b8c667a2b831569c4440120e1d445011aeaf419c30f84
+primary_assignment:
+  domain_hex: 4e435f4853475f4a4f494e545f53504c49545f5631005052494d41525900
+  role_order:
+  - train_fit
+  - inner_val
+  - cal
+  - test
+  capacities:
+  - 164
+  - 41
+  - 68
+  - 69
+  objective_definition:
+  - max_subject_integer_deviation
+  - sum_subject_integer_deviation_squared
+  - max_block_integer_deviation
+  - sum_block_integer_deviation_squared
+  - max_occurrence_integer_deviation
+  - sum_occurrence_integer_deviation_squared
+  iterations: 25
+  objective:
+  - 201
+  - 804726
+  - 344
+  - 651510
+  - 201
+  - 76266
+  initial_order_sha256: 823be6783056c8ebf200a0933d2f876b67999b2a173428836f667bb0477cb747
+  ledger_sha256: 531539ff3592cc28d89c5e3ef568d019eaab733ccdb1053c1fcf1c471e9dac1c
+calibration_reserve_assignment:
+  domain_hex: 4e435f4853475f4a4f494e545f53504c49545f56310043414c5f5245534552564500
+  role_order:
+  - cal_select_reserve
+  - cal_cert_reserve
+  capacities:
+  - 34
+  - 34
+  iterations: 6
+  objective:
+  - 34
+  - 30056
+  - 34
+  - 2312
+  - 34
+  - 2312
+  initial_order_sha256: 5d3213340bc0dc5a0ee8717f2a5d2177d475dc641524a23847db66e8e1ce27e9
+  ledger_sha256: 5f464d97e695ab6bc58d10ac2342351195fa936144487bd9e78f96e5e7a8442c
+role_summary:
+  train_fit:
+    groups: 164
+    occurrences: 167
+    analysis_rows: 2832
+    block_occurrences:
+    - 24
+    - 23
+    - 25
+    - 24
+    - 24
+    - 24
+    - 23
+    per_subject_row_min: 117
+    per_subject_row_max: 167
+  inner_val:
+    groups: 41
+    occurrences: 42
+    analysis_rows: 709
+    block_occurrences:
+    - 7
+    - 6
+    - 6
+    - 6
+    - 6
+    - 5
+    - 6
+    per_subject_row_min: 29
+    per_subject_row_max: 42
+  cal:
+    groups: 68
+    occurrences: 69
+    analysis_rows: 1171
+    block_occurrences:
+    - 9
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    per_subject_row_min: 48
+    per_subject_row_max: 69
+  test:
+    groups: 69
+    occurrences: 71
+    analysis_rows: 1193
+    block_occurrences:
+    - 10
+    - 11
+    - 10
+    - 10
+    - 10
+    - 10
+    - 10
+    per_subject_row_min: 49
+    per_subject_row_max: 71
+calibration_reserve_summary:
+  cal_select_reserve:
+    groups: 34
+    occurrences: 35
+    analysis_rows: 591
+    block_occurrences:
+    - 5
+    - 5
+    - 5
+    - 5
+    - 5
+    - 5
+    - 5
+    per_subject_row_min: 24
+    per_subject_row_max: 35
+  cal_cert_reserve:
+    groups: 34
+    occurrences: 34
+    analysis_rows: 580
+    block_occurrences:
+    - 4
+    - 5
+    - 5
+    - 5
+    - 5
+    - 5
+    - 5
+    per_subject_row_min: 24
+    per_subject_row_max: 34
+regime_ii:
+  folds: 18
+  interpretation: EMPIRICAL_EXTERNAL_VALIDITY_ONLY
+  canonical_rows_per_fold: 5905
+bootstrap_index_bytes_sha256: e77ca92b29c414a17c1e66edf4075edd470c007dfe2019487c36758f5f99c86d
+artifact_hashes:
+  artifacts/split_regimeI.json: e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab
+  artifacts/split_regimeII.json: 9643dd5abe953e863e7535989f2f65d0f013a1c775c167e49f7d107545016393
+  artifacts/gate_a_population.yaml: 279e3edf1c41971b6967f74657ec531533977d90ea4dc3d48a5efd63dd295d60
+  reports/joint_split_population.md: 13755eac6198352b9c4dd6605f95a31b6e859db395bb5e6539a715427f742d09
+assertions:
+  groups_covered_once: true
+  exact_ids_covered_once: true
+  stimulus_occurrences_covered_once: true
+  analysis_rows_covered_once: true
+  role_group_sets_pairwise_disjoint: true
+  all_subjects_present_in_each_regime_i_role: true
+  regime_ii_subject_and_group_leakage: false
+  test_status: LOCKED_UNTIL_ROUTE_LOCK
+safety:
+  allowed_analysis_fields_only: true
+  raw_assignment_metadata_projected: false
+  random_assignment_generated: false
+  test_values_read: false
+  scientific_statistics_computed: false
+  backbone_selected: false
+  full_leakage_audit_executed: false
+  training_executed: false
+  gate_executed: false

@@ -315,6 +315,10 @@ class ProjectMemoryTests(unittest.TestCase):
         self._save()
         self._assert_code(CHECKER.validate(self.root), "NEXT_TASK_STALE")
 
+    def test_a_policy_review_requires_frozen_owner(self) -> None:
+        self.tasks["S0_A_POLICY_REVIEW"]["owner"] = "CODEX"
+        self._assert_code(self._errors(), "OWNER_ONLY_TASK_OWNER_MISMATCH")
+
     def test_discovery_is_first_after_hardening(self) -> None:
         task = self.tasks["S0_INPUT_DISCOVERY_AUDIT"]
         task["status"] = "READY"

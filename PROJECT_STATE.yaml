@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-23"
-updated_by_run: 2026-08-23_010_stimulus_identity_grouping
+updated_by_run: 2026-08-23_011_joint_split_population_freeze
 
 project:
   name: nc_hsg_eeg_text
@@ -9,11 +9,11 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 1252d0a24b6d4785e7f550464586c95f54f3cfa3
-  reviewed_commit: 1252d0a24b6d4785e7f550464586c95f54f3cfa3
-  repository_status: SPEC_V19_ACTIVE_STIMULUS_IDENTITY_GROUPING_COMPLETE
-  spec_version: v1.9
-  spec_path: guide/NC_HSG_Paper_Spec_v1_9_2026-08-23.md
+  baseline_commit: e852e7de24c31410387ad46d75fb44a5cac9e850
+  reviewed_commit: e852e7de24c31410387ad46d75fb44a5cac9e850
+  repository_status: SPEC_V20_ACTIVE_JOINT_SPLIT_AND_POPULATION_COMPLETE
+  spec_version: v2.0
+  spec_path: guide/NC_HSG_Paper_Spec_v2_0_2026-08-23.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
@@ -87,9 +87,9 @@ blockers:
       - GATE_A
     resolution: Freeze train-only candidate construction and selection-aware statistics before any semantic pilot.
 
-last_completed_task: S0_STIMULUS_ID
-recommended_next_task: S0_JOINT_SPLIT
-last_run: runs/2026-08-23_010_stimulus_identity_grouping.md
+last_completed_task: S0_GATE_A_POPULATION_E5
+recommended_next_task: S0_A_POLICY_REVIEW
+last_run: runs/2026-08-23_011_joint_split_population_freeze.md
 
 do_not_do_yet:
   - Do not infer unresolved EEG unit, repair YTL event semantics by guess, or infer checkpoint contents or scientific admission from candidate discovery or another pipeline.
@@ -99,4 +99,6 @@ do_not_do_yet:
   - Do not read held-out metrics, unlock test data, train models, or run Gate A1, Gate A, Gate B, or a main experiment.
   - Do not change alpha_0, K, the primary metric, split discipline, Gate thresholds, or failure routes to fit available files.
   - Do not alter the frozen NC_HSG_STIMULUS_GROUP_POLICY_V1 thresholds, infer paraphrase verification, or rebuild similarity scores.
-  - Do not construct a split until the next exact ChatGPT or author instruction explicitly authorizes S0_JOINT_SPLIT.
+  - Do not change the frozen joint split capacities domains integer objective assignments or calibration reserves.
+  - Do not select download or implement backbone A until ChatGPT or the author completes S0_A_POLICY_REVIEW.
+  - Do not unlock test identities read test values run the full leakage audit train or execute any Gate.

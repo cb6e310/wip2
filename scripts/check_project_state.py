@@ -47,6 +47,7 @@ REQUIRED_TASK_FIELDS = {
     "acceptance",
 }
 REQUIRED_TASK_IDS = {
+    "SPEC_V20_REVIEW",
     "SPEC_V19_REVIEW",
     "SPEC_V18_REVIEW",
     "S0_STIMULUS_SOURCE_BINDING",
@@ -82,6 +83,7 @@ REQUIRED_TASK_IDS = {
     "GATE_A1",
     "S0_SCHEMA_AUDIT",
     "S0_GATE_A_POPULATION_E5",
+    "S0_A_POLICY_REVIEW",
     "STAGE1_PROBES",
     "SHAM_VALIDATION",
     "GATE_A",
@@ -421,6 +423,8 @@ def validate(root: Path) -> list[str]:
                 _error(errors, "READY_PREREQUISITE_NOT_DONE", task_id)
             if task_id in blocked_ids:
                 _error(errors, "READY_BLOCKED", task_id)
+            if task_id == "S0_A_POLICY_REVIEW" and task.get("owner") != "CHATGPT_OR_AUTHOR":
+                _error(errors, "OWNER_ONLY_TASK_OWNER_MISMATCH", task_id)
         elif status == "DONE":
             if not prerequisites_done:
                 _error(errors, "DONE_PREREQUISITE_NOT_DONE", task_id)
