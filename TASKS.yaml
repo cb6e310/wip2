@@ -418,6 +418,100 @@ SPEC_V28_REVIEW:
     - runs/2026-08-24_019_n2_common_phase_sampler.md
   evidence_scope: SPECIFICATION_AND_SYNTHETIC_ONLY_N2_COMMON_PHASE_CONTRACT_NO_REAL_EEG_NO_OUTCOMES_NO_GATE
 
+SPEC_V29_REVIEW:
+  title: Activate the frozen RC-HSG v2.9 outcome-blind Gate R0 contract
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V28_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_9_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v29_gate_r0_review.md
+  acceptance:
+    - reviewed commit is exactly 4fa6fadc8bdee0d163acc8bf9ee48aeac4d3095d
+    - section 28 freezes the exact outcome-blind Gate R0 scope models thresholds decisions and failure routes
+    - only eligible outer-train arrays may be read and short calibration test text outcome and test identity remain unread
+    - completed PASS or FAIL routes mechanically to semantic-item review and stops
+  completed_by_run: 2026-08-24_020_gate_r0_reference_integrity
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_9_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v29_gate_r0_review.md
+    - runs/2026-08-24_020_gate_r0_reference_integrity.md
+  evidence_scope: SPECIFICATION_AND_OUTCOME_BLIND_GATE_R0_CONTRACT
+
+SPEC_V291_REVIEW:
+  title: Activate the frozen RC-HSG v2.9.1 matched-support panel correction
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V29_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_9_1_GATE_R0_PANEL_ADDENDUM_2026-08-24.md
+    - guide/RC_HSG_Paper_Spec_v2_9_1_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v291_gate_r0_panel_conflict_resolution.md
+  acceptance:
+    - the 216 role cells remain structural coverage rather than a populated panel assertion
+    - the exact 108-row support ledger and 176-row matched panel are frozen before real reads
+    - no row borrowing duplication replacement or empty-cell filling is allowed
+  completed_by_run: 2026-08-24_020_gate_r0_reference_integrity
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_9_1_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v291_gate_r0_panel_conflict_resolution.md
+    - runs/2026-08-24_020_gate_r0_reference_integrity.md
+  evidence_scope: SPECIFICATION_AND_METADATA_ONLY_GATE_R0_PANEL_CORRECTION
+
+SPEC_V292_REVIEW:
+  title: Activate the frozen RC-HSG v2.9.2 warning-free logistic model API correction
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V291_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_9_2_MODEL_WARNING_ADDENDUM_2026-08-24.md
+    - guide/RC_HSG_Paper_Spec_v2_9_2_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v292_model_warning_conflict_resolution.md
+  acceptance:
+    - production logistic construction uses l1_ratio 0.0 without the deprecated penalty argument
+    - isolated legacy and modern binary APIs are equivalent under scikit-learn 1.9.0
+    - every production model fit captures zero warnings and retains all frozen hyperparameters
+  completed_by_run: 2026-08-24_020_gate_r0_reference_integrity
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_9_2_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v292_model_warning_conflict_resolution.md
+    - artifacts/gates/gate_r0_logistic_api_equivalence_v1.yaml
+    - runs/2026-08-24_020_gate_r0_reference_integrity.md
+  evidence_scope: SPECIFICATION_AND_SYNTHETIC_MODEL_API_EQUIVALENCE_NO_REAL_READS
+
+SPEC_V293_REVIEW:
+  title: Activate the frozen RC-HSG v2.9.3 fit-class-domain correction
+  stage: governance
+  status: DONE
+  critical_path: true
+  priority: 0
+  prerequisites:
+    - SPEC_V292_REVIEW
+  produces:
+    - guide/RC_HSG_Paper_Spec_v2_9_3_FIT_CLASS_DOMAIN_ADDENDUM_2026-08-24.md
+    - guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v293_fit_class_domain_conflict_resolution.md
+  acceptance:
+    - reference detector and subject length and power nuisance domains remain exact and unchanged
+    - post-fit class validation is fit-type-aware and equals the unique fitted target domain
+    - deterministic K 2 3 and 18 capabilities pass before any real array read
+  completed_by_run: 2026-08-24_020_gate_r0_reference_integrity
+  acceptance_evidence:
+    - guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md
+    - artifacts/spec_review/rc_hsg_v293_fit_class_domain_conflict_resolution.md
+    - artifacts/gates/gate_r0_logistic_api_equivalence_v1.yaml
+    - runs/2026-08-24_020_gate_r0_reference_integrity.md
+  evidence_scope: SPECIFICATION_AND_SYNTHETIC_FIT_CLASS_DOMAIN_VALIDATION_NO_REAL_READS
+
 S0_SCIENTIFIC_REDESIGN_FREEZE:
   title: Freeze RC-HSG scientific identity Gates failure routes and migrated task graph
   stage: governance
@@ -1185,9 +1279,10 @@ GATE_A1:
 S0_SEMANTIC_ITEM:
   title: Freeze RC-HSG L1-L3 typed reliability targets projections evaluator and L4 renderer
   stage: stage_0
-  status: BLOCKED
+  status: READY
   critical_path: true
   priority: 14
+  owner: CHATGPT_OR_AUTHOR
   prerequisites:
     - S0_A_INTERFACE
     - S0_DATA_CARD
@@ -1201,7 +1296,7 @@ S0_SEMANTIC_ITEM:
     - typed union risk units and deterministic P2 P3 projections are executable
     - L4 contributes no semantic-depth unit and rejects new entities numbers relations polarity and modifiers
     - schema and matcher are fit without test text
-  blocked_reason: A interface leakage audit and RC-HSG typed semantic reliability schema are not frozen; B_V3_SCHEMA_UNFROZEN remains active.
+  why_ready: Gate R0 completed with no primary reference; the author must now freeze the ordinary hierarchical semantic schema and route-specific task graph without reading test outcomes.
 
 S0_H_DEFINITION:
   title: Freeze RC-HSG shared absolute-score candidate context and selection firewall
@@ -1431,7 +1526,7 @@ S0_NC_HSG_CORE:
 GATE_R0:
   title: Decide outcome-blind N1 and N2 reference integrity and admissibility
   stage: gate_r0
-  status: READY
+  status: DONE
   critical_path: true
   priority: 20
   owner: CHATGPT_OR_AUTHOR
@@ -1441,14 +1536,27 @@ GATE_R0:
     - S0_N1_SAMPLER
     - S0_N2_SAMPLER
   produces:
+    - artifacts/governance/run019_postcommit_correction.yaml
+    - artifacts/gates/gate_r0_logistic_api_equivalence_v1.yaml
+    - artifacts/gates/gate_r0_matched_support_v1.jsonl
+    - artifacts/gates/gate_r0_panel_v1.jsonl
+    - artifacts/gates/gate_r0_n2_coverage_v1.jsonl
     - artifacts/gates/gate_r0.yaml
     - reports/gate_r0.md
+    - runs/2026-08-24_020_gate_r0_reference_integrity.md
   acceptance:
     - N1 structural bijection scope coverage fixed-point and determinism checks are decided independently
     - N2 text-free nuisance PSD cross-spectrum covariance amplitude endpoint mask and coverage checks are decided independently
     - each failed reference family is removed and all-family failure routes to ordinary hierarchical selective generation
     - no semantic outcome test value or Gate R C H result is read
-  why_ready: Both frozen reference samplers are implemented, but Gate R0 may proceed only under a new exact ChatGPT/author-frozen real outcome-blind audit contract; this run does not authorize its execution.
+  completed_by_run: 2026-08-24_020_gate_r0_reference_integrity
+  acceptance_evidence:
+    - scripts/audit_gate_r0.py
+    - tests/test_audit_gate_r0.py
+    - artifacts/gates/gate_r0.yaml
+    - reports/gate_r0.md
+    - runs/2026-08-24_020_gate_r0_reference_integrity.md
+  evidence_scope: OUTCOME_BLIND_OUTER_TRAIN_REFERENCE_INTEGRITY_NO_TEXT_NO_OUTCOME_NO_CAL_TEST
 
 S0_REFERENCE_FEATURES:
   title: Build frozen RC-HSG absolute and reference-relative feature tables
@@ -1673,7 +1781,7 @@ S0_ALIGN_UNIT_COST:
     - training inference N1 reuse and N2 generation costs are measured separately
     - no held-out result is read and no scientific threshold changes
     - batch and cache plan is frozen for the main experiment
-  blocked_reason: Both samplers are implemented, but Gate R0 reference admissibility is pending and no real unit-cost run is authorized.
+  blocked_reason: Both samplers are implemented, but Gate R0 found no primary reference and no real unit-cost run is authorized on the ordinary-route branch.
 
 GATE_B:
   title: Decide hierarchical value over direct-C and rule out PMI

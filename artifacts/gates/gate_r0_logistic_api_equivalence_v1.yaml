@@ -1,0 +1,113 @@
+schema_version: 1
+artifact: RC_HSG_GATE_R0_LOGISTIC_API_EQUIVALENCE_V1
+fit_type_contract_version: RC_HSG_GATE_R0_FIT_CLASS_DOMAIN_V293
+sklearn_version: 1.9.0
+production_constructor:
+  l1_ratio: 0.0
+  C: 1.0
+  solver: lbfgs
+  tol: 1.0e-08
+  max_iter: 2000
+  fit_intercept: true
+  class_weight: null
+  warm_start: false
+legacy_modern_binary:
+  legacy_warning_count: 1
+  legacy_warning_category: FutureWarning
+  legacy_warning_message_sha256: 36b2bc41c975546994273ca38af28dd0514b8603576618762d2ce2bd543b35c7
+  modern_warning_count: 0
+  legacy_n_iter: 11
+  modern_n_iter: 11
+  classes_equal: true
+  n_iter_equal: true
+  rtol: 0.0
+  atol: 1.0e-14
+  maximum_absolute_difference:
+    coef: 0.0
+    intercept: 0.0
+    decision: 0.0
+    probability: 0.0
+  finite: true
+  verdict: PASS
+multiclass_capability:
+- K: 2
+  class_dtype: <U3
+  classes:
+  - C00
+  - C01
+  class_count: 2
+  feature_width: 6
+  coef_shape:
+  - 1
+  - 6
+  intercept_shape:
+  - 1
+  decision_shapes:
+  - - 8
+  probability_shapes:
+  - - 8
+    - 2
+  warning_count: 0
+  n_iter: 11
+  finite_probability_sum_pass: true
+- K: 3
+  class_dtype: <U3
+  classes:
+  - C00
+  - C01
+  - C02
+  class_count: 3
+  feature_width: 6
+  coef_shape:
+  - 3
+  - 6
+  intercept_shape:
+  - 3
+  decision_shapes:
+  - - 12
+    - 3
+  probability_shapes:
+  - - 12
+    - 3
+  warning_count: 0
+  n_iter: 16
+  finite_probability_sum_pass: true
+- K: 18
+  class_dtype: <U3
+  classes:
+  - C00
+  - C01
+  - C02
+  - C03
+  - C04
+  - C05
+  - C06
+  - C07
+  - C08
+  - C09
+  - C10
+  - C11
+  - C12
+  - C13
+  - C14
+  - C15
+  - C16
+  - C17
+  class_count: 18
+  feature_width: 6
+  coef_shape:
+  - 18
+  - 6
+  intercept_shape:
+  - 18
+  decision_shapes:
+  - - 72
+    - 18
+  probability_shapes:
+  - - 72
+    - 18
+  warning_count: 0
+  n_iter: 25
+  finite_probability_sum_pass: true
+fixture_or_model_values_persisted: false
+verdict: PASS

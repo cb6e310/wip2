@@ -2,7 +2,7 @@
 
 This file is mandatory for every new AI/Codex session. Repository state comes from files and physical evidence, never chat history.
 
-Active SPEC: `guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md` (version `v2.8`).
+Active SPEC: `guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md` (version `v2.9.3`).
 
 ## Verified location
 
@@ -13,13 +13,13 @@ Active SPEC: `guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md` (version `v2.8`).
 
 ## Source of truth
 
-1. `guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md` (active version `v2.8`)
+1. `guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md` (active version `v2.9.3`)
 2. `PROJECT_STATE.yaml`
 3. `HANDOFF.md`
 4. `TASKS.yaml`
 5. Current code, tests, artifacts, reports, and immutable runs
 
-Sections 20-27 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
+Sections 20-31 are authoritative for the RC-HSG scientific question, method, A interface, Gates,
 task graph, and A policy. Sections 14-19 and run-011 artifacts remain
 authoritative for physical data, identity, grouping, split, population, and
 test-lock facts. Older SPECs and runs remain immutable provenance.
@@ -41,17 +41,17 @@ authorizes repair.
 
 ## Current evidence boundary
 
-Run 019 completed the synthetic-only N2 common-phase sampler. The transform uses one
-phase increment per positive frequency across all 105 channels, fixes DC/even Nyquist,
-and transforms only each valid unpadded prefix. The analytic grid and 199-replicate replay
-pass the frozen PSD, covariance, mean, cross-spectrum, mask, replay, and safety contract.
+Run 020 completed Gate R0 under cumulative v2.9.3. The audit read every one of the 3,497
+eligible outer-train arrays exactly once, used the frozen 176-row matched panel, and read
+zero short/calibration/test EEG, text, outcomes, or test identities. All fixed numerical
+preservation checks passed, but the real-vs-N2 classifier, nuisance, and endpoint/amplitude
+checks mechanically produced `FAIL_NO_PRIMARY_REFERENCE`.
 
-`GATE_R0` is the sole READY and recommended task, owned by `CHATGPT_OR_AUTHOR`, but
-requires a new exact real outcome-blind audit contract. B_V9 is closed; B_V4 remains active
-without blocking this resolver. Test identities remain `LOCKED_UNTIL_ROUTE_LOCK`; run 019
-read zero real EEG/text/outcome/test content and did not load A1/frontend, generate a score
-or p-value, train, execute any Gate, lock the route, or unlock test. Synthetic PASS does not
-admit N2 as the primary reference.
+`S0_SEMANTIC_ITEM` is the sole READY and recommended task, owned by
+`CHATGPT_OR_AUTHOR`. B_V4 is closed by the failed Gate: N2 is not admitted and N1 remains
+mechanism/robustness-only and primary-ineligible. The route remains unlocked, provisionally
+points to ordinary hierarchical selective generation, and test identities remain
+`LOCKED_UNTIL_ROUTE_LOCK`. Run 020 does not authorize semantic/schema work.
 
 ## End-of-session contract
 

@@ -1,7 +1,7 @@
 schema_version: 1
 generated_by_run: 2026-08-16_002_governance_bootstrap_repository_audit
-updated_by_run: 2026-08-24_019_n2_common_phase_sampler
-evidence_as_of_commit: 06e3e5f9b5c720bbb29074ca1cae1109add5b1b9
+updated_by_run: 2026-08-24_020_gate_r0_reference_integrity
+evidence_as_of_commit: 4fa6fadc8bdee0d163acc8bf9ee48aeac4d3095d
 allowed_statuses:
   - ABSENT
   - IMPLEMENTED_UNVALIDATED
@@ -187,8 +187,8 @@ items:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_n2_common_phase.py'"
       - ".venv/bin/python -m unittest discover -s tests -p 'test_build_n2_sampler_contract.py'"
     acceptance_gaps:
-      - synthetic common-phase preservation passes, but real outcome-blind Gate R0 admissibility remains unexecuted
-      - amplitude and endpoint diagnostics have no synthetic cutoff and N2 is not yet admitted as primary
+      - synthetic common-phase preservation passes, but real outcome-blind Gate R0 returned FAIL_NO_PRIMARY_REFERENCE
+      - N2 is not admitted as primary; N1 remains mechanism and robustness only
     target_task: S0_N2_SAMPLER
     blocker: B_V4_NULL_CONTRACT_UNVERIFIED
   calibration:
@@ -267,10 +267,13 @@ items:
       - tests/test_n2_common_phase.py
       - tests/test_build_n2_sampler_contract.py
       - artifacts/nulls/n2_contract.yaml
+      - tests/test_audit_gate_r0.py
+      - artifacts/gates/gate_r0.yaml
+      - runs/2026-08-24_020_gate_r0_reference_integrity.md
     tests_rerun:
       - ".venv/bin/python -m unittest discover -s tests -p 'test_project_memory.py'"
     acceptance_gaps:
-      - synthetic interface bounded real frontend early A-path leakage full outer-train admission and synthetic N2 sampler pass; Gate R0 remains unexecuted
+      - Gate R0 completed under v2.9.3 with FAIL_NO_PRIMARY_REFERENCE and all test and data locks preserved
     target_task: S0_GOVERNANCE_BOOTSTRAP
     blocker: null
   artifacts:
@@ -282,7 +285,7 @@ items:
     tests_rerun:
       - .venv/bin/python scripts/check_project_state.py
     acceptance_gaps:
-      - governance and specification artifacts only; no scientific artifact exists
+      - Gate R0 reference-integrity artifacts exist but no semantic model or test outcome exists
     target_task: S0_REPOSITORY_AUDIT
     blocker: null
   governance_input_discovery:
@@ -302,10 +305,9 @@ items:
     target_task: S0_INPUT_DISCOVERY_AUDIT
     blocker: null
 
-active_spec: guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md
-active_method: RC-HSG
+active_spec: guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md
+active_method: ORDINARY_HIERARCHICAL_SELECTIVE_GENERATION
 active_gates:
-  - GATE_R0
   - GATE_R
   - GATE_C
   - GATE_H

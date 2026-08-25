@@ -1,6 +1,6 @@
 schema_version: 2
 updated_at: "2026-08-24"
-updated_by_run: 2026-08-24_019_n2_common_phase_sampler
+updated_by_run: 2026-08-24_020_gate_r0_reference_integrity
 
 project:
   name: rc_hsg_eeg_text
@@ -9,22 +9,22 @@ project:
   python_path: /home/song/projects/trust_generative/.venv/bin/python
   remote: https://github.com/cb6e310/wip2
   branch: main
-  baseline_commit: 06e3e5f9b5c720bbb29074ca1cae1109add5b1b9
-  reviewed_commit: 06e3e5f9b5c720bbb29074ca1cae1109add5b1b9
-  repository_status: RC_HSG_V28_N2_COMMON_PHASE_SAMPLER_IMPLEMENTED_GATE_R0_AUDIT_PENDING
-  spec_version: v2.8
-  spec_path: guide/RC_HSG_Paper_Spec_v2_8_2026-08-24.md
+  baseline_commit: 4fa6fadc8bdee0d163acc8bf9ee48aeac4d3095d
+  reviewed_commit: 4fa6fadc8bdee0d163acc8bf9ee48aeac4d3095d
+  repository_status: RC_HSG_V29_GATE_R0_FAILED_ORDINARY_HSG_SCHEMA_REVIEW_PENDING
+  spec_version: v2.9.3
+  spec_path: guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md
   management_contract_path: guide/CODEX_BUILD_PROJECT_MEMORY_SYSTEM.md
 
 execution:
-  stage: gate_r0
+  stage: stage_0
   status: READY
-  current_gate: gate_r0
+  current_gate: null
 
 route:
-  primary: RC-HSG
+  primary: ORDINARY_HIERARCHICAL_SELECTIVE_GENERATION
   backup:
-    - ORDINARY_HIERARCHICAL_SELECTIVE_GENERATION
+    - RC-HSG
     - FLAT_RC
     - RELIABILITY_REFERENCE_STUDY
     - EMPIRICAL_RISK_AWARE
@@ -32,7 +32,7 @@ route:
   locked_by_run: null
 
 gates:
-  gate_r0: {status: READY, outcome: null}
+  gate_r0: {status: DONE, outcome: FAIL_NO_PRIMARY_REFERENCE}
   gate_r: {status: BLOCKED, outcome: null}
   gate_c: {status: BLOCKED, outcome: null}
   gate_h: {status: BLOCKED, outcome: null}
@@ -59,12 +59,14 @@ superseded_blockers:
   - id: B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING
     closed_by: S0_A1_ADMISSION
     retained_limitation: Admission covers outer-train only; short rows remain forced L0, physical units remain unresolved, calibration and test arrays remain unread, and no performance evidence was produced.
+  - id: B_V4_NULL_CONTRACT_UNVERIFIED
+    closed_by: GATE_R0
+    retained_limitation: Gate R0 found no primary reference; N2 is not admitted and N1 remains mechanism/robustness-only and primary-ineligible.
 
 blockers:
   - id: B_V3_SCHEMA_UNFROZEN
     reason: RC-HSG L1-L3 typed semantic units, projections, evaluator, L4 renderer, and blinded audit protocol are not implemented or frozen.
     blocks:
-      - S0_SEMANTIC_ITEM
       - S0_H_DEFINITION
       - S0_SCHEMA_AUDIT
       - S0_REFERENCE_FEATURES
@@ -73,13 +75,6 @@ blockers:
       - S0_RC_HSG_CORE
       - S0_FLAT_RC
     resolution: Freeze the RC-HSG typed schema, evaluator, projection, constrained renderer, and shared absolute-score candidate firewall without test text or outcomes.
-  - id: B_V4_NULL_CONTRACT_UNVERIFIED
-    reason: The N1 mechanism-only sampler and N2 synthetic common-phase sampler are implemented, but N1 remains ineligible as primary and N2 real outcome-blind admissibility has not been decided by Gate R0.
-    blocks:
-      - S0_ALIGN_UNIT_COST
-      - S0_REFERENCE_FEATURES
-      - MECHANISM_A
-    resolution: Freeze and execute the outcome-blind real-data Gate R0 audit before building reference features; N1 remains mechanism/robustness only and N2 is not primary until Gate R0 PASS.
   - id: B_V5_CALIBRATION_UNFROZEN
     reason: The two-stage 34-group cal-select then 34-group cal-cert route is frozen, but no finite-sample feasibility review, multiplicity-valid UCB, or finite policy family is frozen.
     blocks:
@@ -101,15 +96,15 @@ blockers:
       - S0_FLAT_RC
       - S0_PMI_BASELINE
     resolution: Freeze train-only candidate construction, absolute-score content selection, deterministic parent paths, and a common candidate hash before reliability fitting.
-last_completed_task: S0_N2_SAMPLER
-recommended_next_task: GATE_R0
-last_run: runs/2026-08-24_019_n2_common_phase_sampler.md
+last_completed_task: GATE_R0
+recommended_next_task: S0_SEMANTIC_ITEM
+last_run: runs/2026-08-24_020_gate_r0_reference_integrity.md
 
 do_not_do_yet:
-  - Run 019 is complete; do not execute GATE_R0 until a new exact ChatGPT/author-frozen real outcome-blind audit contract explicitly authorizes it.
+  - Gate R0 is complete with FAIL_NO_PRIMARY_REFERENCE; do not rerun it or alter its panel, model, thresholds, replicates, metrics, or outcome.
   - Do not infer microvolts, perform physical-unit conversion, interpolate channels, or silently switch backbone.
   - Do not copy, import, or download trust_align, LaBraM, or NeuroLM code or weights.
   - Do not alter the frozen data admission, stimulus identity/grouping, joint split, calibration reserves, population, or bootstrap artifacts.
-  - Do not implement F, semantic schema, reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
-  - Do not read outer-train, short, calibration, or test EEG values; run 019 used deterministic analytic synthetic fixtures only.
-  - Do not unlock test identities, run the method leakage audit, train, or execute Gate R0, Gate R, Gate C, Gate H, or Mechanism A.
+  - S0_SEMANTIC_ITEM is not authorized by run 020; do not implement semantic schema, candidate/reference generation, reliability models, GLMs, calibration, RC-HSG, Flat-RC, or later methods.
+  - Do not reread outer-train EEG or read short, calibration, or test EEG values, text, outcomes, or test identities.
+  - Do not unlock test identities, run the method leakage audit, train, or execute Gate R, Gate C, Gate H, or Mechanism A.

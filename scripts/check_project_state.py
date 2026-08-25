@@ -32,7 +32,14 @@ ALLOWED_STATUSES = {
     "SKIPPED",
     "TERMINATED",
 }
-ALLOWED_GATE_OUTCOMES = {None, "PASS", "FAIL", "DEGRADED", "TOPIC_ONLY"}
+ALLOWED_GATE_OUTCOMES = {
+    None,
+    "PASS",
+    "FAIL",
+    "DEGRADED",
+    "TOPIC_ONLY",
+    "FAIL_NO_PRIMARY_REFERENCE",
+}
 ALLOWED_LOCKED_ROUTES = {
     "RC_HSG",
     "ORDINARY_HIERARCHICAL_SELECTIVE_GENERATION",
@@ -382,6 +389,28 @@ V28_OUTPUT_HASHES = {
     "artifacts/governance/run018_provenance_correction.yaml": "1ec0274f6604df1fb2691ff67d4a4f03e1a60fc508a87796e01b5d81d5415e01",
     "artifacts/nulls/n2_contract.yaml": "c2713dc4fbe989c1680e02e88c336541482bfcb9e828170b3a225d2466d1377d",
     "reports/n2_selfcheck.md": "042fc06f0627d4b29ead30075bb003800b0305ceb7d67387bc3f3e9d2f15f13c",
+}
+V293_FIXED_HASHES = {
+    "guide/RC_HSG_Paper_Spec_v2_9_2026-08-24.md": "0c9498b440ddc883a490a3d5d8fa1f39d3fc49d9e1d593d07ea63d24b23fc1fd",
+    "artifacts/spec_review/rc_hsg_v29_gate_r0_review.md": "31b8d6cfe8f8d0ea96f3c201217710f48fe83a4d4651376aef762a20d5cfdf51",
+    "guide/RC_HSG_Paper_Spec_v2_9_1_GATE_R0_PANEL_ADDENDUM_2026-08-24.md": "f33911ec40030f212969b63b90218d6fcb1dc30e7edc83148d67df28fee3c603",
+    "artifacts/spec_review/rc_hsg_v291_gate_r0_panel_conflict_resolution.md": "50393d3b4b7c8cd59ce674072f1bdfd3b506847284fe200f22214567ee2f8a93",
+    "guide/RC_HSG_Paper_Spec_v2_9_1_2026-08-24.md": "d37692f7ed64c33d53534b5ccdfefa600775c4e66874523a00254242d3205f40",
+    "guide/RC_HSG_Paper_Spec_v2_9_2_MODEL_WARNING_ADDENDUM_2026-08-24.md": "49481783458da3a4d0020a914eed54559fb7e1006f8a4132014f9b5a166eff0c",
+    "artifacts/spec_review/rc_hsg_v292_model_warning_conflict_resolution.md": "d60980875ad80652f8e55a6ea1935b737286f88089d4324af3b0b51c6e189b5a",
+    "guide/RC_HSG_Paper_Spec_v2_9_2_2026-08-24.md": "4a5138bcfe8199d7ab5c9cd90d6a2669c987b624953c63a419df41730858225c",
+    "guide/RC_HSG_Paper_Spec_v2_9_3_FIT_CLASS_DOMAIN_ADDENDUM_2026-08-24.md": "48e5d7f5eeb2b705f125bc9e954c6ab644533a19f560de45cd9101c2f3113846",
+    "artifacts/spec_review/rc_hsg_v293_fit_class_domain_conflict_resolution.md": "70b331a9ad125404dad74609cdab132a76f5e29ba01a14038c0546346c174c12",
+    "guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md": "8650a71144af074ecf6b0ca1e3c92dcc76a9283891c991de0672edfd124f3745",
+    "scripts/audit_gate_r0.py": "aae1609e83ec3389ba4b55032804289ff7324024070ce37ac49377e008955d70",
+    "tests/test_audit_gate_r0.py": "b67f3ab1e271300c07bd7cfe627b0de2b6fc2aba632c125f9fbc4a03ec231878",
+    "artifacts/governance/run019_postcommit_correction.yaml": "6b4bae7b74ba7110d0d933c828c87f3581a46efca44d509d83699c540417d72e",
+    "artifacts/gates/gate_r0_logistic_api_equivalence_v1.yaml": "0f9d4232922588a8a9859ad64b6e122362e79f1ae6c0123cf1ce8b0d40b5af34",
+    "artifacts/gates/gate_r0_matched_support_v1.jsonl": "3f2eb411e54c730453d1dd8a39c5bfeff0aa34ee278c545ac66d2f24b2af2246",
+    "artifacts/gates/gate_r0_panel_v1.jsonl": "2cffa7699e7a29eee4996172a20707678ba1ec3529d35e32b2ca453ad79aa806",
+    "artifacts/gates/gate_r0_n2_coverage_v1.jsonl": "820cb97c3db810c927c74ad4792693154746f9d33ae1266bba712a5059b413be",
+    "artifacts/gates/gate_r0.yaml": "b1cdf2e4932ea40e833f7835944f604024c5cf28b94ddc1bc97fc005d6dc04a3",
+    "reports/gate_r0.md": "b23d07e059ac92630714abdd9a75faedcbf50eac6c34ff6b72250419d1ba4293",
 }
 FROZEN_RUN_011_HASHES = {
     "artifacts/split_regimeI.json": "e2c065e5b395053cd655670fede8a2b117f6eb9821af884ca31c6fed3842fbab",
@@ -1842,6 +1871,112 @@ def _check_v28_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any]
         _error(errors, "V28_TEST_LOCK_MISMATCH", repr(split.get("assertions", {}).get("test_status")))
 
 
+def _check_v293_contract(root: Path, state: dict[str, Any], tasks: dict[str, Any], errors: list[str]) -> None:
+    if state.get("project", {}).get("spec_version") != "v2.9.3":
+        return
+
+    status_counts = {
+        status: sum(isinstance(task, dict) and task.get("status") == status for task in tasks.values())
+        for status in ("DONE", "SKIPPED", "BLOCKED", "READY")
+    }
+    if len(tasks) != 79 or status_counts != {"DONE": 48, "SKIPPED": 8, "BLOCKED": 22, "READY": 1}:
+        _error(errors, "V293_TASK_STATE_MISMATCH", f"tasks={len(tasks)} statuses={status_counts!r}")
+    ready = [task_id for task_id, task in tasks.items() if isinstance(task, dict) and task.get("status") == "READY"]
+    if ready != ["S0_SEMANTIC_ITEM"] or tasks.get("S0_SEMANTIC_ITEM", {}).get("owner") != "CHATGPT_OR_AUTHOR":
+        _error(errors, "V293_READY_SET_MISMATCH", repr(ready))
+    review_chain = (
+        ("SPEC_V29_REVIEW", ["SPEC_V28_REVIEW"]),
+        ("SPEC_V291_REVIEW", ["SPEC_V29_REVIEW"]),
+        ("SPEC_V292_REVIEW", ["SPEC_V291_REVIEW"]),
+        ("SPEC_V293_REVIEW", ["SPEC_V292_REVIEW"]),
+    )
+    for task_id, prerequisites in review_chain:
+        task = tasks.get(task_id, {})
+        if task.get("status") != "DONE" or task.get("prerequisites") != prerequisites:
+            _error(errors, "V293_SPEC_CHAIN_MISMATCH", f"{task_id}:{task!r}")
+    if tasks.get("GATE_R0", {}).get("status") != "DONE":
+        _error(errors, "V293_GATE_TASK_MISMATCH", repr(tasks.get("GATE_R0")))
+
+    project = state.get("project", {})
+    if (
+        project.get("spec_path") != "guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md"
+        or project.get("baseline_commit") != "4fa6fadc8bdee0d163acc8bf9ee48aeac4d3095d"
+        or project.get("reviewed_commit") != "4fa6fadc8bdee0d163acc8bf9ee48aeac4d3095d"
+        or project.get("repository_status") != "RC_HSG_V29_GATE_R0_FAILED_ORDINARY_HSG_SCHEMA_REVIEW_PENDING"
+        or state.get("execution") != {"stage": "stage_0", "status": "READY", "current_gate": None}
+        or state.get("last_completed_task") != "GATE_R0"
+        or state.get("recommended_next_task") != "S0_SEMANTIC_ITEM"
+        or state.get("last_run") != "runs/2026-08-24_020_gate_r0_reference_integrity.md"
+    ):
+        _error(errors, "V293_PROJECT_STATE_MISMATCH", repr(project))
+    route = state.get("route", {})
+    if route.get("primary") != "ORDINARY_HIERARCHICAL_SELECTIVE_GENERATION" or route.get("locked") is not None:
+        _error(errors, "V293_ROUTE_STATE_MISMATCH", repr(route))
+    expected_gates = {
+        "gate_r0": {"status": "DONE", "outcome": "FAIL_NO_PRIMARY_REFERENCE"},
+        "gate_r": {"status": "BLOCKED", "outcome": None},
+        "gate_c": {"status": "BLOCKED", "outcome": None},
+        "gate_h": {"status": "BLOCKED", "outcome": None},
+        "mechanism_a": {"status": "BLOCKED", "outcome": None},
+    }
+    if state.get("gates") != expected_gates:
+        _error(errors, "V293_GATE_STATE_MISMATCH", repr(state.get("gates")))
+
+    blockers = {item.get("id"): item for item in state.get("blockers", []) if isinstance(item, dict)}
+    superseded = {item.get("id"): item for item in state.get("superseded_blockers", []) if isinstance(item, dict)}
+    b3 = blockers.get("B_V3_SCHEMA_UNFROZEN", {})
+    b4 = superseded.get("B_V4_NULL_CONTRACT_UNVERIFIED", {})
+    b9 = superseded.get("B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING", {})
+    if "S0_SEMANTIC_ITEM" in b3.get("blocks", []):
+        _error(errors, "V293_B3_RESOLVER_MISMATCH", repr(b3))
+    if "B_V4_NULL_CONTRACT_UNVERIFIED" in blockers or b4.get("closed_by") != "GATE_R0":
+        _error(errors, "V293_B4_CLOSURE_MISMATCH", repr(b4))
+    if "B_V9_A_FULL_OUTER_TRAIN_ADMISSION_PENDING" in blockers or b9.get("closed_by") != "S0_A1_ADMISSION":
+        _error(errors, "V293_B9_CLOSURE_MISMATCH", repr(b9))
+
+    frozen_hashes = {
+        **FROZEN_RUN_011_HASHES,
+        **V26_FIXED_INPUT_HASHES,
+        **V26_OUTPUT_HASHES,
+        **V27_FIXED_INPUT_HASHES,
+        **V27_IMPLEMENTATION_HASHES,
+        **V27_OUTPUT_HASHES,
+        **V28_FIXED_INPUT_HASHES,
+        **V28_IMPLEMENTATION_HASHES,
+        **V28_OUTPUT_HASHES,
+        **V293_FIXED_HASHES,
+    }
+    for relative, expected in frozen_hashes.items():
+        path = root / relative
+        if not path.is_file() or _sha256(path) != expected:
+            _error(errors, "V293_ARTIFACT_HASH_MISMATCH", relative)
+
+    gate = _load_yaml(root / "artifacts/gates/gate_r0.yaml", errors, "Gate R0 artifact")
+    if isinstance(gate, dict):
+        reads = gate.get("read_counters", {})
+        diagnostics = gate.get("model_fit_diagnostics", {})
+        expected_zero = (
+            "short_arrays", "calibration_arrays", "test_arrays", "text_reads",
+            "outcome_reads", "test_identity_reads", "n1_real_eeg_reads",
+        )
+        if (
+            gate.get("spec_version") != "v2.9.3"
+            or gate.get("decision") != "FAIL_NO_PRIMARY_REFERENCE"
+            or gate.get("n2_primary") != "NOT_ADMITTED"
+            or reads.get("eligible_outer_train_arrays") != 3497
+            or reads.get("full_audit_arrays") != 3497
+            or reads.get("matched_panel_arrays") != 176
+            or any(reads.get(key) != 0 for key in expected_zero)
+            or gate.get("support", {}).get("ledger_sha256") != "3f2eb411e54c730453d1dd8a39c5bfeff0aa34ee278c545ac66d2f24b2af2246"
+            or gate.get("panel", {}).get("sha256") != "2cffa7699e7a29eee4996172a20707678ba1ec3529d35e32b2ca453ad79aa806"
+            or gate.get("model_api_certificate_sha256") != "0f9d4232922588a8a9859ad64b6e122362e79f1ae6c0123cf1ce8b0d40b5af34"
+            or diagnostics.get("all_production_warning_counts_zero") is not True
+            or gate.get("test_status") != "LOCKED_UNTIL_ROUTE_LOCK"
+            or gate.get("route_locked") is not False
+        ):
+            _error(errors, "V293_GATE_ARTIFACT_MISMATCH", "scope, decision, reads, model, or lock")
+
+
 def validate(root: Path) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -1969,11 +2104,20 @@ def validate(root: Path) -> list[str]:
             ).strip():
                 _error(errors, "BLOCKED_REASON_MISSING", task_id)
             optional_native_a_deferral = (
-                state.get("project", {}).get("spec_version") in {"v2.5", "v2.6", "v2.7", "v2.8"}
+                state.get("project", {}).get("spec_version") in {"v2.5", "v2.6", "v2.7", "v2.8", "v2.9.3"}
                 and task_id == "S0_A3_CONTAMINATION_CHECK"
                 and task.get("critical_path") is False
             )
-            if prerequisites_done and task_id not in blocked_ids and not optional_native_a_deferral:
+            post_gate_r0_fail_deferral = (
+                state.get("project", {}).get("spec_version") == "v2.9.3"
+                and task_id == "S0_ALIGN_UNIT_COST"
+            )
+            if (
+                prerequisites_done
+                and task_id not in blocked_ids
+                and not optional_native_a_deferral
+                and not post_gate_r0_fail_deferral
+            ):
                 _error(
                     errors,
                     "BLOCKED_WITHOUT_CAUSE",
@@ -1990,6 +2134,7 @@ def validate(root: Path) -> list[str]:
     _check_v26_contract(root, state, tasks, errors)
     _check_v27_contract(root, state, tasks, errors)
     _check_v28_contract(root, state, tasks, errors)
+    _check_v293_contract(root, state, tasks, errors)
 
     project = state.get("project")
     if not isinstance(project, dict):
@@ -2014,11 +2159,18 @@ def validate(root: Path) -> list[str]:
         except OSError:
             pass
     version_token = spec_version.replace(".", "_") if isinstance(spec_version, str) else ""
+    cumulative_v293_spec = (
+        spec_version == "v2.9.3"
+        and spec_path_value == "guide/RC_HSG_Paper_Spec_v2_9_3_2026-08-24.md"
+        and spec_path is not None
+        and spec_path.is_file()
+        and _sha256(spec_path) == V293_FIXED_HASHES[spec_path_value]
+    )
     if (
         not isinstance(spec_version, str)
         or SPEC_VERSION_RE.fullmatch(spec_version) is None
         or version_token not in Path(str(spec_path_value)).name
-        or spec_version not in spec_header
+        or (spec_version not in spec_header and not cumulative_v293_spec)
     ):
         _error(
             errors,
